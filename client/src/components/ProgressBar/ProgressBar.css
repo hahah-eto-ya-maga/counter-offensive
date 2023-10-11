@@ -1,0 +1,30 @@
+.progress_wrapper {
+   position: relative;
+   width: 100%;
+   font-size: 40px;
+}
+
+.progress_wrapper > span {
+   font-family: "Neucha", cursive;
+}
+
+.progress_bar {
+   display: flex;
+   width: 100%;
+   height: 40px;
+   background: #fff;
+}
+.progress {
+   background: #7f2222;
+   height: 100%;
+   transition: width 0.3s ease-in-out;
+}
+
+.progress_text {
+   user-select: none;
+   position: absolute;
+   color: #000;
+   right: 4px;
+   font-family: "Dokdo", cursive;
+   bottom: -5px;
+}
