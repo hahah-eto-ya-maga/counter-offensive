@@ -14,7 +14,7 @@ export default class Server {
    ): Promise<T | IError> {
       if (method) {
          try {
-            const url = `${this.HOST}?function=${method}&${Object.keys(params)
+            const url = `${this.HOST}?method=${method}&${Object.keys(params)
                .map((key) => `${key}=${params[key]}`)
                .join("&")}`;
             const res = await fetch(url);
@@ -37,6 +37,14 @@ export default class Server {
       };
    }
 
+   registration(
+      login: string,
+      password: string
+   ): Promise<IUserResponse | IError> {
+      const hash = SHA256(login + password).toString();
+      return this.request("registration", { login, hash });
+   }
+
    login(login: string, password: string): Promise<IUserResponse | IError> {
       const rnd = Math.random().toString();
       const hash = SHA256(SHA256(login + password).toString() + rnd).toString();
@@ -47,16 +55,12 @@ export default class Server {
       return this.request("logout", { token, login });
    }
 
-   registration(
-      login: string,
-      password: string
-   ): Promise<IUserResponse | IError> {
-      const hash = SHA256(login + password).toString();
-      return this.request("registration", { login, hash });
-   }
-
    tokenVerification(login: string, token: string): Promise<boolean | IError> {
       return this.request("tokenVerification", { login, token });
+   }
+
+   getAllInfo(login: string, token: string): Promise<IUserResponse | IError> {
+      return this.request("getAllInfo", { login, token });
    }
 
    updatePassword(

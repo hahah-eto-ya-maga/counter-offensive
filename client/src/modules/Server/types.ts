@@ -7,3 +7,9 @@ export interface IUserResponse {
    login: string;
    token: string;
 }
+
+export interface IUserInfoResponse {
+   gameCount: number;
+   scoreCount: number;
+}
+
