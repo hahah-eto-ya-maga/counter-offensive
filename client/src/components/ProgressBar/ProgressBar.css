@@ -6,12 +6,13 @@
 
 .progress_wrapper > span {
    font-family: "Neucha", cursive;
+   font-size: 64px;
 }
 
 .progress_bar {
    display: flex;
    width: 100%;
-   height: 40px;
+   height: 50px;
    background: #fff;
 }
 .progress {
@@ -23,8 +24,8 @@
 .progress_text {
    user-select: none;
    position: absolute;
+   font-size: 40px;
    color: #000;
    right: 4px;
    font-family: "Dokdo", cursive;
-   bottom: -5px;
 }
