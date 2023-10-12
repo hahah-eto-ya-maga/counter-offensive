@@ -1,0 +1,56 @@
+.button {
+  font-family: Neucha;
+  font-size: 4vw;
+  font-style: normal;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  border: 5px solid #000;
+  border-radius: 17px;
+}
+
+.primary {
+  color: var(--black);
+  background-color: var(--primary-green);
+}
+
+.primary:hover {
+  background-color: var(--primary-green-hover);
+}
+
+.menu {
+  color: var(--black);
+  border: 1px solid var(--gray-light);
+  background: none;
+}
+
+.menu:hover {
+  color: var(--black);
+  background-color: var(--primary);
+}
+
+
+.image {
+  background-color: var(--gray);
+  font-size: 1.7vw;
+  display: block;
+}
+
+.image img {
+  flex-shrink: 0;
+  mix-blend-mode: darken;
+  max-height: 70%;
+  width: 95%;
+  padding-top: 1%;
+}
+
+.image:hover {
+  background-color: var(--gray-hover);
+}
+
+

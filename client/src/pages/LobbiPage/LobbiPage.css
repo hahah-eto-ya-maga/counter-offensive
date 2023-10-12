@@ -1,0 +1,71 @@
+.lobbi_block {
+    padding: 30px;
+    height: 90%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header button {
+    width: 29%;
+    height: 12%;
+}
+
+.lobby {
+    background-color: var(--green-menu);
+    pointer-events: none
+}
+
+.single_rank {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    max-height: 22%;
+}
+
+.single_rank button {
+    width: 28%;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.mans {
+    display:flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    max-height: 22%;
+}
+
+.mans button {
+    width: 28%;
+}
+
+.tanks {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    margin-left: 80px;
+    margin-right: 80px;
+    height: 33%;
+}
+
+.tanks button {
+    width: 45%;
+    text-align: left;
+    padding-left: 30px;
+    padding-top: 0px;
+}
+
+.free {
+    color: #00ff00;
+}
+.selected {
+    color: #ff0000;
+}
