@@ -1,0 +1,6 @@
+db
+*env*
+*log*
+node_modules
+build
+src
