@@ -14,11 +14,11 @@ export default class Server {
    ): Promise<T | IError> {
       if (method) {
          try {
-            const url = `${this.HOST}?method=${method}&${Object.keys(params)
+            const url = `${this.HOST}/?method=${method}&${Object.keys(params)
                .map((key) => `${key}=${params[key]}`)
                .join("&")}`;
             const res = await fetch(url);
-            const answer = await res.json();
+            const answer = await res.json();     
 
             if (answer.result === "ok") {
                return answer.data as T;
