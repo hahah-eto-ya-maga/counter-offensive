@@ -17,8 +17,11 @@
 }
 
 .span_text {
-   font-size: 64px;
+   font-size: 4vw;
+   width: 355px;
    margin-left: 5px;
+   padding-left: 10px;
+
 }
 
 .input_text {
