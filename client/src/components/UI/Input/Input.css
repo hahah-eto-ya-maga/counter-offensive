@@ -18,16 +18,14 @@
 
 .span_text {
    font-size: 4vw;
-   width: 355px;
    margin-left: 5px;
    padding-left: 10px;
-
 }
 
 .input_text {
    display: flex;
    align-items: center;
-   width: 20vw;
+   width: 25vw;
    border: 5px solid var(--black);
    background: var(--green-yellow);
    font-family: "Neucha", cursive;
