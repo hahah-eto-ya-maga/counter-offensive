@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./ProgressBar.css";
 
-/* interface IProgressBarProps {
-   progress1: number;
-} */
-
 const ProgressBar: React.FC = () => {
-   const [progress, setProgress] = useState<number>(0);
+   const [progress, setProgress] = useState<number>(20);
 
    useEffect(() => {
       const interval = setInterval(() => {
@@ -15,7 +11,7 @@ const ProgressBar: React.FC = () => {
          if (progress >= 100) {
             clearInterval(interval);
          }
-      }, Math.random() * 700);
+      }, Math.random() * 900);
       return () => {
          clearInterval(interval);
       };
@@ -24,7 +20,11 @@ const ProgressBar: React.FC = () => {
       <div className="progress_wrapper">
          <span>Загрузка...</span>
          <div className="progress_bar">
-            <div className="progress" style={{ width: `${progress}%` }} />
+            <div className="progress" style={{ width: `${progress}%` }}>
+               {progress < 100 && progress > 0 && (
+                  <div className="triangle"></div>
+               )}
+            </div>
             <span className="progress_text">{progress}/100%</span>
          </div>
       </div>
