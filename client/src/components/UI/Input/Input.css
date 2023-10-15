@@ -1,0 +1,31 @@
+.input_box {
+   display: flex;
+   flex-direction: row;
+   width: 68vw;
+   height: 90px;
+   margin: 10px 0;
+}
+
+.input_value {
+   display: flex;
+   height: 100%;
+   outline: none;
+   width: 42vw;
+   border: 5px solid var(--black);
+   background: var(--salad);
+   font-size: 4vw;
+}
+
+.span_text {
+   font-size: 4vw;
+   padding-left: 10px;
+}
+
+.input_text {
+   display: flex;
+   align-items: center;
+   width: 25vw;
+   border: 5px solid var(--black);
+   background: var(--green-yellow);
+   font-family: "Neucha", cursive;
+}
