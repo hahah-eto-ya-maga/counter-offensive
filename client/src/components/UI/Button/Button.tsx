@@ -8,7 +8,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  appearance: "primary" | "menu";
+  appearance: "primary" | "menu" | "primary_disable";
 }
 
 const Button = ({
@@ -22,6 +22,7 @@ const Button = ({
       className={cn("button", className, {
         ["primary"]: appearance === "primary",
         ["menu"]: appearance === "menu",
+        ["primary_disable"]: appearance === "primary_disable",
       })}
       {...props}
     >
