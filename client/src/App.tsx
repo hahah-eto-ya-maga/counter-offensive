@@ -1,11 +1,13 @@
 import React from "react";
 import "./styles/global.css";
-import { Login } from './components';
+import { LoadingPage } from "./pages";
 
 const App: React.FC = () => {
-   return <div className="app">
-	<Login/>
-   </div>;
+   return (
+      <div className="app">
+         <LoadingPage />
+      </div>
+   );
 };
 
 export default App;
