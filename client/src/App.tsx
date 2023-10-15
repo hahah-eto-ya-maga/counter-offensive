@@ -1,15 +1,11 @@
 import React from "react";
 import "./styles/global.css";
-import { Button } from "./components";
+import { LoadingPage } from "./pages";
 
 const App: React.FC = () => {
    return (
       <div className="app">
-         <div>
-            <Button appearance={"menu"}>Меню</Button>
-            <Button appearance={"primary"}>Обычная</Button>
-            <Button appearance={"primary-disable"}>Отключена</Button>
-         </div>
+         <LoadingPage />
       </div>
    );
 };

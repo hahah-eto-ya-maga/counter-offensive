@@ -1,3 +1,5 @@
-import { Button } from "./UI";
+import ProgressBar from "./ProgressBar/ProgressBar";
+import CardAdvise from "./CardAdvice/CardAdvice";
+import { Logo } from "./UI";
 
-export { Button };
+export { ProgressBar, CardAdvise, Logo };

@@ -1,12 +1,7 @@
 body {
    margin: 0;
    padding: 0;
-   background: linear-gradient(
-      180deg,
-      #268a30 0%,
-      rgba(160, 224, 166, 0.51) 48.96%,
-      rgba(1, 19, 3, 0.68) 100%
-   );
+   background: var(--gradient);
    border: 13px solid var(--yellow);
    font-family: "Cranberry Cyr", sans-serif;
 }
@@ -22,11 +17,16 @@ body {
    --dark-green: #3b701b;
    --bright-green: #74cf3c;
    --light-green: #85ba65;
+   --gradient: linear-gradient(
+      180deg,
+      #268a30 0%,
+      rgba(160, 224, 166, 0.51) 48.96%,
+      rgba(1, 19, 3, 0.68) 100%
+   );
 }
 
 .app {
    display: flex;
    justify-content: center;
    height: 100%;
-   width: 100%;
 }
