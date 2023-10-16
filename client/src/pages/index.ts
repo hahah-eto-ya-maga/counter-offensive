@@ -1,3 +1,3 @@
 import LoadingPage from "./LoadingPage/LoadingPage";
-
-export { LoadingPage };
+import TankLobbyPage from "./TankLobbyPage/TankLobbyPage";
+export { LoadingPage, TankLobbyPage };
