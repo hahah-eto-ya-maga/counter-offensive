@@ -2,18 +2,7 @@ import React from "react";
 import Canvas, { ICanvasOption } from "../../modules/Graph/Canvas/Canvas";
 import { useEffect, useRef } from "react";
 import "./GamePage.css"
-
-type TKeyboard = {
-    ArrowRight?: boolean,
-    ArrowLeft?: boolean,
-    ArrowUp?: boolean,
-    ArrowDown?: boolean
-}
-
-type TPoint = {
-    x: number,
-    y: number
-}
+import {TKeyboard, TPoint } from "../../modules/types/types";
 
 const GamePage: React.FC = () => {
 
@@ -36,21 +25,19 @@ const GamePage: React.FC = () => {
 
     const borderScena: TPoint[] = [{x: 10, y: 20}, {x: -10, y: 20}, {x: -10, y: -20}, {x: 10, y: -20}] 
 
-    
     const keyPressed: TKeyboard = {}
-    let tank: TPoint[] = [{x:-0.5, y:-1}, {x:0.5, y:-1}, {x:0.5, y:1}, {x:-0.5, y:1}] 
-    
-   
+    const tank: TPoint[] = [{x:-0.5, y:-1}, {x:0.5, y:-1}, {x:0.5, y:1}, {x:-0.5, y:1}] 
     
 
     useEffect(() => {
-        canvas= new Canvas({id: 'canvas',
-        width: width,
-        height: height,
-        WIN: WIN,
-        callbacks: {
-            keydown: (event) => {keyDown(event)},
-            keyup: (event) => {keyUp(event)}
+        canvas= new Canvas({
+            id: 'canvas',
+            width: width,
+            height: height,
+            WIN: WIN,
+            callbacks: {
+                keydown: (event) => {keyDown(event)},
+                keyup: (event) => {keyUp(event)}
             }
         });
 
@@ -97,7 +84,7 @@ const GamePage: React.FC = () => {
        
     }
     
-    const moveScene = (keyPressed: TKeyboard, canMove:{up: boolean, down: boolean}) => {
+    const moveSceneTank = (keyPressed: TKeyboard, canMove:{up: boolean, down: boolean}) => {
         const vectorTank: TPoint = {x: 1, y: 0}
         vectorTank.x = Math.sin(angleOfMovement) * speedTank;
         vectorTank.y = Math.cos(angleOfMovement) * speedTank;
@@ -106,23 +93,21 @@ const GamePage: React.FC = () => {
             WIN.left += vectorTank.y
         } 
         if(keyPressed.ArrowDown && canMove.down) {
-            if(canMove) {
             WIN.bottom -= vectorTank.x
             WIN.left -= vectorTank.y
-            }
         }
 
         if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
             angleOfMovement -= speedRotate
-        } else if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
-            angleOfMovement += speedRotate
-        } else if (keyPressed.ArrowRight) {
-            angleOfMovement -= speedRotate
         } else if (keyPressed.ArrowLeft) {
             angleOfMovement += speedRotate
         }
-        
-        
+
+        if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
+            angleOfMovement += speedRotate
+        } else if (keyPressed.ArrowRight) {
+            angleOfMovement -= speedRotate
+        }  
     }
 
 
@@ -134,30 +119,29 @@ const GamePage: React.FC = () => {
                 y = point.y * Math.cos(speedRotate) - point.x *Math.sin(speedRotate)
                 point.x = x;
                 point.y = y
-            } else if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
-                x = point.x * Math.cos(speedRotate) - point.y * Math.sin(speedRotate)
-                y = point.y * Math.cos(speedRotate) + point.x *Math.sin(speedRotate)
-                point.x = x;
-                point.y = y
-            } else
-             if (keyPressed.ArrowRight) {
-                x = point.x * Math.cos(speedRotate) + point.y * Math.sin(speedRotate)
-                y = point.y * Math.cos(speedRotate) - point.x *Math.sin(speedRotate)
-                point.x = x;
-                point.y = y
             } else if (keyPressed.ArrowLeft) {
                 x = point.x * Math.cos(speedRotate) - point.y * Math.sin(speedRotate)
                 y = point.y * Math.cos(speedRotate) + point.x *  Math.sin(speedRotate)
                 point.x = x;
                 point.y = y
-            } 
+            }
 
-            
+            if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
+                x = point.x * Math.cos(speedRotate) - point.y * Math.sin(speedRotate)
+                y = point.y * Math.cos(speedRotate) + point.x *Math.sin(speedRotate)
+                point.x = x;
+                point.y = y
+            } else if (keyPressed.ArrowRight) {
+                x = point.x * Math.cos(speedRotate) + point.y * Math.sin(speedRotate)
+                y = point.y * Math.cos(speedRotate) - point.x *Math.sin(speedRotate)
+                point.x = x;
+                point.y = y
+            } 
         })
         canvas.tank(tank)
     }
 
-    const checkBorder = ():{up: boolean, down: boolean}  => {
+    const checkBorderTank = ():{up: boolean, down: boolean}  => {
         let canMove = {up: true, down: true}
         let i:number
         for(i = 0; i < tank.length; i++) {
@@ -172,6 +156,8 @@ const GamePage: React.FC = () => {
     
 
     const renderScene = (FPS?: number) => {
+        window.requestAnimationFrame(renderScene)
+
         canvas.clear();
 
         canvas.polygon(borderScena, '#777', "red")
@@ -179,14 +165,9 @@ const GamePage: React.FC = () => {
         canvas.line(-100, 100, 100, -100, 2,'#66a')
         canvas.line(-100, 0, 100, 0, 2,'#66a')
         canvas.line(0, 100, 0, -100, 2,'#66a')
-
-       
         
-            moveScene(keyPressed, checkBorder())
-        
+        moveSceneTank(keyPressed, checkBorderTank())
         turnTanks(keyPressed)
-       
-        window.requestAnimationFrame(renderScene)
     }
 
 

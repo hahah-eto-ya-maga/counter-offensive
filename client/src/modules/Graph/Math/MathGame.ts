@@ -1,13 +1,8 @@
 import React from "react";
-import { TWIN } from "../TWIN";
+import { TWIN, TPoint } from "../../types/types";
 
 interface IMath {
     WIN: TWIN
-}
-
-type TPoint = {
-    x: number,
-    y: number
 }
 
 class MathGame {

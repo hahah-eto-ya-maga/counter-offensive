@@ -1,5 +1,5 @@
 import React from "react";
-import { TWIN } from "../TWIN";
+import { TWIN } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {
@@ -63,8 +63,7 @@ class Canvas {
     }
 
     line (x1: number, y1: number, x2: number, y2: number, width = 1, color:string): void {
-        this.context.beginPath();
-        
+        this.context.beginPath();     
         this.context.moveTo(this.xs(x1), this.ys(y1));
         this.context.strokeStyle = color;
         this.context.lineWidth = width;
