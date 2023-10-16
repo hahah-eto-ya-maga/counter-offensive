@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styles/global.css";
-import { LoadingPage } from "./pages";
+import { Input } from "./components";
 
 const App: React.FC = () => {
+   const [value, setValue] = useState<string>("");
+
    return (
       <div className="app">
-         <LoadingPage />
+         <div>
+            <Input text="Введите пароль" value={value} onChange={setValue} />
+         </div>
       </div>
    );
 };
