@@ -10,56 +10,47 @@
 }
 
 .header button {
-    width: 29%;
-    height: 12%;
+    width: 30%;
 }
 
-.lobby {
-    background-color: var(--green-menu);
-    pointer-events: none
-}
-
-.single_rank {
+.main {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-    max-height: 22%;
+    margin: 25px;
+    margin-left: 60px;
 }
 
-.single_rank button {
-    width: 28%;
-    padding-bottom: 0px;
-    padding-top: 0px;
-}
-
-.mans {
-    display:flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-    max-height: 22%;
-}
-
-.mans button {
-    width: 28%;
-}
-
-.tanks {
+.right, .left {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    margin-left: 80px;
-    margin-right: 80px;
-    height: 33%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 49%;
 }
 
-.tanks button {
-    width: 45%;
+.general, .flag, .automat, .RPG {
+    margin-bottom: 12px;
+    height: 25%;
+    width: 56%;
+    padding-top: 0;
+    overflow: hidden;
+}
+
+.general, .flag {
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 900px) {
+    .general, .flag, .automat, .RPG {
+        height: 29%;
+    }
+}
+
+.tank2, .tank3 {
+    margin-bottom: 12px;
+    height: 40%;
+    width: 85%;
     text-align: left;
-    padding-left: 30px;
+    padding-left: 15px;
     padding-top: 0px;
 }
 

@@ -1,7 +1,12 @@
 body {
    margin: 0;
    padding: 0;
-   background: var(--gradient);
+   background: linear-gradient(
+      180deg,
+      #268a30 0%,
+      rgba(160, 224, 166, 0.51) 48.96%,
+      rgba(1, 19, 3, 0.68) 100%
+   );
    border: 13px solid var(--yellow);
    font-family: "Cranberry Cyr", sans-serif;
 }
@@ -23,8 +28,7 @@ body {
       rgba(160, 224, 166, 0.51) 48.96%,
       rgba(1, 19, 3, 0.68) 100%
    );
-
-   --green-menu: #92F663;
+   
    --gray-hover: #ffffff;
 }
 
@@ -32,4 +36,5 @@ body {
    display: flex;
    justify-content: center;
    height: 100%;
+   width: 100%;
 }

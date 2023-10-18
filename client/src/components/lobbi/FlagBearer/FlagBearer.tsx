@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "../../UI"
 import { flag} from "../../../pages/LobbiPage/images";
 import cn from "classnames";
+import './FlagBearer.css'
 
 const FlagBearer: React.FC = () => {
     let [statusFlag, setStatusFlag] = useState(false)
