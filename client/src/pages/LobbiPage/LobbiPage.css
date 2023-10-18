@@ -15,9 +15,9 @@
 
 .main {
     display: flex;
-    margin: 25px;
-    margin-left: 60px;
-    width: 85%;
+    margin: 24px;
+    margin-left: 110px;
+    height: 75%;
 }
 
 .right, .left {
