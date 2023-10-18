@@ -30,11 +30,6 @@
         if($method){
             switch($method){
                 case 'registration': return $App->registration($params);
-                case 'login': return $App->login($params);
-                case 'logout': return $App->logout($params);
-                case 'tokenVerification': return $App->tokenVerification($params);
-                case 'getAllInfo': return $App->getAllInfo($params);
-                case 'updatePassword': return $App->updatePassword($params);
 
             }
             return array(false, 501);
