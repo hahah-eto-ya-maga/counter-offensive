@@ -17,6 +17,7 @@
     display: flex;
     margin: 25px;
     margin-left: 60px;
+    width: 85%;
 }
 
 .right, .left {
