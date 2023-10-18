@@ -19,8 +19,8 @@ const LobbiPage: React.FC = () => {
             <div className="main">
                 <div className="left">
                     <FlagBearer/>
-                    <Button className="RPG"appearance="image"  onClick={() => {}}>Пехотинец с гранотометом<img src={RPG} alt="RPG" /></Button>
-                    <Button className="tank2" appearance="image" onClick={() => {}}> Двуместный танк <img src={tank2} alt="Tank_2" /> </Button>
+                    <Button className="RPG"appearance="image"  onClick={() => {}}>Пехотинец с гранотомётом<img src={RPG} alt="RPG" /></Button>
+                    <Button className="tank2" appearance="image" onClick={() => {}}> Двухместный танк <img src={tank2} alt="Tank_2" /> </Button>
                 </div>
                 <div className="right">
                     <General/>
