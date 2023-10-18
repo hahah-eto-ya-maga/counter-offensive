@@ -40,7 +40,7 @@ class Application{
         $timeCreate = $tokenLastUse;
         
         if($login && $password){
-            $pattern = '/^[\p{L}\p{N}_][\p{L}\p{N}_]{5,16}$/u';
+            $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,16}$/u';
             if(preg_match($pattern, $login)){
                 return $this -> user -> registration($login, $password, $token, $tokenLastUse, $timeCreate);
             }   
