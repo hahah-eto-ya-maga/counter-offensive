@@ -73,4 +73,16 @@ class Application{
         }
         return array(false, 400);
     }
+
+
+    function tokenVerification($params){
+        $login = $params['login'];
+        $token = $params['token'];
+        $tokenLastUse = date('Y-m-d H:i:s');
+
+        if($login && $token){
+            return $this -> user -> tokenVerification($login, $token, $tokenLastUse);
+        }
+        return array(false, 400);
+    }
 }
