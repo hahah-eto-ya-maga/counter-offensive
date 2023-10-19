@@ -29,7 +29,7 @@
 ## Метод регистрации
 * **Ключи:** login (имя пользователя, максимальная длина которого составляет от **6** до **15** символов, состоящее из латиницы и кирилицы и спецсимволов "_-"), hash (хешированый логин с паролем), method (метод)
 * **Значения ключей:**  login=vasya(пример), hash=sha256(login+password) , method=registration
-* **Пример запроса:** http://localhost/api/?login=vasya&hash=b4db9409712fb0a747b2bd8731bf3db7f1926d2136ab87933eb357668010d7b1&method=registration
+* **Пример запроса:** http://localhost/api/?login=vasya1&hash=0a455e6b06b0c2f902e2ddc781c8813fdea4d66f695aa262f34786c41747cfae&method=registration
 * **Возвращаемое значение в случае успеха:** {'result':'ok'(string),
                 'data':{'login':login(string), 'token':token(string)}}
 * **Возвращаемое значение в случае неудачи:** {'result':'error',
@@ -38,7 +38,7 @@
 ## Метод логина
 * **Ключи:** login (имя пользователя), hash (хешированый логин с паролем), method (метод) rnd(рандомное число)
 * **Значения ключей:**  login=vasya(пример), hash=sha256(sha256(login+password)+rnd), rnd=324(пример), method=login
-* **Пример запроса:** http://localhost/api/?login=vasya&hash=e3534ea190311a3c9d23b1475ba455de0e513b184781ef05ca2276c89d6ed163&method=login
+* **Пример запроса:** http://localhost/api/?login=vasya1&hash=0a455e6b06b0c2f902e2ddc781c8813fdea4d66f695aa262f34786c41747cfae&method=login&rnd=324
 * **Возвращаемое значение в случае успеха:** {'result':'ok'(string),
                 'data':{'login':login(string), 'token':token(string)]}
 * **Возвращаемое значение в случае неудачи:** {'result':'error',
@@ -47,7 +47,7 @@
 ## Метод выхода
 * **Ключи:** login (имя пользователя), token (Уникальная хешированая строка), method (метод)
 * **Значения ключей:**  login=vasya(пример), token=sha256(uuid4) , method=logout
-* **Пример запроса:** http://localhost/api/?login=vasya&token=98c4cd79e47f81683a7f3a1de5bf71d11a950ecb1a905a91e0cd2b8a3a89b867&method=logout
+* **Пример запроса:** http://localhost/api/?login=vasya1&token=98c4cd79e47f81683a7f3a1de5bf71d11a950ecb1a905a91e0cd2b8a3a89b867&method=logout
 * **Возвращаемое значение в случае успеха:** {'result':'ok',
                 'data': true(bool)}
 * **Возвращаемое значение в случае неудачи:** {'result':'error',
@@ -56,7 +56,7 @@
 ## Метод потверждения токена
 * **Ключи:** login (имя пользователя), token (Уникальная хешированая строка), method (метод)
 * **Значения ключей:**  login=vasya(пример), token=sha256(uuid4) , method=tokenVerification
-* **Пример запроса:** http://localhost/api/?login=vasya&token=98c4cd79e47f81683a7f3a1de5bf71d11a950ecb1a905a91e0cd2b8a3a89b867&method=tokenVerification
+* **Пример запроса:** http://localhost/api/?login=vasya1&token=98c4cd79e47f81683a7f3a1de5bf71d11a950ecb1a905a91e0cd2b8a3a89b867&method=tokenVerification
 * **Возвращаемое значение в случае успеха:** {'result':'ok',
                 'data': true(bool)}
 * **Возвращаемое значение в случае неудачи:** {'result':'error',
@@ -65,7 +65,7 @@
 ## Метод получения информации о пользователе
 * **Ключи:** login (имя пользователя),  token (Уникальная хешированая строка), method (метод)
 * **Значения ключей:**  login=vasya(пример), token=sha256(uuid4), method=getAllInfo
-* **Пример запроса:** http://localhost/api/?login=vasya&token=b4db9409712fb0a747b2bd8731bf3db7f1926d2136ab87933eb357668010d7b1&method=getAllInfo
+* **Пример запроса:** http://localhost/api/?login=vasya1&token=b4db9409712fb0a747b2bd8731bf3db7f1926d2136ab87933eb357668010d7b1&method=getAllInfo
 * **Возвращаемое значение в случае успеха:** {'result':'ok',
                 'data':{'gameCount':gameCount(number), 'scoreCount':scoreCount(number)}}
 * **Возвращаемое значение в случае неудачи:** {'result':'error',
@@ -74,7 +74,7 @@
 ## Метод обновления пароля
 * **Ключи:** login (имя пользователя), hash (хешированый логин с  новым паролем), token (Уникальная хешированая строка), method (метод)
 * **Значения ключей:**  login=vasya(пример), token=sha256(uuid4), hash = sha256(login+newPassword), method=updatePassword
-* **Пример запроса:** http://localhost/api/?login=vasya&hash=72d3d1f02fb92cdd0a5c82eb333188977bcb64c64a5812e799f7dd0c9171665d&token=98c4cd79e47f81683a7f3a1de5bf71d11a950ecb1a905a91e0cd2b8a3a89b867&method=updatePassword
+* **Пример запроса:** http://localhost/api/?login=vasya1&hash=9354de7c8ab0398e02b00716d57d31589678d21481021ac46e210a96f500ce84&token=98c4cd79e47f81683a7f3a1de5bf71d11a950ecb1a905a91e0cd2b8a3a89b867&method=updatePassword
 * **Возвращаемое значение в случае успеха:** {'result':'ok',
                 'data': true(bool)}
 * **Возвращаемое значение в случае неудачи:** {'result':'error',
