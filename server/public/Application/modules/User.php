@@ -53,4 +53,32 @@
 
         }
 
+
+        // Функция выхода из аккаунта. В случае успешного срабатывания возвращает true, иначе код ошибки.
+        function logout($login, $token, $tokenLastUse){
+            $query = "SELECT login FROM users WHERE login = ? ";
+            $result = $this->db->execute_query($query,array($login));
+            $arr = $result -> fetch_assoc();
+            $checkLogin = $arr ? $arr['login'] : '';
+            
+            if($checkLogin != ''){ // Проверка существования пользователя
+                
+                $query = "SELECT token FROM users WHERE login=?";
+                $result = $this->db->execute_query($query, array($login));
+                $arr = $result->fetch_assoc();
+                $checkToken = $arr ? $arr['token'] : ''; // Проверка существования токена 
+                
+                if($checkToken != '' && $checkToken == $token){
+                    $query = "UPDATE users SET token=0, tokenLastUse=? where login=?";
+                    $this->db->execute_query($query, array($tokenLastUse, $login));
+                    
+                    return true;
+                }
+
+                else return array(false, 401);//неверный токен для этого пользователя
+            }
+
+            else return array(false, 461);// неверный логин пользователя 
+        }
+
     }
