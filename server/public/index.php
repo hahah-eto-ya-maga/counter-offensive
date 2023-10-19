@@ -30,6 +30,7 @@
         if($method){
             switch($method){
                 case 'registration': return $App->registration($params);
+                case 'login': return $App->login($params);
 
             }
             return array(false, 501);

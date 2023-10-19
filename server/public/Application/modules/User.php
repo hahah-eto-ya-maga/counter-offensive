@@ -25,4 +25,32 @@
             return array('login'=>$login, 'token'=>$token);
         }
     
+
+        // Функция входа в аккаунт. Возвращает токен и логин
+        function login($login, $hash, $rnd, $token, $tokenLastUse){
+            $query = "SELECT login FROM users WHERE login = ?;";
+            $result = $this->db->execute_query($query, array($login)); // Выбирает логин по $login
+            $arr = $result -> fetch_assoc();
+            $checkLogin = $arr ? $arr['login'] : '';
+            
+            if($checkLogin != ''){// Проверка существования логина
+                $query = "SELECT password FROM users WHERE login = ?;"; //Выбирает хэшсумму по $login
+                $result = $this->db->execute_query($query, array($login));
+                $arr = $result -> fetch_assoc();
+                $hashPassword = $arr ? $arr['password'] : '';
+                $hashS = hash('sha256', $hashPassword.$rnd); // Хэш штрих. Строка сгенерированая с помощью хранящейсяв базе хэш-суммы
+                
+                if($hashS == $hash){
+                    $query = "UPDATE users SET tokenLastUse = ?, token = ? WHERE login = ?";
+                    $this->db->execute_query($query, array($tokenLastUse, $token, $login)); //Запрос на обновление данных в таблице
+                    return array('login'=>$login, 'token'=>$token);
+                }
+
+                return array(false, 403);//Неверный пароль или логин
+            }
+            
+            else return array(false, 461);// неверный логин пользователя 
+
+        }
+
     }

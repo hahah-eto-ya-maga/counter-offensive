@@ -48,4 +48,18 @@ class Application{
         }
         else return array(false, 400);
     }
+
+
+    function login($params){
+        $login = $params['login'];
+        $hash = $params['hash'];
+        $rnd = $params['rnd'];
+        $token = hash('sha256', $this->v4_UUID());
+        $tokenLastUse = date('Y-m-d H:i:s');
+        
+        if($login && $hash && $rnd){
+            return $this -> user -> login($login, $hash, $rnd, $token, $tokenLastUse);
+        }
+        else return array(false, 400);
+    }
 }
