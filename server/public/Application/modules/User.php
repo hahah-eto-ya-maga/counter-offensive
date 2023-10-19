@@ -106,4 +106,44 @@
             
             else return array(false, 461); //такого пользователя не существует
         }
+        
+        
+        // Метод получения информации
+        function getAllInfo($login, $token, $tokenLastUse){
+            $query = "SELECT login FROM users WHERE login=?";
+            $result = $this->db->execute_query($query, array($login));
+            $arr = $result -> fetch_assoc();
+            $checkLogin = $arr ? $arr['login'] : '';
+            
+            if($checkLogin != ''){ // Проверка существования пользователя
+                $query = "SELECT token FROM users WHERE login=?";
+                $result = $this->db->execute_query($query, array($login));
+                $arr = $result->fetch_assoc();
+                $checkToken = $arr ? $arr['token'] : '';
+                
+                if($checkToken != '' && $checkToken == $token){ // Проврека существования токена 
+                    $query = "SELECT gameCount, scoreCount, timeCreate FROM users WHERE login = ?;";
+                    $result = $this->db->execute_query($query, array($login));
+                    $arr = $result -> fetch_assoc(); // Запрос для получения основных данных о пользователе
+                    $query = "UPDATE users SET tokenLastUse = ? WHERE login = ?";
+                    $this->db->execute_query($query, array($tokenLastUse,$login)); //Запрос на обновление данных в таблице
+
+                    $gameCount = 0;
+                    $scoreCount = 0;
+                    if($arr){
+                        $gameCount = $arr['gameCount'];
+                        $scoreCount = $arr['scoreCount'];
+                    }
+
+                    return array(
+                        'gameCount'=>$gameCount,
+                        'scoreCount'=>$scoreCount,
+                    );
+                }
+
+                else return array(false, 401);//неверный токен для этого пользователя
+            }
+
+            else return array(false, 461);//такого пользователя не существует
+        }
     }

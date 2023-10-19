@@ -33,6 +33,7 @@
                 case 'login': return $App->login($params);
                 case 'logout': return $App->logout($params);
                 case 'tokenVerification': return $App->tokenVerification($params);
+                case 'getAllInfo': return $App->getAllInfo($params);
 
 
             }
