@@ -62,4 +62,15 @@ class Application{
         }
         else return array(false, 400);
     }
+
+    function logout($params){
+        $login = $params['login'];
+        $token = $params['token'];
+        $tokenLastUse = date('Y-m-d H:i:s');
+        
+        if($login && $token){
+            return $this -> user -> logout($login, $token, $tokenLastUse);
+        }
+        return array(false, 400);
+    }
 }
