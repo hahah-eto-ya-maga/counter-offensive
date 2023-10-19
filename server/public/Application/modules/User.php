@@ -81,4 +81,29 @@
             else return array(false, 461);// неверный логин пользователя 
         }
 
+
+
+        // Функция потверждения актуального токена
+        function tokenVerification($login, $token, $tokenLastUse){
+            $query = "SELECT login FROM users WHERE login=?";
+            $result = $this->db->execute_query($query,array($login));
+            $checkLogin = $result->fetch_assoc()['login'];
+            
+            if($checkLogin != ''){ // Проверка существования пользователя
+                $query = "SELECT token FROM users WHERE login=?";
+                $result = $this->db->execute_query($query, array($login));
+                $arr = $result->fetch_assoc();
+                $checkToken = $arr ? $arr['token'] : '';
+                
+                if($checkToken != '' && $checkToken == $token){ // Проврека существования токена 
+                    $query = "UPDATE users SET tokenLastUse = ? WHERE login = ?";
+                    $this->db->execute_query($query, array($tokenLastUse,$login)); //Запрос на обновление данных в таблице
+                    return true; //придумать какой то формат данных для отдачи обратно
+                }
+
+                else return array(false, 401); //неверный токен для этого пользователя
+            }
+            
+            else return array(false, 461); //такого пользователя не существует
+        }
     }
