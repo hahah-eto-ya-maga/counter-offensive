@@ -8,7 +8,7 @@ interface IInputProps {
    value: string;
    onChange: (value: string) => void;
    className?: string;
-   type?: "password" | "email" | "text";
+   type?: "password" | "text";
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -18,7 +18,6 @@ const Input: React.FC<IInputProps> = ({
    type,
    onChange,
 }) => {
-  
    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value);
    };

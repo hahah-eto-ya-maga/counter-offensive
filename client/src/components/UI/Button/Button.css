@@ -1,39 +1,42 @@
 .button {
-   font-family: "Neucha", cursive;
+   font-family: Neucha;
    font-size: 4vw;
    font-style: normal;
-  font-weight: bolder;
    line-height: normal;
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   text-align: center;
    box-sizing: border-box;
    padding: 10px;
-   padding-left: 20px;
-   padding-right: 25px;
    cursor: pointer;
    transition: all 0.2s;
    text-align: center;
    border: 5px solid #000;
    border-radius: 17px;
+   transition: 0.3s;
+}
+
+.menu {
+   background: linear-gradient(180deg, rgba(120, 170, 119, 0) 0%, #58db56 100%);
+   border-radius: 30px;
+   border: 4px solid #000;
+}
+
+.menu:hover {
+   background: linear-gradient(180deg, rgba(40, 70, 39, 0) 0%, #3a7d3a 100%);
 }
 
 .primary {
    color: var(--black);
-   background-color: var(--primary-green);
+   background: var(--primary-green);
 }
 
 .primary:hover {
-   background-color: var(--primary-green-hover);
+   background: var(--primary-green-hover);
 }
 
-.menu {
-   color: var(--black);
-   border: 1px solid var(--gray-light);
-   background: none;
+.disable {
+   pointer-events: none;
 }
 
-.menu:hover {
-   color: var(--black);
-   background-color: var(--primary);
+.active {
+   background: #92f663;
 }
