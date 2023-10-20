@@ -39,3 +39,24 @@
 .active {
   background: #92f663;
 }
+
+/*допоплнительный classname к Button*/
+.image {
+  background-color: var(--gray);
+  font-size: 1.7vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 3px solid #000;
+}
+
+.image:hover {
+  background-color: var(--gray-hover);
+}
+
+.image img {
+  mix-blend-mode: darken; 
+  max-height: 65%;
+  width: 90%;
+  padding-top: 1%;
+}
