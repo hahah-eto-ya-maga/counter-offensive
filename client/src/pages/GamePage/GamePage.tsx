@@ -1,13 +1,27 @@
 import React from "react";
 import Canvas, { ICanvasOption } from "../../modules/Graph/Canvas/Canvas";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import "./GamePage.css"
 import {TKeyboard, TPoint } from "../../modules/types/types";
+import useCanvas from "../../modules/Graph/Canvas/useCanvas";
+import { type } from "os";
+
+
+type TCheckBorder = {
+    up: boolean, 
+    down: boolean, 
+    right?: boolean, 
+    left?: boolean
+}
+
+type TUnit = TPoint & {
+    r: number
+}
 
 const GamePage: React.FC = () => {
 
-    const height = document.documentElement.clientHeight-26;
-    const width = document.documentElement.clientWidth-26;
+    const height = window.innerHeight - 26;
+    const width = window.innerWidth - 26;
     const prop = width / height;
     const WIN = {
         left: -10 * prop,
@@ -17,20 +31,25 @@ const GamePage: React.FC = () => {
     };
 
     let canvas: Canvas
+    const Canvas = useCanvas((FPS) => renderScene(FPS))
+
+    const [FPS, setShowFPS] = useState<number>(0)
+
+    const keyPressed: TKeyboard = {}
 
     let angleOfMovement = Math.PI/2;
-
     const speedRotate = Math.PI/256;
     const speedTank = 1/16;
+    
+    const speedInfantry = 1/16;
 
     const borderScena: TPoint[] = [{x: 10, y: 20}, {x: -10, y: 20}, {x: -10, y: -20}, {x: 10, y: -20}] 
 
-    const keyPressed: TKeyboard = {}
-    const tank: TPoint[] = [{x:-0.5, y:-1}, {x:0.5, y:-1}, {x:0.5, y:1}, {x:-0.5, y:1}] 
-    
+    const tank: TPoint[] = [{x:-0.5, y:-0.7}, {x:0.5, y:-0.7}, {x:0.5, y:0.7}, {x:-0.5, y:0.7}] 
+    const man: TUnit = {x: 0, y: 0, r: 30} 
 
     useEffect(() => {
-        canvas= new Canvas({
+        canvas = Canvas({
             id: 'canvas',
             width: width,
             height: height,
@@ -41,16 +60,13 @@ const GamePage: React.FC = () => {
             }
         });
 
-        renderScene()
-
         return () => {
-            // clearInterval(interval);
             canvas.clearRect();
         };
     }, [])
 
-    const keyDown = (event: KeyboardEvent) => {
 
+    const keyDown = (event: KeyboardEvent) => {
         if (event.code ==='ArrowUp' || event.code ==='KeyW') { 
             keyPressed.ArrowUp = true
         }
@@ -63,8 +79,6 @@ const GamePage: React.FC = () => {
         if (event.code ==='ArrowLeft' || event.code ==='KeyA') { 
             keyPressed.ArrowLeft = true    
         }       
-
-     
     }
 
     const keyUp = (event: KeyboardEvent) => {
@@ -80,12 +94,12 @@ const GamePage: React.FC = () => {
         if (event.code ==='ArrowLeft' || event.code ==='KeyA') { 
             keyPressed.ArrowLeft = false    
         }       
-
-       
     }
     
-    const moveSceneTank = (keyPressed: TKeyboard, canMove:{up: boolean, down: boolean}) => {
+    /* движение танка по карте*/
+    const moveSceneTank = (keyPressed: TKeyboard, canMove:TCheckBorder) => {
         const vectorTank: TPoint = {x: 1, y: 0}
+
         vectorTank.x = Math.sin(angleOfMovement) * speedTank;
         vectorTank.y = Math.cos(angleOfMovement) * speedTank;
         if(keyPressed.ArrowUp && canMove.up) {
@@ -110,30 +124,31 @@ const GamePage: React.FC = () => {
         }  
     }
 
-
     const turnTanks = (keyPressed: TKeyboard) => {
+        const cosRotate = Math.cos(speedRotate);
+        const sinRotate = Math.sin(speedRotate)
         tank.forEach(point => {
             let x = point.x, y = point.y
             if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
-                x = point.x * Math.cos(speedRotate) + point.y * Math.sin(speedRotate)
-                y = point.y * Math.cos(speedRotate) - point.x *Math.sin(speedRotate)
+                x = point.x * cosRotate + point.y * sinRotate
+                y = point.y * cosRotate - point.x * sinRotate
                 point.x = x;
                 point.y = y
             } else if (keyPressed.ArrowLeft) {
-                x = point.x * Math.cos(speedRotate) - point.y * Math.sin(speedRotate)
-                y = point.y * Math.cos(speedRotate) + point.x *  Math.sin(speedRotate)
+                x = point.x * cosRotate - point.y * sinRotate
+                y = point.y * cosRotate + point.x * sinRotate
                 point.x = x;
                 point.y = y
             }
 
             if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
-                x = point.x * Math.cos(speedRotate) - point.y * Math.sin(speedRotate)
-                y = point.y * Math.cos(speedRotate) + point.x *Math.sin(speedRotate)
+                x = point.x * cosRotate - point.y * sinRotate
+                y = point.y * cosRotate + point.x * sinRotate
                 point.x = x;
                 point.y = y
             } else if (keyPressed.ArrowRight) {
-                x = point.x * Math.cos(speedRotate) + point.y * Math.sin(speedRotate)
-                y = point.y * Math.cos(speedRotate) - point.x *Math.sin(speedRotate)
+                x = point.x * cosRotate + point.y * sinRotate
+                y = point.y * cosRotate - point.x * sinRotate
                 point.x = x;
                 point.y = y
             } 
@@ -141,10 +156,9 @@ const GamePage: React.FC = () => {
         canvas.tank(tank)
     }
 
-    const checkBorderTank = ():{up: boolean, down: boolean}  => {
+    const checkBorderTank = ():TCheckBorder => {
         let canMove = {up: true, down: true}
-        let i:number
-        for(i = 0; i < tank.length; i++) {
+        for(let i = 0; i < tank.length; i++) {
             let point = tank[i]
             if (canvas.notxs(point.x) >= canvas.xs(borderScena[0].x) || canvas.notxs(point.x) <= canvas.xs(borderScena[2].x) ||
                 canvas.notys(point.y) <= canvas.ys(borderScena[0].y) || canvas.notys(point.y) >= canvas.ys(borderScena[2].y)) {
@@ -154,28 +168,66 @@ const GamePage: React.FC = () => {
         return canMove 
     }
     
+    
 
-    const renderScene = (FPS?: number) => {
-        window.requestAnimationFrame(renderScene)
-
-        canvas.clear();
-
-        canvas.polygon(borderScena, '#777', "red")
-        canvas.line(-100, -100, 100, 100, 2,'#66a')
-        canvas.line(-100, 100, 100, -100, 2,'#66a')
-        canvas.line(-100, 0, 100, 0, 2,'#66a')
-        canvas.line(0, 100, 0, -100, 2,'#66a')
+    /* движение пехотинца по карте */
+    const moveSceneInfantry = (keyPressed: TKeyboard, canMove:TCheckBorder) => {
+        const diagonalSpeed = speedInfantry * Math.sqrt(2) / 2;
+        let speed = 0;
+        if (keyPressed.ArrowUp && keyPressed.ArrowLeft || keyPressed.ArrowUp && keyPressed.ArrowRight ||
+             keyPressed.ArrowDown && keyPressed.ArrowRight || keyPressed.ArrowDown && keyPressed.ArrowLeft) speed = diagonalSpeed 
+        else speed = speedInfantry  
         
-        moveSceneTank(keyPressed, checkBorderTank())
-        turnTanks(keyPressed)
+        if(keyPressed.ArrowUp && canMove.up) {
+            WIN.bottom += speed;
+        } 
+        if(keyPressed.ArrowDown && canMove.down) {
+            WIN.bottom -= speed;
+        }
+        if (keyPressed.ArrowLeft && canMove.left) {
+            WIN.left -= speed;
+        }
+        if (keyPressed.ArrowRight && canMove.right) {
+            WIN.left += speed;
+        }  
+        canvas.man(man, 'yellow', man.r)
     }
 
+    const checkBorderInfantry = ():TCheckBorder  => {
+        let canMove = {up: true, down: true, right: true, left: true}
+        if (canvas.notxs(man.x) +  man.r > canvas.xs(borderScena[0].x)) canMove.right = false
+        if (canvas.notxs(man.x) -  man.r < canvas.xs(borderScena[2].x)) canMove.left = false
+        if (canvas.notys(man.y) -  man.r < canvas.ys(borderScena[0].y)) canMove.up = false
+        if (canvas.notys(man.y) +  man.r > canvas.ys(borderScena[2].y)) canMove.down = false
+
+        return canMove
+    }
+
+    const renderScene = (FPS: number) => {
+        if (canvas) {
+            setShowFPS(FPS);
+            
+            canvas.clear();
+
+            canvas.border(borderScena, '#777', "red")
+
+            canvas.line(-100, -100, 100, 100, 2,'#66a')
+            canvas.line(-100, 100, 100, -100, 2,'#66a')
+            canvas.line(-100, 0, 100, 0, 2,'#66a')
+            canvas.line(0, 100, 0, -100, 2,'#66a')
+            
+            moveSceneTank(keyPressed, checkBorderTank())
+            turnTanks(keyPressed)
+            // moveSceneInfantry(keyPressed, checkBorderInfantry())
+        }
+    }
 
     return(
-        <div>
-        
+        <div className="game_page">
             <canvas id="canvas"></canvas>
+            <span className="fps">FPS: {FPS}</span>
         </div>
+       
     )    
 }
 

@@ -1,3 +1,16 @@
+.game_page {
+  overflow: hidden;
+}
+
 .canvas::-webkit-scrollbar {
     width: 0;
   }
+
+.fps {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  font-family: 'Neucha', sans-serif;
+  font-size: 30px;
+}
+

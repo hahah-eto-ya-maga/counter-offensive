@@ -1,5 +1,5 @@
 import React from "react";
-import { TWIN } from "../../types/types";
+import { TPoint, TWIN } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {
@@ -73,7 +73,7 @@ class Canvas {
         this.context.closePath();
     }
 
-    polygon (points: {x: number, y: number}[], color: string, colorBorder: string): void {
+    border (points:TPoint[], color: string, colorBorder: string): void {
         this.context.beginPath();
         this.context.moveTo(this.xs(points[3].x), this.ys(points[3].y));
         this.context.strokeStyle = colorBorder;
@@ -88,7 +88,7 @@ class Canvas {
         this.context.closePath();
     }
     
-    tank(points: {x: number, y: number}[]): void {
+    tank(points:TPoint[]): void {
         this.context.beginPath();
         this.context.moveTo(this.notxs(points[0].x), this.notys(points[0].y));
         for (let i = 1; i < points.length; i++) {
@@ -98,6 +98,14 @@ class Canvas {
         this.context.fill();
         this.context.closePath();
 
+    }
+
+    man(point:TPoint, color = '#c00000', size = 2): void {
+        this.context.beginPath();
+        this.context.arc(this.notxs(point.x), this.notys(point.y), size, 0, 2 * Math.PI);
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
     }
 
     clear(): void {
