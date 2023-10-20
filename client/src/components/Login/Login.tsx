@@ -34,7 +34,6 @@ const Login: React.FC = () => {
             }}
           />
         </div>
-       {/*  <div>ТУТ ОШИБКИ МОЖНО ЗАКИНУТЬ ЕСЛИ НАСТРОИТЬ КСС ку</div> */}
       </div>
       <div className="auth_footer">
         <Button appearance="primary" className="auth_submit_button">
