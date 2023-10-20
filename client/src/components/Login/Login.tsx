@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input } from "../UI";
 import { IUserData } from "../../interfaces";
+import "./Login.css";
 
 const Login: React.FC = () => {
   const [userData, setUserData] = useState<IUserData>({
@@ -16,8 +17,8 @@ const Login: React.FC = () => {
 
   return (
     <form className="auth_form" onSubmit={onSubmitHandler}>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="row_div">
+        <div className="column_div">
           <Input
             text="Логин"
             value={userData.login}
@@ -35,9 +36,15 @@ const Login: React.FC = () => {
           />
         </div>
       </div>
+      <div className="row_div">
+        <div className="column_div">
+          <div className="error_div">Неверный логин или пароль</div>
+          <div className="warning_div">Заполните все поля</div>
+        </div>
+      </div>
       <div className="auth_footer">
         <Button appearance="primary" className="auth_submit_button">
-          Войти в Бахмут
+          Пойти на Бахмут
         </Button>
       </div>
     </form>
