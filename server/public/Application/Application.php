@@ -85,4 +85,28 @@ class Application{
         }
         return array(false, 400);
     }
+
+    function getAllInfo($params){
+        $login = $params['login'];
+        $token = $params['token'];
+        $tokenLastUse = date('Y-m-d H:i:s');
+
+        if($login && $token){
+            return $this -> user -> getAllInfo($login, $token, $tokenLastUse);
+        }
+        return array(false, 400);
+    }
+
+    function updatePassword($params){
+        $login = $params['login'];
+        $token = $params['token'];
+        $hash = $params['hash'];
+        $tokenLastUse = date('Y-m-d H:i:s');
+ 
+
+        if($login && $token && $hash){
+            return $this -> user -> updatePassword($login, $token, $hash, $tokenLastUse);
+        }
+        return array(false, 400);
+    }
 }
