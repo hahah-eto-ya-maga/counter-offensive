@@ -1,3 +1,3 @@
-import LoadingPage from "./LoadingPage/LoadingPage";
+import LobbiPage from "./LobbiPage/LobbiPage"
 
-export { LoadingPage };
+export {LobbiPage}
