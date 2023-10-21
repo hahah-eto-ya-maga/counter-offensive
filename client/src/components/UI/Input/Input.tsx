@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import "./Input.css";
 
-type TType = "password" | "text" | "passwordTwo";
+type TType = "password" | "text" | "hidePassword";
 
 interface IInputProps {
   text: string;
@@ -31,10 +31,6 @@ const Input: React.FC<IInputProps> = ({
     setInputType(inputType === "text" ? "password" : "text");
   };
 
-  const changeTypeTwo = () => {
-    setInputType(inputType === "text" ? "password" : "text");
-  };
-
   return (
     <div className="input_box">
       <div className="input_text">
@@ -45,17 +41,10 @@ const Input: React.FC<IInputProps> = ({
           className={cn("input_value", className)}
           value={value}
           onChange={onChangeHandler}
-          type={inputType}
+          type={inputType === "text" ? "text" : "password"}
         />
-        {type === "password" ? (
+        {type === "hidePassword" ? (
           <div className="toggle_password" onClick={changeType}>
-            <Eye open={inputType === "text"} />
-          </div>
-        ) : (
-          <></>
-        )}
-        {type === "passwordTwo" ? (
-          <div className="toggle_password" onClick={changeTypeTwo}>
             <Eye open={inputType === "text"} />
           </div>
         ) : (

@@ -17,29 +17,29 @@ const Login: React.FC = () => {
 
   return (
     <form className="auth_form" onSubmit={onSubmitHandler}>
-      <div className="row_div">
-        <div className="column_div">
-          <Input
-            text="Логин"
-            value={userData.login}
-            onChange={(value) => {
-              onChangeHandler(value, "login");
-            }}
-          />
-          <Input
-            text="Пароль"
-            type="password"
-            value={userData.password}
-            onChange={(value) => {
-              onChangeHandler(value, "password");
-            }}
-          />
-        </div>
+      <div>
+        <Input
+          text="Логин"
+          value={userData.login}
+          onChange={(value) => {
+            onChangeHandler(value, "login");
+          }}
+        />
+        <Input
+          text="Пароль"
+          type="hidePassword"
+          value={userData.password}
+          onChange={(value) => {
+            onChangeHandler(value, "password");
+          }}
+        />
       </div>
-      <div className="row_div">
-        <div className="column_div">
-          <div className="error_div">Неверный логин или пароль</div>
-          <div className="warning_div">Заполните все поля</div>
+      <div className="errors_div">
+        <div className="warning">
+          <span>Заполните все поля</span>
+        </div>
+        <div className="error">
+          <span>Неверный логин или пароль</span>
         </div>
       </div>
       <div className="auth_footer">

@@ -14,52 +14,50 @@ const Registration: React.FC = () => {
     setUserData({ ...userData, [data]: value });
   };
 
-  const onChangeHandlerTwo = (value: string, data: string) => {
-    setUserData({ ...userData, [data]: value });
-  };
-
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
 
   return (
     <form className="auth_form" onSubmit={onSubmitHandler}>
       <div className="row_div">
-        <div className="column_div">
-          <Input
-            text="Логин"
-            value={userData.login}
-            onChange={(value) => {
-              onChangeHandler(value, "login");
-            }}
-          />
-          <Input
-            text="Пароль"
-            type="password"
-            value={userData.password}
-            onChange={(value) => {
-              onChangeHandler(value, "password");
-            }}
-          />
-          <Input
-            text="Повтор пароля"
-            type="password"
-            value={userData.passwordTwo ?? ""}
-            onChange={(value) => {
-              onChangeHandlerTwo(value, "passwordTwo");
-            }}
-          />
-        </div>
+        <Input
+          text="Логин"
+          value={userData.login}
+          onChange={(value) => {
+            onChangeHandler(value, "login");
+          }}
+        />
+        <Input
+          text="Пароль"
+          type="password"
+          value={userData.password}
+          onChange={(value) => {
+            onChangeHandler(value, "password");
+          }}
+        />
+        <Input
+          text="Повтор пароля"
+          type="password"
+          value={userData.passwordTwo ?? ""}
+          onChange={(value) => {
+            onChangeHandler(value, "passwordTwo");
+          }}
+        />
       </div>
-      <div className="row_div">
-        <div className="column_div">
-          <div className="error_div">Логин занят</div>
-          <div className="warning_div">Заполните все поля</div>
-          {/* <div className="error_div">Пароли не совпадают</div>
-          <div className="warning_div">
-            В пароле должно быть от 7 до 200 символов
-          </div>
-          <div className="warning_div">
-            В логине должно быть от 5 до 15 символов
-          </div>*/}
+      <div className="errors_div">
+        <div className="warning">
+          <span>Заполните все поля</span>
+        </div>
+        <div className="warning">
+          <span>В логине должно быть от 5 до 15 символов</span>
+        </div>
+        <div className="warning">
+          <span>В пароле должно быть от 7 до 200 символов</span>
+        </div>
+        <div className="error">
+          <span>Логин занят</span>
+        </div>
+        <div className="error">
+          <span>Пароли не совпадают</span>
         </div>
       </div>
       <div className="auth_footer">

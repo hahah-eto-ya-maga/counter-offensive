@@ -1,35 +1,25 @@
-.row_div {
-  display: flex;
-  flex-direction: row;
-}
-
 .column_div {
   display: flex;
   flex-direction: column;
 }
 
-.warning_div {
+.errors_div > div {
+  width: calc(max-content);
   font-family: Neucha;
   font-size: 4vw;
   font-style: normal;
   line-height: normal;
   text-align: center;
-  background-color: var(--yellow);
   border-radius: 15px;
   border: 5px solid #000;
   max-height: 160px;
   margin: 0 0 10 0;
 }
 
-.error_div {
-  font-family: Neucha;
-  font-size: 4vw;
-  font-style: normal;
-  line-height: normal;
-  text-align: center;
+.errors_div > .warning {
+  background-color: var(--yellow);
+}
+
+.errors_div > .error {
   background-color: var(--red);
-  border-radius: 15px;
-  border: 5px solid #000;
-  max-height: 160px;
-  margin: 0 0 10 0;
 }
