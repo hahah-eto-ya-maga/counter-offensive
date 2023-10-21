@@ -167,41 +167,6 @@ const GamePage: React.FC = () => {
         }    
         return canMove 
     }
-    
-    
-
-    /* движение пехотинца по карте */
-    const moveSceneInfantry = (keyPressed: TKeyboard, canMove:TCheckBorder) => {
-        const diagonalSpeed = speedInfantry * Math.sqrt(2) / 2;
-        let speed = 0;
-        if (keyPressed.ArrowUp && keyPressed.ArrowLeft || keyPressed.ArrowUp && keyPressed.ArrowRight ||
-             keyPressed.ArrowDown && keyPressed.ArrowRight || keyPressed.ArrowDown && keyPressed.ArrowLeft) speed = diagonalSpeed 
-        else speed = speedInfantry  
-        
-        if(keyPressed.ArrowUp && canMove.up) {
-            WIN.bottom += speed;
-        } 
-        if(keyPressed.ArrowDown && canMove.down) {
-            WIN.bottom -= speed;
-        }
-        if (keyPressed.ArrowLeft && canMove.left) {
-            WIN.left -= speed;
-        }
-        if (keyPressed.ArrowRight && canMove.right) {
-            WIN.left += speed;
-        }  
-        canvas.man(man, 'yellow', man.r)
-    }
-
-    const checkBorderInfantry = ():TCheckBorder  => {
-        let canMove = {up: true, down: true, right: true, left: true}
-        if (canvas.notxs(man.x) +  man.r > canvas.xs(borderScena[0].x)) canMove.right = false
-        if (canvas.notxs(man.x) -  man.r < canvas.xs(borderScena[2].x)) canMove.left = false
-        if (canvas.notys(man.y) -  man.r < canvas.ys(borderScena[0].y)) canMove.up = false
-        if (canvas.notys(man.y) +  man.r > canvas.ys(borderScena[2].y)) canMove.down = false
-
-        return canMove
-    }
 
     const renderScene = (FPS: number) => {
         if (canvas) {
@@ -218,7 +183,6 @@ const GamePage: React.FC = () => {
             
             moveSceneTank(keyPressed, checkBorderTank())
             turnTanks(keyPressed)
-            // moveSceneInfantry(keyPressed, checkBorderInfantry())
         }
     }
 
