@@ -4,30 +4,39 @@ import cn from "classnames";
 import "./Button.css";
 
 export interface ButtonProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  appearance: "primary" | "menu";
+   extends React.DetailedHTMLProps<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+   > {
+   appearance: "menu" | "primary" | "primary-disable";
+   active?: boolean;
 }
 
-const Button = ({
-  appearance,
-  children,
-  className,
-  ...props
-}: ButtonProps): JSX.Element => {
-  return (
-    <button
-      className={cn("button", className, {
-        ["primary"]: appearance === "primary",
-        ["menu"]: appearance === "menu",
-      })}
-      {...props}
-    >
-      {children}
-    </button>
-  );
+const Button: React.FC<ButtonProps> = ({
+   appearance,
+   className,
+   children,
+   active,
+   ...props
+}) => {
+   return (
+      <button
+         className={cn(
+            "button",
+            {
+               menu: appearance === "menu",
+               primary:
+                  appearance === "primary" || appearance === "primary-disable",
+               disable: appearance === "primary-disable",
+               active,
+            },
+            className
+         )}
+         {...props}
+      >
+         {children}
+      </button>
+   );
 };
 
 export default Button;
