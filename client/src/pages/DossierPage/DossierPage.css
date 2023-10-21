@@ -1,0 +1,10 @@
+.dossier_page {
+   display: flex;
+   justify-content: space-between;
+   width: 94vw;
+   height: 600px;
+   border-radius: 15px;
+   border: 6px solid #000;
+   background: #9ed17f;
+}
+

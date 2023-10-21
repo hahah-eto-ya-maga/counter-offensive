@@ -40,3 +40,9 @@
 .active {
    background: #92f663;
 }
+
+.dossier_button {
+   font-size: 3vw;
+   width: calc(100% + 12px);
+   margin: -6px;
+}

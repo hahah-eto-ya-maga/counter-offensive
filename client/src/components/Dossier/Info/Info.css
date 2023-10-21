@@ -1,0 +1,39 @@
+.dossier_image {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 400px;
+   height: 450px;
+   border-radius: 15px;
+   border: 6px solid #000;
+   background: #fff;
+   margin: -6px 0 0 -6px;
+}
+
+.dossier_info {
+   width: 100%;
+   font-family: Neucha;
+   font-size: 48px;
+}
+
+.dossier_info > div {
+   padding-left: 35px;
+}
+
+.dossier_showcase {
+   width: 25vw;
+   border-radius: 15px;
+   border: 6px solid #000;
+   background: rgba(147, 208, 146, 0.96);
+   height: 100%;
+   margin: -6px -6px 0 -6px;
+}
+
+.achivment {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   font-size: 32px;
+   height: 80%;
+}

@@ -1,5 +1,3 @@
-import ProgressBar from "./ProgressBar/ProgressBar";
-import CardAdvise from "./CardAdvice/CardAdvice";
-
-export { ProgressBar, CardAdvise };
+export { Shop, Info } from "./Dossier";
+export { ProgressBar, CardAdvise } from "./Loading";
 export { Logo, Button, Input } from "./UI";

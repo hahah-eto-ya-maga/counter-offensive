@@ -30,3 +30,7 @@ body {
    height: 100%;
    width: 100%;
 }
+
+.app > div {
+   max-width: 1600px;
+}
