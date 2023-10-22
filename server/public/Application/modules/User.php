@@ -121,7 +121,7 @@
                 $arr = $result->fetch_assoc();
                 $checkToken = $arr ? $arr['token'] : '';
                 
-                if($checkToken != '' && $checkToken == $token){ // Проврека существования токена 
+                if($checkToken != '' && $checkToken == $token){ // Проверка существования токена 
                     $query = "SELECT gameCount, scoreCount, timeCreate FROM users WHERE login = ?;";
                     $result = $this->db->execute_query($query, array($login));
                     $arr = $result -> fetch_assoc(); // Запрос для получения основных данных о пользователе
@@ -172,4 +172,18 @@
 
             else return array(false, 461);//такого пользователя не существует
         }
+
+        function getUserById($id){
+            $query = "SELECT * FROM users WHERE id=?";
+            $result = $this->db->execute_query($query,array($id));
+            $arr = $result->fetch_assoc();
+            $checkId = $arr ? $arr['id'] : '';
+
+            if($checkId != ''){//Проверка существования пользователя
+                return $arr;
+            }
+
+            else return array(false, 461);//такого пользователя не существует
+        }
+
     }
