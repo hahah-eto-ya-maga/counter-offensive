@@ -173,7 +173,7 @@
             else return array(false, 461);//такого пользователя не существует
         }
 
-        function getUserById($id){
+        function getUserById($id){//Получение всей информации о пользователе KreKer
             $query = "SELECT * FROM users WHERE id=?";
             $result = $this->db->execute_query($query,array($id));
             $arr = $result->fetch_assoc();
