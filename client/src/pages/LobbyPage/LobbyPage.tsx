@@ -1,13 +1,13 @@
 import React from "react"
 import { Button } from "../../components"
 import { automat, RPG, tank2, tank3 } from "./images"; 
-import { General, FlagBearer } from "../../components/lobbi";
-import "./LobbiPage.css";
+import { General, FlagBearer } from "../../components/Lobby";
+import "./LobbyPage.css";
 
-const LobbiPage: React.FC = () => {
+const LobbyPage: React.FC = () => {
     
     return(
-        <div className="lobbi_block">
+        <div className="lobby_block">
             <div className="main">
                 <div className="left">
                     <FlagBearer/>
@@ -26,4 +26,4 @@ const LobbiPage: React.FC = () => {
     )
 }
 
-export default LobbiPage;
+export default LobbyPage;

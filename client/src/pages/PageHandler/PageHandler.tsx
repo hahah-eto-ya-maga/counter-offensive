@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../../components";
-import LobbiPage from "../LobbiPage/LobbiPage";
+import LobbyPage from "../LobbyPage/LobbyPage";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import DossierPage from "../DossierPage/DossierPage";
 
@@ -37,7 +37,7 @@ const PageHandler: React.FC = () => {
       <>
         {page === "Dossier" && <DossierPage />}
         {page === "Loading" && <LoadingPage />}
-        {page === "Lobby" && <LobbiPage />}
+        {page === "Lobby" && <LobbyPage />}
         {page === "Menu" && <MenuPage goToLobby={ setPage} />}
       </>
     </div>
