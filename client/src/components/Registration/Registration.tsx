@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Button, Input } from "../UI";
 import { IUserData } from "../../interfaces";
-import "./Login.css";
+import "./Registration.css";
 
-const Login: React.FC = () => {
+const Registration: React.FC = () => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
+    passwordTwo: "",
   });
 
   const onChangeHandler = (value: string, data: string) => {
@@ -17,7 +18,7 @@ const Login: React.FC = () => {
 
   return (
     <form className="auth_form" onSubmit={onSubmitHandler}>
-      <div>
+      <div className="row_div">
         <Input
           text="Логин"
           value={userData.login}
@@ -27,10 +28,18 @@ const Login: React.FC = () => {
         />
         <Input
           text="Пароль"
-          type="hidePassword"
+          type="password"
           value={userData.password}
           onChange={(value) => {
             onChangeHandler(value, "password");
+          }}
+        />
+        <Input
+          text="Повтор пароля"
+          type="password"
+          value={userData.passwordTwo ?? ""}
+          onChange={(value) => {
+            onChangeHandler(value, "passwordTwo");
           }}
         />
       </div>
@@ -38,17 +47,26 @@ const Login: React.FC = () => {
         <div className="warning">
           <span>Заполните все поля</span>
         </div>
+        <div className="warning">
+          <span>В логине должно быть от 5 до 15 символов</span>
+        </div>
+        <div className="warning">
+          <span>В пароле должно быть от 7 до 200 символов</span>
+        </div>
         <div className="error">
-          <span>Неверный логин или пароль</span>
+          <span>Логин занят</span>
+        </div>
+        <div className="warning">
+          <span>Пароли не совпадают</span>
         </div>
       </div>
       <div className="auth_footer">
         <Button appearance="primary" className="auth_submit_button">
-          Пойти на Бахмут
+          Попасть в списки военных
         </Button>
       </div>
     </form>
   );
 };
 
-export default Login;
+export default Registration;

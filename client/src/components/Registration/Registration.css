@@ -1,19 +1,10 @@
-.inputs_block {
+.column_div {
   display: flex;
-  flex-direction: row;
-}
-
-.errors_div {
-  max-height: 300px;
-  overflow: auto;
-}
-
-.errors_div::-webkit-scrollbar {
-  width: 0;
+  flex-direction: column;
 }
 
 .errors_div > div {
-  width: max-content;
+  width: calc(max-content);
   font-family: Neucha;
   font-size: 4vw;
   font-style: normal;
@@ -25,14 +16,10 @@
   margin: 0 0 10 0;
 }
 
-.errors_div span {
-  margin: 10px;
-}
-
-.warning {
+.errors_div > .warning {
   background-color: var(--yellow);
 }
 
-.error {
+.errors_div > .error {
   background-color: var(--red);
 }
