@@ -1,6 +1,6 @@
 import React from "react";
-import "./Info.css";
 import { Button } from "../../UI";
+import "./Info.css";
 
 interface IUserProps {
    login: string;
