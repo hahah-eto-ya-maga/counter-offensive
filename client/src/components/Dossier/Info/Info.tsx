@@ -41,7 +41,7 @@ const Info: React.FC<IUserProps> = ({
                      Витрина достижений
                   </Button>
                </div>
-               <div className="achivment">
+               <div className="achievement">
                   <span>“Тут какое-то выбранное пользователем достижение”</span>
                </div>
             </div>

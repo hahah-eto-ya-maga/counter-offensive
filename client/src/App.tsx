@@ -1,6 +1,5 @@
 import React from "react";
 import { PageHandler } from "./pages";
-import { Registration } from "./components";
 import "./styles/global.css";
 
 const App: React.FC = () => {
