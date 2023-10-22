@@ -56,7 +56,7 @@ const Registration: React.FC = () => {
         <div className="error">
           <span>Логин занят</span>
         </div>
-        <div className="error">
+        <div className="warning">
           <span>Пароли не совпадают</span>
         </div>
       </div>
