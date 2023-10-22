@@ -1,5 +1,3 @@
-import React from 'react'
-
 import automat from './automat.png'
 import general from './general.png'
 import RPG from './RPG.png'

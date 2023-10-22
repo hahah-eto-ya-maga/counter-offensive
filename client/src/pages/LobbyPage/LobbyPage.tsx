@@ -1,21 +1,13 @@
 import React from "react"
 import { Button } from "../../components"
-import { useState } from "react";
 import { automat, RPG, tank2, tank3 } from "./images"; 
-import cn from "classnames";
-import "./LobbiPage.css";
-import { General, FlagBearer } from "../../components/lobbi";
+import { General, FlagBearer } from "../../components/Lobby";
+import "./LobbyPage.css";
 
-const LobbiPage: React.FC = () => {
+const LobbyPage: React.FC = () => {
     
     return(
-        <div className="lobbi_block">
-            
-            <div className="header">
-                <Button className="lobby" appearance="primary-disable" active> Лобби </Button>
-                <Button className="dosye" appearance="primary" onClick={() => {}}> Досье </Button>
-                <Button className="menu_button" appearance="primary" onClick={() => {}}> Меню </Button>
-            </div>
+        <div className="lobby_block">
             <div className="main">
                 <div className="left">
                     <FlagBearer/>
@@ -34,4 +26,4 @@ const LobbiPage: React.FC = () => {
     )
 }
 
-export default LobbiPage;
+export default LobbyPage;

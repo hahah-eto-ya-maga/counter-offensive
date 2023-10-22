@@ -60,3 +60,9 @@
   width: 90%;
   padding-top: 1%;
 }
+
+.dossier_button {
+   font-size: 3vw;
+   width: calc(100% + 12px);
+   margin: -6px;
+}

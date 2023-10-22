@@ -1,16 +1,5 @@
-.lobbi_block {
-    padding: 30px;
-    height: 90%;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.header button {
-    width: 30%;
+.lobby_block {
+    padding-top: 30px;
 }
 
 .main {
@@ -59,5 +48,5 @@
     color: #00ff00;
 }
 .selected {
-    color: #ff0000;
+    color: var(--red);
 }
