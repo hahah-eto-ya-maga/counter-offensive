@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import Eye from "../Eye/Eye";
 import cn from "classnames";
 
 import "./Input.css";
-import Eye from "../Eye/Eye";
 
-type TType = "password" | "text";
+type TType = "password" | "text" | "hidePassword";
 
 interface IInputProps {
   text: string;
@@ -41,9 +41,9 @@ const Input: React.FC<IInputProps> = ({
           className={cn("input_value", className)}
           value={value}
           onChange={onChangeHandler}
-          type={inputType}
+          type={inputType === "text" ? "text" : "password"}
         />
-        {type === "password" ? (
+        {type === "hidePassword" ? (
           <div className="toggle_password" onClick={changeType}>
             <Eye open={inputType === "text"} />
           </div>

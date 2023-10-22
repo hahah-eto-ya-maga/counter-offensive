@@ -1,6 +1,7 @@
 import ProgressBar from "./ProgressBar/ProgressBar";
 import CardAdvise from "./CardAdvice/CardAdvice";
-import Login from './Login/Login';
+import Login from "./Login/Login";
+import Registration from "./Registration/Registration";
 
-export { ProgressBar, CardAdvise, Login };
-export { Button, Input, Logo, Eye } from "./UI";
+export { ProgressBar, CardAdvise, Login, Registration };
+export { Button, Logo, Input } from "./UI";
