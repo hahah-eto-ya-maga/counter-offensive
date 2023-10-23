@@ -35,6 +35,7 @@
                 case 'tokenVerification': return $App->tokenVerification($params);
                 case 'getAllInfo': return $App->getAllInfo($params);
                 case 'updatePassword': return $App->updatePassword($params);
+                case 'test': return $App->test($params);
 
 
             }
@@ -44,3 +45,5 @@
     }
 
     echo json_encode($answer->response(request($params)));
+
+    

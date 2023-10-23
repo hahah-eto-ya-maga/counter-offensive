@@ -109,4 +109,14 @@ class Application{
         }
         return array(false, 400);
     }
+
+    function test($params) {
+        $login = $params['login'];
+        $token = $params['token'];
+        $hash = $params['hash'];
+        //return $this -> user -> updateToken($token, $login);
+        //return $this -> user -> getUserByLogin($login);
+        //return $this -> user -> getUserByToken($token);
+        return $this -> user -> addUser($token, $login, $hash);
+    } 
 }

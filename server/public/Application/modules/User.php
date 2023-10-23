@@ -172,4 +172,49 @@
 
             else return array(false, 461);//такого пользователя не существует
         }
+
+        function updateToken($token, $login) {             //Обновляет токен vnntblck
+            $query = "UPDATE users SET token = ? WHERE login = ?";
+            $this -> db -> execute_query($query, array($token, $login));
+
+        }
+    
+         function getUserByLogin($login) {    //vnntblck вся информауию о пользователе по логину                       
+             $query = "SELECT * FROM users WHERE login = ?";
+             $result = $this -> db -> execute_query($query, array($login));
+             if ($result -> num_rows > 0) {
+                 $user = $result ->fetch_assoc();
+                 return $user;
+             } else {
+                 return false;
+             }
+         }
+
+        function getUserByToken($token) {     //vnntblck вся информация о пользователе по токину                      
+            $query = "SELECT * FROM users WHERE token = ?";
+            $result = $this -> db -> execute_query($query, array($token));
+            if ($result -> num_rows > 0) {
+                $user = $result ->fetch_assoc();
+                return $user;
+            } else {
+                return false;
+            }
+        }
+
+        function addUser($token, $login, $hash) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
+            $existingUser = $this -> getUserByLogin($login);
+            if ($existingUser) {
+                return array(false, 460);;
+            }
+            $query = "INSERT INTO users (login, token, password) VALUES (?, ?, ?)";
+            $result = $this -> db -> execute_query($query, array($login, $token, $hash));
+            if ($result -> num_rows > 0) {
+                $user = $result ->fetch_assoc();
+                return $user;
+            } else {
+                return false;
+            }
+        }
+
+
     }
