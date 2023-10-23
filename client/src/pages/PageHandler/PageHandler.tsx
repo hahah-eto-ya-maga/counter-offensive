@@ -6,14 +6,15 @@ import DossierPage from "../DossierPage/DossierPage";
 
 import "./PageHandler.css";
 import MenuPage from "../MenuPage/MenuPage";
+import MainPage from "../MainPage/MainPage";
 
-export type TPage = "Lobby" | "Dossier" | "Loading" | "Menu";
+export type TPage = "Lobby" | "Dossier" | "Loading" | "Menu" | "MainPage";
 
 const PageHandler: React.FC = () => {
-  const [page, setPage] = useState<TPage>("Lobby");
+  const [page, setPage] = useState<TPage>("MainPage");
   return (
     <div className="page_handler">
-      {page !== "Menu" && (
+      {page !== "Menu" && page !== "MainPage" && (
         <div className="header">
           <Button
             appearance="primary"
@@ -38,7 +39,8 @@ const PageHandler: React.FC = () => {
         {page === "Dossier" && <DossierPage />}
         {page === "Loading" && <LoadingPage />}
         {page === "Lobby" && <LobbiPage />}
-        {page === "Menu" && <MenuPage goToLobby={ setPage} />}
+        {page === "Menu" && <MenuPage goToLobby={setPage} />}
+        {page === "MainPage" && <MainPage goToLogin={setPage} />}
       </>
     </div>
   );
