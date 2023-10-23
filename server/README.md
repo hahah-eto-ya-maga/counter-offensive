@@ -16,7 +16,7 @@
 + <a href="http://localhost/api/" target="_blank">http://localhost/api/</a>(Подключение через Nginx)
 + <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>(Подключение напрямую)
 Пример в браузере
-![Пример подключения к API через браузер](images/server/browser-api-connect-example.jpg)
+![Пример подключения к API через браузер](../documents/docker/server/browser-api-connect-example.jpg)
 
 <a name="dev"></a>
 ## Разработка
