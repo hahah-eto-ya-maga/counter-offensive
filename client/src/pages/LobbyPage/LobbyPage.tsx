@@ -1,14 +1,13 @@
 import React from "react"
 import { Button } from "../../components"
 import { automat, RPG, tank2, tank3 } from "./images"; 
-import { General, FlagBearer } from "../../components/lobbi";
-import "./LobbiPage.css";
+import { General, FlagBearer } from "../../components/Lobby";
+import "./LobbyPage.css";
 
-const LobbiPage: React.FC = () => {
+const LobbyPage: React.FC = () => {
     
     return(
-        <div className="lobbi_block">
-            <div className="main">
+            <div className="lobbi_block">
                 <div className="left">
                     <FlagBearer/>
                     <Button className="RPG"appearance="image"  onClick={() => {}}>Пехотинец с гранотомётом<img src={RPG} alt="RPG" /></Button>
@@ -19,11 +18,8 @@ const LobbiPage: React.FC = () => {
                     <Button className="automat" appearance="image" onClick={() => {}}> Пехотинец-автоматчик <img src={automat} alt="Automat" /></Button>
                     <Button className="tank3" appearance="image" onClick={() => {}}> Трёхместный танк <img src={tank3} alt="Tank_3" /> </Button>
                 </div>
-
             </div>
-
-        </div>
     )
 }
 
-export default LobbiPage;
+export default LobbyPage;
