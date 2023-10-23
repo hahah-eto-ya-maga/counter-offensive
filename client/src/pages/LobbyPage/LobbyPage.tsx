@@ -7,8 +7,7 @@ import "./LobbyPage.css";
 const LobbyPage: React.FC = () => {
     
     return(
-        <div className="lobby_block">
-            <div className="main">
+            <div className="lobbi_block">
                 <div className="left">
                     <FlagBearer/>
                     <Button className="RPG"appearance="image"  onClick={() => {}}>Пехотинец с гранотомётом<img src={RPG} alt="RPG" /></Button>
@@ -19,10 +18,7 @@ const LobbyPage: React.FC = () => {
                     <Button className="automat" appearance="image" onClick={() => {}}> Пехотинец-автоматчик <img src={automat} alt="Automat" /></Button>
                     <Button className="tank3" appearance="image" onClick={() => {}}> Трёхместный танк <img src={tank3} alt="Tank_3" /> </Button>
                 </div>
-
             </div>
-
-        </div>
     )
 }
 
