@@ -35,9 +35,9 @@
 ```bash
 docker compose restart api
 ```
-![Пример перезапуска контейнера через терминал](images/server/cmd-container-restart-example.jpg)
+![Пример перезапуска контейнера через терминал](../documents/docker/server/cmd-container-restart-example.jpg)
 Через Docker Desktop (Выделенная кнопка)
-![Пример перезапуска контейнера через Docker Desktop](images/server/docker-desktop-restart-container-example.jpg)
+![Пример перезапуска контейнера через Docker Desktop](../documents/docker/server/docker-desktop-restart-container-example.jpg)
 
 <a name="stop"></a>
 + Остановка
@@ -45,13 +45,13 @@ docker compose restart api
 ```bash
 docker compose stop api
 ```
-![Пример остановки контейнера через терминал](docker/server/cmd-container-stop-example.jpg)
+![Пример остановки контейнера через терминал](../documents/docker/server/cmd-container-stop-example.jpg)
 Через Docker Desktop (Выделенная кнопка)
-![Пример остановки контейнера через Docker Desktop](docker/server/docker-desktop-stop-container-example.jpg)
+![Пример остановки контейнера через Docker Desktop](../documents/docker/server/docker-desktop-stop-container-example.jpg)
 
 Пример вывода в терминал только что запущенного контейнера
-![Пример вывода в терминал](docker/server/cmd-logs-example.jpg)
+![Пример вывода в терминал](../documents/docker/server/cmd-logs-example.jpg)
 Пример вывода в терминал с несколькими сделанными запросами
-![Пример вывода в терминал](docker/server/cmd-logs-example2.jpg)
+![Пример вывода в терминал](../documents/docker/server/cmd-logs-example2.jpg)
 + Пример вывода в Docker Desktop 
-![Пример вывода в Docker Desktop](docker/server/docker-desktop-logs-example.jpg)
+![Пример вывода в Docker Desktop](../documents/docker/server/docker-desktop-logs-example.jpg)
