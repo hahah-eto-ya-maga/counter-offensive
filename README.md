@@ -76,7 +76,7 @@ docker compose stop
 1. database - База данных - MySQL ([DB.md](./documents/DB.md))
 2. api - PHP server ([SERVER.md](./server/README.md), [API.md](./server/API.md))
 3. phpmyadmin - PMA - Клиент для работы с БД
-4. web_server - Nginx ([WEBSERVER.md](./documents/WEBSERVER.md))
+4. web_server - Nginx
 
 <a name="repo-guide"></a>
 ## Как работать с репозиторием
