@@ -74,7 +74,7 @@ docker compose stop
 ## Контейнеры
 Проект содержит 5 конейтеров:
 1. database - База данных - MySQL ([DB.md](./documents/DB.md))
-2. api - PHP server ([SERVER.md](./documents/SERVER.md), [API.md](./server/API.md))
+2. api - PHP server ([SERVER.md](./server/README.md), [API.md](./server/API.md))
 3. phpmyadmin - PMA - Клиент для работы с БД
 4. web_server - Nginx ([WEBSERVER.md](./documents/WEBSERVER.md))
 
