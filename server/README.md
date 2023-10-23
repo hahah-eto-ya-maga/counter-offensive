@@ -48,10 +48,3 @@ docker compose stop api
 ![Пример остановки контейнера через терминал](../documents/docker/server/cmd-container-stop-example.jpg)
 Через Docker Desktop (Выделенная кнопка)
 ![Пример остановки контейнера через Docker Desktop](../documents/docker/server/docker-desktop-stop-container-example.jpg)
-
-Пример вывода в терминал только что запущенного контейнера
-![Пример вывода в терминал](../documents/docker/server/cmd-logs-example.jpg)
-Пример вывода в терминал с несколькими сделанными запросами
-![Пример вывода в терминал](../documents/docker/server/cmd-logs-example2.jpg)
-+ Пример вывода в Docker Desktop 
-![Пример вывода в Docker Desktop](../documents/docker/server/docker-desktop-logs-example.jpg)
