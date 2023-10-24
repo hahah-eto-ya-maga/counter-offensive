@@ -1,11 +1,11 @@
 import React from "react";
+import { PageHandler } from "./pages";
 import "./styles/global.css";
-import { LoadingPage, GamePage } from "./pages";
 
 const App: React.FC = () => {
    return (
       <div className="app">
-         <GamePage/>
+         <PageHandler />
       </div>
    );
 };
