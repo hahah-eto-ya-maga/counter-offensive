@@ -21,6 +21,8 @@
 *460*:**Login Occupied** - Логин занят
 
 *461*:**User not Exist** - Пользователь не существует
+
+*462*:**Database request Error** - Ошибка запроса к базе
         
 *9000*:**Unknown Error** - Неизвестная ошибка
 
