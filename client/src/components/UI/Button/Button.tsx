@@ -1,5 +1,6 @@
 import React from "react";
 import cn from "classnames";
+
 import "./Button.css";
 
 export interface ButtonProps
@@ -7,7 +8,7 @@ export interface ButtonProps
       React.ButtonHTMLAttributes<HTMLButtonElement>,
       HTMLButtonElement
    > {
-   appearance: "menu" | "primary" | "primary-disable";
+   appearance: "menu" | "primary" | "primary-disable" | "image";
    active?: boolean;
 }
 
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
                primary:
                   appearance === "primary" || appearance === "primary-disable",
                disable: appearance === "primary-disable",
+               image: appearance === "image",
                active,
             },
             className

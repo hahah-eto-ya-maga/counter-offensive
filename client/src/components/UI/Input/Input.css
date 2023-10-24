@@ -1,34 +1,50 @@
-.input_box { 
-   display: flex; 
-   flex-direction: row; 
-   width: 68vw; 
-   height: 90px; 
-   margin: 10px 0; 
-} 
- 
-.input_value { 
-   padding: 0; 
-   display: flex; 
-   height: 100%; 
-   outline: none; 
-   border: 5px solid var(--black); 
-   border-left: none; 
-   background: var(--salad); 
-   font-size: 4vw; 
-} 
- 
-.span_text { 
-   font-size: 4vw; 
-   margin-left: 5px; 
-   padding-left: 10px; 
-   width: 25vw; 
-} 
- 
-.input_text { 
-   display: flex; 
-   align-items: center; 
-   border: 5px solid var(--black); 
-   background: var(--green-yellow); 
-   font-family: "Neucha", cursive; 
-   width: 100%; 
+.input_box {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 90px;
+  margin: 10px 0;
+}
+
+.input_value {
+  width: 100%;
+  border: none;
+  padding: 0;
+  display: flex;
+  height: 100%;
+  outline: none;
+  background: var(--salad);
+  font-size: 4vw;
+  border-left: none;
+}
+
+.span_text {
+  font-size: 4vw;
+  margin-left: 5px;
+  padding-left: 10px;
+}
+
+.input_text {
+  display: flex;
+  align-items: center;
+  border: 5px solid var(--black);
+  background: var(--green-yellow);
+  font-family: "Neucha", cursive;
+  width: 25vw;
+}
+
+.toggle_password {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  background: var(--salad);
+  transform: scale(1.035);
+  cursor: pointer;
+}
+
+.input_wrapper {
+  display: flex;
+  width: 40vw;
+  border: 5px solid var(--black);
+  border-left: none;
 }

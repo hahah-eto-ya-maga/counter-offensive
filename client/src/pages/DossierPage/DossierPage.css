@@ -1,0 +1,16 @@
+.dossier_page {
+   display: flex;
+   justify-content: space-between;
+   width: calc(100%-12px);
+   height: 1200px;
+   border-radius: 15px;
+   border: 6px solid #000;
+   background: #9ed17f;
+}
+
+@media screen and (max-width:950px ) {
+   .dossier_page{
+      height: 900px;
+   }
+}  
+
