@@ -3,7 +3,7 @@
   font-size: 4vw;
   font-style: normal;
   line-height: normal;
-  font-weight:bold;
+  font-weight: bold;
   text-align: center;
   padding: 10px;
   cursor: pointer;
@@ -14,6 +14,8 @@
 }
 
 .menu {
+  font-weight: normal;
+  font-family: Rubik Dirt;
   background: linear-gradient(180deg, rgba(120, 170, 119, 0) 0%, #58db56 100%);
   border-radius: 30px;
   border: 4px solid #000;
@@ -40,7 +42,6 @@
   background: #92f663;
 }
 
-/*допоплнительный classname к Button*/
 .image {
   background-color: var(--gray);
   font-size: 1.7vw;
@@ -55,14 +56,14 @@
 }
 
 .image img {
-  mix-blend-mode: darken; 
+  mix-blend-mode: darken;
   max-height: 65%;
   width: 90%;
   padding-top: 1%;
 }
 
 .dossier_button {
-   font-size: 3vw;
-   width: calc(100% + 12px);
-   margin: -6px;
+  font-size: 3vw;
+  width: calc(100% + 12px);
+  margin: -6px;
 }
