@@ -1,5 +1,5 @@
 import React from "react";
-import { GamePage, PageHandler } from "./pages";
+import { PageHandler } from "./pages";
 import "./styles/global.css";
 
 const App: React.FC = () => {
