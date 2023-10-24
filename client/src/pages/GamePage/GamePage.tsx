@@ -94,6 +94,78 @@ const GamePage: React.FC = () => {
             keyPressed.ArrowLeft = false    
         }       
     }
+
+    /* движение танка по карте*/
+    const moveSceneTank = (keyPressed: TKeyboard, canMove:TCheckBorder) => {
+        const vectorTank: TPoint = {x: 1, y: 0}
+
+        vectorTank.x = Math.sin(angleOfMovement) * speedTank;
+        vectorTank.y = Math.cos(angleOfMovement) * speedTank;
+        if(keyPressed.ArrowUp && canMove.up) {
+            WIN.bottom += vectorTank.x
+            WIN.left += vectorTank.y
+        } 
+        if(keyPressed.ArrowDown && canMove.down) {
+            WIN.bottom -= vectorTank.x
+            WIN.left -= vectorTank.y
+        }
+
+        if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
+            angleOfMovement -= speedRotate
+        } else if (keyPressed.ArrowLeft) {
+            angleOfMovement += speedRotate
+        }
+
+        if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
+            angleOfMovement += speedRotate
+        } else if (keyPressed.ArrowRight) {
+            angleOfMovement -= speedRotate
+        }  
+    }
+
+    const turnTanks = (keyPressed: TKeyboard) => {
+        const cosRotate = Math.cos(speedRotate);
+        const sinRotate = Math.sin(speedRotate)
+        tank.forEach(point => {
+            let x = point.x, y = point.y
+            if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
+                x = point.x * cosRotate + point.y * sinRotate
+                y = point.y * cosRotate - point.x * sinRotate
+                point.x = x;
+                point.y = y
+            } else if (keyPressed.ArrowLeft) {
+                x = point.x * cosRotate - point.y * sinRotate
+                y = point.y * cosRotate + point.x * sinRotate
+                point.x = x;
+                point.y = y
+            }
+
+            if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
+                x = point.x * cosRotate - point.y * sinRotate
+                y = point.y * cosRotate + point.x * sinRotate
+                point.x = x;
+                point.y = y
+            } else if (keyPressed.ArrowRight) {
+                x = point.x * cosRotate + point.y * sinRotate
+                y = point.y * cosRotate - point.x * sinRotate
+                point.x = x;
+                point.y = y
+            } 
+        })
+        canvas.tank(tank)
+    }
+
+    const checkBorderTank = ():TCheckBorder => {
+        let canMove = {up: true, down: true}
+        for(let i = 0; i < tank.length; i++) {
+            let point = tank[i]
+            if (canvas.notxs(point.x) >= canvas.xs(borderScena[0].x) || canvas.notxs(point.x) <= canvas.xs(borderScena[2].x) ||
+                canvas.notys(point.y) <= canvas.ys(borderScena[0].y) || canvas.notys(point.y) >= canvas.ys(borderScena[2].y)) {
+                    (i==0 || i==1) ? canMove.down = false : canMove.up = false 
+            }
+        }    
+        return canMove 
+    }
     
     /* движение пехотинца по карте */
     const moveSceneInfantry = (keyPressed: TKeyboard, canMove:TCheckBorder) => {
