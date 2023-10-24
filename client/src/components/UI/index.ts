@@ -1,4 +1,5 @@
-import Logo from "./Logo/Logo";
 import Button from "./Button/Button";
+import Eye from "./Eye/Eye";
 import Input from "./Input/Input";
-export { Logo, Button, Input };
+import Logo from "./Logo/Logo";
+export { Logo, Input, Button, Eye };
