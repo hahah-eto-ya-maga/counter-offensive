@@ -1,4 +1,5 @@
 import React from "react";
+import { PageHandler } from "./pages";
 import "./styles/global.css";
 import { LoadingPage, GamePage } from "./pages";
 
