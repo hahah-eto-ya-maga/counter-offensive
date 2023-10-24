@@ -45,7 +45,7 @@ const GamePage: React.FC = () => {
     const borderScena: TPoint[] = [{x: 10, y: 20}, {x: -10, y: 20}, {x: -10, y: -20}, {x: 10, y: -20}] 
 
     const tank: TPoint[] = [{x:-0.5, y:-0.7}, {x:0.5, y:-0.7}, {x:0.5, y:0.7}, {x:-0.5, y:0.7}] 
-    const man: TUnit = {x: 0, y: 0, r: 30} 
+    const man: TUnit = {x: 0, y: 0, r: 20} 
 
     useEffect(() => {
         canvas = Canvas({
