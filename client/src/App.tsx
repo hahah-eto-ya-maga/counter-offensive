@@ -16,13 +16,7 @@ const App: React.FC = () => {
     <MediatorContext.Provider value={mediator}>
       <ServerContext.Provider value={server}>
         <div className="app">
-          <button
-            onClick={() => {
-              server.registration("vasadastya", "1234214213dsadas");
-            }}
-          >
-            КЛИК
-          </button>
+          <PageHandler />
         </div>
       </ServerContext.Provider>
     </MediatorContext.Provider>
