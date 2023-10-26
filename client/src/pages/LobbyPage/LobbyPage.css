@@ -14,6 +14,9 @@
     width: 29%;
     box-sizing: border-box;
 }
+.dossier {
+    width: 40%;
+}
 
 .general, .flag, .automat, .RPG {
     margin-bottom: 12px;
