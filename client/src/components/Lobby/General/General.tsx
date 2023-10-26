@@ -13,20 +13,13 @@ const General: React.FC = () => {
 
    return (
       <Button
-         className="general"
+         className={cn("general", {
+            free: !statusGeneral,
+            selected: statusGeneral,
+         })}
          appearance="image"
-         onClick={changeStatusGeneral}
-      >
-         Генерал {"("}
-         <span
-            className={cn("status", {
-               free: !statusGeneral,
-               selected: statusGeneral,
-            })}
-         >
-            {statusGeneral ? "Занято" : "Свободно"}
-         </span>
-         {")"}
+         onClick={changeStatusGeneral}> 
+         Генерал 
          <img src={general} alt="General" />
       </Button>
    );
