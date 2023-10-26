@@ -1,14 +1,22 @@
 // dev
 
-/* const PORT = 8080;
-const DOMAIN = 'http://localhost'; */
-
-const PORT = null;
-const DOMAIN = "http://server/api";
+/* const PORT = 81;
+const DOMAIN = 'http://ivt21'; */
 
 // prod
 
-/* const PORT = null;
-const DOMAIN = 'http://localhost/api';  */
+// const PORT = null;
+// const DOMAIN = 'http://server';
+
+const PORT = null;
+const DOMAIN = "http://localhost/api";
 
 export const HOST = PORT ? `${DOMAIN}:${PORT}` : DOMAIN;
+
+export const MEDIATOR = {
+    EVENTS: {
+        SERVER_ERROR: 'SERVER_ERROR',
+    },
+    TRIGGERS: {
+    }
+};
