@@ -96,7 +96,7 @@ class Application{
             $checkLogin = $user ? $user['login'] : '';
             if($checkLogin != ''){
                 $checkToken = $user ? $user['token'] : '';
-                if($checkToken != '' && $checkToken == $token){
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
                     $deleteToken = $this->user->deleteToken($login, $tokenLastUse);
                     if(!$deleteToken){
                         return array(false, 462); // Ошибка запроса 
@@ -121,7 +121,7 @@ class Application{
             $checkLogin = $user ? $user['login'] : '';
             if($checkLogin != ''){
                 $checkToken = $user ? $user['token'] : '';
-                if($checkToken != '' && $checkToken == $token){
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
                     $verificateToken = $this->user->updateToken($login, $token, $tokenLastUse);
                     if(!$verificateToken){
                         return array(false, 462); // Ошибка запроса 
@@ -146,7 +146,7 @@ class Application{
             $checkLogin = $user ? $user['login'] : '';
             if($checkLogin != ''){
                 $checkToken = $user ? $user['token'] : '';
-                if($checkToken != '' && $checkToken == $token){
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
                     $updateToken = $this -> user -> updateToken($login, $token, $tokenLastUse);
                     if(!$updateToken){
                         return array(false, 462); // Ошибка запроса 
@@ -177,7 +177,7 @@ class Application{
             $checkLogin = $user ? $user['login'] : '';
             if($checkLogin != ''){
                 $checkToken = $user ? $user['token'] : '';
-                if($checkToken != '' && $checkToken == $token){
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
                     $updateToken = $this -> user -> updateToken($login, $token, $tokenLastUse);
                     if(!$updateToken){
                         return array(false, 462); // Ошибка запроса 
