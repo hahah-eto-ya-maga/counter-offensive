@@ -1,6 +1,85 @@
-# Доска заданий (Miro): https://miro.com/app/board/uXjVMlZXLK0=/?share_link_id=267926727208
-# Дизайн (Figma): Figma: https://www.figma.com/file/o4i6tlpz45fEzdjZYZkoGu/%D0%9C%D0%B0%D0%BA%D0%B5%D1%82%D1%8B?type=design&node-id=0%3A1&mode=design&t=LiBC4qdAeW1BguQ2-1
-## Работа с git и GitHub
+# Игра Контрнаступ (ContrNastup)
+Браузерный 2д шутер про танки.
+* [Доска заданий (Miro)](https://miro.com/app/board/uXjVMlZXLK0=/?share_link_id=267926727208)
+* [Дизайн (Figma)](https://www.figma.com/file/o4i6tlpz45fEzdjZYZkoGu/Макеты?type=design&node-id=0%3A1&mode=design&t=LiBC4qdAeW1BguQ2-1)
+
+## Оглавление
++ [Требуемые программы](#required-programs)
++ [Запуск проекта](#start)
++ [Сборка](#build)
++ [Запуск собранного проекта](#up)
++ [Перезапуск](#restart)
++ [Остановка](#stop)
++ [Лог](#log)
++ [Контейнеры](#containers)
++ [Как работать с репозиторием](#repo-guide)
++ [Внутренние ссылки](#inside-links)
+
+<a name="required-programs"></a>
+## Требуемые программы
+* [Docker](https://docs.docker.com/desktop/install/windows-install/) и дополнение Docker Compose (на Windows идёт из коробки)
+* [NodeJS](https://nodejs.org/en/download)
+
+<a name="start"></a>
+## Запуск проекта
+Все команды нужно запускать в терминале в корневой папке проекта и при запущенном Docker Desktop
+
+<a name="build"></a>
+## Сборка (Терминал из корневой папки)
+* Сборка клиента
+```bash
+cd client
+npm install
+npm run build
+cd ..
+```
+* Сборка проекта в Docker
+```bash
+docker compose build
+```
+![Пример сборки проекта](documents/docker/readme/cmd-build-example.jpg)
+
+
+<a name="up"></a>
+## Запуск собранного проекта
++ Терминал
+```bash
+docker compose up -d
+```
+![Пример запуска проекта](documents/docker/readme/cmd-up-example.jpg)
++ Docker Desktop
+![Пример запуска проекта в главном меню Docker Desktop](documents/docker/readme/docker-desktop-up-example.jpg)
+
+<a name="restart"></a>
+## Перезапуск проекта
++ Терминал
+```bash
+docker compose restart
+```
+![Пример перезапуска проекта](documents/docker/readme/cmd-restart-example.jpg)
++ Docker Desktop
+![Пример перезапуска проекта в главном меню Docker Desktop](documents/docker/readme/docker-desktop-restart-example.jpg)
+
+<a name="stop"></a>
+## Остановка запущенного проекта
++ Терминал
+```bash
+docker compose stop
+```
+![Пример остановки проекта](documents/docker/readme/cmd-stop-example.jpg)
++ Docker Desktop
+![Пример остановки проекта в главном меню Docker Desktop](documents/docker/readme/docker-desktop-stop-example.jpg)
+
+<a name="containers"></a>
+## Контейнеры
+Проект содержит 5 конейтеров:
+1. database - База данных - MySQL ([DB.md](./documents/DB.md))
+2. api - PHP server ([SERVER.md](./server/README.md), [API.md](./server/API.md))
+3. phpmyadmin - PMA - Клиент для работы с БД
+4. web_server - Nginx
+
+<a name="repo-guide"></a>
+## Как работать с репозиторием
 + Добавление копии репозитория на ваш ПК.
 ```bash
 git clone https://github.com/hahah-eto-ya-maga/counter-offensive
@@ -38,3 +117,9 @@ git push origin task_[НОМЕР-ЗАДАЧИ]
 ```bash
 git checkout task_[НОМЕР-ЗАДАЧИ]
 ```
+
+<a name="inside-links"></a>
+## Полезные ссылки внутри проекта:
+1. Концепт проекта ([CONCEPT.md](./documents/CONCEPT.md))
+2. Техническое задание ([TZ.md](./documents/TZ.md))
+3. Чек-лист ([CHECK-LIST.md](./documents/CHECK-LIST.md))

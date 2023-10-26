@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import cn from "classnames";
 import { Button } from "../../UI";
 import { flag } from "../../../pages/LobbyPage/images";
-import cn from "classnames";
 import "./FlagBearer.css";
 
 const FlagBearer: React.FC = () => {

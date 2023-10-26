@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, Input } from "../UI";
-import { IUserData } from "../../interfaces";
+import { Button, Input } from "../../UI";
+import { IUserData } from "../../../interfaces";
 import "./Login.css";
 
 const Login: React.FC = () => {
