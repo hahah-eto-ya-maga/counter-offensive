@@ -3,10 +3,10 @@ import { TPage } from "../PageHandler/PageHandler";
 import "../MenuPage/MenuPage.css";
 
 interface IMain {
-  goToLobby: React.Dispatch<React.SetStateAction<TPage>>;
+  setPage: React.Dispatch<React.SetStateAction<TPage>>;
 }
 
-const MainPage: React.FC<IMain> = ({ goToLobby }) => {
+const MainPage: React.FC<IMain> = ({ setPage }) => {
   return (
     <div className="main_wrapper">
       <div className="main_header">
@@ -16,9 +16,7 @@ const MainPage: React.FC<IMain> = ({ goToLobby }) => {
         <Button appearance="primary">Получить повестку</Button>
       </div>
       <div className="main_content">
-        <Login
-          goToLobby={goToLobby}
-        />
+        <Login setPage={setPage} />
       </div>
     </div>
   );

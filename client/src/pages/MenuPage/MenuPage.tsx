@@ -3,11 +3,10 @@ import { TPage } from "../PageHandler/PageHandler";
 import "./MenuPage.css";
 
 interface IMenu {
-  goToLobby: React.Dispatch<React.SetStateAction<TPage>>;
-  goToMain: React.Dispatch<React.SetStateAction<TPage>>;
+  setPage: React.Dispatch<React.SetStateAction<TPage>>;
 }
 
-const MenuPage: React.FC<IMenu> = ({ goToLobby, goToMain }) => {
+const MenuPage: React.FC<IMenu> = ({ setPage }) => {
   return (
     <div className="menu_page_wrapper">
       <Logo />
@@ -16,7 +15,7 @@ const MenuPage: React.FC<IMenu> = ({ goToLobby, goToMain }) => {
           appearance="menu"
           className="menu_btn"
           onClick={() => {
-            goToLobby("Lobby");
+            setPage("Lobby");
           }}
         >
           <p className="l">Вернуться на службу</p>
@@ -26,7 +25,7 @@ const MenuPage: React.FC<IMenu> = ({ goToLobby, goToMain }) => {
           appearance="menu"
           className="menu_btn"
           onClick={() => {
-            goToMain("MainPage");
+            setPage("MainPage");
           }}
         >
           <p className="l">Дембельнуться</p>

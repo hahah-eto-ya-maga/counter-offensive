@@ -39,8 +39,8 @@ const PageHandler: React.FC = () => {
         {page === "Dossier" && <DossierPage />}
         {page === "Loading" && <LoadingPage />}
         {page === "Lobby" && <LobbyPage />}
-        {page === "Menu" && <MenuPage goToLobby={setPage} goToMain={setPage} />}
-        {page === "MainPage" && <MainPage goToLobby={setPage} />}
+        {page === "Menu" && <MenuPage setPage={setPage} />}
+        {page === "MainPage" && <MainPage setPage={setPage} />}
       </>
     </div>
   );
