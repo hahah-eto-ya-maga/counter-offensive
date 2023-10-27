@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../UI";
 import { IUserData } from "../../../interfaces";
+import "../../../pages/MainPage/MainPage.css";
+import { TPage } from '../../../pages/PageHandler/PageHandler';
 
-const Login: React.FC = () => {
+interface ILogin {
+  goToLobby: React.Dispatch<React.SetStateAction<TPage>>;
+}
+
+const Login: React.FC<ILogin> = ({goToLobby}) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
@@ -15,7 +21,7 @@ const Login: React.FC = () => {
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
 
   return (
-    <form className="auth_form" onSubmit={onSubmitHandler}>
+    <form className="main_form" onSubmit={onSubmitHandler}>
       <div>
         <Input
           text="Логин"
@@ -41,8 +47,14 @@ const Login: React.FC = () => {
           <span>Неверный логин или пароль</span>
         </div>
       </div>
-      <div className="auth_footer">
-        <Button appearance="primary" className="auth_submit_button">
+      <div className="main_footer">
+        <Button
+          appearance="primary"
+          className="main_submit_button"
+          onClick={() => {
+            goToLobby("Lobby");
+          }}
+        >
           Пойти на Бахмут
         </Button>
       </div>

@@ -40,7 +40,7 @@ const PageHandler: React.FC = () => {
         {page === "Loading" && <LoadingPage />}
         {page === "Lobby" && <LobbyPage />}
         {page === "Menu" && <MenuPage goToLobby={setPage} />}
-        {page === "MainPage" && <MainPage goToLogin={setPage} />}
+        {page === "MainPage" && <MainPage goToLobby={setPage} />}
       </>
     </div>
   );
