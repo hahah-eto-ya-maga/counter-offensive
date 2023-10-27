@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { Button, Input } from "../../UI";
 import { IUserData } from "../../../interfaces";
 import "../../../pages/MainPage/MainPage.css";
-import { TPage } from '../../../pages/PageHandler/PageHandler';
+import { ISetPage } from '../../../interfaces';
 
-interface ILogin {
-  goToLobby: React.Dispatch<React.SetStateAction<TPage>>;
-}
-
-const Login: React.FC<ILogin> = ({goToLobby}) => {
+const Login: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
@@ -52,7 +48,7 @@ const Login: React.FC<ILogin> = ({goToLobby}) => {
           appearance="primary"
           className="main_submit_button"
           onClick={() => {
-            goToLobby("Lobby");
+            setPage("Lobby");
           }}
         >
           Пойти на Бахмут
