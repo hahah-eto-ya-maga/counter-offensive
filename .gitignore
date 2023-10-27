@@ -3,5 +3,4 @@ db
 *log*
 node_modules
 build
-src
 .idea
