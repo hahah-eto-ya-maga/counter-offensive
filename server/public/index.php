@@ -36,7 +36,6 @@
                 case 'getAllInfo': return $App->getAllInfo($params);
                 case 'updatePassword': return $App->updatePassword($params);
 
-
             }
             return array(false, 501);
         }

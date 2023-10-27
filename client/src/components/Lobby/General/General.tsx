@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import cn from "classnames";
 import { Button } from "../../UI";
 import { general } from "../../../pages/LobbyPage/images";
-import cn from "classnames";
 import "./General.css";
 
 const General: React.FC = () => {
