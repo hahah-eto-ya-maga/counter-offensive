@@ -1,12 +1,8 @@
 import { Button, Logo } from "../../components";
-import { TPage } from "../PageHandler/PageHandler";
+import { ISetPage } from "../../interfaces";
 import "./MenuPage.css";
 
-interface IMenu {
-  setPage: React.Dispatch<React.SetStateAction<TPage>>;
-}
-
-const MenuPage: React.FC<IMenu> = ({ setPage }) => {
+const MenuPage: React.FC<ISetPage> = ({ setPage }) => {
   return (
     <div className="menu_page_wrapper">
       <Logo />

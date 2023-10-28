@@ -1,12 +1,8 @@
 import { Button, Login } from "../../components";
-import { TPage } from "../PageHandler/PageHandler";
+import { ISetPage } from "../../interfaces";
 import "../MenuPage/MenuPage.css";
 
-interface IMain {
-  setPage: React.Dispatch<React.SetStateAction<TPage>>;
-}
-
-const MainPage: React.FC<IMain> = ({ setPage }) => {
+const MainPage: React.FC<ISetPage> = ({ setPage }) => {
   return (
     <div className="main_wrapper">
       <div className="main_header">

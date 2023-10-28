@@ -3,12 +3,12 @@ import { Button } from "../../components";
 import LobbyPage from "../LobbyPage/LobbyPage";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import DossierPage from "../DossierPage/DossierPage";
-
-import "./PageHandler.css";
 import MenuPage from "../MenuPage/MenuPage";
 import MainPage from "../MainPage/MainPage";
+import { TPage } from '../../interfaces';
 
-export type TPage = "Lobby" | "Dossier" | "Loading" | "Menu" | "MainPage";
+import "./PageHandler.css";
+
 
 const PageHandler: React.FC = () => {
   const [page, setPage] = useState<TPage>("MainPage");
