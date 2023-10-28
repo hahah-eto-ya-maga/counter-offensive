@@ -2,15 +2,12 @@
   font-family: Neucha;
   font-size: 4vw;
   font-style: normal;
-  line-height: normal;
   font-weight: bold;
   text-align: center;
-  padding: 10px;
   cursor: pointer;
   transition: all 0.2s;
   border: 5px solid #000;
   border-radius: 17px;
-  transition: 0.3s;
 }
 
 .menu {
@@ -43,6 +40,7 @@
 }
 
 .image {
+  justify-self: center;
   background-color: var(--gray);
   font-size: 1.7vw;
   display: block;
@@ -57,13 +55,12 @@
 
 .image img {
   mix-blend-mode: darken;
-  max-height: 65%;
-  width: 90%;
-  padding-top: 1%;
+  width: 80%;
 }
 
 .dossier_button {
-  font-size: 3vw;
-  width: calc(100% + 12px);
+  font-size: 1.5vw;
+  width: 175px;
+  height: 175px;
   margin: -6px;
 }

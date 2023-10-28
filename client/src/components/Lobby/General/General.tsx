@@ -5,7 +5,7 @@ import { general } from "../../../pages/LobbyPage/images";
 import "./General.css";
 
 const General: React.FC = () => {
-   let [statusGeneral, setStatusGeneral] = useState(false);
+   const [statusGeneral, setStatusGeneral] = useState(false);
    const changeStatusGeneral = () => {
       setStatusGeneral(true);
       // отправка статуса на сервер
@@ -13,20 +13,14 @@ const General: React.FC = () => {
 
    return (
       <Button
-         className="general"
+          className={cn("general units_item", {
+             free: !statusGeneral,
+              selected: statusGeneral,
+          })}
          appearance="image"
          onClick={changeStatusGeneral}
       >
-         Генерал {"("}
-         <span
-            className={cn("status", {
-               free: !statusGeneral,
-               selected: statusGeneral,
-            })}
-         >
-            {statusGeneral ? "Занято" : "Свободно"}
-         </span>
-         {")"}
+          Генерал
          <img src={general} alt="General" />
       </Button>
    );

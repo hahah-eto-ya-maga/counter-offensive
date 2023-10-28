@@ -1,57 +1,82 @@
-.lobbi_block {
-    display: flex;
-    margin: 24px;
-    margin-left: 110px;
-    height: 75%;
-    overflow: hidden;
-   
+.lobby_block {
+    height: 590px;
+    display: grid;
+    grid-template-columns: 800px 1fr;
+    gap: 80px;
 }
 
-.right, .left {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 49%;
-    box-sizing: border-box;
-}
-
-.general, .flag, .automat, .RPG {
-    margin-bottom: 12px;
-    height: 25%;
-    width: 56%;
-    padding-top: 0;
-    overflow: hidden;
+.units {
+    display: grid;
+    grid-template-columns: 400px 400px;
+    grid-template-rows: repeat(3, 170px);
+    gap: 40px;
 }
 
 .general, .flag {
-    padding-bottom: 0;
+    padding: 0;
 }
 
-@media screen and (max-width: 900px) {
-    .general, .flag, .automat, .RPG {
-        height: 29%;
+.selected {
+    pointer-events: none;
+    background-color: #989898;
+}
+
+@media (max-width: 1700px) {
+    .lobby_block {
+        grid-template-columns: 600px 1fr;
+    }
+    .units {
+        grid-template-columns: 300px 300px;
+    }
+    .units_item img {
+        width: 90%;
     }
 }
 
-.tank2, .tank3 {
-    margin-bottom: 12px;
-    height: 40%;
-    width: 85%;
-    text-align: left;
-    padding-left: 15px;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;  
+@media (max-width: 1400px) {
+    .lobby_block {
+        height: 550px;
+        grid-template-columns: 500px 1fr;
+        gap: 40px;
+    }
+    .units {
+        grid-template-columns: 250px 250px;
+        gap: 20px;
+    }
+    .units_item img {
+        width: 90%;
+    }
 }
 
-.tank3 img {
-    max-height: 75%;
+@media (max-width: 1200px) {
+    .lobby_block {
+        grid-template-columns: 400px 1fr;
+    }
+    .units {
+        grid-template-columns: 200px 200px;
+    }
+    .units_item img {
+        width: 90%;
+    }
+    .dossier_image {
+        display: none;
+    }
 }
 
-.free {
-    color: #00ff00;
-}
-.selected {
-    color: var(--red);
+@media (max-width: 790px) {
+    .lobby_block {
+        grid-template-columns: 1fr;
+    }
+    .units {
+        grid-template-columns: 1fr 1fr;
+    }
+    .units_item {
+        font-size: 3vw;
+    }
+    .units_item img {
+        width: 90%;
+    }
+    .dossier {
+        display: none;
+    }
 }

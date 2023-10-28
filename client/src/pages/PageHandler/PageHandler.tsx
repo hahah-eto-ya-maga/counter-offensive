@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "../../components";
+import {Button, Logo} from "../../components";
 import LobbyPage from "../LobbyPage/LobbyPage";
 import LoadingPage from "../LoadingPage/LoadingPage";
-import DossierPage from "../DossierPage/DossierPage";
+import Dossier from "../../components/Dossier/Dossier";
 import MenuPage from "../MenuPage/MenuPage";
 import MainPage from "../MainPage/MainPage";
 import { TPage } from '../../interfaces';
@@ -16,27 +16,10 @@ const PageHandler: React.FC = () => {
     <div className="page_handler">
       {page !== "Menu" && page !== "MainPage" && (
         <div className="header">
-          <Button
-            appearance="primary"
-            active={page === "Lobby"}
-            onClick={() => setPage("Lobby")}
-          >
-            Лобби
-          </Button>
-          <Button
-            appearance="primary"
-            active={page === "Dossier"}
-            onClick={() => setPage("Dossier")}
-          >
-            Досье
-          </Button>
-          <Button appearance="primary" onClick={() => setPage("Menu")}>
-            Меню
-          </Button>
+          <Logo/>
         </div>
       )}
       <>
-        {page === "Dossier" && <DossierPage />}
         {page === "Loading" && <LoadingPage />}
         {page === "Lobby" && <LobbyPage />}
         {page === "Menu" && <MenuPage setPage={setPage} />}
