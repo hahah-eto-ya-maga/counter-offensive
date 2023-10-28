@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../UI";
 import { IUserData } from "../../../interfaces";
-import "../../../pages/MainPage/MainPage.css";
 import { ISetPage } from '../../../interfaces';
+import "../../../pages/MainPage/MainPage.css";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({

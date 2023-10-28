@@ -1,3 +1,25 @@
+.reg_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  height: 20%;
+}
+
+.reg_header button {
+  height: 7.5vw;
+}
+
+.reg_wrapper {
+  height: 90%;
+  width: 100%;
+}
+
+.reg_content {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+}
+
 .column_div {
   display: flex;
   flex-direction: column;

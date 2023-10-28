@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../UI";
-import { IUserData } from "../../../interfaces";
-import "./Registration.css";
+import { ISetPage, IUserData } from "../../../interfaces";
 
-const Registration: React.FC = () => {
+const Registration: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
@@ -61,7 +60,13 @@ const Registration: React.FC = () => {
         </div>
       </div>
       <div className="auth_footer">
-        <Button appearance="primary" className="auth_submit_button">
+        <Button
+          appearance="primary"
+          className="auth_submit_button"
+          onClick={() => {
+            setPage("Lobby");
+          }}
+        >
           Попасть в списки военных
         </Button>
       </div>

@@ -1,4 +1,3 @@
-import React from "react";
 import { TWIN, TPoint } from "../../types/types";
 
 interface IMath {

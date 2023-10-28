@@ -1,20 +1,22 @@
 import React, { useState } from "react";
+import {
+  LobbyPage,
+  LoadingPage,
+  DossierPage,
+  MenuPage,
+  MainPage,
+  RegistrationPage,
+} from "../../pages";
 import { Button } from "../../components";
-import LobbyPage from "../LobbyPage/LobbyPage";
-import LoadingPage from "../LoadingPage/LoadingPage";
-import DossierPage from "../DossierPage/DossierPage";
-import MenuPage from "../MenuPage/MenuPage";
-import MainPage from "../MainPage/MainPage";
-import { TPage } from '../../interfaces';
+import { TPage } from "../../interfaces";
 
 import "./PageHandler.css";
-
 
 const PageHandler: React.FC = () => {
   const [page, setPage] = useState<TPage>("MainPage");
   return (
     <div className="page_handler">
-      {page !== "Menu" && page !== "MainPage" && (
+      {page !== "Menu" && page !== "MainPage" && page !== "Registration" && (
         <div className="header">
           <Button
             appearance="primary"
@@ -41,6 +43,7 @@ const PageHandler: React.FC = () => {
         {page === "Lobby" && <LobbyPage />}
         {page === "Menu" && <MenuPage setPage={setPage} />}
         {page === "MainPage" && <MainPage setPage={setPage} />}
+        {page === "Registration" && <RegistrationPage setPage={setPage} />}
       </>
     </div>
   );
