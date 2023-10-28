@@ -16,7 +16,6 @@ const PageHandler: React.FC = () => {
     <div className="page_handler">
       {page !== "Menu" && page !== "MainPage" && (
         <div className="header">
-          <Logo/>
         </div>
       )}
       <>
