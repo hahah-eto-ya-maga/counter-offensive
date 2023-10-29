@@ -12,6 +12,10 @@
     gap: 40px;
 }
 
+.units_item {
+    width: 100%;
+}
+
 .general, .flag {
     padding: 0;
 }
