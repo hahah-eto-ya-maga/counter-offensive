@@ -4,7 +4,7 @@
 }
 
 .errors_div > div {
-  width: calc(max-content);
+  width: max-content;
   font-family: Neucha;
   font-size: 4vw;
   font-style: normal;
