@@ -180,52 +180,6 @@ const GamePage: React.FC = () => {
         })
     }
 
-    /* движение пехотинца по карте */
-    const moveSceneInfantry = (keyPressed: TKeyboard) => {
-        const diagonalSpeed = speedInfantry * Math.sqrt(2) / 2;
-        if (keyPressed.ArrowUp && keyPressed.ArrowLeft || keyPressed.ArrowUp && keyPressed.ArrowRight ||
-             keyPressed.ArrowDown && keyPressed.ArrowRight || keyPressed.ArrowDown && keyPressed.ArrowLeft) speedInfantryNow = diagonalSpeed 
-        else speedInfantryNow = speedInfantry  
-        
-        if(keyPressed.ArrowUp) {
-            WIN.bottom += speedInfantryNow;
-        } 
-        if(keyPressed.ArrowDown) {
-            WIN.bottom -= speedInfantryNow;
-        }
-        if (keyPressed.ArrowLeft) {
-            WIN.left -= speedInfantryNow;
-        }
-        if (keyPressed.ArrowRight) {
-            WIN.left += speedInfantryNow;
-        } 
-        
-        man.x = WIN.left + 8 * prop;
-        man.y = WIN.bottom + 8
-
-        canvas.man(man.r, 'yellow')
-
-    }
-
-    const checkBlockInfantry = (block: TPoint[]) => {
-        let nearX = Math.max(block[0].x, Math.min(man.x, block[2].x));
-        let nearY = Math.max(block[0].y, Math.min(man.y, block[2].y));
-        const nearVector: TPoint = {x: nearX - man.x, y: nearY - man.y}
-        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        let overlap = man.r - lengthVector
-        if (overlap > 0) {
-            WIN.left = WIN.left - nearVector.x / lengthVector * speedInfantryNow
-            WIN.bottom = WIN.bottom - nearVector.y / lengthVector * speedInfantryNow
-        }
-    }
-
-    const checkBlocksInfantry = () => {
-        blocksArray.forEach((block, i) => {
-            if (block[0].x >= Math.floor(man.x - 1) && block[0].y >= Math.floor(man.y - 1) && block[2].x <= Math.ceil(man.x + 1) && block[2].y <=  Math.ceil(man.y + 1)) {
-                checkBlockInfantry(block)
-            }
-        })
-    }
 
     const renderScene = (FPS: number) => {
         if (canvas) {
@@ -244,8 +198,6 @@ const GamePage: React.FC = () => {
             moveSceneTank(keyPressed)
             checkAllBlocksTank()
             turnTanks(keyPressed)
-            // checkBlocksInfantry()
-            // moveSceneInfantry(keyPressed)
         }
     }
 
