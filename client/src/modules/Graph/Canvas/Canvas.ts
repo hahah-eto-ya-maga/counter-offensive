@@ -1,5 +1,5 @@
 import React from "react";
-import { TPoint, TWIN } from "../../types/types";
+import { TKeyboard, TPoint, TWIN } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {
@@ -73,6 +73,21 @@ class Canvas {
         this.context.closePath();
     }
 
+    grid() {
+        for (let i = 0; i <= this.WIN.left + this.WIN.width; i++) {
+            this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.3, '#c1c1c1');
+        }
+        for (let i = 0; i >= this.WIN.left; i--) {
+            this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.3, '#c1c1c1');
+        }
+        for (let i = 0; i <= this.WIN.bottom + this.WIN.height; i++) {
+            this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.3, '#c1c1c1');
+        }
+        for (let i = 0; i >= this.WIN.bottom; i--) {
+            this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.3, '#c1c1c1');
+        }
+    }
+
     border (points:TPoint[], color: string, colorBorder: string): void {
         this.context.beginPath();
         this.context.moveTo(this.xs(points[3].x), this.ys(points[3].y));
@@ -83,8 +98,6 @@ class Canvas {
                 this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
                 this.context.stroke()
         }
-        this.context.fillStyle = color;
-        this.context.fill();
         this.context.closePath();
     }
     
@@ -97,12 +110,22 @@ class Canvas {
         this.context.fillStyle = 'red';
         this.context.fill();
         this.context.closePath();
-
     }
 
-    man(point:TPoint, color = '#c00000', size = 2): void {
+    man(size: number, color = '#c00000'): void {
         this.context.beginPath();
-        this.context.arc(this.notxs(point.x), this.notys(point.y), size, 0, 2 * Math.PI);
+        this.context.arc(this.notxs(0), this.notys(0), size * this.canvas.width/ this.WIN.width, 0, 2 * Math.PI);
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
+    }
+
+    block(points: TPoint[], color: string): void {
+        this.context.beginPath();
+        this.context.moveTo(this.xs(points[0].x), this.ys(points[0].y));
+        for (let i = 1; i < points.length; i++) {
+            this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
+        }
         this.context.fillStyle = color;
         this.context.fill();
         this.context.closePath();

@@ -1,5 +1,5 @@
 import React from "react";
-import { TWIN, TPoint } from "../../types/types";
+import { TWIN, TPoint, TCheckBorder, TUnit } from "../../types/types";
 
 interface IMath {
     WIN: TWIN
@@ -18,6 +18,7 @@ class MathGame {
         let y = Math.abs(polygon[0].y - polygon[3].y)/2
         return {x: x, y: y}
     }
+
     
 
 }
