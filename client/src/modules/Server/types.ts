@@ -3,12 +3,12 @@ export interface IError {
    text: string;
 }
 
-export interface IUserResponse {
+export interface IUser {
    login: string;
    token: string;
 }
 
-export interface IUserInfoResponse {
+export interface IUserInfo{
    gameCount: number;
    scoreCount: number;
 }
