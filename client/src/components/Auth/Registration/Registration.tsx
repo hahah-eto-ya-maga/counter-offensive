@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../UI";
 import { ISetPage, IUserData } from "../../../interfaces";
+import "../../../pages/RegistrationPage/RegistrationPage.css";
 
 const Registration: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
-    passwordTwo: "",
+    nickName: "",
   });
 
   const onChangeHandler = (value: string, data: string) => {
@@ -16,8 +17,8 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
 
   return (
-    <form className="auth_form" onSubmit={onSubmitHandler}>
-      <div className="row_div">
+    <form className="reg_form" onSubmit={onSubmitHandler}>
+      <div>
         <Input
           text="Логин"
           value={userData.login}
@@ -26,19 +27,18 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
           }}
         />
         <Input
-          text="Пароль"
-          type="password"
-          value={userData.password}
+          text="Никнейм"
+          value={userData.nickName ?? ""}
           onChange={(value) => {
-            onChangeHandler(value, "password");
+            onChangeHandler(value, "nickName");
           }}
         />
         <Input
-          text="Повтор пароля"
-          type="password"
-          value={userData.passwordTwo ?? ""}
+          text="Пароль"
+          type="hidePassword"
+          value={userData.password}
           onChange={(value) => {
-            onChangeHandler(value, "passwordTwo");
+            onChangeHandler(value, "password");
           }}
         />
       </div>
@@ -59,10 +59,10 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
           <span>Пароли не совпадают</span>
         </div>
       </div>
-      <div className="auth_footer">
+      <div className="reg_footer">
         <Button
           appearance="primary"
-          className="auth_submit_button"
+          className="reg_submit_button"
           onClick={() => {
             setPage("Lobby");
           }}

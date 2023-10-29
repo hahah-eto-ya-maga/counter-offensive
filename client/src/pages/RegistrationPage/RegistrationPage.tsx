@@ -1,6 +1,6 @@
 import { Button, Registration } from "../../components";
 import { ISetPage } from "../../interfaces";
-import './RegistrationPage.css'
+import "./RegistrationPage.css";
 
 const RegistrationPage: React.FC<ISetPage> = ({ setPage }) => {
   return (
