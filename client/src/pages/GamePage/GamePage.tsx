@@ -41,8 +41,8 @@ const GamePage: React.FC = () => {
     let collition: boolean = false
 
     const WIN = {
-        left: -8 * prop + tankU.x,
-        bottom: -8 + tankU.y,
+        left: -8 * prop + man.x,
+        bottom: -8 + man.y,
         width: 16 * prop,
         height: 16,
     };
@@ -97,89 +97,6 @@ const GamePage: React.FC = () => {
         }       
     }
 
-    /* движение танка по карте*/
-    const moveSceneTank = (keyPressed: TKeyboard) => {
-        collition ? speedTankNow = speedTank / 6 : speedTankNow = speedTank 
-        vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
-        vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
-        if(keyPressed.ArrowUp) {
-            WIN.bottom += vectorTank.y
-            WIN.left += vectorTank.x
-        } 
-        if(keyPressed.ArrowDown) {
-            WIN.bottom -= vectorTank.y
-            WIN.left -= vectorTank.x
-        }
-
-        tankU.x = WIN.left + 8 * prop;
-        tankU.y = WIN.bottom + 8
-
-        if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
-            angleOfMovement -= speedRotate
-        } else if (keyPressed.ArrowLeft) {
-            angleOfMovement += speedRotate
-        }
-
-        if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
-            angleOfMovement += speedRotate
-        } else if (keyPressed.ArrowRight) {
-            angleOfMovement -= speedRotate
-        }  
-    }
-
-    const turnTanks = (keyPressed: TKeyboard) => {
-        const cosRotate = Math.cos(speedRotate);
-        const sinRotate = Math.sin(speedRotate)
-        tank.forEach(point => {
-            let x = point.x, y = point.y
-            if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
-                x = point.x * cosRotate + point.y * sinRotate
-                y = point.y * cosRotate - point.x * sinRotate
-                point.x = x;
-                point.y = y
-            } else if (keyPressed.ArrowLeft) {
-                x = point.x * cosRotate - point.y * sinRotate
-                y = point.y * cosRotate + point.x * sinRotate
-                point.x = x;
-                point.y = y
-            }
-            
-            if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
-                x = point.x * cosRotate - point.y * sinRotate
-                y = point.y * cosRotate + point.x * sinRotate
-                point.x = x;
-                point.y = y
-            } else if (keyPressed.ArrowRight) {
-                x = point.x * cosRotate + point.y * sinRotate
-                y = point.y * cosRotate - point.x * sinRotate
-                point.x = x;
-                point.y = y
-            } 
-        })
-        canvas.tank(tank)
-    }
-
-    const checkBlockTank = (block: TPoint[]) => {
-        let nearX = Math.max(block[0].x, Math.min(tankU.x, block[2].x));
-        let nearY = Math.max(block[0].y, Math.min(tankU.y, block[2].y));
-        const nearVector: TPoint = {x: nearX - tankU.x, y: nearY - tankU.y}
-        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        let overlap = tankU.r - lengthVector
-        if (overlap > 0) {
-            collition = true
-            WIN.left = WIN.left - nearVector.x / lengthVector * Math.abs(vectorTank.x)
-            WIN.bottom = WIN.bottom - nearVector.y / lengthVector * Math.abs(vectorTank.y)
-        } else collition = false
-    }
-
-    const checkAllBlocksTank = () => {
-        blocksArray.forEach((block, i) => {
-            if (block[0].x >= Math.floor(tankU.x - 1) && block[0].y >= Math.floor(tankU.y - 1) && block[2].x <= Math.ceil(tankU.x + 1) && block[2].y <=  Math.ceil(tankU.y + 1)) {
-                return checkBlockTank(block)
-            }
-        })
-    }
-
     /* движение пехотинца по карте */
     const moveSceneInfantry = (keyPressed: TKeyboard) => {
         const diagonalSpeed = speedInfantry * Math.sqrt(2) / 2;
@@ -219,7 +136,7 @@ const GamePage: React.FC = () => {
         }
     }
 
-    const checkBlocksInfantry = () => {
+    const checkAllBlocksInfantry = () => {
         blocksArray.forEach((block, i) => {
             if (block[0].x >= Math.floor(man.x - 1) && block[0].y >= Math.floor(man.y - 1) && block[2].x <= Math.ceil(man.x + 1) && block[2].y <=  Math.ceil(man.y + 1)) {
                 checkBlockInfantry(block)
@@ -241,11 +158,11 @@ const GamePage: React.FC = () => {
             canvas.grid()
 
            
-            moveSceneTank(keyPressed)
-            checkAllBlocksTank()
-            turnTanks(keyPressed)
-            // checkBlocksInfantry()
-            // moveSceneInfantry(keyPressed)
+            // moveSceneTank(keyPressed)
+            // checkAllBlocksTank()
+            // turnTanks(keyPressed)
+            checkAllBlocksInfantry()
+            moveSceneInfantry(keyPressed)
         }
     }
 
