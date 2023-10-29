@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../UI";
 import { IUserData } from "../../../interfaces";
-import "./Login.css";
+import "../../../pages/MainPage/MainPage.css";
+import { ISetPage } from '../../../interfaces';
 
-const Login: React.FC = () => {
+const Login: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
@@ -16,7 +17,7 @@ const Login: React.FC = () => {
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
 
   return (
-    <form className="auth_form" onSubmit={onSubmitHandler}>
+    <form className="main_form" onSubmit={onSubmitHandler}>
       <div>
         <Input
           text="Логин"
@@ -42,8 +43,14 @@ const Login: React.FC = () => {
           <span>Неверный логин или пароль</span>
         </div>
       </div>
-      <div className="auth_footer">
-        <Button appearance="primary" className="auth_submit_button">
+      <div className="main_footer">
+        <Button
+          appearance="primary"
+          className="main_submit_button"
+          onClick={() => {
+            setPage("Lobby");
+          }}
+        >
           Пойти на Бахмут
         </Button>
       </div>
