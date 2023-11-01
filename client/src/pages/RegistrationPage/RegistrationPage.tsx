@@ -6,7 +6,7 @@ const RegistrationPage: React.FC<ISetPage> = ({ setPage }) => {
   return (
     <div className="reg_wrapper">
       <div className="reg_header">
-        <Button appearance="primary-disable" active>
+        <Button appearance="primary-disable">
           Повестка
         </Button>
         <Button
