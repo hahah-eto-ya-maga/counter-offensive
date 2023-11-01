@@ -9,6 +9,7 @@ const MenuPage: React.FC<ISetPage> = ({ setPage }) => {
       <div className="menu_buttons_block">
         <Button
           appearance="menu"
+          id="test_menu_goToLobby_button"
           className="menu_btn"
           onClick={() => {
             setPage("Lobby");
@@ -19,6 +20,7 @@ const MenuPage: React.FC<ISetPage> = ({ setPage }) => {
         </Button>
         <Button
           appearance="menu"
+          id="test_menu_goToMain_button"
           className="menu_btn"
           onClick={() => {
             setPage("MainPage");

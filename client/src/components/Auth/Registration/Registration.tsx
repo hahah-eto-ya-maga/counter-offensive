@@ -21,6 +21,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
       <div>
         <Input
           text="Логин"
+          id="test_reg_log_input"
           value={userData.login}
           onChange={(value) => {
             onChangeHandler(value, "login");
@@ -28,6 +29,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
         />
         <Input
           text="Никнейм"
+          id="test_reg_nick_input"
           value={userData.nickName ?? ""}
           onChange={(value) => {
             onChangeHandler(value, "nickName");
@@ -35,6 +37,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
         />
         <Input
           text="Пароль"
+          id="test_reg_pass_input"
           type="hidePassword"
           value={userData.password}
           onChange={(value) => {
@@ -63,6 +66,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
         <Button
           appearance="primary"
           className="reg_submit_button"
+          id="test_reg_submit_button"
           onClick={() => {
             setPage("Lobby");
           }}

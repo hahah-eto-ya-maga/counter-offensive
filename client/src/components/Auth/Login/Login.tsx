@@ -20,6 +20,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
       <div>
         <Input
           text="Логин"
+          id="test_login_log_input"
           value={userData.login}
           onChange={(value) => {
             onChangeHandler(value, "login");
@@ -27,6 +28,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
         />
         <Input
           text="Пароль"
+          id="test_login_pass_input"
           type="hidePassword"
           value={userData.password}
           onChange={(value) => {
@@ -46,6 +48,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
         <Button
           appearance="primary"
           className="main_submit_button"
+          id="test_login_submit_button"
           onClick={() => {
             setPage("Lobby");
           }}

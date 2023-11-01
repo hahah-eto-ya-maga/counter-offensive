@@ -20,6 +20,7 @@ const PageHandler: React.FC = () => {
         <div className="header">
           <Button
             appearance="primary"
+            id="test_hand_goToLobby_button"
             active={page === "Lobby"}
             onClick={() => setPage("Lobby")}
           >
@@ -27,12 +28,17 @@ const PageHandler: React.FC = () => {
           </Button>
           <Button
             appearance="primary"
+            id="test_hand_goToDossier_button"
             active={page === "Dossier"}
             onClick={() => setPage("Dossier")}
           >
             Досье
           </Button>
-          <Button appearance="primary" onClick={() => setPage("Menu")}>
+          <Button
+            appearance="primary"
+            id="test_hand_goToMenu_button"
+            onClick={() => setPage("Menu")}
+          >
             Меню
           </Button>
         </div>
