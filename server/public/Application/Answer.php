@@ -15,11 +15,9 @@ class Answer{
     );
 
 
-    public function response($result = null)
-    {
-        $flag = isset($result[0]) ? false : true;
+    static function response($result = null) {
         if ($result) {
-            if (is_array($result) && ($flag === false)) {
+            if (is_array($result) && isset($result[0]) && !$result[0]) {
                 $code = $result[1];
                 return array(
                     'result' => 'error',

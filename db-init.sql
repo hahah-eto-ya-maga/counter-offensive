@@ -42,12 +42,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   -- Логин (ник/имя) пользователя. Длина от 4 до 20 символов
   `password` VARCHAR(100) NOT NULL DEFAULT "", 
   -- Пароль пользователя. Хранится в хешированном формате. Алгоритм шифрования sha256
-  `game` MEDIUMINT NOT NULL DEFAULT -1, 
-  -- Номер игры, в которую сейчас играет пользователь. Если пользователь сейчас не играет, то -1
-  `gameCount` INT NOT NULL DEFAULT 0, 
-  -- Количество сыгранных игр
-  `scoreCount` INT NOT NULL DEFAULT 0, 
-  -- Количество опыта
   `token` VARCHAR(100) NOT NULL DEFAULT "", 
   -- Токен куки. Это строка, которая выдаётся пользователю после авторизации по паролю и хранится в куки браузера. Хранится в шифровании sha256
   `tokenLastUse` DATETIME NOT NULL DEFAULT "2000-10-01 00:00:00",
