@@ -10,7 +10,7 @@ class Application{
 
     function __construct(){
         $db = new DB();
-        $this->dbError = $db->dbStatus;
+        // $this->dbError = $db->dbStatus;
         $this->user = new User($db);
     }
     
@@ -31,12 +31,12 @@ class Application{
 
 
     function login($params){
-        $login = $params['login'] ?? false;
+        $login = $params['login'] ?? false; 
         $password = $params['hash'] ?? false;
         $rnd = $params['rnd'] ?? false;
         
         if($login && $password && $rnd){
-            return $this->user->registration($login, $password);
+            return $this->user->login($login, $password, $rnd);
         }
         return array(false, 400);
     }

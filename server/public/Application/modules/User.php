@@ -33,7 +33,7 @@
             
             $checkUser = $this->db->getUserByLogin($login);
             if($checkUser == null){
-                $this ->db->addUser($login, $password, $token, $tokenLastUse, $timeCreate); 
+                $this->db->addUser($login, $password, $token, $tokenLastUse, $timeCreate); 
                 return array(
                     'login'=>$login,
                     'token'=>$token

@@ -7,7 +7,7 @@
     require_once('Application/Application.php');
 
     function request($params){  
-        $method = $params['method'];
+        $method = $params['method'] ?? false;
         if($method) {
             $app = new Application();
                 switch($method){
@@ -15,7 +15,6 @@
                     case 'login': return $app->login($params);
                     case 'logout': return $app->logout($params);
                     case 'tokenVerification': return $app->tokenVerification($params);
-                    case 'getAllInfo': return $app->getAllInfo($params);
                     case 'updatePassword': return $app->updatePassword($params);
                 }
                 return array(false, 501);

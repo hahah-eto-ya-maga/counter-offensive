@@ -28,9 +28,7 @@ class DB {
     }
 
     function __destruct() {
-        if (!$this->link->connect_error) {
             $this->link->close();
-        }
     }
 
     public function getUserById($id) {
