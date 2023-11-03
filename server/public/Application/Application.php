@@ -1,7 +1,6 @@
 <?php
 require_once("modules/DB.php");
 require_once("modules/User.php");
-date_default_timezone_set("Europe/Moscow");
 
 class Application{
 
@@ -10,7 +9,7 @@ class Application{
 
     function __construct(){
         $db = new DB();
-        // $this->dbError = $db->dbStatus;
+        $this->dbError = $db->dbStatus;
         $this->user = new User($db);
     }
     
@@ -31,7 +30,7 @@ class Application{
 
 
     function login($params){
-        $login = $params['login'] ?? false; 
+        $login = $params['login'] ?? false;
         $password = $params['hash'] ?? false;
         $rnd = $params['rnd'] ?? false;
         

@@ -7,9 +7,10 @@
     require_once('Application/Application.php');
 
     function request($params){  
-        $method = $params['method'] ?? false;
+        $method = $params['method']??false;
         if($method) {
             $app = new Application();
+            if($app->dbError){
                 switch($method){
                     case 'registration': return $app->registration($params);
                     case 'login': return $app->login($params);
@@ -18,6 +19,8 @@
                     case 'updatePassword': return $app->updatePassword($params);
                 }
                 return array(false, 501);
+            }
+            return array(false, 503);
             }
         return array(false, 405);
     }

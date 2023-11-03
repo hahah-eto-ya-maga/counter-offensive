@@ -21,14 +21,17 @@ class DB {
 
         try {
             $this->link = new mysqli($host, $user, $pass, $db, $port);
+            $this->dbStatus = true;
         } catch (Exception $e) {
-            die('asdasdasd');
+            $this->dbStatus = false;
         }
 
     }
 
     function __destruct() {
+        if($this->link){
             $this->link->close();
+        }
     }
 
     public function getUserById($id) {
