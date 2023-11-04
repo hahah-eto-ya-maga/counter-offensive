@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Input } from "../../UI";
 import { IUserData, ISetPage } from "../../../interfaces";
 import "../../../pages/MainPage/MainPage.css";
+import { ServerContext } from "../../../App";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
   });
+
+  const server = useContext(ServerContext);
 
   const onChangeHandler = (value: string, data: string) => {
     setUserData({ ...userData, [data]: value });
@@ -50,6 +53,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
           className="main_submit_button"
           id="test_login_submit_button"
           onClick={() => {
+            server.login(userData.login, userData.password);
             setPage("Lobby");
           }}
         >

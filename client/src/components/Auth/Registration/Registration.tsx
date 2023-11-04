@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Input } from "../../UI";
 import { ISetPage, IUserData } from "../../../interfaces";
 import "../../../pages/RegistrationPage/RegistrationPage.css";
+import { ServerContext } from "../../../App";
 
 const Registration: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
@@ -9,6 +10,8 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
     password: "",
     nickName: "",
   });
+
+  const server = useContext(ServerContext);
 
   const onChangeHandler = (value: string, data: string) => {
     setUserData({ ...userData, [data]: value });
@@ -68,6 +71,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
           className="reg_submit_button"
           id="test_reg_submit_button"
           onClick={() => {
+            server.registration(userData.login, userData.password);
             setPage("Lobby");
           }}
         >
