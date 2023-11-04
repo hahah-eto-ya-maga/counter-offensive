@@ -21,24 +21,9 @@ const GamePage: React.FC = () => {
 
     const keyPressed: TKeyboard = {}
 
-    let angleOfMovement = Math.PI/2;
-    const speedRotate = Math.PI/256;
-    const speedTank = 1/16;
-    let speedTankNow = speedTank;
-    const vectorTank: TPoint = {x: 0, y: 1}
-    
-    const speedInfantry = 1/16;
-    let speedInfantryNow = speedInfantry
-
-    const borderScena: TPoint[] = [{x: 0, y: 0}, {x: 75, y: 0}, {x: 75, y: 60}, {x: 0, y: 60}] 
-    const blocksArray: TPoint[][] = [[{x:6, y: 6}, {x:6, y: 7}, {x:7, y: 7}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
-        [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:7, y: 8}, {x:7, y: 9}, {x:8, y: 9}, {x:8, y: 8}]]
-
     const man: TUnit = {x: 7, y: 3, r: 0.3}
-    const tankU: TUnit = {x: 4, y: 5, r:0.4}
+    const tankU: TUnit = {x: 5, y: 4, r:0.4}
     const tank: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
-
-    let collition: boolean = false
 
     const WIN = {
         left: -8 * prop + tankU.x,
@@ -48,6 +33,24 @@ const GamePage: React.FC = () => {
     };
 
     const math = new MathGame({WIN})
+    let angleOfMovement = Math.PI/2;
+    const speedRotate = Math.PI/256;
+    const speedTank = 1/20;
+    let speedTankNow = speedTank;
+    const vectorTank: TPoint = {x: 0, y: 1}
+    
+    const speedInfantry = 1/16;
+    let speedInfantryNow = speedInfantry
+
+    const blocksArray: TPoint[][] = [[{x:5, y: 6}, {x:5, y: 8}, {x:7, y: 8}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
+        [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:6, y: 8.5}, {x:6, y: 9}, {x:11, y: 9}, {x:11, y: 8.5}],
+        [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
+        [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}],]
+    const circleArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
+    
+    let collition: boolean = false
+
+    
 
     useEffect(() => {
         canvas = Canvas({
@@ -99,7 +102,7 @@ const GamePage: React.FC = () => {
 
     /* движение танка по карте*/
     const moveSceneTank = (keyPressed: TKeyboard) => {
-        collition ? speedTankNow = speedTank / 6 : speedTankNow = speedTank 
+        collition ? speedTankNow = speedTank / 4 : speedTankNow = speedTank 
         vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
         vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
         if(keyPressed.ArrowUp) {
@@ -159,25 +162,53 @@ const GamePage: React.FC = () => {
         canvas.tank(tank)
     }
 
-    const checkBlockTank = (block: TPoint[]) => {
+    const checkBlockTank = (block: TPoint[]): boolean => {
+        let collition: boolean
         let nearX = Math.max(block[0].x, Math.min(tankU.x, block[2].x));
         let nearY = Math.max(block[0].y, Math.min(tankU.y, block[2].y));
         const nearVector: TPoint = {x: nearX - tankU.x, y: nearY - tankU.y}
+        let lengthVector = nearVector.x * nearVector.x + nearVector.y * nearVector.y
+        if (lengthVector < tankU.r * tankU.r) {
+            lengthVector = Math.sqrt(lengthVector)
+            let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
+            let overlap = tankU.r - lengthVector
+            if (overlap == tankU.r) overlap = 0
+            WIN.left = WIN.left - overlap * direction.x
+            WIN.bottom = WIN.bottom - overlap * direction.y
+            return collition = true
+            }
+        return collition = false
+    }
+
+    const checkCircleTank = (circle: TUnit): boolean => {
+        let collition: boolean
+        const nearVector: TPoint = {x: circle.x - tankU.x, y: circle.y - tankU.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        let overlap = tankU.r - lengthVector
+        let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
+        let overlap = tankU.r + circle.r - lengthVector
+        if (overlap == tankU.r) overlap = 0
         if (overlap > 0) {
-            collition = true
-            WIN.left = WIN.left - nearVector.x / lengthVector * Math.abs(vectorTank.x)
-            WIN.bottom = WIN.bottom - nearVector.y / lengthVector * Math.abs(vectorTank.y)
-        } else collition = false
+            WIN.left = WIN.left - overlap * direction.x
+            WIN.bottom = WIN.bottom - overlap * direction.y
+            return collition = true
+        } 
+        return collition = false
     }
 
     const checkAllBlocksTank = () => {
-        blocksArray.forEach((block, i) => {
-            if (block[0].x >= Math.floor(tankU.x - 1) && block[0].y >= Math.floor(tankU.y - 1) && block[2].x <= Math.ceil(tankU.x + 1) && block[2].y <=  Math.ceil(tankU.y + 1)) {
-                return checkBlockTank(block)
+        let flagCollision = false
+        blocksArray.forEach((block) => {
+            if ((block[0].x >= Math.floor(tankU.x - 2) && block[2].x <= Math.ceil(tankU.x + 2) && block[0].y <=  Math.ceil(tankU.y)  && block[2].y >= Math.floor(tankU.y)) || 
+            (block[0].y >= Math.floor(tankU.y - 2) && block[2].y <=  Math.ceil(tankU.y + 2) && block[0].x <= Math.ceil(tankU.x) && block[2].x >= Math.floor(tankU.x))) {
+                flagCollision = checkBlockTank(block) || flagCollision
             }
         })
+
+        circleArray.forEach((circle) => {
+            flagCollision = checkCircleTank(circle) || flagCollision
+        })
+
+        collition = flagCollision
     }
 
 
@@ -186,13 +217,22 @@ const GamePage: React.FC = () => {
             setShowFPS(FPS);
             canvas.clear();
 
-            canvas.border(borderScena, '#777', "red")
-            canvas.block(blocksArray[0], 'green')
-            canvas.block(blocksArray[1], 'green')
-            canvas.block(blocksArray[2], 'green')
-            canvas.block(blocksArray[3], 'green')
-
             canvas.grid()
+
+            canvas.block(blocksArray[0], '#585')
+            canvas.block(blocksArray[1], '#585')
+            canvas.block(blocksArray[2], '#585')
+            canvas.block(blocksArray[3], '#585')
+            canvas.block(blocksArray[4], '#585')
+            canvas.block(blocksArray[5], '#585')
+            canvas.block(blocksArray[6], '#585')
+            canvas.block(blocksArray[7], '#585')
+
+            canvas.circle(circleArray[0], '#666')
+            canvas.circle(circleArray[1], '#666')
+            canvas.circle(circleArray[2], '#666')
+
+
 
            
             moveSceneTank(keyPressed)

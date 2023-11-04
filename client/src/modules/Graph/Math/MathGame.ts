@@ -18,9 +18,7 @@ class MathGame {
         let y = Math.abs(polygon[0].y - polygon[3].y)/2
         return {x: x, y: y}
     }
-
     
-
 }
 
 export default MathGame;
