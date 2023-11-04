@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Input } from "../../UI";
 import { ISetPage, IUserData } from "../../../interfaces";
 import "../../../pages/RegistrationPage/RegistrationPage.css";
