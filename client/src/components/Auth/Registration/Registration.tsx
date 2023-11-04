@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../UI";
-import { IUserData } from "../../../interfaces";
-import "./Registration.css";
+import { ISetPage, IUserData } from "../../../interfaces";
+import "../../../pages/RegistrationPage/RegistrationPage.css";
 
-const Registration: React.FC = () => {
+const Registration: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
-    passwordTwo: "",
+    nickName: "",
   });
 
   const onChangeHandler = (value: string, data: string) => {
@@ -17,29 +17,31 @@ const Registration: React.FC = () => {
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
 
   return (
-    <form className="auth_form" onSubmit={onSubmitHandler}>
-      <div className="row_div">
+    <form className="reg_form" onSubmit={onSubmitHandler}>
+      <div>
         <Input
           text="Логин"
+          id="test_reg_log_input"
           value={userData.login}
           onChange={(value) => {
             onChangeHandler(value, "login");
           }}
         />
         <Input
-          text="Пароль"
-          type="password"
-          value={userData.password}
+          text="Никнейм"
+          id="test_reg_nick_input"
+          value={userData.nickName ?? ""}
           onChange={(value) => {
-            onChangeHandler(value, "password");
+            onChangeHandler(value, "nickName");
           }}
         />
         <Input
-          text="Повтор пароля"
-          type="password"
-          value={userData.passwordTwo ?? ""}
+          text="Пароль"
+          id="test_reg_pass_input"
+          type="hidePassword"
+          value={userData.password}
           onChange={(value) => {
-            onChangeHandler(value, "passwordTwo");
+            onChangeHandler(value, "password");
           }}
         />
       </div>
@@ -60,8 +62,15 @@ const Registration: React.FC = () => {
           <span>Пароли не совпадают</span>
         </div>
       </div>
-      <div className="auth_footer">
-        <Button appearance="primary" className="auth_submit_button">
+      <div className="reg_footer">
+        <Button
+          appearance="primary"
+          className="reg_submit_button"
+          id="test_reg_submit_button"
+          onClick={() => {
+            setPage("Lobby");
+          }}
+        >
           Попасть в списки военных
         </Button>
       </div>

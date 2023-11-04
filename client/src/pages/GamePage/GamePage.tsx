@@ -161,7 +161,7 @@ const GamePage: React.FC = () => {
             let point = tank[i]
             if (canvas.notxs(point.x) >= canvas.xs(borderScena[0].x) || canvas.notxs(point.x) <= canvas.xs(borderScena[2].x) ||
                 canvas.notys(point.y) <= canvas.ys(borderScena[0].y) || canvas.notys(point.y) >= canvas.ys(borderScena[2].y)) {
-                    (i==0 || i==1) ? canMove.down = false : canMove.up = false 
+                    (i===0 || i===1) ? canMove.down = false : canMove.up = false 
             }
         }    
         return canMove 

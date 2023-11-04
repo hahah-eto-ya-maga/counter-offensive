@@ -1,4 +1,3 @@
-import React from "react";
 import { TPoint, TWIN } from "../../types/types";
 import MathGame from "../Math/MathGame";
 

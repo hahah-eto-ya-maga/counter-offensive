@@ -5,6 +5,7 @@ import PageHandler from "./PageHandler/PageHandler";
 import MenuPage from "./MenuPage/MenuPage";
 import MainPage from "./MainPage/MainPage";
 import GamePage from "./GamePage/GamePage";
+import RegistrationPage from "./RegistrationPage/RegistrationPage";
 
 export {
   LoadingPage,
@@ -14,4 +15,5 @@ export {
   MenuPage,
   GamePage,
   MainPage,
+  RegistrationPage,
 };
