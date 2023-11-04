@@ -47,6 +47,7 @@ const GamePage: React.FC = () => {
         [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
         [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}],]
     const circleArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
+    const deadTank: TUnit = {x: 7.5, y: 3, r: 0.4}
     
     let collition: boolean = false
 
@@ -173,8 +174,26 @@ const GamePage: React.FC = () => {
             let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
             let overlap = tankU.r - lengthVector
             if (overlap == tankU.r) overlap = 0
-            WIN.left = WIN.left - overlap * direction.x
-            WIN.bottom = WIN.bottom - overlap * direction.y
+            WIN.left -= overlap * direction.x
+            WIN.bottom -= overlap * direction.y
+            return collition = true
+            }
+        return collition = false
+    }
+
+    const checkBlockDeadTank = (block: TPoint[]): boolean => {
+        let collition: boolean
+        let nearX = Math.max(block[0].x, Math.min(deadTank.x, block[2].x));
+        let nearY = Math.max(block[0].y, Math.min(deadTank.y, block[2].y));
+        const nearVector: TPoint = {x: nearX - deadTank.x, y: nearY - deadTank.y}
+        let lengthVector = nearVector.x * nearVector.x + nearVector.y * nearVector.y
+        if (lengthVector < deadTank.r * deadTank.r) {
+            lengthVector = Math.sqrt(lengthVector)
+            let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
+            let overlap = deadTank.r - lengthVector
+            if (overlap == deadTank.r) overlap = 0
+            deadTank.x -= overlap * direction.x
+            deadTank.y -= overlap * direction.y
             return collition = true
             }
         return collition = false
@@ -188,8 +207,40 @@ const GamePage: React.FC = () => {
         let overlap = tankU.r + circle.r - lengthVector
         if (overlap == tankU.r) overlap = 0
         if (overlap > 0) {
-            WIN.left = WIN.left - overlap * direction.x
-            WIN.bottom = WIN.bottom - overlap * direction.y
+            WIN.left -= overlap * direction.x
+            WIN.bottom -= overlap * direction.y
+            return collition = true
+        } 
+        return collition = false
+    }
+
+    const checkCircleDeadTank = (circle: TUnit): boolean => {
+        let collition: boolean
+        const nearVector: TPoint = {x: circle.x - deadTank.x, y: circle.y - deadTank.y}
+        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
+        let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
+        let overlap = deadTank.r + circle.r - lengthVector
+        if (overlap == deadTank.r) overlap = 0
+        if (overlap > 0) {
+            deadTank.x -= overlap * direction.x
+            deadTank.y -= overlap * direction.y
+            return collition = true
+        } 
+        return collition = false
+    }
+
+    const checkDeadTank = (circle: TUnit): boolean => {
+        let collition: boolean
+        const nearVector: TPoint = {x: circle.x - tankU.x, y: circle.y - tankU.y}
+        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
+        let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
+        let overlap = 0.5 * (tankU.r + circle.r - lengthVector)
+        if (overlap == tankU.r) overlap = 0
+        if (overlap > 0) {
+            WIN.left -=  overlap * direction.x
+            WIN.bottom -= overlap * direction.y
+            circle.x += overlap * direction.x
+            circle.y += overlap * direction.y
             return collition = true
         } 
         return collition = false
@@ -201,11 +252,13 @@ const GamePage: React.FC = () => {
             if ((block[0].x >= Math.floor(tankU.x - 2) && block[2].x <= Math.ceil(tankU.x + 2) && block[0].y <=  Math.ceil(tankU.y)  && block[2].y >= Math.floor(tankU.y)) || 
             (block[0].y >= Math.floor(tankU.y - 2) && block[2].y <=  Math.ceil(tankU.y + 2) && block[0].x <= Math.ceil(tankU.x) && block[2].x >= Math.floor(tankU.x))) {
                 flagCollision = checkBlockTank(block) || flagCollision
+                checkBlockDeadTank(block)
             }
         })
 
         circleArray.forEach((circle) => {
             flagCollision = checkCircleTank(circle) || flagCollision
+            checkCircleDeadTank(circle)
         })
 
         collition = flagCollision
@@ -231,12 +284,12 @@ const GamePage: React.FC = () => {
             canvas.circle(circleArray[0], '#666')
             canvas.circle(circleArray[1], '#666')
             canvas.circle(circleArray[2], '#666')
-
-
+            canvas.circle(deadTank, '#333')
 
            
             moveSceneTank(keyPressed)
             checkAllBlocksTank()
+            checkDeadTank(deadTank)
             turnTanks(keyPressed)
         }
     }
