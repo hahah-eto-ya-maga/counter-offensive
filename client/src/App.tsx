@@ -1,13 +1,26 @@
-import React from "react";
+import React, { createContext } from "react";
 import { GamePage, PageHandler } from "./pages";
+import { Mediator, Server, Store } from "./modules";
+import { HOST, MEDIATOR } from "./config";
 import "./styles/global.css";
 
+export const ServerContext = createContext<Server>(null!);
+export const MediatorContext = createContext<Mediator>(null!);
+
 const App: React.FC = () => {
-   return (
-      <div className="app">
-         <GamePage/>
-      </div>
-   );
+  const mediator = new Mediator(MEDIATOR);
+  const store = new Store();
+  const server = new Server(HOST, mediator);
+
+  return (
+    <MediatorContext.Provider value={mediator}>
+      <ServerContext.Provider value={server}>
+        <div className="app">
+          <GamePage />
+        </div>
+      </ServerContext.Provider>
+    </MediatorContext.Provider>
+  );
 };
 
 export default App;

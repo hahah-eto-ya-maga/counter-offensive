@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import "./GamePage.css"
-
-
+import Collision from "../../modules/Graph/Collision/Collison";
 
 const GamePage: React.FC = () => {
 
@@ -22,8 +21,8 @@ const GamePage: React.FC = () => {
     const keyPressed: TKeyboard = {}
 
     const man: TUnit = {x: 7, y: 3, r: 0.2}
-    const tankU: TUnit = {x: 4, y: 5, r:0.4}
-    const tank: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
+    const tank: TUnit = {x: 4, y: 5, r:0.4}
+    const tankI: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
 
     const WIN = {
         left: -8 * prop + man.x,
@@ -40,17 +39,19 @@ const GamePage: React.FC = () => {
     let speedTankNow = speedTank;
     const vectorTank: TPoint = {x: 0, y: 1}
     
-    const speedInfantry = 1/16;
+    const speedInfantry = 1/18;
     let speedInfantryNow = speedInfantry
 
-    const borderScena: TPoint[] = [{x: 1, y: 1}, {x: 74, y: 1}, {x: 74, y: 59}, {x: 1, y: 59}] 
+    const blocksArray: TPoint[][] = [[{x:5, y: 6}, {x:5, y: 8}, {x:7, y: 8}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
+        [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:6, y: 8.5}, {x:6, y: 9}, {x:11, y: 9}, {x:11, y: 8.5}],
+        [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
+        [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}],]
+    const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
+    const deadTank: TUnit = {x: 7.5, y: 3, r: 0.4}
+    
+    let isCollition: boolean = false
 
-    const blocksArray: TPoint[][] = [[{x:6, y: 6}, {x:6, y: 7}, {x:7, y: 7}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
-        [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:7, y: 8}, {x:7, y: 9}, {x:8, y: 9}, {x:8, y: 8}],  [{x:7, y: 7}, {x:7, y: 8}, {x:8, y: 8}, {x:8, y: 7}],
-        ...math.multyBlock([{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 60}, {x: 0, y: 60}]),// ф-я постороения неск блоков
-        ...math.multyBlock([{x: 1, y: 0}, {x: 1, y: 1}, {x: 75, y: 1}, {x: 75, y: 0}])] 
-
-    let collition: boolean = false
+    const collision = new Collision({WIN, blocksArray, circlesArray})
 
     useEffect(() => {
         canvas = Canvas({
@@ -127,64 +128,66 @@ const GamePage: React.FC = () => {
 
     }
 
-    const checkBlockInfantry = (block: TPoint[]) => {
-        let nearX = Math.max(block[0].x, Math.min(man.x, block[0].x + 1));
-        let nearY = Math.max(block[0].y, Math.min(man.y, block[0].y + 1));
-        const nearVector: TPoint = {x: nearX - man.x, y: nearY - man.y}
-        let distance = Math.sqrt(math.scalarProd(nearVector, nearVector))
-        let direction: TPoint = {x: nearVector.x / distance, y: nearVector.y / distance}
-        let overlap = man.r - distance
-        if (overlap > 0) {
-            WIN.left = WIN.left - direction.x * overlap
-            WIN.bottom = WIN.bottom - direction.y * overlap
+    /* движение танка по карте*/
+    const moveSceneTank = (keyPressed: TKeyboard) => {
+        isCollition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
+        vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
+        vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
+        if(keyPressed.ArrowUp) {
+            WIN.bottom += vectorTank.y
+            WIN.left += vectorTank.x
+        } 
+        if(keyPressed.ArrowDown) {
+            WIN.bottom -= vectorTank.y
+            WIN.left -= vectorTank.x
         }
+
+        tank.x = WIN.left + 8 * prop;
+        tank.y = WIN.bottom + 8
+
+        if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
+            angleOfMovement -= speedRotate
+        } else if (keyPressed.ArrowLeft) {
+            angleOfMovement += speedRotate
+        }
+
+        if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
+            angleOfMovement += speedRotate
+        } else if (keyPressed.ArrowRight) {
+            angleOfMovement -= speedRotate
+        }  
     }
 
-    const checkCircleInfantry = (block: TUnit) => {
-        let nearX = block.x//Math.max(block[0].x, Math.min(man.x, block[0].x + 1));
-        let nearY = block.y//Math.max(block[0].y, Math.min(man.y, block[0].y + 1));
-        const nearVector: TPoint = {x: nearX - man.x, y: nearY - man.y}
-        let rsum = man.r + block.r  
-        let distance = Math.sqrt(math.scalarProd(nearVector, nearVector))
-        let direction: TPoint = {x: nearVector.x / distance, y: nearVector.y / distance}
-        let overlap = distance - rsum
-        if (overlap < 0) {
-            WIN.left = WIN.left + overlap * (nearX - man.x) / distance
-            WIN.bottom = WIN.bottom + overlap * (nearY - man.y) / distance
-        }
-    }
-
-    const checkNearBlock = (block: TPoint[], index: number): {length: number, vector: TPoint} => {
-        let nearX = Math.max(block[0].x, Math.min(man.x, block[0].x + 1));
-        let nearY = Math.max(block[0].y, Math.min(man.y, block[0].y + 1));
-        let nearVector: TPoint = {x: nearX - man.x, y: nearY - man.y}
-        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        return {length: lengthVector, vector: nearVector}
-        // let overlap = man.r - lengthVector
-        // console.log(block, lengthVector)
-        // if (overlap > 0) {   
-        //     WIN.left -= nearVector.x / lengthVector //* speedInfantryNow
-        //     WIN.bottom -= nearVector.y / lengthVector //* speedInfantryNow
-        // }
-    }
-    const circlesArr: TUnit[] = [{x: 4, y: 4, r: 0.25}, {x: 4.5, y: 4, r: 0.25}, {x: 5, y: 4, r: 0.25},{x: 5.5, y: 4, r: 0.25}, {x: 6, y: 4, r: 0.25}, {x: 6.5, y: 4, r: 0.25},{x: 7, y: 4, r: 0.25}]
-    const checkAllBlocksInfantry = () => {
-        const arrBlocks: TPoint[][] = [] 
-        blocksArray.forEach((block, i) => {
-            if (block[0].x >= Math.floor(man.x - 1) && block[0].y >= Math.floor(man.y - 1) && block[2].x <= Math.ceil(man.x + 1) && block[2].y <=  Math.ceil(man.y + 1)) {
-                checkBlockInfantry(block)
-                
-                arrBlocks.push(block)
+    const turnTanks = (keyPressed: TKeyboard) => {
+        const cosRotate = Math.cos(speedRotate);
+        const sinRotate = Math.sin(speedRotate)
+        tankI.forEach(point => {
+            let x = point.x, y = point.y
+            if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
+                x = point.x * cosRotate + point.y * sinRotate
+                y = point.y * cosRotate - point.x * sinRotate
+                point.x = x;
+                point.y = y
+            } else if (keyPressed.ArrowLeft) {
+                x = point.x * cosRotate - point.y * sinRotate
+                y = point.y * cosRotate + point.x * sinRotate
+                point.x = x;
+                point.y = y
             }
+            
+            if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
+                x = point.x * cosRotate - point.y * sinRotate
+                y = point.y * cosRotate + point.x * sinRotate
+                point.x = x;
+                point.y = y
+            } else if (keyPressed.ArrowRight) {
+                x = point.x * cosRotate + point.y * sinRotate
+                y = point.y * cosRotate - point.x * sinRotate
+                point.x = x;
+                point.y = y
+            } 
         })
-        circlesArr.forEach( circle => checkCircleInfantry(circle))
-        console.log(arrBlocks)
-        return arrBlocks
-    }
-
-    const checkBlocks = () => {
-        const arrBlock = checkAllBlocksInfantry
-
+        canvas.tank(tankI)
     }
             
 
@@ -193,21 +196,31 @@ const GamePage: React.FC = () => {
             setShowFPS(FPS);
             canvas.clear();
 
-            canvas.border(borderScena, '#777', "red")
             canvas.block(blocksArray[0], 'green')
             canvas.block(blocksArray[1], 'green')
             canvas.block(blocksArray[2], 'green')
             canvas.block(blocksArray[3], 'green')
-            canvas.block([{x: 0, y: 0}, {x: 1, y: 0}, {x: 1, y: 60}, {x: 0, y: 60}], 'green')
+
             canvas.grid()
-            canvas.point(4,4,'red', 35)
+
+            canvas.block(blocksArray[0], '#585')
+            canvas.block(blocksArray[1], '#585')
+            canvas.block(blocksArray[2], '#585')
+            canvas.block(blocksArray[3], '#585')
+            canvas.block(blocksArray[4], '#585')
+            canvas.block(blocksArray[5], '#585')
+            canvas.block(blocksArray[6], '#585')
+            canvas.block(blocksArray[7], '#585')
+
+            canvas.circle(circlesArray[0], '#666')
+            canvas.circle(circlesArray[1], '#666')
+            canvas.circle(circlesArray[2], '#666')
+            canvas.circle(deadTank, '#333')
+
            
-            // moveSceneTank(keyPressed)
-            // checkAllBlocksTank()
-            // turnTanks(keyPressed)
-            
             moveSceneInfantry(keyPressed)
-            checkAllBlocksInfantry()
+            isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
+            // turnTanks(keyPressed)
         }
     }
 
@@ -219,5 +232,4 @@ const GamePage: React.FC = () => {
        
     )    
 }
-
 export default GamePage;

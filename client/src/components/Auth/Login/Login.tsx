@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Input } from "../../UI";
-import { IUserData } from "../../../interfaces";
+import { IUserData, ISetPage } from "../../../interfaces";
 import "../../../pages/MainPage/MainPage.css";
-import { ISetPage } from '../../../interfaces';
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
@@ -21,6 +20,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
       <div>
         <Input
           text="Логин"
+          id="test_login_log_input"
           value={userData.login}
           onChange={(value) => {
             onChangeHandler(value, "login");
@@ -28,6 +28,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
         />
         <Input
           text="Пароль"
+          id="test_login_pass_input"
           type="hidePassword"
           value={userData.password}
           onChange={(value) => {
@@ -47,6 +48,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
         <Button
           appearance="primary"
           className="main_submit_button"
+          id="test_login_submit_button"
           onClick={() => {
             setPage("Lobby");
           }}

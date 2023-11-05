@@ -1,5 +1,4 @@
-import React from "react";
-import { TKeyboard, TPoint, TWIN } from "../../types/types";
+import { TPoint, TWIN, TUnit } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {
@@ -75,16 +74,16 @@ class Canvas {
 
     grid() {
         for (let i = 0; i <= this.WIN.left + this.WIN.width; i++) {
-            this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.3, '#c1c1c1');
+            this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.1, '#c1c1c1');
         }
         for (let i = 0; i >= this.WIN.left; i--) {
-            this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.3, '#c1c1c1');
+            this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.1, '#c1c1c1');
         }
         for (let i = 0; i <= this.WIN.bottom + this.WIN.height; i++) {
-            this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.3, '#c1c1c1');
+            this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.1, '#c1c1c1');
         }
         for (let i = 0; i >= this.WIN.bottom; i--) {
-            this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.3, '#c1c1c1');
+            this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.1, '#c1c1c1');
         }
     }
 
@@ -131,8 +130,16 @@ class Canvas {
         this.context.closePath();
     }
 
+    circle (circle: TUnit, color = "blue"): void {
+        this.context.beginPath();
+        this.context.arc(this.xs(circle.x), this.ys(circle.y), circle.r * this.canvas.width / this.WIN.width, 0, 2 * Math.PI);
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
+    }
+
     clear(): void {
-        this.context.fillStyle = '#777';
+        this.context.fillStyle = '#999';
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
