@@ -1,11 +1,11 @@
 import React from "react";
 import "./styles/global.css";
-import { LoadingPage,TankLobbyPage } from "./pages";
+import { LoadingPage,TankTwoLobbyPage } from "./pages";
 
 const App: React.FC = () => {
    return (
       <div className="app">
-        <TankLobbyPage></TankLobbyPage>
+        <TankTwoLobbyPage/>
       </div>
    );
 };
