@@ -161,7 +161,7 @@ const TankGamePage: React.FC = () => {
         canvas.tank(tank)
     }
 
-    const checkBlockTank = (block: TPoint[]): boolean => {
+    const collisionBlockTank = (block: TPoint[]): boolean => {
         let collition: boolean
         let nearX = Math.max(block[0].x, Math.min(tankU.x, block[2].x));
         let nearY = Math.max(block[0].y, Math.min(tankU.y, block[2].y));
@@ -179,7 +179,7 @@ const TankGamePage: React.FC = () => {
         return collition = false
     }
 
-    const checkBlockDeadTank = (block: TPoint[]): boolean => {
+    const collisionBlockDeadTank = (block: TPoint[]): boolean => {
         let collition: boolean
         let nearX = Math.max(block[0].x, Math.min(deadTank.x, block[2].x));
         let nearY = Math.max(block[0].y, Math.min(deadTank.y, block[2].y));
@@ -197,7 +197,7 @@ const TankGamePage: React.FC = () => {
         return collition = false
     }
 
-    const checkCircleTank = (circle: TUnit): boolean => {
+    const collisionCircleTank = (circle: TUnit): boolean => {
         let collition: boolean
         const nearVector: TPoint = {x: circle.x - tankU.x, y: circle.y - tankU.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
@@ -212,7 +212,7 @@ const TankGamePage: React.FC = () => {
         return collition = false
     }
 
-    const checkCircleDeadTank = (circle: TUnit): boolean => {
+    const collisionCircleDeadTank = (circle: TUnit): boolean => {
         let collition: boolean
         const nearVector: TPoint = {x: circle.x - deadTank.x, y: circle.y - deadTank.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
@@ -227,7 +227,7 @@ const TankGamePage: React.FC = () => {
         return collition = false
     }
 
-    const checkDeadTank = (circle: TUnit): boolean => {
+    const collisionTankDeadTank = (circle: TUnit): boolean => {
         let collition: boolean
         const nearVector: TPoint = {x: circle.x - tankU.x, y: circle.y - tankU.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
@@ -249,14 +249,14 @@ const TankGamePage: React.FC = () => {
         blocksArray.forEach((block) => {
             if ((block[0].x >= Math.floor(tankU.x - 2) && block[2].x <= Math.ceil(tankU.x + 2) && block[0].y <=  Math.ceil(tankU.y)  && block[2].y >= Math.floor(tankU.y)) || 
             (block[0].y >= Math.floor(tankU.y - 2) && block[2].y <=  Math.ceil(tankU.y + 2) && block[0].x <= Math.ceil(tankU.x) && block[2].x >= Math.floor(tankU.x))) {
-                flagCollision = checkBlockTank(block) || flagCollision
-                checkBlockDeadTank(block)
+                flagCollision = collisionBlockTank(block) || flagCollision
+                collisionBlockDeadTank(block)
             }
         })
 
         circleArray.forEach((circle) => {
-            flagCollision = checkCircleTank(circle) || flagCollision
-            checkCircleDeadTank(circle)
+            flagCollision = collisionCircleTank(circle) || flagCollision
+            collisionCircleDeadTank(circle)
         })
 
         collition = flagCollision
@@ -287,7 +287,7 @@ const TankGamePage: React.FC = () => {
            
             moveSceneTank(keyPressed)
             checkAllBlocksTank()
-            checkDeadTank(deadTank)
+            collisionTankDeadTank(deadTank)
             turnTanks(keyPressed)
         }
     }
