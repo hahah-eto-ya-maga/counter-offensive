@@ -100,7 +100,7 @@ class Collision {
         return collition = false
     }
 
-    checkAllBlocksTank (unit: TUnit, deadTank: TUnit, collision: boolean): boolean {
+    checkAllBlocksUnit (unit: TUnit, deadTank: TUnit, collision: boolean, isTank?: boolean): boolean {
         let flagCollision = false
         this.blocksArray.forEach((block) => {
             if ((block[0].x >= Math.floor(unit.x - 2) && block[2].x <= Math.ceil(unit.x + 2) && block[0].y <=  Math.ceil(unit.y)  && block[2].y >= Math.floor(unit.y)) || 
@@ -114,7 +114,7 @@ class Collision {
             flagCollision = this.collisionCircleUnit(circle, unit) || flagCollision
             this.collisionCircleDeadUnit(circle, deadTank)
         })
-        flagCollision = this.collisionUnitDeadUnit(deadTank, unit) || flagCollision
+        if (isTank) flagCollision = this.collisionUnitDeadUnit(deadTank, unit) || flagCollision
         return collision = flagCollision
     }
 

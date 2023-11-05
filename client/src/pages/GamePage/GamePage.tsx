@@ -20,7 +20,7 @@ const GamePage: React.FC = () => {
 
     const keyPressed: TKeyboard = {}
 
-    const man: TUnit = {x: 7, y: 3, r: 0.2}
+    const man: TUnit = {x: 6, y: 3, r: 0.2}
     const tank: TUnit = {x: 5, y: 4, r:0.4}
     const tankI: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
 
@@ -38,7 +38,7 @@ const GamePage: React.FC = () => {
     let speedTankNow = speedTank;
     const vectorTank: TPoint = {x: 0, y: 1}
     
-    const speedInfantry = 1/16;
+    const speedInfantry = 1/18;
     let speedInfantryNow = speedInfantry
 
     const blocksArray: TPoint[][] = [[{x:5, y: 6}, {x:5, y: 8}, {x:7, y: 8}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
@@ -48,9 +48,9 @@ const GamePage: React.FC = () => {
     const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
     const deadTank: TUnit = {x: 7.5, y: 3, r: 0.4}
     
-    let collition: boolean = false
+    let isCollition: boolean = false
 
-    const colis = new Collision({WIN, blocksArray, circlesArray})
+    const collision = new Collision({WIN, blocksArray, circlesArray})
 
     useEffect(() => {
         canvas = Canvas({
@@ -129,7 +129,7 @@ const GamePage: React.FC = () => {
 
     /* движение танка по карте*/
     const moveSceneTank = (keyPressed: TKeyboard) => {
-        collition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
+        isCollition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
         vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
         vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
         if(keyPressed.ArrowUp) {
@@ -212,8 +212,7 @@ const GamePage: React.FC = () => {
 
            
             moveSceneTank(keyPressed)
-            collition = colis.checkAllBlocksTank(tank, deadTank, collition)
-            // collisionUnitDeadUnit(deadTank, man)
+            isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
             turnTanks(keyPressed)
         }
     }
