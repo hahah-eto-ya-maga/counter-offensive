@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import "./GamePage.css"
+import Collision from "../../modules/Graph/Collision/Collison";
 
 const GamePage: React.FC = () => {
 
@@ -19,13 +20,13 @@ const GamePage: React.FC = () => {
 
     const keyPressed: TKeyboard = {}
 
-    const man: TUnit = {x: 7, y: 3, r: 0.3}
-    const tankU: TUnit = {x: 5, y: 4, r:0.4}
-    const tank: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
+    const man: TUnit = {x: 7, y: 3, r: 0.2}
+    const tank: TUnit = {x: 5, y: 4, r:0.4}
+    const tankI: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
 
     const WIN = {
-        left: -8 * prop + tankU.x,
-        bottom: -8 + tankU.y,
+        left: -8 * prop + tank.x,
+        bottom: -8 + tank.y,
         width: 16 * prop,
         height: 16,
     };
@@ -33,7 +34,7 @@ const GamePage: React.FC = () => {
     const math = new MathGame({WIN})
     let angleOfMovement = Math.PI/2;
     const speedRotate = Math.PI/256;
-    const speedTank = 1/20;
+    const speedTank = 1/16;
     let speedTankNow = speedTank;
     const vectorTank: TPoint = {x: 0, y: 1}
     
@@ -44,12 +45,12 @@ const GamePage: React.FC = () => {
         [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:6, y: 8.5}, {x:6, y: 9}, {x:11, y: 9}, {x:11, y: 8.5}],
         [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
         [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}],]
-    const circleArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
+    const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
     const deadTank: TUnit = {x: 7.5, y: 3, r: 0.4}
     
     let collition: boolean = false
 
-    
+    const colis = new Collision({WIN, blocksArray, circlesArray})
 
     useEffect(() => {
         canvas = Canvas({
@@ -99,6 +100,33 @@ const GamePage: React.FC = () => {
         }       
     }
 
+    /* движение пехотинца по карте */
+    const moveSceneInfantry = (keyPressed: TKeyboard) => {
+        const diagonalSpeed = speedInfantry * Math.sqrt(2) / 2;
+        if (keyPressed.ArrowUp && keyPressed.ArrowLeft || keyPressed.ArrowUp && keyPressed.ArrowRight ||
+             keyPressed.ArrowDown && keyPressed.ArrowRight || keyPressed.ArrowDown && keyPressed.ArrowLeft) speedInfantryNow = diagonalSpeed 
+        else speedInfantryNow = speedInfantry  
+        
+        if(keyPressed.ArrowUp) {
+            WIN.bottom += speedInfantryNow;
+        } 
+        if(keyPressed.ArrowDown) {
+            WIN.bottom -= speedInfantryNow;
+        }
+        if (keyPressed.ArrowLeft) {
+            WIN.left -= speedInfantryNow;
+        }
+        if (keyPressed.ArrowRight) {
+            WIN.left += speedInfantryNow;
+        } 
+        
+        man.x = WIN.left + 8 * prop;
+        man.y = WIN.bottom + 8
+
+        canvas.man(man.r, 'yellow')
+
+    }
+
     /* движение танка по карте*/
     const moveSceneTank = (keyPressed: TKeyboard) => {
         collition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
@@ -113,8 +141,8 @@ const GamePage: React.FC = () => {
             WIN.left -= vectorTank.x
         }
 
-        tankU.x = WIN.left + 8 * prop;
-        tankU.y = WIN.bottom + 8
+        tank.x = WIN.left + 8 * prop;
+        tank.y = WIN.bottom + 8
 
         if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
             angleOfMovement -= speedRotate
@@ -132,7 +160,7 @@ const GamePage: React.FC = () => {
     const turnTanks = (keyPressed: TKeyboard) => {
         const cosRotate = Math.cos(speedRotate);
         const sinRotate = Math.sin(speedRotate)
-        tank.forEach(point => {
+        tankI.forEach(point => {
             let x = point.x, y = point.y
             if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
                 x = point.x * cosRotate + point.y * sinRotate
@@ -158,110 +186,8 @@ const GamePage: React.FC = () => {
                 point.y = y
             } 
         })
-        canvas.tank(tank)
+        canvas.tank(tankI)
     }
-
-    const collisionBlockTank = (block: TPoint[]): boolean => {
-        let collition: boolean
-        let nearX = Math.max(block[0].x, Math.min(tankU.x, block[2].x));
-        let nearY = Math.max(block[0].y, Math.min(tankU.y, block[2].y));
-        const nearVector: TPoint = {x: nearX - tankU.x, y: nearY - tankU.y}
-        let lengthVector = nearVector.x * nearVector.x + nearVector.y * nearVector.y
-        if (lengthVector < tankU.r * tankU.r) {
-            lengthVector = Math.sqrt(lengthVector)
-            let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
-            let overlap = tankU.r - lengthVector
-            if (overlap == tankU.r) overlap = 0
-            WIN.left -= overlap * direction.x
-            WIN.bottom -= overlap * direction.y
-            return collition = true
-            }
-        return collition = false
-    }
-
-    const collisionBlockDeadTank = (block: TPoint[]): boolean => {
-        let collition: boolean
-        let nearX = Math.max(block[0].x, Math.min(deadTank.x, block[2].x));
-        let nearY = Math.max(block[0].y, Math.min(deadTank.y, block[2].y));
-        const nearVector: TPoint = {x: nearX - deadTank.x, y: nearY - deadTank.y}
-        let lengthVector = nearVector.x * nearVector.x + nearVector.y * nearVector.y
-        if (lengthVector < deadTank.r * deadTank.r) {
-            lengthVector = Math.sqrt(lengthVector)
-            let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
-            let overlap = deadTank.r - lengthVector
-            if (overlap == deadTank.r) overlap = 0
-            deadTank.x -= overlap * direction.x
-            deadTank.y -= overlap * direction.y
-            return collition = true
-            }
-        return collition = false
-    }
-
-    const collisionCircleTank = (circle: TUnit): boolean => {
-        let collition: boolean
-        const nearVector: TPoint = {x: circle.x - tankU.x, y: circle.y - tankU.y}
-        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
-        let overlap = tankU.r + circle.r - lengthVector
-        if (overlap == tankU.r) overlap = 0
-        if (overlap > 0) {
-            WIN.left -= overlap * direction.x
-            WIN.bottom -= overlap * direction.y
-            return collition = true
-        } 
-        return collition = false
-    }
-
-    const collisionCircleDeadTank = (circle: TUnit): boolean => {
-        let collition: boolean
-        const nearVector: TPoint = {x: circle.x - deadTank.x, y: circle.y - deadTank.y}
-        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
-        let overlap = deadTank.r + circle.r - lengthVector
-        if (overlap == deadTank.r) overlap = 0
-        if (overlap > 0) {
-            deadTank.x -= overlap * direction.x
-            deadTank.y -= overlap * direction.y
-            return collition = true
-        } 
-        return collition = false
-    }
-
-    const collisionTankDeadTank = (circle: TUnit): boolean => {
-        let collition: boolean
-        const nearVector: TPoint = {x: circle.x - tankU.x, y: circle.y - tankU.y}
-        let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
-        let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
-        let overlap = 0.5 * (tankU.r + circle.r - lengthVector)
-        if (overlap == tankU.r) overlap = 0
-        if (overlap > 0) {
-            WIN.left -=  overlap * direction.x
-            WIN.bottom -= overlap * direction.y
-            circle.x += overlap * direction.x
-            circle.y += overlap * direction.y
-            return collition = true
-        } 
-        return collition = false
-    }
-
-    const checkAllBlocksTank = () => {
-        let flagCollision = false
-        blocksArray.forEach((block) => {
-            if ((block[0].x >= Math.floor(tankU.x - 2) && block[2].x <= Math.ceil(tankU.x + 2) && block[0].y <=  Math.ceil(tankU.y)  && block[2].y >= Math.floor(tankU.y)) || 
-            (block[0].y >= Math.floor(tankU.y - 2) && block[2].y <=  Math.ceil(tankU.y + 2) && block[0].x <= Math.ceil(tankU.x) && block[2].x >= Math.floor(tankU.x))) {
-                flagCollision = collisionBlockTank(block) || flagCollision
-                collisionBlockDeadTank(block)
-            }
-        })
-
-        circleArray.forEach((circle) => {
-            flagCollision = collisionCircleTank(circle) || flagCollision
-            collisionCircleDeadTank(circle)
-        })
-
-        collition = flagCollision
-    }
-
 
     const renderScene = (FPS: number) => {
         if (canvas) {
@@ -279,15 +205,15 @@ const GamePage: React.FC = () => {
             canvas.block(blocksArray[6], '#585')
             canvas.block(blocksArray[7], '#585')
 
-            canvas.circle(circleArray[0], '#666')
-            canvas.circle(circleArray[1], '#666')
-            canvas.circle(circleArray[2], '#666')
+            canvas.circle(circlesArray[0], '#666')
+            canvas.circle(circlesArray[1], '#666')
+            canvas.circle(circlesArray[2], '#666')
             canvas.circle(deadTank, '#333')
 
            
             moveSceneTank(keyPressed)
-            checkAllBlocksTank()
-            collisionTankDeadTank(deadTank)
+            collition = colis.checkAllBlocksTank(tank, deadTank, collition)
+            // collisionUnitDeadUnit(deadTank, man)
             turnTanks(keyPressed)
         }
     }
@@ -300,5 +226,4 @@ const GamePage: React.FC = () => {
        
     )    
 }
-
 export default GamePage;
