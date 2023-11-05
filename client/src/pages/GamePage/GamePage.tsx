@@ -101,7 +101,7 @@ const GamePage: React.FC = () => {
 
     /* движение танка по карте*/
     const moveSceneTank = (keyPressed: TKeyboard) => {
-        collition ? speedTankNow = speedTank / 4 : speedTankNow = speedTank 
+        collition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
         vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
         vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
         if(keyPressed.ArrowUp) {
