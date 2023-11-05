@@ -1,23 +1,26 @@
 import React, { useState } from "react";
+import {
+  LobbyPage,
+  LoadingPage,
+  DossierPage,
+  MenuPage,
+  MainPage,
+  RegistrationPage,
+} from "../../pages";
 import { Button } from "../../components";
-import LobbyPage from "../LobbyPage/LobbyPage";
-import LoadingPage from "../LoadingPage/LoadingPage";
-import DossierPage from "../DossierPage/DossierPage";
+import { TPage } from "../../interfaces";
 
 import "./PageHandler.css";
-import MenuPage from "../MenuPage/MenuPage";
-import MainPage from "../MainPage/MainPage";
-
-export type TPage = "Lobby" | "Dossier" | "Loading" | "Menu" | "MainPage";
 
 const PageHandler: React.FC = () => {
   const [page, setPage] = useState<TPage>("MainPage");
   return (
     <div className="page_handler">
-      {page !== "Menu" && page !== "MainPage" && (
+      {page !== "Menu" && page !== "MainPage" && page !== "Registration" && (
         <div className="header">
           <Button
             appearance="primary"
+            id="test_hand_goToLobby_button"
             active={page === "Lobby"}
             onClick={() => setPage("Lobby")}
           >
@@ -25,12 +28,17 @@ const PageHandler: React.FC = () => {
           </Button>
           <Button
             appearance="primary"
+            id="test_hand_goToDossier_button"
             active={page === "Dossier"}
             onClick={() => setPage("Dossier")}
           >
             Досье
           </Button>
-          <Button appearance="primary" onClick={() => setPage("Menu")}>
+          <Button
+            appearance="primary"
+            id="test_hand_goToMenu_button"
+            onClick={() => setPage("Menu")}
+          >
             Меню
           </Button>
         </div>
@@ -39,8 +47,9 @@ const PageHandler: React.FC = () => {
         {page === "Dossier" && <DossierPage />}
         {page === "Loading" && <LoadingPage />}
         {page === "Lobby" && <LobbyPage />}
-        {page === "Menu" && <MenuPage goToLobby={setPage} />}
-        {page === "MainPage" && <MainPage goToLogin={setPage} />}
+        {page === "Menu" && <MenuPage setPage={setPage} />}
+        {page === "MainPage" && <MainPage setPage={setPage} />}
+        {page === "Registration" && <RegistrationPage setPage={setPage} />}
       </>
     </div>
   );
