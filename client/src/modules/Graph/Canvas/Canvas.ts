@@ -1,5 +1,4 @@
-import React from "react";
-import { TKeyboard, TPoint, TUnit, TWIN } from "../../types/types";
+import { TPoint, TWIN, TUnit } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {

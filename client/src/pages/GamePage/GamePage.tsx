@@ -6,7 +6,7 @@ import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import "./GamePage.css"
 
-const TankGamePage: React.FC = () => {
+const GamePage: React.FC = () => {
 
     const height = window.innerHeight - 26;
     const width = window.innerWidth - 26;
@@ -301,4 +301,4 @@ const TankGamePage: React.FC = () => {
     )    
 }
 
-export default TankGamePage;
+export default GamePage;
