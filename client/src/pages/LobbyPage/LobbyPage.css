@@ -1,0 +1,48 @@
+.lobbi_block {
+    display: flex;
+    margin: 24px;
+    height: 70%;
+    overflow: hidden;
+   
+}
+
+.right, .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 29%;
+    box-sizing: border-box;
+}
+.dossier {
+    width: 40%;
+}
+
+.general, .flag, .automat, .RPG {
+    margin-bottom: 12px;
+    padding-top: 0;
+    overflow: hidden;
+}
+
+.general, .flag {
+    padding-bottom: 0;
+}
+
+@media screen and (max-width: 900px) {
+    .general, .flag, .automat, .RPG {
+        height: 29%;
+    }
+}
+
+.tank2, .tank3 {
+    margin-bottom: 12px;
+    text-align: left;
+    padding-left: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;  
+}
+
+.tank3 img {
+    max-height: 75%;
+}

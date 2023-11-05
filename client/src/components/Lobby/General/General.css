@@ -1,0 +1,20 @@
+.general.image img {
+    mix-blend-mode: normal;
+    width: auto;
+    height: auto;
+    min-height: 65%;
+    min-width:70%;
+}
+
+.general {
+    padding-left:15%;
+    padding-right:15%;
+ }
+
+.general.selected {
+    background: #989898;
+}
+
+.general.selected img {
+    mix-blend-mode: color-dodge;
+}

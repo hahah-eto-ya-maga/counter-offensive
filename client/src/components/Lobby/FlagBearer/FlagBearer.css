@@ -1,0 +1,19 @@
+.flag.image img {
+   width: auto;
+   height: auto;
+   min-height: 75%;
+   min-width:75%;
+}
+
+.flag {
+   padding-left:15%;
+   padding-right:15%;
+}
+
+.flag.selected {
+   background: #989898;
+}
+
+.flag.selected img {
+   mix-blend-mode:darken;
+}
