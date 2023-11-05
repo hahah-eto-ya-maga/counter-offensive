@@ -1,11 +1,11 @@
 import React from "react";
-import { GamePage, PageHandler } from "./pages";
+import { TankGamePage, PageHandler } from "./pages";
 import "./styles/global.css";
 
 const App: React.FC = () => {
    return (
       <div className="app">
-         <GamePage/>
+         <TankGamePage/>
       </div>
    );
 };
