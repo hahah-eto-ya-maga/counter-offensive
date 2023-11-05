@@ -114,7 +114,7 @@ class Collision {
             flagCollision = this.collisionCircleUnit(circle, unit) || flagCollision
             this.collisionCircleDeadUnit(circle, deadTank)
         })
-        if (isTank) flagCollision = this.collisionUnitDeadUnit(deadTank, unit) || flagCollision
+        isTank ? flagCollision = this.collisionUnitDeadUnit(deadTank, unit) || flagCollision : flagCollision = this.collisionCircleUnit(deadTank, unit) || flagCollision
         return collision = flagCollision
     }
 
