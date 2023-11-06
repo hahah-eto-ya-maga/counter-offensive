@@ -61,10 +61,10 @@ const Registration: React.FC<ISetPage> = ({setPage}) => {
           <span>Заполните все поля</span>
         </div>
         <div className="warning">
-          <span>В логине должно быть от 5 до 15 символов</span>
+          <span>В логине должно быть от 6 до 15 символов</span>
         </div>
         <div className="warning">
-          <span>В пароле должно быть от 7 до 200 символов</span>
+          <span>В пароле должно быть от 8 до 200 символов</span>
         </div>
         <div className="error">
           <span>Логин занят</span>
