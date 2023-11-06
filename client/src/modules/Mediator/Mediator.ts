@@ -47,7 +47,7 @@ export default class Mediator {
             func instanceof Function
         ) {
             this.events[name].push(func);
-        }
+        }        
     }
 
     call<T>(name: string, data: T | undefined) {

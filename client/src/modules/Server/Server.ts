@@ -17,7 +17,7 @@ export default class Server {
          const str = Object.keys(params)
             .map((key) => `${key}=${params[key]}`)
             .join("&");
-         const res = await fetch(`${this.HOST}/?method=${method}&${str}`);
+         const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();
 
          if (answer.result === "ok") {
@@ -46,7 +46,6 @@ export default class Server {
    }
 
    logout(login: string, token: string): Promise<true | null> {
-      token = SHA256(token).toString();
       return this.request("logout", { token, login });
    }
 
@@ -56,7 +55,6 @@ export default class Server {
    }
 
    getAllInfo(login: string, token: string): Promise<IUserInfo | null> {
-      token = SHA256(token).toString();
       return this.request("getAllInfo", { login, token });
    }
 
@@ -65,7 +63,6 @@ export default class Server {
       token: string,
       newPassword: string
    ): Promise<true | null> {
-      token = SHA256(token).toString();
       const hash = SHA256(login + newPassword).toString();
       return this.request("updatePassword", { login, token, hash });
    }

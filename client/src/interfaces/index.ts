@@ -1,7 +1,7 @@
 export interface IUserData {
    login: string;
    password: string;
-   passwordTwo?: string;
+   nickName?: string;
 }
 
 export interface ISetPage {
@@ -14,4 +14,6 @@ export type TPage =
    | "Loading"
    | "Menu"
    | "MainPage"
-   | "Error";
+   | "Error"
+   | "Registration"
+   | "GamePage";
