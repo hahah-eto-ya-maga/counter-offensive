@@ -3,7 +3,7 @@ import { PageHandler } from "./pages";
 import { Mediator, Server, Store } from "./modules";
 import { HOST, MEDIATOR } from "./config";
 import "./styles/global.css";
-import { LoadingPage,TankTwoLobbyPage } from "./pages";
+import { LoadingPage,TankTwoLobbyPage, GamePage } from "./pages";
 
 export const ServerContext = createContext<Server>(null!);
 export const MediatorContext = createContext<Mediator>(null!);
