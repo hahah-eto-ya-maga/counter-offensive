@@ -1,11 +1,17 @@
 export interface IUserData {
-  login: string;
-  password: string;
-  passwordTwo?: string;
+   login: string;
+   password: string;
+   passwordTwo?: string;
 }
 
 export interface ISetPage {
-  setPage: React.Dispatch<React.SetStateAction<TPage>>;
+   setPage: React.Dispatch<React.SetStateAction<TPage>>;
 }
 
-export type TPage = "Lobby" | "Dossier" | "Loading" | "Menu" | "MainPage";
+export type TPage =
+   | "Lobby"
+   | "Dossier"
+   | "Loading"
+   | "Menu"
+   | "MainPage"
+   | "Error";
