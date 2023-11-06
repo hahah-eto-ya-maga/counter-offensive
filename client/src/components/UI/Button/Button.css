@@ -55,12 +55,5 @@
 
 .image img {
   mix-blend-mode: darken;
-  width: 70%;
-}
-
-.dossier_button {
-  font-size: 1.5vw;
-  width: 175px;
-  height: 175px;
-  margin: -5px;
+  width: 60%;
 }
