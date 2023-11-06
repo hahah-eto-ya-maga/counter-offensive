@@ -1,20 +1,31 @@
 import React, { useContext, useState } from "react";
 import { Button, Input } from "../../UI";
+import { ServerContext } from "../../../App";
 import { ISetPage, IUserData } from "../../../interfaces";
 import "../../../pages/RegistrationPage/RegistrationPage.css";
 
-const Registration: React.FC<ISetPage> = ({ setPage }) => {
+const Registration: React.FC<ISetPage> = ({setPage}) => {
   const [userData, setUserData] = useState<IUserData>({
     login: "",
     password: "",
     nickName: "",
   });
 
+  const server = useContext(ServerContext);
+
   const onChangeHandler = (value: string, data: string) => {
     setUserData({ ...userData, [data]: value });
   };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    //условие валидации
+	if (true) {
+      server.registration(userData.login, userData.password);
+            setPage("Lobby");
+	  return;
+    } 
+	//обработка ошибок
+  };
 
   return (
     <form className="reg_form" onSubmit={onSubmitHandler}>
@@ -67,9 +78,6 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
           appearance="primary"
           className="reg_submit_button"
           id="test_reg_submit_button"
-          onClick={() => {
-            setPage("Lobby");
-          }}
         >
           Попасть в списки военных
         </Button>
