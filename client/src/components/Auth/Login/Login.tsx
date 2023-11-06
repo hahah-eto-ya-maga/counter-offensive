@@ -17,10 +17,12 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
   };
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    //валидация
     if (true) {
-      server.login(userData.login, userData.password);
-      setPage("Lobby");
+      const res = server.login(userData.login, userData.password);
+      if (res !== null) {
+        console.log(res);
+        setPage("Lobby");
+      }
       return;
     }
     //обработка ошибок
