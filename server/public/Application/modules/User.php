@@ -36,7 +36,7 @@
                 $this->db->addUser($login, $nickname, $password, $token, $tokenLastUse, $timeCreate); 
                 return array(
                     'login'=>$login,
-                    'nickname'=>$user->nickname,
+                    'nickname'=>$nickname,
                     'token'=>$token
                 );
             }
