@@ -17,7 +17,7 @@ export default class Server {
          const str = Object.keys(params)
             .map((key) => `${key}=${params[key]}`)
             .join("&");
-         const res = await fetch(`${this.HOST}/?method=${method}&${str}`);
+         const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();
 
          if (answer.result === "ok") {
