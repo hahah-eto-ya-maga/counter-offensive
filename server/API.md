@@ -43,7 +43,7 @@ User = {
 
 *405*:**Method Not Allowed** - Метод не указан
 
-*413*:**Invalid login** - Неверный формат логина
+*413*:**Invalid login(nickname)** - Неверный формат логина
 
 *501*:**Not Implemented** - Метод не реализован на сервере
         

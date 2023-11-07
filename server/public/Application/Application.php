@@ -20,7 +20,7 @@ class Application{
         $nickname = $params['nickname'] ?? false;
         
         if($login && $password && $nickname){
-            $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,16}$/u';
+            $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
             if(preg_match($pattern, $login) && preg_match($pattern, $nickname)){
                 return $this->user->registration($login, $nickname, $password);
             }
