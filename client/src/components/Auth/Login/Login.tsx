@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Input } from "../../UI";
 import { IUserData, ISetPage } from "../../../interfaces";
 import "../../../pages/MainPage/MainPage.css";
+import { ServerContext } from "../../../App";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
   const [userData, setUserData] = useState<IUserData>({
@@ -9,11 +10,24 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
     password: "",
   });
 
+  const server = useContext(ServerContext);
+
   const onChangeHandler = (value: string, data: string) => {
     setUserData({ ...userData, [data]: value });
   };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {};
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (true) {
+      const res = await server.login(userData.login, userData.password);
+      console.log(res);
+      if (res) {
+        setPage("Lobby");
+      }
+      return;
+    }
+    //обработка ошибок
+  };
 
   return (
     <form className="main_form" onSubmit={onSubmitHandler}>
@@ -49,9 +63,6 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
           appearance="primary"
           className="main_submit_button"
           id="test_login_submit_button"
-          onClick={() => {
-            setPage("Lobby");
-          }}
         >
           Пойти на Бахмут
         </Button>
