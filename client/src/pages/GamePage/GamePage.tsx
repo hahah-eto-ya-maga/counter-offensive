@@ -6,7 +6,7 @@ import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import Collision from "../../modules/Graph/Collision/Collison";
 import "./GamePage.css"
-import { corpusTank, towerTank } from "../LobbyPage/images";
+import { corpusTank, towerTank } from "../../assets/pngs";
 
 const GamePage: React.FC = () => {
 
@@ -169,7 +169,7 @@ const GamePage: React.FC = () => {
         } else if (keyPressed.ArrowRight) {
             angleOfMovement -= speedRotate
         }
-        
+
     }
 
     let angleOfMove = Math.PI/2
@@ -180,8 +180,6 @@ const GamePage: React.FC = () => {
         let toAngle = Math.atan2(vector.y, vector.x)
         
         canvas.rotateGun(towerTankImage, toAngle)
-    
-        
     }
 
     const renderScene = (FPS: number) => {

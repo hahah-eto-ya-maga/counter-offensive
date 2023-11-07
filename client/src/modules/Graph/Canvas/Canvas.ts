@@ -1,4 +1,4 @@
-import { tank2 } from "../../../pages/LobbyPage/images";
+import { tank2 } from "../../../assets/pngs";
 import { TPoint, TWIN, TUnit } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
