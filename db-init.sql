@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `games` ( 
+CREATE TABLE IF NOT EXISTS `game` ( 
 -- Таблица игр
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
   -- Номер игры. В пустой базе первая игра будет равена 1, а все последующие больше на единицу
@@ -39,15 +39,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
   -- Номер пользователей. В пустой базе первый пользователь будет равен 1, а все последующие больше на единицу
   `login` VARCHAR(20) NOT NULL DEFAULT "", 
-  -- Логин (ник/имя) пользователя. Длина от 4 до 20 символов
+  -- Логин пользователя. Длина от 4 до 20 символов
+  `nickname` VARCHAR(20) NOT NULL DEFAULT "", 
+  -- Никнейм пользователя. Длина от 4 до 20 символов
   `password` VARCHAR(100) NOT NULL DEFAULT "", 
   -- Пароль пользователя. Хранится в хешированном формате. Алгоритм шифрования sha256
-  `game` MEDIUMINT NOT NULL DEFAULT -1, 
-  -- Номер игры, в которую сейчас играет пользователь. Если пользователь сейчас не играет, то -1
-  `gameCount` INT NOT NULL DEFAULT 0, 
-  -- Количество сыгранных игр
-  `scoreCount` INT NOT NULL DEFAULT 0, 
-  -- Количество опыта
   `token` VARCHAR(100) NOT NULL DEFAULT "", 
   -- Токен куки. Это строка, которая выдаётся пользователю после авторизации по паролю и хранится в куки браузера. Хранится в шифровании sha256
   `tokenLastUse` DATETIME NOT NULL DEFAULT "2000-10-01 00:00:00",
