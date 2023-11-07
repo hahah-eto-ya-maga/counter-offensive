@@ -1,0 +1,66 @@
+version: "3.9"
+services:
+  database:
+    image: mysql:8.0
+    restart: on-failure
+    environment:
+      - "MYSQL_USER=${MYSQL_USER:-admin}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-b446b342-608c-11ee-8c99-0242ac120002}"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-contrnastup}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-9631a2e4-608d-11ee-8c99-0242ac120002}"
+    volumes:
+      - "./db/mysql:/var/lib/mysql"
+      - "./db-init.sql:/docker-entrypoint-initdb.d/create_tables.sql"
+    ports:
+      - "${DB_EXTERNAL_PORT:-3306}:3306"
+    networks:
+      - general
+
+  api:
+    build:
+      dockerfile: ./dockerfiles/API
+    restart: always
+    volumes:
+      - "./server:/var/www/html"
+      - "./server/public:/var/www/html/public"
+    environment:
+      - "MYSQL_USER=${MYSQL_USER:-admin}"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD:-b446b342-608c-11ee-8c99-0242ac120002}"
+      - "MYSQL_HOST=database"
+      - "MYSQL_PORT=3306"
+      - "MYSQL_DATABASE=${MYSQL_DATABASE:-contrnastup}"
+      - "DEBUG=${API_DEBUG:-FALSE}"
+    networks:
+      - general
+      
+  pma:
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - "${PMA_EXTERNAL_PORT:-8081}:80"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-9631a2e4-608d-11ee-8c99-0242ac120002}"
+      - "PMA_HOST=database"
+      - "PMA_USER=${MYSQL_USER:-admin}"
+      - "PMA_PASSWORD=${MYSQL_PASSWORD:-b446b342-608c-11ee-8c99-0242ac120002}"
+    networks:
+      - general
+
+  web_server:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/mime.type:/etc/nginx/mime.type"
+      - "./nginx/errors/:/etc/nginx/src/errors/"
+      - "./client/build/:/etc/nginx/src/"
+      - "./server/public/:/etc/nginx/src/api/"
+    ports:
+      - "${NGINX_EXTERNAL_PORT:-80}:80"
+    working_dir: /etc/nginx/
+    networks:
+      - general
+
+networks:
+  general:
+    driver: bridge

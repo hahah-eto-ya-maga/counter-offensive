@@ -42,8 +42,17 @@ class Application{
         if($login && $password){
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,16}$/u';
             if(preg_match($pattern, $login)){
-                return $this -> user -> registration($login, $password, $token, $tokenLastUse, $timeCreate);
-            }   
+                $checkUser = $this -> user -> getUserByLogin($login);
+                if(!$checkUser){
+                    $addUser = $this -> user -> addUser($login, $password, $token, $tokenLastUse, $timeCreate); 
+                    if(!$addUser){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    else return array('login'=>$login, 'token'=>$token);
+                }
+                else return array(false, 460);
+            }
+
             else return array(false,413);    
         }
         else return array(false, 400);
@@ -58,7 +67,21 @@ class Application{
         $tokenLastUse = date('Y-m-d H:i:s');
         
         if($login && $hash && $rnd){
-            return $this -> user -> login($login, $hash, $rnd, $token, $tokenLastUse);
+            $user = $this -> user -> getUserByLogin($login);
+            $checkLogin = $user ? $user['login'] : '';
+            if($checkLogin != ''){
+                $hashPassword = $user ? $user['password'] : '';
+                $hashS = hash('sha256', $hashPassword.$rnd); // Хэш штрих. Строка сгенерированая с помощью хранящейсяв базе хэш-суммы
+                if($hash == $hashS){
+                    $updateToken = $this -> user -> updateToken($login, $token, $tokenLastUse);
+                    if(!$updateToken){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    else return array('login'=>$login, 'token'=>$token);
+                }
+                else return array(false, 403);
+            }
+            else return array(false, 461);
         }
         else return array(false, 400);
     }
@@ -69,7 +92,20 @@ class Application{
         $tokenLastUse = date('Y-m-d H:i:s');
         
         if($login && $token){
-            return $this -> user -> logout($login, $token, $tokenLastUse);
+            $user = $this -> user -> getUserByLogin($login);
+            $checkLogin = $user ? $user['login'] : '';
+            if($checkLogin != ''){
+                $checkToken = $user ? $user['token'] : '';
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
+                    $deleteToken = $this->user->deleteToken($login, $tokenLastUse);
+                    if(!$deleteToken){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    else return true;
+                }
+                else return array(false, 401); //неверный токен для этого пользователя
+            }
+            else return array(false, 461);
         }
         return array(false, 400);
     }
@@ -81,10 +117,24 @@ class Application{
         $tokenLastUse = date('Y-m-d H:i:s');
 
         if($login && $token){
-            return $this -> user -> tokenVerification($login, $token, $tokenLastUse);
+            $user = $this -> user -> getUserByLogin($login);
+            $checkLogin = $user ? $user['login'] : '';
+            if($checkLogin != ''){
+                $checkToken = $user ? $user['token'] : '';
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
+                    $verificateToken = $this->user->updateToken($login, $token, $tokenLastUse);
+                    if(!$verificateToken){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    else return true;
+                }
+                else return array(false, 401); //неверный токен для этого пользователя
+            }
+            else return array(false, 461);
         }
         return array(false, 400);
     }
+
 
     function getAllInfo($params){
         $login = $params['login'];
@@ -92,10 +142,29 @@ class Application{
         $tokenLastUse = date('Y-m-d H:i:s');
 
         if($login && $token){
-            return $this -> user -> getAllInfo($login, $token, $tokenLastUse);
+            $user = $this -> user -> getUserByLogin($login);
+            $checkLogin = $user ? $user['login'] : '';
+            if($checkLogin != ''){
+                $checkToken = $user ? $user['token'] : '';
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
+                    $updateToken = $this -> user -> updateToken($login, $token, $tokenLastUse);
+                    if(!$updateToken){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    $gameCount = $user['gameCount'];
+                    $scoreCount = $user['scoreCount'];
+                    return array(
+                        'gameCount'=>$gameCount,
+                        'scoreCount'=>$scoreCount,
+                    );
+                }
+                else return array(false, 401); //неверный токен для этого пользователя
+            }
+            else return array(false, 461);
         }
-        return array(false, 400);
+        return array(false, 400); 
     }
+
 
     function updatePassword($params){
         $login = $params['login'];
@@ -103,9 +172,26 @@ class Application{
         $hash = $params['hash'];
         $tokenLastUse = date('Y-m-d H:i:s');
  
-
         if($login && $token && $hash){
-            return $this -> user -> updatePassword($login, $token, $hash, $tokenLastUse);
+            $user = $this -> user -> getUserByLogin($login);
+            $checkLogin = $user ? $user['login'] : '';
+            if($checkLogin != ''){
+                $checkToken = $user ? $user['token'] : '';
+                if($checkToken != '' && $checkToken == $token && $checkToken != 0){
+                    $updateToken = $this -> user -> updateToken($login, $token, $tokenLastUse);
+                    if(!$updateToken){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    $updatePassword = $this -> user -> updatePassword($login, $hash);
+                    if(!$updatePassword){
+                        return array(false, 462); // Ошибка запроса 
+                    }
+                    return true;
+
+                }
+                else return array(false, 401); //неверный токен для этого пользователя
+            }
+            else return array(false, 461); 
         }
         return array(false, 400);
     }
