@@ -1,33 +1,26 @@
-import { Button, Logo } from "../../components";
-import { TPage } from "../PageHandler/PageHandler";
+import { Button, Login } from "../../components";
+import { ISetPage } from "../../interfaces";
 import "../MenuPage/MenuPage.css";
 
-interface IMenu {
-  goToLogin: React.Dispatch<React.SetStateAction<TPage>>;
-}
-
-const MainPage: React.FC<IMenu> = ({ goToLogin }) => {
+const MainPage: React.FC<ISetPage> = ({ setPage }) => {
   return (
-    <div className="menu_page_wrapper">
-      <Logo />
-      <div className="menu_buttons_block">
+    <div className="main_wrapper">
+      <div className="main_header">
+        <Button appearance="primary-disable" id="test_login_pageName_button">
+          Уже служил
+        </Button>
         <Button
-          appearance="menu"
-          className="menu_btn"
+          appearance="primary"
+          id="test_login_goToReg_button"
           onClick={() => {
-            goToLogin("Lobby");
+            setPage("Registration");
           }}
         >
-          <p className="l">Вернуться на службу</p>
-          <p className="s">Авторизация</p>
+          Получить повестку
         </Button>
-        <Button
-          appearance="menu"
-          className="menu_btn"
-        >
-          <p className="l">Получить повестку</p>
-          <p className="s">Регистрация</p>
-        </Button>
+      </div>
+      <div className="main_content">
+        <Login setPage={setPage} />
       </div>
     </div>
   );
