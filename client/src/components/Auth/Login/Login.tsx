@@ -16,11 +16,12 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
     setUserData({ ...userData, [data]: value });
   };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (true) {
-      const res = server.login(userData.login, userData.password);
-      if (res !== null) {
-        console.log(res);
+      const res = await server.login(userData.login, userData.password);
+      console.log(res);
+      if (res) {
         setPage("Lobby");
       }
       return;
