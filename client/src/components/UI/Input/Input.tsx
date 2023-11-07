@@ -7,7 +7,6 @@ import "./Input.css";
 type TType = "password" | "text" | "hidePassword";
 
 interface IInputProps {
-  id: string;
   text: string;
   value: string;
   onChange: (value: string) => void;
@@ -17,7 +16,6 @@ interface IInputProps {
 
 const Input: React.FC<IInputProps> = ({
   text,
-  id,
   className,
   value,
   type = "text",
@@ -41,7 +39,6 @@ const Input: React.FC<IInputProps> = ({
       <div className="input_wrapper">
         <input
           className={cn("input_value", className)}
-          id={id}
           value={value}
           onChange={onChangeHandler}
           type={inputType === "text" ? "text" : "password"}
