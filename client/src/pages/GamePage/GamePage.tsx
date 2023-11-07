@@ -4,8 +4,9 @@ import MathGame from "../../modules/Graph/Math/MathGame";
 import { useEffect, useState } from "react";
 import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
-import "./GamePage.css"
 import Collision from "../../modules/Graph/Collision/Collison";
+import "./GamePage.css"
+import { corpusTank, towerTank } from "../LobbyPage/images";
 
 const GamePage: React.FC = () => {
 
@@ -21,8 +22,7 @@ const GamePage: React.FC = () => {
     const keyPressed: TKeyboard = {}
 
     const man: TUnit = {x: 6, y: 3, r: 0.2}
-    const tank: TUnit = {x: 5, y: 4, r:0.4}
-    const tankI: TPoint[] = [{x:-0.4, y:- 0.4}, {x:-0.4, y: 0.4}, {x:0.4, y: 0.4}, {x:0.4, y: -0.4}] 
+    const tank: TUnit = {x: 5, y: 4, r:0.5}
 
     const WIN = {
         left: -8 * prop + tank.x,
@@ -30,6 +30,12 @@ const GamePage: React.FC = () => {
         width: 16 * prop,
         height: 16,
     };
+
+    const corpusTankImage = new Image( 1.1*width / WIN.width, height / WIN.height)
+    corpusTankImage.src = corpusTank
+
+    const towerTankImage = new Image(2.92 * width / WIN.width, 1.3 * height / WIN.height)
+    towerTankImage.src = towerTank
 
     const math = new MathGame({WIN})
     let angleOfMovement = Math.PI/2;
@@ -44,13 +50,15 @@ const GamePage: React.FC = () => {
     const blocksArray: TPoint[][] = [[{x:5, y: 6}, {x:5, y: 8}, {x:7, y: 8}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
         [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:6, y: 8.5}, {x:6, y: 9}, {x:11, y: 9}, {x:11, y: 8.5}],
         [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
-        [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}],]
+        [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}]]
     const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
-    const deadTank: TUnit = {x: 7.5, y: 3, r: 0.4}
+    const deadTank: TUnit = {x: 7.5, y: 3, r: 0.5}
     
     let isCollition: boolean = false
 
     const collision = new Collision({WIN, blocksArray, circlesArray})
+
+    let cursorPosition: TPoint = {x:0, y:0}
 
     useEffect(() => {
         canvas = Canvas({
@@ -60,7 +68,8 @@ const GamePage: React.FC = () => {
             WIN: WIN,
             callbacks: {
                 keydown: (event) => {keyDown(event)},
-                keyup: (event) => {keyUp(event)}
+                keyup: (event) => {keyUp(event)},
+                mousemove: (event) => {mouseMove(event)}
             }
         });
 
@@ -98,6 +107,11 @@ const GamePage: React.FC = () => {
         if (event.code ==='ArrowLeft' || event.code ==='KeyA') { 
             keyPressed.ArrowLeft = false    
         }       
+    }
+
+    const mouseMove = (event: MouseEvent): void => {
+        cursorPosition.x = event.clientX
+        cursorPosition.y = event.clientY
     }
 
     /* движение пехотинца по карте */
@@ -154,39 +168,20 @@ const GamePage: React.FC = () => {
             angleOfMovement += speedRotate
         } else if (keyPressed.ArrowRight) {
             angleOfMovement -= speedRotate
-        }  
+        }
+        
     }
 
-    const turnTanks = (keyPressed: TKeyboard) => {
-        const cosRotate = Math.cos(speedRotate);
-        const sinRotate = Math.sin(speedRotate)
-        tankI.forEach(point => {
-            let x = point.x, y = point.y
-            if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
-                x = point.x * cosRotate + point.y * sinRotate
-                y = point.y * cosRotate - point.x * sinRotate
-                point.x = x;
-                point.y = y
-            } else if (keyPressed.ArrowLeft) {
-                x = point.x * cosRotate - point.y * sinRotate
-                y = point.y * cosRotate + point.x * sinRotate
-                point.x = x;
-                point.y = y
-            }
-            
-            if (keyPressed.ArrowRight && keyPressed.ArrowDown) {
-                x = point.x * cosRotate - point.y * sinRotate
-                y = point.y * cosRotate + point.x * sinRotate
-                point.x = x;
-                point.y = y
-            } else if (keyPressed.ArrowRight) {
-                x = point.x * cosRotate + point.y * sinRotate
-                y = point.y * cosRotate - point.x * sinRotate
-                point.x = x;
-                point.y = y
-            } 
-        })
-        canvas.tank(tankI)
+    let angleOfMove = Math.PI/2
+    const rotateGun = () => {
+        let vector: TPoint = {x:1,y:0}
+        vector.x = canvas.pxinx(cursorPosition.x)
+        vector.y = canvas.pxiny(cursorPosition.y)
+        let toAngle = Math.atan2(vector.y, vector.x)
+        
+        canvas.rotateGun(towerTankImage, toAngle)
+    
+        
     }
 
     const renderScene = (FPS: number) => {
@@ -209,11 +204,13 @@ const GamePage: React.FC = () => {
             canvas.circle(circlesArray[1], '#666')
             canvas.circle(circlesArray[2], '#666')
             canvas.circle(deadTank, '#333')
-
            
             moveSceneTank(keyPressed)
             isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
-            turnTanks(keyPressed)
+
+            canvas.rotateTank(corpusTankImage, angleOfMovement)
+            
+            rotateGun()
         }
     }
 

@@ -1,3 +1,4 @@
+import { tank2 } from "../../../pages/LobbyPage/images";
 import { TPoint, TWIN, TUnit } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
@@ -9,6 +10,7 @@ export interface ICanvasOption {
     callbacks: {
         keydown: (event: KeyboardEvent) => void
         keyup: (event: KeyboardEvent) => void
+        mousemove: (event: MouseEvent) => void
     }
 }
 
@@ -28,9 +30,10 @@ class Canvas {
         this.canvas.width = width;
         this.canvas.height = height;
 
-        const {keydown, keyup} = callbacks;
+        const {keydown, keyup, mousemove} = callbacks;
         window.addEventListener('keydown', (event: KeyboardEvent) => keydown(event));
         window.addEventListener('keyup', (event: KeyboardEvent) => keyup(event));
+        window.addEventListener('mousemove', (event: MouseEvent) => mousemove(event));
 
         this.WIN = WIN;
 
@@ -51,6 +54,14 @@ class Canvas {
 
     notys(y: number): number { 
         return this.canvas.height - (y + this.WIN.height / 2) / this.WIN.height * this.canvas.height;
+    }
+
+    pxinx(px: number): number {
+        return px / this.canvas.width * this.WIN.width - this.WIN.width / 2
+    }
+
+    pxiny(px: number): number {
+        return (this.canvas.height - px) / this.canvas.height * this.WIN.height - this.WIN.height/2
     }
 
     point (x: number, y: number, color = '#c00000', size = 2): void {
@@ -100,15 +111,12 @@ class Canvas {
         this.context.closePath();
     }
     
-    tank(points:TPoint[]): void {
-        this.context.beginPath();
-        this.context.moveTo(this.notxs(points[0].x), this.notys(points[0].y));
-        for (let i = 1; i < points.length; i++) {
-            this.context.lineTo(this.notxs(points[i].x), this.notys(points[i].y));
-        }
-        this.context.fillStyle = 'red';
-        this.context.fill();
-        this.context.closePath();
+    rotateTank(tank: HTMLImageElement, angle: number): void {
+        this.context.save()
+        this.context.translate(this.notxs(0), this.notys(0))
+        this.context.rotate(-angle - Math.PI)
+        this.context.drawImage(tank, -tank.width/2 , -tank.height/2 , 1.1*this.canvas.width/this.WIN.width,  this.canvas.height/this.WIN.height)
+        this.context.restore();
     }
 
     man(size: number, color = '#c00000'): void {
@@ -137,6 +145,15 @@ class Canvas {
         this.context.fill();
         this.context.closePath();
     }
+
+    rotateGun(gun: HTMLImageElement, angle: number): void {
+        this.context.save()
+        this.context.translate(this.notxs(0), this.notys(0))
+        this.context.rotate(- angle - Math.PI)
+        this.context.drawImage(gun, -gun.width/2.7, -gun.height/4.1, gun.width/2, gun.height/2)
+        this.context.restore();
+    }
+
 
     clear(): void {
         this.context.fillStyle = '#999';
