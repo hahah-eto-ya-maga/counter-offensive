@@ -26,16 +26,17 @@
         }
 
 
-        function registration($login, $password){
+        function registration($login, $nickname, $password){
             $tokenLastUse = date('Y-m-d H:i:s');
             $timeCreate = $tokenLastUse;
             $token = hash('sha256', $this->v4_UUID());
             
             $checkUser = $this->db->getUserByLogin($login);
             if($checkUser == null){
-                $this->db->addUser($login, $password, $token, $tokenLastUse, $timeCreate); 
+                $this->db->addUser($login, $nickname, $password, $token, $tokenLastUse, $timeCreate); 
                 return array(
                     'login'=>$login,
+                    'nickname'=>$user->nickname,
                     'token'=>$token
                 );
             }
@@ -54,6 +55,7 @@
                     $this->db->updateToken($user->id, $tokenLastUse, $token);
                     return array(
                         'login'=>$user->login,
+                        'nickname'=>$user->nickname,
                         'token'=>$token
                     );
                 }

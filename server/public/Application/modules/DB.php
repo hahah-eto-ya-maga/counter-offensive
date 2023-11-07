@@ -70,8 +70,8 @@ class DB {
     }
 
 
-    function addUser($login, $hash, $token, $tokenLastUse=0, $timeCreate=0) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
-        $query = "INSERT INTO users (login, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, ?)"; // Запрос вставляет в базу данных полученные данные
-        $this->link->execute_query($query, array($login, $hash, $token, $tokenLastUse, $timeCreate));
+    function addUser($login, $nickname, $hash, $token, $tokenLastUse=0, $timeCreate=0) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
+        $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, ?, ?)"; // Запрос вставляет в базу данных полученные данные
+        $this->link->execute_query($query, array($login, $nickname, $hash, $token, $tokenLastUse, $timeCreate));
     } 
 }

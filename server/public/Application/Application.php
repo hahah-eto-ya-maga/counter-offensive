@@ -17,11 +17,12 @@ class Application{
     function registration($params){
         $login = $params['login'] ?? false;
         $password = $params['hash'] ?? false;
+        $nickname = $params['nickname'] ?? false;
         
-        if($login && $password){
+        if($login && $password && $nickname){
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,16}$/u';
-            if(preg_match($pattern, $login)){
-                return $this->user->registration($login, $password);
+            if(preg_match($pattern, $login) && preg_match($pattern, $nickname)){
+                return $this->user->registration($login, $nickname, $password);
             }
             return array(false,413);    
         }
