@@ -6,7 +6,7 @@ const DOMAIN = 'http://ivt21'; */
 //prod
 
 const PORT = null;
-const DOMAIN = "http://localhost/api";
+const DOMAIN = "http://localhost";
 
 export const HOST = PORT ? `${DOMAIN}:${PORT}` : DOMAIN;
 

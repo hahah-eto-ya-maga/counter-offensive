@@ -5,7 +5,7 @@ class Answer{
         '401' => 'Unauthorized',            // Неавторизованный запрос(неверный токен)
         '403' => 'Forbidden',               // Неверный логин или пароль
         '405' => 'Method Not Allowed',      // Метод не указан
-        '413' => 'Invalid login',           // Неверный формат логина 
+        '413' => 'Invalid login(nickname)', // Неверный формат логина 
         '501' => 'Not Implemented',         // Метод не реализован на сервере
         '503' => 'DB Unavailable',          // Не удалось подключится к базе данных
         '460' => 'Login Occupied',          // Логин занят
@@ -15,11 +15,9 @@ class Answer{
     );
 
 
-    public function response($result = null)
-    {
-        $flag = isset($result[0]) ? false : true;
+    static function response($result = null) {
         if ($result) {
-            if (is_array($result) && ($flag === false)) {
+            if (is_array($result) && isset($result[0]) && !$result[0]) {
                 $code = $result[1];
                 return array(
                     'result' => 'error',

@@ -1,0 +1,3827 @@
+{
+  "id": "68c7872a-cba6-4489-97dd-c8098e87da16",
+  "version": "2.0",
+  "name": "silenium",
+  "url": "http://localhost:3000/",
+  "tests": [{
+    "id": "7b4ffa56-ab5e-4ec3-8ad4-905510450a0e",
+    "name": "registrationScreenElementsCheck",
+    "commands": [{
+      "id": "ee1d6253-bfa8-4d60-8879-7af596c05562",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cd0b0849-6b6f-4e38-b0df-380f7d6f1578",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9251b816-98b7-4434-b27e-3baa113dfbe9",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_reg_pageName_button",
+      "targets": [
+        ["id=test_reg_submit_button", "id"],
+        ["css=#test_reg_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_reg_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Попасть в списки военных')]", "xpath:innerText"]
+      ],
+      "value": "Повестка"
+    }, {
+      "id": "27cb21ac-de8f-456e-bff2-92689a45875d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_reg_goToMain_button",
+      "targets": [],
+      "value": "Уже служил"
+    }, {
+      "id": "87524a0f-b258-41e4-9dd7-97d5ecc5f849",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b745c817-16b7-4a89-aeec-5ce60f497b9c",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "47df55e7-8c35-4756-a45b-f6c4ce21bbf9",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_reg_pass_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e0d610e1-6811-4d00-b21b-a98cb8733f26",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": "Попасть в списки военных"
+    }, {
+      "id": "62b1fa53-27bd-45ba-99a5-ecebeda070ef",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.input_box:nth-child(1) > .input_text",
+      "targets": [],
+      "value": "Логин"
+    }, {
+      "id": "60f6ccb8-b07a-433e-ac36-d980bb3f3eb0",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.input_box:nth-child(2) > .input_text",
+      "targets": [
+        ["css=.input_box:nth-child(2) > .input_text", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "Никнейм"
+    }, {
+      "id": "b6869de9-4f65-4a29-9b6a-ce96c2fec106",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.input_box:nth-child(3) > .input_text",
+      "targets": [
+        ["css=.input_box:nth-child(3) > .input_text", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[3]/div", "xpath:idRelative"],
+        ["xpath=//div/div[3]/div", "xpath:position"]
+      ],
+      "value": "Пароль"
+    }, {
+      "id": "37bd0207-8016-4fd4-a122-85d0e0b523f6",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "980a5b5c-5193-47ff-9f7f-7e8dcf6e6f76",
+    "name": "authorizationScreenElementsActiveCheck",
+    "commands": [{
+      "id": "89d3602f-ecf6-4cea-8cc7-da289173aca1",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c52c82a3-9a7b-40ec-8422-ff1a869bd77f",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": "Получить повестку"
+    }, {
+      "id": "cffdcad6-5bf1-4bbd-85b7-47fc0fa15e75",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_login_pageName_button",
+      "targets": [],
+      "value": "Уже служил"
+    }, {
+      "id": "817a0e57-5ed7-4eb1-82ee-e926a2776dd0",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8284f30d-c2f4-41a5-8440-d62c370e3520",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2fce6cf1-36e5-409b-b1ea-2c131f513448",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.input_box:nth-child(1) > .input_text",
+      "targets": [
+        ["css=.input_box:nth-child(1) > .input_text", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div", "xpath:idRelative"],
+        ["xpath=//form/div/div/div", "xpath:position"]
+      ],
+      "value": "Логин"
+    }, {
+      "id": "a26cd72d-21e6-49c5-bfcd-7e0f2be6af52",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=.input_box:nth-child(2) > .input_text",
+      "targets": [
+        ["css=.input_box:nth-child(2) > .input_text", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div", "xpath:position"]
+      ],
+      "value": "Пароль"
+    }, {
+      "id": "9318d2e4-29a3-4d5b-8b1e-d74102bd5456",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "css=rect",
+      "targets": [
+        ["css=rect", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f98773f2-b87d-4840-a024-08d9951963cd",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": "Пойти на Бахмут"
+    }, {
+      "id": "aeeb4abb-2fec-4d9d-9cc1-bdce89418709",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "0909bfc4-5d75-4c78-843e-9e4932e5b26f",
+    "name": "lobbyScreenElementsCheck",
+    "commands": [{
+      "id": "249f97fe-e386-47c3-9da2-c0a9596b9a03",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "685ee6c5-7334-4018-b847-295ce41429de",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fd5fa12d-f1c6-4112-a7f0-aefd53c09e79",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_standartBearer",
+      "targets": [],
+      "value": "Знаменосец"
+    }, {
+      "id": "ebf40ea9-26ff-4a77-9438-874d4d9f9bfa",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": "Генерал"
+    }, {
+      "id": "8c534b45-20da-4aa4-bef2-66f0b0af22d3",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_2tank",
+      "targets": [],
+      "value": "Двухместный танк"
+    }, {
+      "id": "a8e1fcb3-d715-41bf-a42c-a912e82ebff5",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_3tank",
+      "targets": [],
+      "value": "Трехместный танк"
+    }, {
+      "id": "14cd1b39-3b93-4ffe-97fe-e7910c446720",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_infantrymanRPG",
+      "targets": [],
+      "value": "Пехотинец с гранатомётом"
+    }, {
+      "id": "3b85c841-363a-42fc-8da9-9babe3c785f4",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_infantrymanGun",
+      "targets": [],
+      "value": "Пехотинец-автоматчик"
+    }, {
+      "id": "5663271b-e68f-4f66-b92b-0f19d922dc00",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_showcaseOfAchievements",
+      "targets": [],
+      "value": "Витрина достижений"
+    }]
+  }, {
+    "id": "0c53f668-2d0e-4013-9148-f04bfa0d17d6",
+    "name": "tankLobbyTwoPlacesElementsCheck",
+    "commands": [{
+      "id": "ecc60243-a732-4640-811a-e75616a19662",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df5d3cc6-cdcb-4746-b4d3-3d45f5ddae00",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "user1234"
+    }, {
+      "id": "b1187cc5-48de-4293-a3e5-945114442dbd",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "qwerty123456"
+    }, {
+      "id": "7986dec5-5cc3-4d35-b869-28fe4ab8ea14",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54b902f0-6835-4387-b98b-8fb8100788d2",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_2tank",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eb53fcaa-37b9-4306-9e3a-83795f22e66e",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_generalTankLobby",
+      "targets": [],
+      "value": "Генерал"
+    }, {
+      "id": "f32508d5-942f-445e-9e8f-dc3542443691",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_tank2",
+      "targets": [],
+      "value": "Двухместный танк"
+    }, {
+      "id": "329debc2-2de7-4542-a5d9-468742781ab8",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_tank3",
+      "targets": [],
+      "value": "Трёхместный танк"
+    }, {
+      "id": "b2662d97-812e-4d77-898d-f0bbc357d779",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "test_button_shooter2",
+      "targets": [],
+      "value": "Наводчик"
+    }, {
+      "id": "9243a79b-52fd-41c4-be35-519bdde045ba",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_tankDriver2",
+      "targets": [],
+      "value": "МехВод"
+    }, {
+      "id": "50445d24-b36a-4a19-954d-a0fae2040b78",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "964f6383-47c3-4a20-8b0e-ecb2fdf06b45",
+    "name": "tankLobbyThreePlacesElementsCheck",
+    "commands": [{
+      "id": "c362f481-2285-4956-8c02-9c36a4d12211",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bb1c5bfc-ff39-4d50-8dfc-dcf00690cfd3",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "user1234"
+    }, {
+      "id": "71849cf0-61c9-4405-b9e8-8ee27a88ec4d",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "qwerty123456"
+    }, {
+      "id": "14b8d91a-e17f-4684-b29f-bc7b942c5cf7",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e4d7db2-1c38-434a-a900-59df1feb7cd3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_3tank",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e3010346-d602-4096-9db5-a10ba9965b40",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_generalTankLobby",
+      "targets": [],
+      "value": "Генерал"
+    }, {
+      "id": "6e2d44d7-1e39-43cb-919b-05891a284035",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_tank2",
+      "targets": [],
+      "value": "Двухместный танк"
+    }, {
+      "id": "04cee9ac-bf36-45ac-97cc-d9d86e1c6f86",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_tank3",
+      "targets": [],
+      "value": "Трёхместный танк"
+    }, {
+      "id": "6cb0cf8a-1269-49e6-9fab-8e4e4038529d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "test_button_shooter3",
+      "targets": [],
+      "value": "Наводчик"
+    }, {
+      "id": "7e943c9a-882b-40fb-93f6-ba582d553701",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_tankDriver3",
+      "targets": [],
+      "value": "МехВод"
+    }, {
+      "id": "5f3c2ae2-a928-4b87-b0f8-de36113b1bd3",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "836b9e56-c578-4cf9-91bb-6a33d2a91003",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=est_button_tank_commander",
+      "targets": [],
+      "value": "Командир"
+    }]
+  }, {
+    "id": "08f53bde-0fe7-48ce-9700-2b06cb272c79",
+    "name": "registrationCheckA001(1)",
+    "commands": [{
+      "id": "d197f99d-b18a-4e9f-8ccf-1541af416e35",
+      "comment": "Спец символ логин ",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "196757a6-be38-45f8-8f11-62091ebb07fb",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7471a685-4e12-41d5-bef0-b753bbc4538b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12#"
+    }, {
+      "id": "6fea6322-ccce-4b80-9384-bcaa9d82eba7",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "8a7d59ad-ce70-49cd-aace-3f2543eb6f1c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "15db56b5-dced-4a47-a994-391915b291e9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "258cf0ad-2d71-4281-9943-4b7861848aea",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5de2f4b8-3ddb-4152-ad51-1e59eafd609d",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3f718b7e-6d4f-47cb-b510-38fbbe9dd05c",
+    "name": "registrationCheckA002(1)",
+    "commands": [{
+      "id": "cf9dfd81-8bd4-4079-81f3-e2ca92e2267b",
+      "comment": "Пустые поля",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1d28f3f7-03a7-4ba8-be3c-d101df350945",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1253cd49-c380-43f6-95ad-234588f4cf92",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3b15db8c-e5fb-40e5-a16e-f1f1e8924eb6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "302ccb56-9feb-449f-a327-ed33e4533cc6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e8bff05-51a9-4de7-b6b9-97fa6ca1e535",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "46562b38-114a-4bc4-a9d1-4c2e6b6263e6",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fc0ea77f-28e3-444a-86cc-ed6af9dea1fd",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ecfef4e1-5e62-4889-9c7a-9b8aa72996b8",
+    "name": "registrationCheckA002(2)",
+    "commands": [{
+      "id": "38de593c-1bfd-462c-903d-7a71e4e8a4b6",
+      "comment": "Пустой логин",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9613c98b-600e-4848-b0d8-0be0b30be73d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e6378488-cb26-4ca3-9bc7-3af84eb3c70b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fa918738-58e8-431a-95ce-9329ede1ae2b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "1922f32d-6afb-4081-a0b7-0f75fa128dfd",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "2708f98c-2bba-4290-a374-7342495a3d13",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9e7eab4a-acab-4326-a7a8-6201245fcf3e",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c973294-fd34-491d-820a-b082cf44ddda",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "5a1fca7b-2d4c-417f-9584-6ea3a2d2d1ab",
+    "name": "registrationCheckA002(3)",
+    "commands": [{
+      "id": "2c22f041-fa6f-4f98-aacc-8686c32d219e",
+      "comment": "Пустой ник",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "abd9dc19-f61e-4793-b207-8bf03a4225ac",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b768ed6-8018-4eff-aae7-49b7a7f23ede",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12"
+    }, {
+      "id": "043c5e2e-ab11-4742-995d-fcf72c1bfb87",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "22116a3a-0a64-4953-ac38-ab56d54e127e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "6751f1fe-543a-48d3-8d00-a588062c7f09",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c360f9b-5a1a-4c54-a3c2-eda5e02b3a73",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6ba61e46-9411-439b-8700-221b3a508acc",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3f8d3be2-6eea-4517-8c8f-b7dd507981c8",
+    "name": "registrationCheckA002(4)",
+    "commands": [{
+      "id": "d6aaf9ed-dc62-40c6-9c33-3286e3a4cc71",
+      "comment": "Пустой пароль",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8457690d-e956-491f-95ad-b152f540baaa",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "17a6ee7a-bc9c-4e74-9706-b275ab956814",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12"
+    }, {
+      "id": "4747d26d-44d6-4c45-ad93-695eb34e5cba",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "e13f3ed6-96ab-426c-9f01-f8f205648e4d",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ec6dc74d-88c1-4bbc-8aea-c8eb90f18817",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "98539c74-aa4c-4bb8-bac8-dca27e6e460c",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a66457e4-d64e-4c65-ab9d-818512c1e689",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "c70428b9-9c6e-4636-a341-3efb933af61d",
+    "name": "registrationCheckA003(1)",
+    "commands": [{
+      "id": "02bdb3ad-69be-45d0-acee-68013c9451c5",
+      "comment": "Длина логина 6",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "16df0828-5db0-4f3a-b95a-9596d63fa324",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3f34ed82-28dd-41ee-b993-9b690a888dd4",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "1bc030bb-c601-4053-8d63-4e4b30966d01",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "1a4e8849-cee4-4e3f-990a-ab37c1abd489",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "c5d5a2c1-93f5-4cc0-b75e-79ccffac7e4f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea19cb37-ed63-4515-828d-0322533dddd4",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea7e53e2-c12c-42f8-b5b2-8b9b68cf875f",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ceaf2f45-59c4-4f67-9667-a2a6ccd81e75",
+    "name": "registrationCheckA003 (2)",
+    "commands": [{
+      "id": "f6a538b1-2fe6-4886-8ac4-23bc6dd7cecd",
+      "comment": "Длина логина 15",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5edddb60-1e04-4b76-a0c9-5032bb7d9484",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffb00103-ef6f-4487-b354-e6b4478459ed",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1234567890"
+    }, {
+      "id": "14d8bc26-c7ee-4210-badc-28c2fdfb9411",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "cd5f0075-b426-4f66-9065-467ccfc7a4e4",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "be808b94-1251-4141-b1f0-d07df882dcbe",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f274f74b-b176-4d49-90eb-1fc2eb74e7be",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "24a55014-983f-4840-b9e3-edad35240347",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "59e0330c-17b8-4dae-a3a9-ea64cc749010",
+    "name": "registrationCheckA004(1)",
+    "commands": [{
+      "id": "25a33588-57a2-4f20-b881-4823b1dc79cb",
+      "comment": "Длина логина 5",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a9d12a3c-e0f9-4707-9ee5-3c50b2a503c9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54eb0497-93c3-4058-b1db-cead22fce473",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya"
+    }, {
+      "id": "b3870c42-b243-40b6-a97e-9bb19976bab5",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "62d65ad7-e77e-46fe-997b-f3963843d744",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "e74534bb-cc65-4f26-97bb-44b9a0f49941",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5a05870d-4d8e-4733-81aa-660cab25a634",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c1d66b5-9c81-4ac0-a19a-df9ca58c17dd",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "140b080f-5ca3-4583-a5b6-928e9ca51cc8",
+    "name": "registrationCheckA004(2) ",
+    "commands": [{
+      "id": "7f78bdce-58c3-4366-b945-34007810d57e",
+      "comment": "Длина логина 16",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f13799b0-7cd5-4e0d-8ff7-e4f305639f66",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "301a9649-2574-4b14-8926-0eb8c06a5fed",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12345678901"
+    }, {
+      "id": "d6affb60-b772-40b0-8f3f-a393eb9fdc2b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "b6ba79dc-1e57-4a56-be02-0b4e68442331",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "20d13a23-cedb-4bf2-a028-664ce453af14",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71750f0e-4133-4db6-92cd-339386779745",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e2567e7-5430-4294-b5e3-ca2b08becbe0",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "38814c67-7dce-4246-b853-af92168da82b",
+    "name": "registrationCheckA005(2) ",
+    "commands": [{
+      "id": "77bd361f-74e5-4e58-8e09-90f41463073f",
+      "comment": "Длина логина 14",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4d218d08-b3fa-4d0c-a9af-d3821c6ea4c7",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8be50674-a95d-4dc5-aa3a-d5ef40265e05",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya123456789"
+    }, {
+      "id": "5d6d70d6-f33d-4706-b21a-c99294540eb1",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "a65459c2-d986-47a1-8f7f-bbbd40c92b7b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "9eb2e8da-21cc-47c3-8836-d4a4c566a660",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fe547b06-2aea-42e9-a177-00e0c6504443",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "be347485-9638-470a-9c73-8f6a509c4c2e",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "98f8fa2b-ec6a-476e-864d-f232aaf4d382",
+    "name": "registrationCheckA005(1)",
+    "commands": [{
+      "id": "2c898901-98a7-4873-a559-da38ad3076fe",
+      "comment": "Длина логина 7",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3461c644-50c0-4748-8c30-baf543e633d6",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ae60b6c-9395-4ecb-927f-8322fcff5bce",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12"
+    }, {
+      "id": "c24bc3eb-8f54-484f-946f-b42ae9baf8fa",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "100e39ef-f1d7-48b2-87fc-17c19208342e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "64a9b061-333a-43d6-b3bb-f08fcf987838",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "26f73074-b63e-4880-b205-068c8fac9ec3",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "98480eba-d0cb-4d5e-8ff3-8002c3296419",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "9a546d3a-cc08-4196-90ff-85d131c4c88f",
+    "name": "registrationCheckA001 (2)",
+    "commands": [{
+      "id": "9d40fd5d-84dc-4014-9f95-f28d66e598c2",
+      "comment": "Спец символ ник",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9dd143f1-72f5-484c-b18f-93d245644704",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9654d369-f0aa-4438-8ab9-d287404e984e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12"
+    }, {
+      "id": "a93bb8e7-a5ca-443a-8c2e-9e9dcc9f5f48",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000#"
+    }, {
+      "id": "628e7d3a-1f68-4c64-92d4-421a5f92e58b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "07bdd6cc-b65f-4538-aef0-f098ebb3d9a8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4c021186-f123-43af-a2be-a4eaf14b4a7e",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6632124f-59b7-4e75-9290-26dfcb67a4ad",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1a6e1caa-06f7-4495-aa3e-785259c467c3",
+    "name": "registrationCheckA001 (4)",
+    "commands": [{
+      "id": "1cc1481f-59e8-4ff8-8c01-4eaefe8f3847",
+      "comment": "Пробел никнейм",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7f6f72cb-be39-4b21-9ecd-6aa40b845f4f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "659d5a32-11bc-4988-b6f2-1ce8bc8db30a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya12"
+    }, {
+      "id": "7e0a804c-1105-4f8e-9014-f255d00c0d06",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher 3000"
+    }, {
+      "id": "07d8b753-6b2f-434b-b1bd-dce7f3ffd930",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "7f94fad3-02b1-455f-ac7e-5cfc16777711",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a839b73f-5ca9-4871-b05e-f16c6675809b",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d2f9452e-480a-408c-bcfe-007284f3c616",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "084aa6fa-b406-45c5-9548-10d201587e3f",
+    "name": "registrationCheckA001 (3)",
+    "commands": [{
+      "id": "8ccca208-0363-4b32-960f-6272cf83a053",
+      "comment": "Пробел логин",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d53313b6-8fca-4e7b-8e6d-dcd88a6eb47b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f1cf3b6d-4d1f-42e3-b09e-ca10d0b3bfe4",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya 12"
+    }, {
+      "id": "d48e93ba-a173-4f08-aaf2-5b2a2bfc4700",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "8cbe406e-773d-4b02-a38b-fe7b1cfffdb4",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "2683bc45-4360-43a7-8b11-2e754ecda6d1",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "800d9dbc-466f-482e-8de1-993be6fd5175",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bfa7f0d-515d-4c88-9741-0ccdfd7381a5",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e1c73acf-a4c2-4a58-bd51-54265918f709",
+    "name": "registrationCheckA006(1)",
+    "commands": [{
+      "id": "c646d5b3-5498-42f0-a1a3-cb86ce04b9a7",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a9f7b64a-31e3-48f0-9a37-b6753d1bd9c3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4520484-b394-463c-bcfa-f1dac07044b4",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "7d6a86a2-59c9-423d-b530-bd3fde57b15f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "62924b22-00e9-4aac-b0b3-ff9c123ebd7a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "1a6c66f4-1ae4-4986-b6fb-8514752b6557",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d6edc84c-8e6c-48d1-821d-06ce9cf8ab5a",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8205ee39-2460-46a6-86ab-2de8e9ecd816",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "41aa383c-495d-4286-b49e-f9b037c3b6e5",
+    "name": "registrationCheckA006(2)",
+    "commands": [{
+      "id": "b12a3f48-4bf0-46bb-bc1b-fd8020494b2c",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c593b311-567d-4e1c-908a-6f0705e936bf",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fb77e5f8-0289-4b29-afc5-45f51ec3ad16",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "VaSyA1"
+    }, {
+      "id": "31670aa8-c0e3-4eca-8d6e-0185da8c42b0",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "927cf3fd-89c3-4ef4-a191-527789677d92",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "19a31b63-1ff9-42b1-840d-d19291a8f316",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3bfb14b8-9ba8-46e0-b068-2ba1ff467686",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "88fb96ca-c762-440c-b64e-cb8b44ed4639",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "d9facd0a-a786-4768-a201-87b5711ef787",
+    "name": "registrationCheckA006(3)",
+    "commands": [{
+      "id": "46f7b4e9-2c50-46d9-9517-446767d63284",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "992f47a2-a4d5-45ae-8023-a242200c86b9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "01856905-6e6d-4879-8533-3d057f7dcb2c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "вася12"
+    }, {
+      "id": "c2c7dc56-4124-4e03-9ba3-82d29066e6d1",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "9b718293-ec02-481e-90b2-1ac3dfbeedbe",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "78449b40-2efc-4890-9bf1-2acec4534e30",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "45460d23-1d0c-45e1-857d-f07d65baf109",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "59125f20-e0ea-4079-9055-ae24feb11502",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "aa55dd2b-ca8c-42b1-bfce-6a925ef439b9",
+    "name": "registrationCheckA006(4)",
+    "commands": [{
+      "id": "df0eba9a-b651-4964-8cf7-e9b520ef030c",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c07c4c27-19ce-4464-95bb-75853ef48f67",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d163c0a7-874b-417f-82a8-389351792448",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "ВаСЯ12"
+    }, {
+      "id": "4bd3c4aa-a382-4238-911d-7c6c09cad378",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "7a0143d5-c8dc-44ae-81e7-aa6ffaef5b66",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "c02a8c15-b528-4c90-8cf0-e2bc0d441f5a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d6617ba2-bf72-4b4f-a0cd-c8f306472373",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c053306-9b45-4c1a-8d54-cf7c7ed45a7b",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "c39eba2a-8859-466c-8861-243248ac31d7",
+    "name": "registrationCheckA006(5) ",
+    "commands": [{
+      "id": "95ae59a2-ae68-44c0-8d73-85ae43786f51",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7646386e-3462-4642-9bd7-3b43f18cf574",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "516f6a55-64df-4c9c-a3dc-54e6a1a58cd9",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vaся12"
+    }, {
+      "id": "3a2dc7dc-9f53-446e-a4a1-6f05472acbd0",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "7a636d5a-8d90-4902-9f9d-2fe0cc00945a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "d59c7939-a4be-4aab-91e8-28936263eed0",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2182bec8-92fd-4845-b9e5-26fb0fc710bf",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "60d69c27-2a58-41f1-a41f-f300e30d691c",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b081880d-2354-4e24-94e9-9025231d3d53",
+    "name": "registrationCheckA006(6)",
+    "commands": [{
+      "id": "d6067b46-3537-4e7c-8fd9-367389472cc0",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eeeabcdd-ac6e-4d35-b44a-2afc1c7e6106",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6932c760-2e15-42f1-a12f-19a710462ace",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "VaСя12"
+    }, {
+      "id": "749ccdd7-8189-4176-b457-805fd22d2517",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "07c99392-aee0-44f1-8cc7-faaf5a56f277",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "596ff435-05c4-4620-8e8a-67756289409d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bcda34c5-fa01-4fef-a420-c30d3f33ba5b",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f867662e-0af7-4972-aea4-25ff2e91348e",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b9c5ca60-95f0-4dbd-973b-f712a189922f",
+    "name": "registrationCheckA006(7)",
+    "commands": [{
+      "id": "4ab390e0-bd67-4612-990a-0b7fee1c9b3d",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8562d770-b8e8-4118-9800-6202f3d0699e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "195f4d07-3ddf-48be-9d1e-f4aceeb3715c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "VASYA1"
+    }, {
+      "id": "ba64574e-ecf3-4a4e-867a-453fd04fa820",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "0afb96cb-64c0-473e-94dc-d2990faa7cfa",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "f1c9d5b0-d29d-48d1-b708-63e0f1d7fdc4",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4425a6c0-b1a5-4c62-8aa8-b52630033a46",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a5a1e8e1-1a7b-44e5-ad60-932e775d85ce",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "d66bb52b-1876-42e5-b6f0-36c94857b25b",
+    "name": "registrationCheckA006(8) ",
+    "commands": [{
+      "id": "d3fc0899-f3b8-42d9-be06-5295e0d916d3",
+      "comment": "Проверка раскладок",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c152439b-cc67-44f9-b554-52d75b621401",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "126177da-f65c-4669-bd4f-ea503fb4679f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "ВАСЯ12"
+    }, {
+      "id": "8c937add-b722-4821-a497-467d8f1f3202",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "378e64ce-01f3-45bf-8ce1-b7713e85b7a0",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "94a6c505-f3f4-45e1-b271-4cc52ebbefa8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b8e9b3b6-85c4-407b-a046-62cd00e31033",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f8ab5628-2d0d-4b09-84c0-17e76f85f5c0",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "f11ba950-eb59-49b9-a931-78e556aa341e",
+    "name": "registrationCheckA007(1)",
+    "commands": [{
+      "id": "481b1dba-71d0-4612-a394-f27ec14b31c5",
+      "comment": "Длина пароля 8",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "165a3f7b-c3a0-45f8-ba80-897e7398ee54",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc33ce9c-32bb-4fdc-9422-3477dee05427",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "9c083663-75b4-4d0a-993b-bd380f545da3",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "1f17ffc4-e2e0-4de5-a886-e76a84772a09",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "12345678"
+    }, {
+      "id": "6a924724-526b-47ce-9c83-3d09c438c86a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "164bc716-7d59-4e0d-805b-ad5630fb0a75",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b83e2518-f19c-4fa1-8499-acc901dda6f8",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "4052bbd3-424e-4bfc-9750-c8f063289058",
+    "name": "registrationCheckA007(2)",
+    "commands": [{
+      "id": "241a9467-3d7a-4cda-a62a-0132b72a2f27",
+      "comment": "Длина пароля 200",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cb6518c7-9d6d-45ac-886b-ae88563fdc49",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5fcdc9fa-4217-4d9a-9b8e-36a85d8d1281",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "bb355ba5-a1f2-471b-b560-3bc693e05cbd",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "1a121978-d78f-44e9-9eb5-f71470185482",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+    }, {
+      "id": "69c36d3e-2635-48ad-8f17-a8ef3c0fde2a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a6679bf-9986-4765-926e-2f7c1337b040",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aaf199bd-b782-43a4-89ac-f6b270769c5e",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e1a04b74-64f9-4420-aae7-5a4763e6dccb",
+    "name": "registrationCheckA008(1)",
+    "commands": [{
+      "id": "155b45c0-1e09-45ea-b74c-352b72839e69",
+      "comment": "Длина пароля 7",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9998e524-7356-4636-812c-ef87d1b3acc3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84ecf52f-22d4-4830-a571-b97862382508",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "ed047adf-e6f3-4409-b744-967a506d1c0c",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "97d47e41-b9f2-4b83-946f-3eaef7c0ccb5",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "1234567"
+    }, {
+      "id": "085a7dde-cb96-4c6c-99f7-8c00879bcf43",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df4cb468-e01f-417d-8c81-ae425a7f6b05",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fc4b0de1-b92c-404c-bee7-991e681f59f3",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "161f7663-cc6e-4b09-81ec-386379c02e34",
+    "name": "registrationCheckA008(2)",
+    "commands": [{
+      "id": "aa22a1c4-df96-4eea-bff4-fd80dcbf32b4",
+      "comment": "Длина пароля 201",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "01061ca6-80ba-4893-82b8-564f02d784ca",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e786e7e2-829f-4f14-955f-aabf3ecee43e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "f2571a0a-25bc-4bd8-87fb-afe25e38de47",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "b3d4b3a2-d7bb-4f8f-bd6a-8a3d04fb3961",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+    }, {
+      "id": "e426fa23-49ac-457d-9ee0-a64280016dd0",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "22934e4b-ba86-4e9b-9360-deb41a2b7710",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ed10f3b-5405-4314-bb1f-c4ce07810dc9",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "796bd334-91d2-4942-b174-e9412a9be158",
+    "name": "registrationCheckA009(1)",
+    "commands": [{
+      "id": "8a68c53f-4758-4c44-9f65-4e0e5ae3739d",
+      "comment": "Длина пароля 9",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c0c06d93-7297-4e48-8219-7747d8a0cce0",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d08ab05e-1c58-4e1d-a913-e59a48bab576",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "ed2ae05d-813f-40b3-adb8-40af71f26ee5",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "1be06cc2-570f-42fe-9baf-fe6805adfab0",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456789"
+    }, {
+      "id": "c7ccc6e7-cb96-4cab-abf6-2a7872d20e12",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ad03f8d5-f20c-4121-ab03-e27271a648df",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9117303c-d757-49b2-97a7-8e612d0cb567",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1002ab2a-5a0b-4cde-8cff-9ede168736ca",
+    "name": "registrationCheckA009(2)",
+    "commands": [{
+      "id": "326a57a5-c8d5-4585-bd43-50eb2459aacb",
+      "comment": "Длина пароля 199",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e37770c6-6992-4346-8f65-4a38194e177d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "db9de02c-fbbc-4904-bea7-47cec1c4cb59",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "Vasya1"
+    }, {
+      "id": "b1f34e22-8ef9-41f1-afd7-4ed1c970eb52",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "0d81614e-89c7-4749-b83b-4a0bbc5b5439",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+    }, {
+      "id": "887b4b31-b83b-4f31-aae5-311afcee3961",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "86ee8641-0264-4df0-8acc-75fcadcdc932",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f877262b-e89e-4eb6-8cff-9bd33366d59a",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "a593d9b2-8528-4670-825d-bc4e14fb9bc4",
+    "name": "registrationCheckA010",
+    "commands": [{
+      "id": "e4673310-9f4a-44e4-a87b-19c160864ee1",
+      "comment": "Уже с занятым логином",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "79e79ba1-b7ca-4fe2-a0a7-e1262f3e8951",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8490cbe6-e1bc-499d-91f8-ec07fe13e4e1",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "VasyaKiller"
+    }, {
+      "id": "12761026-de65-41ae-892e-d0488cfa3567",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000"
+    }, {
+      "id": "8c8cf982-61d7-4b26-991c-de09c3f19260",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "08a71a94-e701-4070-915d-85556952588d",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1aafdd70-b1e3-4422-a2ed-cd07774f8a7d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bf95ba24-4098-48da-bc67-cb2eab7f4b20",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3f2f45ce-f6c3-4bae-b8e6-df56a1805981",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "88d5fe37-f9d6-433b-84cf-028bb3443787",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "VasyaKiller"
+    }, {
+      "id": "b66f5223-65fb-4fdb-892c-539137a7dc45",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher30001"
+    }, {
+      "id": "16e8b0eb-fd35-43e3-9057-a7798426f664",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "39e6d2ff-aed7-4c16-9fc0-2495b530cb47",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a3b36f4c-85ad-46e9-a43b-5d1cb52ee97d",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "8e0cc300-348f-4fcc-8d28-57e9fe12e960",
+    "name": "registrationCheckA011(1)",
+    "commands": [{
+      "id": "44dc25db-5b89-4d2a-8bcd-76362d3dae94",
+      "comment": "Длина ника 3 ",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "12ffa627-9f45-4d22-ae32-73eaf5f9a043",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f41559f3-5591-4ad4-813e-a6dcd5873a49",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "5f11adf7-3412-45cb-82ad-ab600f49d117",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "meg"
+    }, {
+      "id": "d5bc7da9-d7ca-43e7-9734-996bfdc51bde",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "78ae2d13-6ddb-4bc8-9fee-796fd3ef829f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a6263ec-7f8d-48df-a49b-f1161500cc24",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0341fc3c-e823-411d-ba49-d127dcee0ced",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "4c0796c3-b1b3-4147-aa23-f477882ae876",
+    "name": "registrationCheckA012(2)",
+    "commands": [{
+      "id": "8ba94ad0-0885-4004-bb69-98fd0d5cde3c",
+      "comment": "Длина ника 17",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dcc2249d-4f66-4c64-807b-20f13080f1b8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d5a8a8a9-1a34-4793-8104-3caa5a47c5ad",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "94524fea-e475-4973-8916-fa4a93cfa987",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher3000000"
+    }, {
+      "id": "5dfe0d36-b589-4996-9e3a-15e2c451ef41",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "7613f9e4-6fb7-42eb-a4f7-0be720ec0690",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9553b9fc-6e7f-4a98-9c3a-80dcfa001c80",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef5c9149-e605-4e26-8c9e-50ab4c35e45b",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "1a4a4cec-d795-4322-b3c3-02179c212908",
+    "name": "registrationCheckA011(2)",
+    "commands": [{
+      "id": "b152b8ae-ea5f-4dca-8efe-c9e9f78aa065",
+      "comment": "Длина ника 16",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f3c67bd3-fcae-4294-bb7d-cb4a5a9e819e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e61bbf0-e617-4294-ae77-1c06c00bc71f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "9079ce51-3833-436f-b3e0-f82cca3fa3b6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher300000"
+    }, {
+      "id": "ec6c2de8-649a-482a-bb4a-5f1181488f8a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "f23a1d5f-3db6-45d1-b245-3b6421384af1",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "488c24bf-1df7-4983-a066-b84c675468a3",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a48de5f-6c8d-4c54-8344-d75df01d0981",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e1b79763-4ea3-43ed-a85e-3d6ceaee1085",
+    "name": "registrationCheckA012(1)",
+    "commands": [{
+      "id": "d1704331-4b6f-4dfd-976f-b65e14c770b8",
+      "comment": "Длина ника 2",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ae730f07-52c6-420a-8179-33d721d4bdcd",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1b82bdab-50ff-4622-aae3-15f54e0fce20",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "e45f7ef8-a3dd-420e-bfbc-d1786c9a7218",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "me"
+    }, {
+      "id": "0729fb0e-0da1-4a4f-8033-4beec13384b7",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "10913b3b-cc38-491e-8603-9b823111c5b5",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "913a4355-5ae0-4bde-a512-bbe629979e61",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe8bbe94-fd49-401a-ab48-953a72f12d3d",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "717f8d7b-0260-42c8-8fa9-dd726ad26830",
+    "name": "registrationCheckA013(1)",
+    "commands": [{
+      "id": "9c254527-92ec-4187-9fad-d72da01c1c96",
+      "comment": "Длина ника 4",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "30d1e02f-10c1-4617-b2ee-c49c85884c0e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "301ec57b-cba5-4689-aee1-5b18daed5d18",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "7b41a813-bf56-420a-9b5b-a1454e0537fa",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "mega"
+    }, {
+      "id": "a567a727-422a-433f-a336-e4ee67c200b6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "cd22ee84-6038-407f-b053-f653f806f272",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "55aa161a-b373-4914-89c9-5809a175acb9",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6db6d85-4f3f-42ba-9ae4-e76ba138ae90",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "fcd59dd8-5f20-4d81-9840-6a8ca53c982e",
+    "name": "registrationCheckA013(2)",
+    "commands": [{
+      "id": "f00e00f2-9591-497e-9dcd-69dff651edb7",
+      "comment": "Длина ника 15",
+      "command": "open",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "91118283-426f-4bcb-8708-f505cf0b58b8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2045acf-214f-4a24-b16b-4eb293072152",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [],
+      "value": "vasya1"
+    }, {
+      "id": "4122142f-7662-4916-b2f6-b0117563150f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [],
+      "value": "megatraher30000"
+    }, {
+      "id": "14faf9b4-112e-4bde-84b5-a1a47909548f",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["css=.active:nth-child(2) > .c-ripple", "css:finder"],
+        ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "c36176e2-e7de-4158-b234-4ae3d210075b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f2c16968-54d7-4227-8cf3-afff5986682e",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc031efe-a0c9-4871-b749-3debba046ffb",
+      "comment": "",
+      "command": "close",
+      "target": "http://localhost:3000",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "a900dcf4-19a1-4683-b710-ca6b3d709525",
+    "name": "authorizationCheckA001",
+    "commands": [{
+      "id": "a4182695-9640-475c-aa3e-66ffff4c144c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9c64473d-a851-49ce-b2fc-10fee2b7002d",
+      "comment": "Правильные данные",
+      "command": "click",
+      "target": "id=test_login_goToReg_button",
+      "targets": [
+        ["id=test_login_goToReg_button", "id"],
+        ["css=#test_login_goToReg_button", "css:finder"],
+        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d4891037-cb18-4d36-b9c3-c293aa8c2fb5",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_log_input",
+      "targets": [
+        ["id=test_reg_log_input", "id"],
+        ["css=#test_reg_log_input", "css:finder"],
+        ["xpath=//input[@id='test_reg_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya12"
+    }, {
+      "id": "95336153-ea79-4220-b7ca-a03d01892fa3",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_nick_input",
+      "targets": [
+        ["id=test_reg_nick_input", "id"],
+        ["css=#test_reg_nick_input", "css:finder"],
+        ["xpath=//input[@id='test_reg_nick_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "megatraher3000"
+    }, {
+      "id": "011e16fd-930a-418a-b596-7539fa23292e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_reg_pass_input",
+      "targets": [
+        ["id=test_reg_pass_input", "id"],
+        ["css=#test_reg_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_reg_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[3]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/input", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "7bea0192-e7a7-4886-99c5-ea0a3ec1e9dc",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_reg_submit_button",
+      "targets": [
+        ["id=test_reg_submit_button", "id"],
+        ["css=#test_reg_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_reg_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Попасть в списки военных')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f9d6bcf5-0ce2-4370-a0f3-68c04b4e5a72",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "608c12cc-1553-4572-b82f-d670aa7c9e2e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya12"
+    }, {
+      "id": "d4256dad-5fca-4e71-b581-af1944110090",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "bd1225dd-3344-4b2e-82fa-6f40e4b13139",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "79a93002-45c6-4bfa-b366-f5a46c0116c5",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b1a06d63-e4a2-469e-b96b-bb9509290b73",
+    "name": "authorizationCheckA002(1)",
+    "commands": [{
+      "id": "83cf681b-126e-48b4-a1b8-27991688bf78",
+      "comment": "Пустые поля",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "19baf14d-c4f8-42fb-b8c2-3aeffea83f5b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f87f7d35-030d-4b5d-9476-18ddaed6be52",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f08e5d95-7f36-4b6a-898d-3e495dacb51e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "064a5c3a-8f9c-4fc5-bdc4-f529a33973c3",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "575df98b-f573-40d0-8db7-56012848d42b",
+    "name": "authorizationCheckA002(2) ",
+    "commands": [{
+      "id": "a95362dc-08e4-4a80-8bdb-7da943238467",
+      "comment": "Пустой логин",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1719bfb7-cd7e-4cd9-94c1-3eade70242d6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0dccb9b3-fd45-43a1-9df5-5ff442cd28aa",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "9d462589-3265-4994-bda5-ad4cbe191cc2",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "23b5d2cb-bdb2-41dd-a40b-dfd063b5f4c6",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "621954e7-be4d-4156-8f14-d96075b6ced2",
+    "name": "authorizationCheckA002(3)",
+    "commands": [{
+      "id": "eda5fd08-236c-4ca3-b913-31bc5ab50da2",
+      "comment": "Пустой пароль",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f4dc1402-1373-4ddb-a380-44c3350fb8d6",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya12"
+    }, {
+      "id": "3d3322d0-5eed-4f91-b145-ec5a2272c76b",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d391dab-2693-4aba-ab62-e05f9bfb2253",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eedd39ad-f4e0-462d-9432-bd8ee5998dfc",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "4a7cb93a-91d1-4642-8f73-d8faf7bfe075",
+    "name": "authorizationCheckA003 ",
+    "commands": [{
+      "id": "3b6bb357-15e7-42d0-a8ad-24a303af3808",
+      "comment": "Неверный логин и пароль",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9c01f46c-5bff-4017-b592-514626a3bd6e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya123"
+    }, {
+      "id": "00a4e5f1-edcd-47bb-b2d5-3cad1962aa08",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "23укпаррк"
+    }, {
+      "id": "81122b59-c85a-4a66-a8f4-eaa22ec9871d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "320ea602-5a30-4a56-8d2f-8fa12175442b",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "a0eabd72-10e2-408d-bda7-f531752c14eb",
+    "name": "authorizationCheckA004(2)",
+    "commands": [{
+      "id": "222b50e4-7463-4930-8b6e-324b00baf51c",
+      "comment": "Неверный пароль",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "30eadc78-25b3-4aae-8e82-9c0fe259f600",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya123"
+    }, {
+      "id": "5a9da344-d6ad-47b7-96b9-3b03b99e01ed",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "123456qwerty"
+    }, {
+      "id": "23491e4f-acd9-4e78-a414-6fcaa7b28749",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a26971ca-e751-467c-ac0d-bc3a8d58efbc",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "b1be4a3a-152b-4004-b115-1d3908aa4610",
+    "name": "authorizationCheckA004(1)",
+    "commands": [{
+      "id": "fdffccbc-05e6-40ce-b86e-b9b05be427ea",
+      "comment": "Неверный пароль",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b290d591-200c-4536-a78c-83f8fa3c2b5e",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "vasya12"
+    }, {
+      "id": "541d5701-710b-4338-9c24-f3bccb1b837a",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "23укпаррк"
+    }, {
+      "id": "adccdd90-0317-4534-8bd9-dfa0c9151a31",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f0971030-3703-4925-a1cf-a453018c84db",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "id=test_button_general",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "46e8021c-f41b-4981-9038-3ee2cc4bcae2",
+    "name": "menuScreenElementsCheck",
+    "commands": [{
+      "id": "74d852e1-792b-4916-ae7b-73ab93d23bb7",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "035d1528-403f-4e08-9eae-df19211ffae5",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_menu_goToLobby_button",
+      "targets": [],
+      "value": "Вернуться на службу"
+    }, {
+      "id": "535a2b9b-2e53-4679-ba21-ca6d6a867b85",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_menu_goToMain_button",
+      "targets": [],
+      "value": "Дембельнуться"
+    }]
+  }],
+  "suites": [{
+    "id": "55de9c58-e71f-4750-b460-7599849eefef",
+    "name": "Check Elements",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["7b4ffa56-ab5e-4ec3-8ad4-905510450a0e", "0909bfc4-5d75-4c78-843e-9e4932e5b26f", "980a5b5c-5193-47ff-9f7f-7e8dcf6e6f76", "964f6383-47c3-4a20-8b0e-ecb2fdf06b45", "0c53f668-2d0e-4013-9148-f04bfa0d17d6", "46e8021c-f41b-4981-9038-3ee2cc4bcae2"]
+  }, {
+    "id": "139aaba3-e515-4d7b-b5ce-7acb1ab74cf5",
+    "name": "registrationCheck",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["9a546d3a-cc08-4196-90ff-85d131c4c88f", "084aa6fa-b406-45c5-9548-10d201587e3f", "3f718b7e-6d4f-47cb-b510-38fbbe9dd05c", "ecfef4e1-5e62-4889-9c7a-9b8aa72996b8", "5a1fca7b-2d4c-417f-9584-6ea3a2d2d1ab", "3f8d3be2-6eea-4517-8c8f-b7dd507981c8", "ceaf2f45-59c4-4f67-9667-a2a6ccd81e75", "c70428b9-9c6e-4636-a341-3efb933af61d", "59e0330c-17b8-4dae-a3a9-ea64cc749010", "140b080f-5ca3-4583-a5b6-928e9ca51cc8", "98f8fa2b-ec6a-476e-864d-f232aaf4d382", "38814c67-7dce-4246-b853-af92168da82b", "e1c73acf-a4c2-4a58-bd51-54265918f709", "41aa383c-495d-4286-b49e-f9b037c3b6e5", "d9facd0a-a786-4768-a201-87b5711ef787", "aa55dd2b-ca8c-42b1-bfce-6a925ef439b9", "c39eba2a-8859-466c-8861-243248ac31d7", "b081880d-2354-4e24-94e9-9025231d3d53", "b9c5ca60-95f0-4dbd-973b-f712a189922f", "d66bb52b-1876-42e5-b6f0-36c94857b25b", "f11ba950-eb59-49b9-a931-78e556aa341e", "4052bbd3-424e-4bfc-9750-c8f063289058", "e1a04b74-64f9-4420-aae7-5a4763e6dccb", "161f7663-cc6e-4b09-81ec-386379c02e34", "796bd334-91d2-4942-b174-e9412a9be158", "1002ab2a-5a0b-4cde-8cff-9ede168736ca", "a593d9b2-8528-4670-825d-bc4e14fb9bc4"]
+  }, {
+    "id": "a2e27634-0575-49c7-9281-a9db8a5afac6",
+    "name": "autharisationCheck",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["a900dcf4-19a1-4683-b710-ca6b3d709525", "b1a06d63-e4a2-469e-b96b-bb9509290b73", "575df98b-f573-40d0-8db7-56012848d42b", "621954e7-be4d-4156-8f14-d96075b6ced2", "4a7cb93a-91d1-4642-8f73-d8faf7bfe075", "b1be4a3a-152b-4004-b115-1d3908aa4610", "a0eabd72-10e2-408d-bda7-f531752c14eb"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
