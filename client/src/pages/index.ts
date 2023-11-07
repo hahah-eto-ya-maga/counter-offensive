@@ -3,7 +3,19 @@ import LoadingPage from "./LoadingPage/LoadingPage";
 import LobbyPage from "./LobbyPage/LobbyPage";
 import PageHandler from "./PageHandler/PageHandler";
 import MenuPage from "./MenuPage/MenuPage";
-import MainPage from './MainPage/MainPage';
+import MainPage from "./MainPage/MainPage";
 import GamePage from "./GamePage/GamePage";
+import RegistrationPage from "./RegistrationPage/RegistrationPage";
+import ErrorPage from "./ErrorPage/ErrorPage";
 
-export { LoadingPage, DossierPage, LobbyPage, PageHandler, MenuPage, GamePage};
+export {
+   LoadingPage,
+   DossierPage,
+   LobbyPage,
+   PageHandler,
+   MenuPage,
+   GamePage,
+   MainPage,
+   RegistrationPage,
+   ErrorPage,
+};

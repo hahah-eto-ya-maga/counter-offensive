@@ -19,4 +19,15 @@ export type TPoint = {
     y: number
 }
 
+export type TCheckBorder = {
+    up?: boolean, 
+    down?: boolean, 
+    right?: boolean, 
+    left?: boolean
+}
+
+export type TUnit = TPoint & {
+    r: number
+}
+
 
