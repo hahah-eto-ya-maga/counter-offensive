@@ -1,5 +1,4 @@
-import { FC, useContext, useState } from "react";
-import { MediatorContext } from "../../App";
+import { FC } from "react";
 import { IError } from "../../modules/Server/types";
 import "./ErrorPage.css";
 

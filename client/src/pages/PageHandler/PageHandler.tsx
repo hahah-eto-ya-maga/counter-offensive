@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { MediatorContext } from "../../App";
+import { IError } from "../../modules/Server/types";
 import {
    LobbyPage,
    LoadingPage,
@@ -11,16 +12,15 @@ import {
 } from "../../pages";
 import { Button } from "../../components";
 import { TPage } from "../../interfaces";
-import { IError } from "../../modules/Server/types";
 
 import "./PageHandler.css";
 
 const PageHandler: React.FC = () => {
    const [error, setError] = useState<IError>(null!);
    const [page, setPage] = useState<TPage>("MainPage");
+
    const mediator = useContext(MediatorContext);
    const { SERVER_ERROR } = mediator.getEventTypes();
-
    mediator.subscribe(SERVER_ERROR, (error: IError) => {
       setError(error);
       setPage("Error");
