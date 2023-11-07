@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
+import { ServerContext } from "../../../App";
 import { Button, Input } from "../../UI";
 import { IUserData, ISetPage } from "../../../interfaces";
 import "../../../pages/MainPage/MainPage.css";
-import { ServerContext } from "../../../App";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
    const [userData, setUserData] = useState<IUserData>({
@@ -16,10 +16,16 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
       setUserData({ ...userData, [data]: value });
    };
 
-   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      server.login(userData.login, userData.password);
-      setPage("Lobby");
+      if (true) {
+         const res = await server.login(userData.login, userData.password);
+         if (res) {
+            setPage("Lobby");
+         }
+         return;
+      }
+      //обработка ошибок
    };
 
    return (

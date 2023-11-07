@@ -6,10 +6,10 @@ const ErrorPage: FC<IError> = ({ code, text }) => {
    return (
       <div className="error-page-wrapper">
          <div className="error_code">
-            <span>Error № {code}</span>
+            <span id="test-error-code">Error № {code}</span>
          </div>
          <div className="error_text">
-            <span>{text}</span>
+            <span id="test-error-text">{text}</span>
          </div>
       </div>
    );
