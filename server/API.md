@@ -32,6 +32,7 @@ User = {
     nickname:string
     token:string
 }
+
 ```
 
 ## Значение ошибок по их коду
