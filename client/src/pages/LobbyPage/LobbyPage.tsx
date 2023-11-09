@@ -11,7 +11,7 @@ const LobbyPage: React.FC = () => {
     const [page, setPage] = useState<TPage>();
 
     return(
-        <div>
+        <div className="lobbi">
             {page !== 'Tank' && 
             page !== 'Infantry' && (
             <div className="lobbi_block">
@@ -27,10 +27,10 @@ const LobbyPage: React.FC = () => {
                 </div>
             </div>
             )}
-                <>
-            {page === "Tank" && <GamePage unit = {page}/>}
-            {page === "Infantry" && <GamePage unit = {page}/>}
-                </>
+            <>
+                {page === "Tank" && <GamePage unit = {page}/>}
+                {page === "Infantry" && <GamePage unit = {page}/>}
+            </>
     
             </div>
     )

@@ -116,8 +116,8 @@ const GamePage: React.FC<IGamePageProps> = ({unit}) => {
     }
 
     const mouseMove = (event: MouseEvent): void => {
-        cursorPosition.x = event.pageX
-        cursorPosition.y = event.pageY
+        cursorPosition.x = event.clientX
+        cursorPosition.y = event.clientY
     }
 
     /* движение пехотинца по карте */
