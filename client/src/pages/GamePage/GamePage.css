@@ -4,6 +4,7 @@
 
 .canvas::-webkit-scrollbar {
     width: 0;
+    overflow: hidden;
   }
 
 .fps {

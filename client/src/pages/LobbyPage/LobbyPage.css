@@ -1,3 +1,7 @@
+.lobbi {
+    overflow: hidden;
+}
+
 .lobbi_block {
     display: flex;
     margin: 24px;

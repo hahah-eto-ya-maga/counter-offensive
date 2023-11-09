@@ -56,11 +56,11 @@ class Canvas {
         return this.canvas.height - (y + this.WIN.height / 2) / this.WIN.height * this.canvas.height;
     }
 
-    pxinx(px: number): number {
+    pxToX(px: number): number {
         return px / this.canvas.width * this.WIN.width - this.WIN.width / 2
     }
 
-    pxiny(px: number): number {
+    pxToY(px: number): number {
         return (this.canvas.height - px) / this.canvas.height * this.WIN.height - this.WIN.height/2
     }
 
@@ -150,7 +150,7 @@ class Canvas {
         this.context.save()
         this.context.translate(this.notxs(0), this.notys(0))
         this.context.rotate(- angle - Math.PI)
-        this.context.drawImage(gun, -gun.width/2.7, -gun.height/4.1, gun.width/2, gun.height/2)
+        this.context.drawImage(gun, -gun.width/3.1, -gun.height/4.3, gun.width/2, gun.height/2)
         this.context.restore();
     }
 
