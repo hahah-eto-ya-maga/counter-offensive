@@ -32,7 +32,7 @@
             $token = hash('sha256', $this->v4_UUID());
             
             $checkUser = $this->db->getUserByLogin($login);
-            if($checkUser == null){
+            if(!$checkUser){
                 $this->db->addUser($login, $nickname, $password, $token, $tokenLastUse, $timeCreate); 
                 return array(
                     'login'=>$login,

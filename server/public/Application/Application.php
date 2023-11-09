@@ -5,11 +5,11 @@ require_once("modules/User.php");
 class Application{
 
     protected $user;
-    public $dbError;
+    public $dbStatus;
 
     function __construct(){
         $db = new DB();
-        $this->dbError = $db->dbStatus;
+        $this->dbStatus = $db->dbStatus;
         $this->user = new User($db);
     }
     
