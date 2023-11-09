@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import { GamePage, LobbyPage, PageHandler } from "./pages";
+import {LobbyPage, PageHandler } from "./pages";
 import { Mediator, Server, Store } from "./modules";
 import { HOST, MEDIATOR } from "./config";
 import "./styles/global.css";
