@@ -34,9 +34,13 @@ export default class Server {
       }
    }
 
-   registration(login: string, password: string): Promise<IUser | null> {
+   registration(
+      login: string,
+      nickname: string,
+      password: string
+   ): Promise<IUser | null> {
       const hash = SHA256(login + password).toString();
-      return this.request("registration", { login, hash });
+      return this.request("registration", { login, nickname, hash });
    }
 
    login(login: string, password: string): Promise<IUser | null> {

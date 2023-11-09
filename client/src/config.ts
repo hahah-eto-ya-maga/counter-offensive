@@ -1,7 +1,7 @@
 // dev
 
 /* const PORT = 81;
-const DOMAIN = 'http://ivt21'; */
+const DOMAIN = 'http://counter-nastup'; */
 
 //prod
 
