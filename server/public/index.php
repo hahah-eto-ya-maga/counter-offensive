@@ -10,7 +10,7 @@
         $method = $params['method']??false;
         if($method) {
             $app = new Application();
-            if($app->dbError){
+            if($app->dbStatus){
                 switch($method){
                     case 'registration': return $app->registration($params);
                     case 'login': return $app->login($params);
