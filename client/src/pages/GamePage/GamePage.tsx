@@ -6,10 +6,13 @@ import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import Collision from "../../modules/Graph/Collision/Collison";
 import "./GamePage.css"
-import { corpusTank, towerTank } from "../../assets/pngs";
+import { manAutomat, corpusTank, towerTank } from "../../assets/svgs";
 
-const GamePage: React.FC = () => {
+interface IGamePageProps {
+    unit: string
+}
 
+const GamePage: React.FC<IGamePageProps> = ({unit}) => {
     const height = window.innerHeight - 26;
     const width = window.innerWidth - 26;
     const prop = width / height;
@@ -21,7 +24,7 @@ const GamePage: React.FC = () => {
 
     const keyPressed: TKeyboard = {}
 
-    const man: TUnit = {x: 6, y: 3, r: 0.2}
+    const man: TUnit = {x: 6, y: 3, r: 0.23}
     const tank: TUnit = {x: 5, y: 4, r:0.5}
 
     const WIN = {
@@ -36,6 +39,9 @@ const GamePage: React.FC = () => {
 
     const towerTankImage = new Image(2.92 * width / WIN.width, 1.3 * height / WIN.height)
     towerTankImage.src = towerTank
+
+    const manImage = new Image()
+    manImage.src = manAutomat
 
     const math = new MathGame({WIN})
     let angleOfMovement = Math.PI/2;
@@ -110,8 +116,8 @@ const GamePage: React.FC = () => {
     }
 
     const mouseMove = (event: MouseEvent): void => {
-        cursorPosition.x = event.clientX
-        cursorPosition.y = event.clientY
+        cursorPosition.x = event.pageX
+        cursorPosition.y = event.pageY
     }
 
     /* движение пехотинца по карте */
@@ -136,9 +142,6 @@ const GamePage: React.FC = () => {
         
         man.x = WIN.left + 8 * prop;
         man.y = WIN.bottom + 8
-
-        canvas.man(man.r, 'yellow')
-
     }
 
     /* движение танка по карте*/
@@ -172,14 +175,14 @@ const GamePage: React.FC = () => {
 
     }
 
-    let angleOfMove = Math.PI/2
+    
     const rotateGun = () => {
         let vector: TPoint = {x:1,y:0}
-        vector.x = canvas.pxinx(cursorPosition.x)
-        vector.y = canvas.pxiny(cursorPosition.y)
+        vector.x = canvas.pxToX(cursorPosition.x)
+        vector.y = canvas.pxToY(cursorPosition.y)
         let toAngle = Math.atan2(vector.y, vector.x)
         
-        canvas.rotateGun(towerTankImage, toAngle)
+        canvas.rotateGun(manImage, toAngle)
     }
 
     const renderScene = (FPS: number) => {
@@ -203,12 +206,18 @@ const GamePage: React.FC = () => {
             canvas.circle(circlesArray[2], '#666')
             canvas.circle(deadTank, '#333')
            
-            moveSceneTank(keyPressed)
-            isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
+            if (unit == 'Tank') {
+                moveSceneTank(keyPressed) 
+                isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
 
-            canvas.rotateTank(corpusTankImage, angleOfMovement)
-            
-            rotateGun()
+                canvas.rotateTank(corpusTankImage, angleOfMovement)
+                canvas.rotateGun(towerTankImage, angleOfMovement)
+            } 
+            if (unit == 'Infantry') {
+                moveSceneInfantry(keyPressed)
+                isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
+                rotateGun()
+            }
         }
     }
 

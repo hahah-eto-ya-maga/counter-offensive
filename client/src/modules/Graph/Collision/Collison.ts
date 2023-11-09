@@ -106,8 +106,8 @@ class Collision {
             if ((block[0].x >= Math.floor(unit.x - 2) && block[2].x <= Math.ceil(unit.x + 2) && block[0].y <=  Math.ceil(unit.y)  && block[2].y >= Math.floor(unit.y)) || 
             (block[0].y >= Math.floor(unit.y - 2) && block[2].y <=  Math.ceil(unit.y + 2) && block[0].x <= Math.ceil(unit.x) && block[2].x >= Math.floor(unit.x))) {
                 flagCollision = this.collisionBlockUnit(block, unit) || flagCollision
-                this.collisionBlockDeadUnit(block, deadTank)
             }
+            this.collisionBlockDeadUnit(block, deadTank)
         })
 
         this.circlesArray.forEach((circle) => {
