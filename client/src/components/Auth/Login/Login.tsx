@@ -42,7 +42,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
             <Input
                text="Пароль"
                id="test_login_pass_input"
-               type="hidePassword"
+               type="password"
                value={userData.password}
                onChange={(value) => {
                   onChangeHandler(value, "password");
