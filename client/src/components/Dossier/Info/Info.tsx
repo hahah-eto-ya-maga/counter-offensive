@@ -18,35 +18,31 @@ const Info: React.FC<IUserProps> = ({
    changePage,
 }) => {
    return (
-      <>
-         <div>
-            <div className="dossier_image">PHOTO</div>
+      <div className="info">
+         <div className="dossier_user">
+            <div>
+               <div className="dossier_image">
+                  <img src="https://i.ibb.co/BggNK9x/photo-2022-11-06-16-27-39.jpg" alt=""/>
+               </div>
+            </div>
+            <Button
+                appearance="primary"
+                className="achievements_button"
+                onClick={() => changePage("shop")}
+            >
+               Витрина достижений
+            </Button>
          </div>
+
          <div className="dossier_info">
             <div>
-               <p>Логин - {login}</p>
+               <p>Никнейм - {login}</p>
                <p>Количество игр - {gamesCount}</p>
                <p>Количество опыта - {expCount}</p>
                <p>Звание - {rang}</p>
             </div>
          </div>
-         <div>
-            <div className="dossier_showcase">
-               <div>
-                  <Button
-                     appearance="primary"
-                     className="dossier_button"
-                     onClick={() => changePage("shop")}
-                  >
-                     Витрина достижений
-                  </Button>
-               </div>
-               <div className="achievement">
-                  <span>“Тут какое-то выбранное пользователем достижение”</span>
-               </div>
-            </div>
-         </div>
-      </>
+      </div>
    );
 };
 

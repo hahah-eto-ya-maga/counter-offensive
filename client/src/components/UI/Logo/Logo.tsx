@@ -4,7 +4,7 @@ const Logo: React.FC = () => {
   return (
     <svg
       width="80vw"
-      height="187"
+      height="140"
       viewBox="0 0 1324 187"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
