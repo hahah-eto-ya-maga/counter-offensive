@@ -6,15 +6,13 @@ import { automat, RPG, tank2, tank3 } from "./images";
 import "./LobbyPage.css";
 
 const LobbyPage: React.FC = () => {
-    const user = {
-        login: "Vasya",
-        gamesCount: 4,
-        expCount: 32,
-        rang: "Хомяк",
-    };
+    const logoutHandler = () => {
+
+    }
+
     return (
             <div className="lobby_block">
-                <div className="units">
+                <div className="lobby_block_units">
                     <FlagBearer/>
                     <General/>
                     <Button className="tank2 units_item" appearance="image" onClick={() => {}}>Двухместный танк<img src={tank2} alt="Tank_2"/> </Button>
@@ -22,7 +20,10 @@ const LobbyPage: React.FC = () => {
                     <Button className="tank3 units_item" appearance="image" onClick={() => {}}>Трёхместный танк<img src={tank3} alt="Tank_3"/> </Button>
                     <Button className="automat units_item" appearance="image" onClick={() => {}}>Пехотинец-автоматчик<img src={automat} alt="Automat"/></Button>
                 </div>
-                <Dossier/>
+                <div className="lobby_block_right">
+                    <Dossier/>
+                    <Button appearance="primary" className="logout_button">Выйти из Бахмута</Button>
+                </div>
             </div>
     )
 }

@@ -21,17 +21,12 @@
 }
 
 .dossier_info {
-   width: 100%;
    font-family: Neucha;
    font-size: 2vw;
 }
 
 .dossier_info > div {
    padding: 0 0 0 5px;
-}
-
-.info {
-   height: 100%;
 }
 
 .dossier_button {

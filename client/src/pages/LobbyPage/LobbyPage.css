@@ -1,15 +1,25 @@
 .lobby_block {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 7fr 4fr;
     gap: 40px;
-    height: 100%;
 }
 
-.units {
+.lobby_block_units {
     display: grid;
     grid-template-columns: 2fr 2fr;
-    grid-template-rows: repeat(3, 1fr);
-    gap: 40px;
+    grid-auto-rows: minmax(120px, 203px);
+    gap: 20px;
+}
+
+.lobby_block_right {
+    display: grid;
+    grid-template-rows: 540px;
+    grid-auto-rows: minmax(80px, 110px);
+}
+
+.logout_button {
+    margin-top: 3%;
+    font-size: 3vw;
 }
 
 .units_item {
@@ -29,6 +39,24 @@
     background-color: #989898;
 }
 
+@media (max-height: 900px) {
+    .lobby_block_right {
+        grid-template-rows: 420px;
+    }
+    .lobby_block_units {
+        grid-template-rows: repeat(3, 163px);
+    }
+}
+
+@media (max-height: 760px) {
+    .lobby_block_right {
+        grid-template-rows: 330px;
+    }
+    .lobby_block_units {
+        grid-template-rows: repeat(3, 133px);
+    }
+}
+
 @media (max-width: 790px) {
     .lobby_block {
         grid-template-columns: 1fr;
@@ -36,7 +64,14 @@
     .units_item {
         font-size: 3vw;
     }
+    .lobby_block_units {
+        grid-template-rows: repeat(3, 120px);
+    }
     .dossier {
         display: none;
+    }
+    .lobby_block_right {
+        margin-top: -40px;
+        grid-template-rows: 80px;
     }
 }
