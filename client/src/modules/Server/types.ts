@@ -5,11 +5,11 @@ export interface IError {
 
 export interface IUser {
    login: string;
+   nickname: string;
    token: string;
 }
 
-export interface IUserInfo{
+export interface IUserInfo {
    gameCount: number;
    scoreCount: number;
 }
-

@@ -17,7 +17,7 @@ export default class Server {
          const str = Object.keys(params)
             .map((key) => `${key}=${params[key]}`)
             .join("&");
-         const res = await fetch(`${this.HOST}/?method=${method}&${str}`);
+         const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();
 
          if (answer.result === "ok") {
@@ -34,9 +34,13 @@ export default class Server {
       }
    }
 
-   registration(login: string, password: string): Promise<IUser | null> {
+   registration(
+      login: string,
+      nickname: string,
+      password: string
+   ): Promise<IUser | null> {
       const hash = SHA256(login + password).toString();
-      return this.request("registration", { login, hash });
+      return this.request("registration", { login, nickname, hash });
    }
 
    login(login: string, password: string): Promise<IUser | null> {

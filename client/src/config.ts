@@ -1,12 +1,12 @@
 // dev
 
 /* const PORT = 81;
-const DOMAIN = 'http://ivt21'; */
+const DOMAIN = 'http://counter-nastup'; */
 
 //prod
 
 const PORT = null;
-const DOMAIN = "http://localhost/api";
+const DOMAIN = "http://localhost";
 
 export const HOST = PORT ? `${DOMAIN}:${PORT}` : DOMAIN;
 
