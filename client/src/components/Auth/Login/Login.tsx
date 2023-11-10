@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Button, Input } from "../../UI";
+import { Button, Input, Alert } from "../../UI";
 import { IUserData, ISetPage } from "../../../interfaces";
 import { ServerContext } from "../../../App";
 import { IAlertProps } from "../../UI/Alert/Alert";
@@ -10,24 +10,39 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
     login: "",
     password: "",
   });
+  const [alertInfo, setAlertInfo] = useState<IAlertProps>(null!);
 
-  const server = useContext(ServerContext);
+   const server = useContext(ServerContext);
 
-   const onChangeHandler = (value: string, data: string) => {
-      setUserData({ ...userData, [data]: value });
-   };
+  const isValidInputs = async (): Promise<boolean> => {
+    if (!userData.login || !userData.password) {
+      setAlertInfo({
+        alertMessage: "Заполните все поля",
+        alertStyle: "warning",
+      });
+      return false;
+    }
+    const logRes = await server.login(userData.login, userData.password);
+    if (!logRes) {
+      setAlertInfo({
+        alertMessage: "Неверный логин или пароль",
+        alertStyle: "error",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const onChangeHandler = (value: string, data: string) => {
+    setUserData({ ...userData, [data]: value });
+  };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (true) {
-      const res = await server.login(userData.login, userData.password);
-      console.log(res);
-      if (res) {
-        setPage("Lobby");
-      }
+    if (await isValidInputs()) {
+      setPage("Lobby");
       return;
     }
-    //обработка ошибок
   };
 
   return (
@@ -51,14 +66,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
           }}
         />
       </div>
-      <div className="errors_div">
-        <div className="warning">
-          <span>Заполните все поля</span>
-        </div>
-        <div className="error">
-          <span>Неверный логин или пароль</span>
-        </div>
-      </div>
+      <div className="errors_div">{alertInfo && <Alert {...alertInfo} />}</div>
       <div className="main_footer">
         <Button
           appearance="primary"
