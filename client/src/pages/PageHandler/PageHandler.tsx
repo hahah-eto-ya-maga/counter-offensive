@@ -6,7 +6,6 @@ import {Logo} from "../../components";
 import {
    LobbyPage,
    LoadingPage,
-   DossierPage,
    MenuPage,
    MainPage,
    RegistrationPage,
@@ -65,7 +64,6 @@ const PageHandler: React.FC = () => {
             )}
          <>
             {page === "Error" && <ErrorPage {...error} />}
-            {page === "Dossier" && <DossierPage />}
             {page === "Loading" && <LoadingPage />}
             {page === "Lobby" && <LobbyPage />}
             {page === "Menu" && <MenuPage setPage={setPage} />}
