@@ -1,60 +1,42 @@
 .dossier_image {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 400px;
-   height: 450px;
-   border-radius: 15px;
-   border: 6px solid #000;
-   background: #fff;
-   margin: -6px 0 0 -6px;
+   border-top-left-radius: 15px;
+   border: 5px solid #000;
+   margin: -5px 0 0 -5px;
+}
+
+.dossier_image img {
+   width: 100%;
+   height: 100%;
+   border: none;
+   border-top-left-radius: 8px;
+   pointer-events: none;
+   user-select: none;
+}
+
+.dossier_user {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   grid-template-rows: 100%;
+   height: 50%;
 }
 
 .dossier_info {
-   width: 100%;
    font-family: Neucha;
-   font-size: 48px;
+   font-size: 2vw;
 }
 
 .dossier_info > div {
-   padding-left: 35px;
+   padding: 0 0 0 5px;
 }
 
-.dossier_showcase {
-   width: 25vw;
-   border-radius: 15px;
-   border: 6px solid #000;
-   background: rgba(147, 208, 146, 0.96);
-   height: 100%;
-   margin: -6px -6px 0 -6px;
+.dossier_button {
+   font-size: 1.5vw;
+   margin: -5px;
 }
 
-.achievement {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   text-align: center;
-   font-size: 32px;
-   height: 80%;
-   margin-top: 6px;
-}
-
-@media screen and (max-width: 960px) {
-   .dossier_info {
-      font-size: 30px;
-   }
-   .dossier_image {
-      width: 200px;
-      height: 250px;
-   }
-}
-
-@media screen and (max-height:650px ) {
-   .dossier_info {
-     font-size: 36px;
-   }
-   .dossier_image {
-      width: 300px;
-      height: 320px;
-   }
+.achievements_button {
+   font-size: 1.5vw;
+   margin: -5px -5px -4.5px;
+   border-radius: 0;
+   border-top-right-radius: 17px;
 }

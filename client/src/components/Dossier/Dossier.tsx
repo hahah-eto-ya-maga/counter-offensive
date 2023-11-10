@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Info, Shop } from "../../components";
+import Info from "./Info/Info";
+import Shop from "./Shop/Shop";
 
-import "./DossierPage.css";
+import "./Dossier.css";
 
-const DossierPage: React.FC = () => {
+const Dossier: React.FC = () => {
    const [pageType, setPageType] = useState<"info" | "shop">("info");
    const user = {
       login: "Vasya",
@@ -12,7 +13,7 @@ const DossierPage: React.FC = () => {
       rang: "Хомяк",
    };
    return (
-      <div className="dossier_page">
+      <div className="dossier">
          {pageType === "info" ? (
             <Info {...user} changePage={setPageType} />
          ) : (
@@ -22,4 +23,4 @@ const DossierPage: React.FC = () => {
    );
 };
 
-export default DossierPage;
+export default Dossier;
