@@ -1,6 +1,8 @@
+
 import React, { useContext, useState } from "react";
 import { MediatorContext } from "../../App";
 import { IError } from "../../modules/Server/types";
+import {Logo} from "../../components";
 import {
    LobbyPage,
    LoadingPage,
@@ -12,7 +14,6 @@ import {
 } from "../../pages";
 import { Button } from "../../components";
 import { TPage } from "../../interfaces";
-
 import "./PageHandler.css";
 
 const PageHandler: React.FC = () => {
@@ -27,6 +28,11 @@ const PageHandler: React.FC = () => {
    });
    return (
       <div className="page_handler">
+        {page !== "Menu" && page !== "MainPage" && (
+        <div className="header">
+            <Logo/>
+        </div>
+      )}
          {page !== "Menu" &&
             page !== "MainPage" &&
             page !== "Registration" &&
