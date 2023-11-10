@@ -1,7 +1,6 @@
 .main_header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
   height: 20%;
 }
 
@@ -10,7 +9,7 @@
 }
 
 .main_wrapper {
-  height: 90%;
+  height: 100%;
   width: 100%;
 }
 
@@ -22,8 +21,9 @@
 
 .main_submit_button {
   width: 40vw;
-  height: 7.vw;
+  height: 7vw;
   max-width: 1000px;
+  margin: 10px 0;
 }
 
 .main_form {
@@ -40,7 +40,6 @@
 
 .errors_div {
   max-height: 300px;
- 
 }
 
 .errors_div > div {

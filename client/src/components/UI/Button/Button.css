@@ -33,6 +33,7 @@
 
 .disable {
   pointer-events: none;
+  background: var(--dark-green);
 }
 
 .active {

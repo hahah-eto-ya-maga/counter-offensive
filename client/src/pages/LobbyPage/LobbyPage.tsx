@@ -1,8 +1,8 @@
 import React from "react"
-import {Button} from "../../components"
+import { Button } from "../../components"
+import { automat, RPG, tank2, tank3 } from "../../assets/pngs"; 
 import { General, FlagBearer } from "../../components/Lobby";
 import Dossier from "../../components/Dossier/Dossier";
-import { automat, RPG, tank2, tank3 } from "./images";
 import "./LobbyPage.css";
 
 const LobbyPage: React.FC = () => {
