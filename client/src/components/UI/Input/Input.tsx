@@ -45,6 +45,7 @@ const Input: React.FC<IInputProps> = ({
           value={value}
           onChange={onChangeHandler}
           type={inputType === "text" ? "text" : "password"}
+          autoComplete="off"
         />
         {type === "hidePassword" ? (
           <div className="toggle_password" onClick={changeType}>
