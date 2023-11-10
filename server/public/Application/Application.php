@@ -1,16 +1,19 @@
 <?php
 require_once("modules/DB.php");
 require_once("modules/User.php");
+require_once("modules/Chat.php");
 
 class Application{
 
     protected $user;
+    protected $chat;
     public $dbStatus;
 
     function __construct(){
         $db = new DB();
         $this->dbStatus = $db->dbStatus;
         $this->user = new User($db);
+        $this->chat = new Chat($db);
     }
     
 
@@ -71,6 +74,15 @@ class Application{
  
         if($login && $token && $hash){
             return $this->user->updatePassword($login, $token, $hash);
+        }
+        return array(false, 400);
+    }
+
+    function sendMessage($params){
+        $token = $params['token'] ?? false;
+        $message = $params['message'] ?? false;
+        if($token && $message){
+                return $this->chat->sendMessage($token, $message);
         }
         return array(false, 400);
     }

@@ -77,5 +77,14 @@ class DB {
     function addUser($login, $nickname, $hash, $token, $tokenLastUse=0, $timeCreate=0) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
         $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, ?, ?)"; // Запрос вставляет в базу данных полученные данные
         $this->queryHandler($query, array($login, $nickname, $hash, $token, $tokenLastUse, $timeCreate)); 
-    } 
+    }
+    function addMessage($userId, $message) {
+        $query = "INSERT INTO messages (userId, text, sendTime) VALUES(?, ?, now())";
+        $this->queryHandler($query, [$userId, $message]); 
+    }
+    
+    function updateChatHash($hash) {
+        $query = "UPDATE game SET chatHash=? WHERE id=1";
+        $this->queryHandler($query, [$hash]);
+    }
 }

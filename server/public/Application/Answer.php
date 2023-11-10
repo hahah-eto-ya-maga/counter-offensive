@@ -1,10 +1,12 @@
 <?php
 class Answer{
     static $CODES = array(
+        '204'=> 'No Content',               // нет содержимого
         '400' => 'Bad Request',             // Указаны не все параметры
         '401' => 'Unauthorized',            // Неавторизованный запрос(неверный токен)
         '403' => 'Forbidden',               // Неверный логин или пароль
         '405' => 'Method Not Allowed',      // Метод не указан
+        '411' => 'Length Required',         // Длинна превышет лимит
         '413' => 'Invalid login(nickname)', // Неверный формат логина 
         '501' => 'Not Implemented',         // Метод не реализован на сервере
         '503' => 'DB Unavailable',          // Не удалось подключится к базе данных
