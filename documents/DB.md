@@ -6,7 +6,7 @@
 ### [Подключение через браузер](#browser-connection)
 ### [Подключение через сторонние приложения](#other-connection)
 ### [Таблицы](#tables)
-- [games](#table-game)
+- [game](#table-game)
 - [users](#table-users)
 - [gamers](#table-gamers)
 - [persons](#table-persons)
