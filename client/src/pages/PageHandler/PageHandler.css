@@ -1,16 +1,11 @@
 .header {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.header > button {
-    width: 30%;
+    justify-content: center;
+    margin-bottom: 23px;
 }
 
 .page_handler {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    padding: 30px;
+    padding: 40px;
+    overflow: hidden;
 }

@@ -23,6 +23,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
       if (true) {
          const res = await server.registration(
             userData.login,
+            userData.nickName ?? "",
             userData.password
          );
          if (res) {

@@ -152,7 +152,7 @@ class Canvas {
     rotateTower(tower: HTMLImageElement, towerProp: TPoint, angle: number): void {
         this.context.save()
         this.context.translate(this.notxs(0), this.notys(0))
-        this.context.rotate(-angle - Math.PI)
+        this.context.rotate(-angle + Math.PI)
         this.context.drawImage(tower, -1.5*towerProp.x*this.canvas.width/this.WIN.width, -towerProp.y*this.canvas.height/this.WIN.height, 
                              2*towerProp.x*this.canvas.width/this.WIN.width, 2*towerProp.y*this.canvas.height/this.WIN.height)
         this.context.restore();
@@ -162,7 +162,7 @@ class Canvas {
         this.context.save()
         this.context.translate(this.notxs(0), this.notys(0))
         this.context.rotate(- angle + Math.PI)
-        this.context.drawImage(man, -1.8*manProp.x*this.canvas.width/this.WIN.width, -1.*manProp.y*this.canvas.height/this.WIN.height, 
+        this.context.drawImage(man, -1.8*manProp.x*this.canvas.width/this.WIN.width, -1.2*manProp.y*this.canvas.height/this.WIN.height, 
                              2.8*manProp.x*this.canvas.width/this.WIN.width, 2.8*manProp.y*this.canvas.height/this.WIN.height)
         this.context.restore();
     }

@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import {LobbyPage, PageHandler } from "./pages";
+import {PageHandler } from "./pages";
 import { Mediator, Server, Store } from "./modules";
 import { HOST, MEDIATOR } from "./config";
 import "./styles/global.css";
@@ -17,7 +17,7 @@ const App: React.FC = () => {
       <MediatorContext.Provider value={mediator}>
          <ServerContext.Provider value={server}>
             <div className="app">
-               <LobbyPage/>
+               <PageHandler/>
             </div>
          </ServerContext.Provider>
       </MediatorContext.Provider>

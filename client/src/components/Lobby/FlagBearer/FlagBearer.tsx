@@ -13,17 +13,16 @@ const FlagBearer: React.FC = () => {
    };
 
    return (
-      <Button className="flag" appearance="image" onClick={changeStatusFlag}>
-         Знаменосец {"("}
-         <span
-            className={cn("status", {
-               free: !statusFlag,
-               selected: statusFlag,
-            })}
-         >
-            {statusFlag ? "Занято" : "Свободно"}
-         </span>
-         {")"}
+
+      <Button
+          id="test_button_standartBearer"
+          className={cn("flag units_item", {
+              free: !statusFlag,
+              selected: statusFlag,
+          })}
+              appearance="image"
+              onClick={changeStatusFlag}>
+         Знаменосец
          <img src={flag} alt="Flag" />
       </Button>
    );
