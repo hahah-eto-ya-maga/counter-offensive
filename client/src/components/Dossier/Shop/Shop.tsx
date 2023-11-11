@@ -11,6 +11,7 @@ const Shop: React.FC = () => {
       <div className="dossier_shop">
          <div className="shop_menu">
             <Button
+               id="test_button_showcaseOfAchievements"
                className="dossier_button"
                active={pageContent === "showcase"}
                appearance="primary"
@@ -19,6 +20,7 @@ const Shop: React.FC = () => {
                Витрина достижений
             </Button>
             <Button
+               id="test_button_shopOfAchivement"
                className="dossier_button"
                active={pageContent === "shop"}
                appearance="primary"
