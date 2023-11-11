@@ -9,7 +9,6 @@ import ErrorPage from "./ErrorPage/ErrorPage";
 
 export {
    LoadingPage,
-   DossierPage,
    LobbyPage,
    PageHandler,
    MenuPage,
