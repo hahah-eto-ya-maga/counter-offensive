@@ -25,8 +25,13 @@ const GamePage: React.FC<IGamePageProps> = ({unit}) => {
 
     const keyPressed: TKeyboard = {}
 
-    const man: TUnit = {x: 6, y: 3, r: 0.16}
     const tank: TUnit = {x: 5, y: 4, r:0.5}
+    const tankProp: TPoint = {x: 1.1*tank.r, y: 1.2*tank.r}
+
+    const towerProp: TPoint = {x: 1.5*tank.r, y: 0.8*tank.r}
+
+    const man: TUnit = {x: 6, y: 3, r: 0.16}
+    const manProp: TPoint = {x: 1.4*man.r, y: man.r}
 
     const WIN = {
         left: -8 * prop + tank.x,
@@ -161,7 +166,7 @@ const GamePage: React.FC<IGamePageProps> = ({unit}) => {
 
     /* движение танка по карте*/
     const moveSceneTank = (keyPressed: TKeyboard) => {
-        isCollition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
+        isCollition ? speedTankNow = speedTank / 3 : speedTankNow = speedTank 
         vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
         vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
         if(keyPressed.ArrowUp) {
@@ -197,8 +202,8 @@ const GamePage: React.FC<IGamePageProps> = ({unit}) => {
         vector.y = canvas.pxToY(cursorPosition.y)
         let toAngle = Math.atan2(vector.y, vector.x)
         
-        canvas.rotateMan(manImage, toAngle)
-       
+        canvas.rotateMan(manImage, manProp, toAngle)
+        
     }
 
     const renderScene = (FPS: number) => {
@@ -220,24 +225,23 @@ const GamePage: React.FC<IGamePageProps> = ({unit}) => {
             canvas.drawStone(stoneImage, circlesArray[0], Math.PI)
             canvas.drawStone(stoneImage, circlesArray[1], Math.PI / 2)
             canvas.drawStone(stoneImage, circlesArray[2], 0)
-
-            canvas.drawHouse(houseImage, blocksArray[0])
-            canvas.drawHouse(houseImage, blocksArray[1])
-            canvas.drawHouse(houseImage, blocksArray[2])
            
             if (unit == 'Tank') {
                 moveSceneTank(keyPressed) 
                 isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
-
-                canvas.rotateTank(corpusTankImage, angleOfMovement)
-                canvas.rotateTower(towerTankImage, angleOfMovement)
-              
+                
+                canvas.rotateTank(corpusTankImage, tankProp, angleOfMovement)
+                canvas.rotateTower(towerTankImage, towerProp, angleOfMovement)
             } 
             if (unit == 'Infantry') {
                 moveSceneInfantry(keyPressed)
                 isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
                 rotateGun()
             }
+
+            canvas.drawHouse(houseImage, blocksArray[0])
+            canvas.drawHouse(houseImage, blocksArray[1])
+            canvas.drawHouse(houseImage, blocksArray[2])
         }
     }
 
