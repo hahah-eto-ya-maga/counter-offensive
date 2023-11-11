@@ -13,6 +13,7 @@ const General: React.FC = () => {
 
    return (
       <Button
+          id="test_button_general"
           className={cn("general units_item", {
              free: !statusGeneral,
               selected: statusGeneral,

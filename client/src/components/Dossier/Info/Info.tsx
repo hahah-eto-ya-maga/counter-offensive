@@ -26,6 +26,7 @@ const Info: React.FC<IUserProps> = ({
                </div>
             </div>
             <Button
+                id="test_button_showcase"
                 appearance="primary"
                 className="achievements_button"
                 onClick={() => changePage("shop")}

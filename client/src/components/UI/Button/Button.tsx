@@ -17,10 +17,12 @@ const Button: React.FC<ButtonProps> = ({
    className,
    children,
    active,
+    id,
    ...props
 }) => {
    return (
       <button
+          id={id}
          className={cn(
             "button",
             {
