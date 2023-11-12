@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import { ServerContext } from "../../../App";
+import { MediatorContext, ServerContext } from "../../../App";
 import { Button, Input, Alert } from "../../UI";
 import { ISetPage, IUserData } from "../../../interfaces";
-import { IAlertProps } from "../../UI/Alert/Alert";
 
 import "../../../pages/RegistrationPage/RegistrationPage.css";
 
@@ -12,102 +11,96 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
     password: "",
     nickName: "",
   });
-  const [alertInfo, setAlertInfo] = useState<IAlertProps>(null!);
-
   const server = useContext(ServerContext);
+  const mediator = useContext(MediatorContext);
+  const { WARNING } = mediator.getTriggerTypes();
 
   const onChangeHandler = (value: string, data: string) => {
     setUserData({ ...userData, [data]: value });
   };
 
-  const isLoginValid = () => {
-    if (!userData.login || !userData.password || !userData.nickName) {
-      setAlertInfo({
-        alertMessage: "Заполните все поля",
-        alertStyle: "warning",
-      });
-      return false;
-    }
-    const loginLength = userData.login.length;
-    if (loginLength <= 6 || loginLength > 15) {
-      setAlertInfo({
-        alertMessage: "Логин должен содержать от 6 до 15 символов",
-        alertStyle: "warning",
-      });
-    }
-    const isValigLogin = /^[a-zA-Zа-яА-Я0-9Ёё]*$/;
-    if (!isValigLogin.test(userData.login)) {
-      setAlertInfo({
-        alertMessage:
-          "Логин может содержать символы кириллицы, латиницы и цифры",
-        alertStyle: "warning",
-      });
-    }
-  };
-
-  const isValidInputs = async (): Promise<boolean> => {
-    if (!userData.login || !userData.password || !userData.nickName) {
-      setAlertInfo({
-        alertMessage: "Заполните все поля",
-        alertStyle: "warning",
-      });
-      return false;
-    }
-    const loginLength = userData.login.length;
-    if (loginLength < 6 || loginLength > 15) {
-      setAlertInfo({
-        alertMessage: "Логин должен содержать от 6 до 15 символов",
-        alertStyle: "warning",
-      });
-      return false;
-    }
-    const isValigLogin = /^[a-zA-Zа-яА-Я0-9Ёё]*$/;
-    if (!isValigLogin.test(userData.login)) {
-      setAlertInfo({
-        alertMessage:
-          "Логин может содержать символы кириллицы, латиницы и цифры",
-        alertStyle: "warning",
-      });
-      return false;
-    }
+  const isPasswordValid = async () => {
     const passLength = userData.password.length;
     if (passLength < 8 || passLength > 200) {
-      setAlertInfo({
-        alertMessage: "В пароле должно быть от 8 до 200 символов",
-        alertStyle: "warning",
-      });
-      return false;
-    }
-    const logRes = await server.registration(
-      userData.login,
-      userData.nickName,
-      userData.password
-    );
-    if (!logRes) {
-      setAlertInfo({
-        alertMessage: "Логин занят",
-        alertStyle: "error",
+      mediator.get(WARNING, {
+        message: "В пароле должно быть от 8 до 200 символов",
+        style: "warning",
       });
       return false;
     }
     return true;
   };
 
-  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    //условие валидации
-    if (await isValidInputs()) {
-      const res = await server.registration(
+  const isLoginValid = () => {
+    const loginLength = userData.login.length;
+    if (loginLength < 6 || loginLength > 15) {
+      mediator.get(WARNING, {
+        message: "Логин должен содержать от 6 до 15 символов",
+        style: "warning",
+      });
+      return false;
+    }
+    const validLoginRegExp = /^[a-zA-Zа-яА-Я0-9Ёё]*$/;
+    if (!validLoginRegExp.test(userData.login)) {
+      mediator.get(WARNING, {
+        message: "Логин может содержать символы кириллицы, латиницы и цифры",
+        style: "warning",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const isNicknameValid = () => {
+    if (userData.nickName) {
+      const nick = userData.nickName.length;
+      if (nick < 3 || nick > 16) {
+        mediator.get(WARNING, {
+          message: "Никнейм должен содержать от 3 до 16 символов",
+          style: "warning",
+        });
+        return false;
+      }
+      const validNickRegExp = /^[0-9\p{L}]+$/u;
+      if (!validNickRegExp.test(userData.nickName)) {
+        mediator.get(WARNING, {
+          message: "Никнейм может содержать символы любого языка и цифры",
+          style: "warning",
+        });
+        return false;
+      }
+      return true;
+    }
+  };
+
+  const isValidInputs = async (): Promise<boolean> => {
+    if (!userData.login || !userData.password || !userData.nickName) {
+      mediator.get(WARNING, {
+        message: "Заполните все поля",
+        style: "warning",
+      });
+      return false;
+    }
+    if (isLoginValid() && isNicknameValid() && (await isPasswordValid())) {
+      const logRes = await server.registration(
         userData.login,
         userData.nickName ?? "",
         userData.password
       );
-      if (res) {
-        setPage("Lobby");
+      if (!logRes) {
+        return false;
       }
+      return true;
+    }
+    return false;
+  };
+
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (await isValidInputs()) {
+      setPage("Lobby");
       return;
     }
-    //обработка ошибок
   };
 
   return (
@@ -140,10 +133,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
         />
       </div>
       <div className="errors_div">
-        {alertInfo && <Alert {...alertInfo} />}
-        <div className="warning">
-          <span>Логин может содержать символы кириллицы, латиницы и цифры</span>
-        </div>
+        <Alert />
       </div>
       <div className="reg_footer">
         <Button

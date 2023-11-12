@@ -6,3 +6,7 @@
   background-color: var(--red);
   -webkit-text-stroke: 1px #ffffff; 
 }
+
+.disabled {
+  display: none;
+}

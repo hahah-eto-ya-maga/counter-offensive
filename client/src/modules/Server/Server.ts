@@ -18,7 +18,6 @@ export default class Server {
         .map((key) => `${key}=${params[key]}`)
         .join("&");
       const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
-      console.log(res);
       const answer = await res.json();
 
       if (answer.result === "ok") {

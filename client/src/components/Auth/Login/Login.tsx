@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Alert } from "../../UI";
 import { IUserData, ISetPage } from "../../../interfaces";
-import { ServerContext } from "../../../App";
-import { IAlertProps } from "../../UI/Alert/Alert";
+import { MediatorContext, ServerContext } from "../../../App";
+import { IAlert } from "../../UI/Alert/Alert";
 import "../../../pages/MainPage/MainPage.css";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
@@ -10,24 +10,21 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
     login: "",
     password: "",
   });
-  const [alertInfo, setAlertInfo] = useState<IAlertProps>(null!);
 
-   const server = useContext(ServerContext);
+  const server = useContext(ServerContext);
+  const mediator = useContext(MediatorContext);
+  const { WARNING } = mediator.getTriggerTypes();
 
   const isValidInputs = async (): Promise<boolean> => {
     if (!userData.login || !userData.password) {
-      setAlertInfo({
-        alertMessage: "Заполните все поля",
-        alertStyle: "warning",
+      mediator.get(WARNING, {
+        message: "Заполните все поля",
+        style: "warning",
       });
       return false;
     }
     const logRes = await server.login(userData.login, userData.password);
     if (!logRes) {
-      setAlertInfo({
-        alertMessage: "Неверный логин или пароль",
-        alertStyle: "error",
-      });
       return false;
     }
     return true;
@@ -66,7 +63,9 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
           }}
         />
       </div>
-      <div className="errors_div">{alertInfo && <Alert {...alertInfo} />}</div>
+      <div className="errors_div">
+        <Alert />
+      </div>
       <div className="main_footer">
         <Button
           appearance="primary"
