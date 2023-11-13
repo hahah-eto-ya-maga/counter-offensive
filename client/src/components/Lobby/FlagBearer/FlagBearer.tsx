@@ -15,6 +15,7 @@ const FlagBearer: React.FC = () => {
    return (
 
       <Button
+          id="test_button_standartBearer"
           className={cn("flag units_item", {
               free: !statusFlag,
               selected: statusFlag,
