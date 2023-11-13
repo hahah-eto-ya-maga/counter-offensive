@@ -37,7 +37,7 @@ class Chat
 
         if ($user) {
             if (strlen($message) <= 200) {
-                $this->db->addMessage($user->id, trim($message));
+                $this->db->addMessage($user->id, $message);
                 $hash = hash("sha256", $this->v4_UUID());
                 $this->db->updateChatHash($hash);
                 return true;
