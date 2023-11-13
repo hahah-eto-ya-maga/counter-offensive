@@ -1,7 +1,6 @@
 <?php
 class Answer{
     static $CODES = array(
-        '204'=> 'No Content',               // нет содержимого
         '400' => 'Bad Request',             // Указаны не все параметры
         '401' => 'Unauthorized',            // Неавторизованный запрос(неверный токен)
         '403' => 'Forbidden',               // Неверный логин или пароль

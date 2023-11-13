@@ -36,16 +36,13 @@ class Chat
         $user = $this->db->getUserByToken($token);
 
         if ($user) {
-            if (trim($message) != '') {
-                if (strlen($message) <= 200) {
-                    $this->db->addMessage($user->id, trim($message));
-                    $hash = hash("sha256", $this->v4_UUID());
-                    $this->db->updateChatHash($hash);
-                    return true;
-                }
-                return array(false, 411);
+            if (strlen($message) <= 200) {
+                $this->db->addMessage($user->id, trim($message));
+                $hash = hash("sha256", $this->v4_UUID());
+                $this->db->updateChatHash($hash);
+                return true;
             }
-            return array(false, 204);
+            return array(false, 411);
         }
         return array(false, 461);
     }

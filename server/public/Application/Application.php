@@ -88,7 +88,7 @@ class Application
     function sendMessage($params)
     {
         $token = $params['token'] ?? false;
-        $message = $params['message'] ?? false;
+        $message = trim($params['message']) ?? false;
         if ($token && $message) {
             $pattern = '/^[a-zA-Z0-9\s\.,!?\"\'㋛-]{1,255}$/';
             if (preg_match($pattern, $message)) {
