@@ -16,4 +16,4 @@ export type TPage =
    | "MainPage"
    | "Error"
    | "Registration"
-   | "GamePage";
+   | "GamePage"

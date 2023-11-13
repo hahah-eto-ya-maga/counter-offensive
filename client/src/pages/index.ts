@@ -6,7 +6,7 @@ import MainPage from "./MainPage/MainPage";
 import GamePage from "./GamePage/GamePage";
 import RegistrationPage from "./RegistrationPage/RegistrationPage";
 import ErrorPage from "./ErrorPage/ErrorPage";
-
+import TankThreeLobbyPage from "./TankThreeLobbyPage/TankThreeLobbyPage";
 export {
    LoadingPage,
    LobbyPage,
@@ -16,4 +16,5 @@ export {
    MainPage,
    RegistrationPage,
    ErrorPage,
+   TankThreeLobbyPage,
 };

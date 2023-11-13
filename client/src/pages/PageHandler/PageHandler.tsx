@@ -15,7 +15,7 @@ import "./PageHandler.css";
 
 const PageHandler: React.FC = () => {
    const [error, setError] = useState<IError>(null!);
-   const [page, setPage] = useState<TPage>("MainPage");
+   const [page, setPage] = useState<TPage>("Lobby");
 
    const mediator = useContext(MediatorContext);
    const { SERVER_ERROR } = mediator.getEventTypes();
