@@ -15,8 +15,8 @@ class Chat
 
         if (isset($user)) {
             if(isset($message) && $message != '' && trim($message) != ''){
-            if (strlen($message) <= 10) {
-                $this->db->addMessage($user->id, $message);
+            if (strlen($message) <= 200) {
+                $this->db->addMessage($user->id, trim($message));
                 $hash = hash("sha256", rand(1, 100000001));
                 $this->db->updateChatHash($hash);
                 return true;
