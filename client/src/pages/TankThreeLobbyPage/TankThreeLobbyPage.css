@@ -1,0 +1,145 @@
+.main{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.tank_lobby_page{
+    display: flex;
+    overflow: hidden;
+}
+.img_logo{
+    height: calc(12vw);
+    width: calc(84vw);
+    text-align: center;
+    margin: calc(1vw) calc(1vw) calc(2vw) calc(1vw);
+    display: fixed;
+    margin-left: calc(7vw);
+    margin-right: calc(7vw)
+}
+.window, .menu_tank{
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.window{
+    width: calc(60vw);
+    max-height: calc(35vw);
+    margin-top: calc(1vw);
+    right: calc(10vw);
+    background-color: #fff;
+    border-radius: 15px;
+    border: 3px solid #000000;
+    text-align: left;
+}
+.title_window{
+    font-family:Neucha;
+    font-size: 40px;
+    Line-height: 44px;
+    width: 279px;
+    height: 132px;
+    margin-top: 10px;
+    margin-left: 10px;
+    color:#000000;
+    position: fixed;
+    text-align: left;
+}
+.img_window{
+    width: 96%;
+    height: 65%;
+    margin: calc(1vw);
+    margin-top: calc(11.5vw);
+    background-size: cover;
+    background-color: #fff;
+}
+.test_button_cross{
+    right: 10.75%;
+    position: fixed;
+    border: none;
+    background-size: cover;
+    background-color: #D9D9D9;
+    background: none;
+}
+.test_button_general_tank_lobby{
+    background-color: #989898;
+    width: calc(24vw);
+    height: calc(11vw);
+    border-radius: 15px;
+    border: 3px solid #000000;
+    margin: calc(1vw) calc(1vw) calc(1vw) calc(3vw);
+    text-align: center;
+    font-family:Neucha;
+    font-size: 36px;
+    
+}
+.test_button_general_tank_lobby.image img {
+    mix-blend-mode: normal;
+}
+
+.test_button_tank_3{
+    background-color: #D9D9D9;
+    width: calc(24vw);
+    height: calc(11vw);
+    border-radius: 15px;
+    border: 3px solid #000000;
+    margin: calc(1vw) calc(1vw) calc(1vw) calc(3vw);
+    text-align: center;
+    font-family:Neucha;
+    font-size: 36px;
+}
+.test_button_tank_2{
+    background-color: #B48686;
+    width: calc(24vw);
+    height: calc(11vw);
+    border-radius: 15px;
+    border: 3px solid #000000;
+    margin: calc(1vw) calc(1vw) calc(1vw) calc(3vw);
+    text-align: center;
+    font-family:Neucha;
+    font-size: 36px;
+    background-color: #B48686;
+}
+.test_button_shooter_3{
+    width: 151.242px;
+    height: 60.505px;
+    position: fixed;
+    margin: 20% 5% 20% 29% ;
+    font-family: Neucha;
+    font-size: 32px;
+    border: none;
+    background-size: cover;
+    background-color: #D9D9D9;
+    background: none;
+    background-image: url(./svgLobbyTank/Ellipse\ 32.png);
+}
+.test_button_tank_driver_3{
+    width: 151.242px;
+    height: 60.505px;
+    position: fixed;
+    margin: 25% 5% 20% 38% ;
+    font-family: Neucha;
+    font-size: 32px;
+    border: none;
+    background-size: cover;
+    background-color: #D9D9D9;
+    background: none;
+    background-image: url(./svgLobbyTank/Ellipse\ 32.png);
+}
+.test_button_tank_commander{
+    width: 151.242px;
+    height: 60.505px;
+    position: fixed;
+    margin: 15% 5% 20% 18% ;
+    font-family: Neucha;
+    font-size: 32px;
+    border: none;
+    background-size: cover;
+    background-color: #D9D9D9;
+    background: none;
+    background-image: url(./svgLobbyTank/Ellipse\ 32.png);
+    border-image: space;
+    text-align: center;
+}
+.test_button_tank_commander.text, .test_button_tank_driver_3.text ,.test_button_shooter_3.text{
+    position: fixed;
+    margin: 50px;
+}
