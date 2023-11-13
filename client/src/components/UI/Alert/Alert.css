@@ -1,0 +1,8 @@
+.warning {
+  background-color: var(--yellow);
+}
+
+.error {
+  background-color: var(--red);
+  -webkit-text-stroke: 1px #ffffff; 
+}
