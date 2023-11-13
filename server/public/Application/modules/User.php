@@ -109,4 +109,20 @@
             }
             else return array(false, 461); 
         }
+
+
+        function getUser($token){
+            $tokenLastUse = date('Y-m-d H:i:s');
+     
+            $user = $this->db->getUserByToken($token);
+            if($user != null && $user->token != 0 && $user->token != null){
+                $this->db->updateToken($user->id, $tokenLastUse, $token);
+                return array(
+                    'login'=> $user->login,
+                    'nickname'=> $user->nickname,
+                    'token'=>$token
+                );
+            }
+            else return array(false, 401); 
+        }
     }

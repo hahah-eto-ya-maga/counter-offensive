@@ -74,4 +74,14 @@ class Application{
         }
         return array(false, 400);
     }
+
+
+    function getUser($params){ 
+        $token = $params['token'] ?? false;
+ 
+        if($token){
+            return $this->user->getUser($token);
+        }
+        return array(false, 400);
+    }
 }
