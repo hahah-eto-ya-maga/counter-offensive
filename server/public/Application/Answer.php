@@ -13,6 +13,7 @@ class Answer{
         '460' => 'Login Occupied',          // Логин занят
         '461' => 'User not Exist',          // Пользователя не существует
         '462' => 'Database request Error',  // Ошибка запроса к базе
+        '432' => 'Invalid Message',         // Неправильные параметры сообщения
         '9000' => 'Unknown Error'           // Неизветсная ошибка
     );
 
