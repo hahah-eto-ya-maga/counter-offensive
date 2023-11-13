@@ -4,7 +4,7 @@
   position: relative;
   width: 700px;
   height: 90px;
-  background-color: var(--salad);
+  background-color: var(--green-yellow);
   margin-bottom: 15px;
   border-radius: 50px;
   border: 5px solid var(--black);
@@ -22,10 +22,6 @@
   font-family: Neucha;
   font-size: 64px;
   font-weight: 400;
-}
-
-.input_element:focus  .input_wrapper {
-  border-color: blue
 }
 
 .input_password {

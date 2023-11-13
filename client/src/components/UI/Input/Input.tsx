@@ -19,7 +19,6 @@ const Input: React.FC<IInputProps> = ({
    text,
    id,
    className,
-   value,
    type = "text",
    onChange,
 }) => {
@@ -36,10 +35,12 @@ const Input: React.FC<IInputProps> = ({
    return (
       <div className="input_wrapper">
          <input
+            id={id}
             type={inputType}
             onChange={onChangeHandler}
             placeholder={text}
-            className={cn("input_element", {
+            autoComplete="off"
+            className={cn("input_element", className, {
                input_password: type === "password",
             })}
          />
