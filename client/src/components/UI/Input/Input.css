@@ -24,6 +24,11 @@
   font-weight: 400;
 }
 
+input::-ms-reveal,
+input::-ms-clear {
+        display: none;
+}
+
 .input_password {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
