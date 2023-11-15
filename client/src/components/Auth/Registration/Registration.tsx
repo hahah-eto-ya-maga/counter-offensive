@@ -119,31 +119,31 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
   return (
     <form className="reg_form" onSubmit={onSubmitHandler}>
       <div>
-        <Input
-          text="Логин"
-          id="test_reg_log_input"
-          value={userData.login}
-          onChange={(value) => {
-            onChangeHandler(value, "login");
-          }}
-        />
-        <Input
-          text="Никнейм"
-          id="test_reg_nick_input"
-          value={userData.nickName ?? ""}
-          onChange={(value) => {
-            onChangeHandler(value, "nickName");
-          }}
-        />
-        <Input
-          text="Пароль"
-          id="test_reg_pass_input"
-          type="hidePassword"
-          value={userData.password}
-          onChange={(value) => {
-            onChangeHandler(value, "password");
-          }}
-        />
+      <Input
+               text="Логин"
+               id="test_reg_log_input"
+               value={userData.login}
+               onChange={(value) => {
+                  onChangeHandler(value, "login");
+               }}
+            />
+       <Input
+               text="Никнейм"
+               id="test_reg_nick_input"
+               value={userData.nickName ?? ""}
+               onChange={(value) => {
+                  onChangeHandler(value, "nickName");
+               }}
+            />
+         <Input
+               text="Пароль"
+               id="test_reg_pass_input"
+               type="password"
+               value={userData.password}
+               onChange={(value) => {
+                  onChangeHandler(value, "password");
+               }}
+            />
       </div>
       <div className="errors_div">
         <Alert />
