@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Button, Input, Alert } from "../../UI";
 import { IUserData, ISetPage } from "../../../interfaces";
 import { MediatorContext, ServerContext } from "../../../App";
-import { IAlert } from "../../UI/Alert/Alert";
+
 import "../../../pages/MainPage/MainPage.css";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
@@ -15,15 +15,19 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
   const mediator = useContext(MediatorContext);
   const { WARNING } = mediator.getTriggerTypes();
 
-  const isValidInputs = async (): Promise<boolean> => {
-    if (!userData.login || !userData.password) {
+  const isValidInputs = async (
+    login: string,
+    pass: string
+  ): Promise<boolean> => {
+    if (!login || !pass) {
       mediator.get(WARNING, {
         message: "Заполните все поля",
         style: "warning",
+        id: "test_warning_auth_emptyFields",
       });
       return false;
     }
-    const logRes = await server.login(userData.login, userData.password);
+    const logRes = await server.login(login, pass);
     if (!logRes) {
       return false;
     }
@@ -36,7 +40,9 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (await isValidInputs()) {
+    const login = userData.login.trim();
+    const pass = userData.password.trim();
+    if (await isValidInputs(login, pass)) {
       setPage("Lobby");
       return;
     }

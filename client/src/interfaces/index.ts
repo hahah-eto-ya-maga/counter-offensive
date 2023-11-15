@@ -19,8 +19,16 @@ export type TPage =
   | "Registration"
   | "GamePage";
 
-export const ServerWarnings: IError[] = [
-  { code: 461, text: "Пользователя с таким логином не существует" },
-  { code: 460, text: "Логин занят" },
-  { code: 403, text: "Неверный логин или пароль" },
+export const ServerWarnings: IError[] & {id?:string} = [
+  {
+    code: 461,
+    text: "Пользователя с таким логином не существует",
+    id: "test_error_auth_userNotExist",
+  },
+  { code: 460, text: "Логин занят", id: "test_error_reg_loginOccupied" },
+  {
+    code: 403,
+    text: "Неверный логин или пароль",
+    id: "test_error_auth_wrongData",
+  },
 ];
