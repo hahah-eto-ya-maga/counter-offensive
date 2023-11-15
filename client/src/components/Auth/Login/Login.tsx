@@ -45,23 +45,23 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
   return (
     <form className="main_form" onSubmit={onSubmitHandler}>
       <div>
+      <Input
+               text="Логин"
+               id="test_login_log_input"
+               value={userData.login}
+               onChange={(value) => {
+                  onChangeHandler(value, "login");
+               }}
+            />
         <Input
-          text="Логин"
-          id="test_login_log_input"
-          value={userData.login}
-          onChange={(value) => {
-            onChangeHandler(value, "login");
-          }}
-        />
-        <Input
-          text="Пароль"
-          id="test_login_pass_input"
-          type="hidePassword"
-          value={userData.password}
-          onChange={(value) => {
-            onChangeHandler(value, "password");
-          }}
-        />
+               text="Пароль"
+               id="test_login_pass_input"
+               type="password"
+               value={userData.password}
+               onChange={(value) => {
+                  onChangeHandler(value, "password");
+               }}
+            />
       </div>
       <div className="errors_div">
         <Alert />
