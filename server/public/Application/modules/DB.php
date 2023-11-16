@@ -38,6 +38,12 @@ class DB {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
     }
+
+    function queryHandlerAll($query, $params) {
+        $stmt = $this->link->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
     
     public function getUserById($id) {
         $query = "SELECT * FROM users WHERE id=?";
@@ -87,4 +93,5 @@ class DB {
         $query = "UPDATE game SET chatHash=? WHERE id=1";
         $this->queryHandler($query, [$hash]);
     }
+
 }

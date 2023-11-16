@@ -31,6 +31,8 @@ class Chat
         );
     }
 
+    
+
     public function sendMessage($token, $message)
     {
         $user = $this->db->getUserByToken($token);
@@ -40,10 +42,12 @@ class Chat
                 $this->db->addMessage($user->id, $message);
                 $hash = hash("sha256", $this->v4_UUID());
                 $this->db->updateChatHash($hash);
-                return true;
+                return array('hash' => $hash);
             }
             return array(false, 411);
         }
         return array(false, 461);
     }
+
+    
 }
