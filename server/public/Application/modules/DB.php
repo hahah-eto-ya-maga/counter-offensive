@@ -94,4 +94,19 @@ class DB {
         $this->queryHandler($query, [$hash]);
     }
 
+    function getChatHash() {
+        $query = "SELECT chatHash FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+
+    function getMessages() {
+        $query = "SELECT u.nickname AS nickname, m.text AS text, m.sendTime AS sendTime
+            FROM messages AS m 
+            INNER JOIN users AS u ON m.userId=u.id
+            ORDER BY m.sendTime DESC
+            LIMIT 30";
+        return $this->queryHandlerAll($query, []);
+    }
+
 }

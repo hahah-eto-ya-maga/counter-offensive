@@ -98,4 +98,13 @@ class Application
         }
         return array(false, 400);
     }
+
+    function getMessages($params) {
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if ($token && $hash) {
+            return $this->chat->getMessages($token, $hash);
+        }
+        return array(false, 400);
+    }
 }
