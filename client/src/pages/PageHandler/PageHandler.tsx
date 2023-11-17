@@ -19,12 +19,14 @@ const PageHandler: React.FC = () => {
   const mediator = useContext(MediatorContext);
   const { SERVER_ERROR } = mediator.getEventTypes();
   const { WARNING, ERROR } = mediator.getTriggerTypes();
-  mediator.subscribe(SERVER_ERROR, (error: IError) => {
+  mediator.subscribe(SERVER_ERROR, (error: IError & {id?:string}) => {
     const exeptions: number[] = ServerWarnings.map((el) => el.code);
     if (exeptions.includes(error.code)) {
-      const warning = ServerWarnings.find((el) => el.code === error.code)?.text;
-      mediator.get(WARNING, { message: warning, style: "error" });
-      return;
+      const warning = ServerWarnings.find((el) => el.code === error.code);
+      if (warning) {
+        mediator.get(WARNING, { message: warning.text, id: warning.id, style: "error" });
+        return;
+      }
     }
     mediator.get(ERROR, error);
     setPage("Error");
