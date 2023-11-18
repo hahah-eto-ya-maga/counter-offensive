@@ -100,6 +100,7 @@ const Registration: React.FC<ISetPage> = ({ setPage }) => {
       if (!logRes) {
         return false;
       }
+      server.STORE.token = logRes.token;
       return true;
     }
     return false;

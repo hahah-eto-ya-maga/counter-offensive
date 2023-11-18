@@ -6,52 +6,53 @@ import { MediatorContext, ServerContext } from "../../../App";
 import "../../../pages/MainPage/MainPage.css";
 
 const Login: React.FC<ISetPage> = ({ setPage }) => {
-  const [userData, setUserData] = useState<IUserData>({
-    login: "",
-    password: "",
-  });
+   const [userData, setUserData] = useState<IUserData>({
+      login: "",
+      password: "",
+   });
 
-  const server = useContext(ServerContext);
-  const mediator = useContext(MediatorContext);
-  const { WARNING } = mediator.getTriggerTypes();
+   const server = useContext(ServerContext);
+   const mediator = useContext(MediatorContext);
+   const { WARNING } = mediator.getTriggerTypes();
 
-  const isValidInputs = async (
-    login: string,
-    pass: string
-  ): Promise<boolean> => {
-    if (!login || !pass) {
-      mediator.get(WARNING, {
-        message: "Заполните все поля",
-        style: "warning",
-        id: "test_warning_auth_emptyFields",
-      });
-      return false;
-    }
-    const logRes = await server.login(login, pass);
-    if (!logRes) {
-      return false;
-    }
-    return true;
-  };
+   const isValidInputs = async (
+      login: string,
+      pass: string
+   ): Promise<boolean> => {
+      if (!login || !pass) {
+         mediator.get(WARNING, {
+            message: "Заполните все поля",
+            style: "warning",
+            id: "test_warning_auth_emptyFields",
+         });
+         return false;
+      }
+      const logRes = await server.login(login, pass);
+      if (!logRes) {
+         return false;
+      }
+      server.STORE.token = logRes.token;
+      return true;
+   };
 
-  const onChangeHandler = (value: string, data: string) => {
-    setUserData({ ...userData, [data]: value });
-  };
+   const onChangeHandler = (value: string, data: string) => {
+      setUserData({ ...userData, [data]: value });
+   };
 
-  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const login = userData.login.trim();
-    const pass = userData.password.trim();
-    if (await isValidInputs(login, pass)) {
-      setPage("Lobby");
-      return;
-    }
-  };
+   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const login = userData.login.trim();
+      const pass = userData.password.trim();
+      if (await isValidInputs(login, pass)) {
+         setPage("Lobby");
+         return;
+      }
+   };
 
-  return (
-    <form className="main_form" onSubmit={onSubmitHandler}>
-      <div>
-      <Input
+   return (
+      <form className="main_form" onSubmit={onSubmitHandler}>
+         <div>
+            <Input
                text="Логин"
                id="test_login_log_input"
                value={userData.login}
@@ -59,7 +60,7 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
                   onChangeHandler(value, "login");
                }}
             />
-        <Input
+            <Input
                text="Пароль"
                id="test_login_pass_input"
                type="password"
@@ -68,21 +69,21 @@ const Login: React.FC<ISetPage> = ({ setPage }) => {
                   onChangeHandler(value, "password");
                }}
             />
-      </div>
-      <div className="errors_div">
-        <Alert />
-      </div>
-      <div className="main_footer">
-        <Button
-          appearance="primary"
-          className="main_submit_button"
-          id="test_login_submit_button"
-        >
-          Пойти на Бахмут
-        </Button>
-      </div>
-    </form>
-  );
+         </div>
+         <div className="errors_div">
+            <Alert />
+         </div>
+         <div className="main_footer">
+            <Button
+               appearance="primary"
+               className="main_submit_button"
+               id="test_login_submit_button"
+            >
+               Пойти на Бахмут
+            </Button>
+         </div>
+      </form>
+   );
 };
 
 export default Login;
