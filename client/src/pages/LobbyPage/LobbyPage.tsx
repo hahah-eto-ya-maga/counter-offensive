@@ -1,18 +1,13 @@
-import React from "react"
+import  { FC } from "react"
 import { Button } from "../../components"
 import { automat, RPG, tank2, tank3 } from "../../assets/pngs"; 
 import { General, FlagBearer } from "../../components/Lobby";
 import Dossier from "../../components/Dossier/Dossier";
-import {TPage} from "../../interfaces";
 import "./LobbyPage.css";
 
-interface ILobbyPageProps {
-    setPage: React.Dispatch<React.SetStateAction<TPage>>;
-}
 
-const LobbyPage: React.FC<ILobbyPageProps> = ({setPage}) => {
+const LobbyPage: FC = () => {
     const logoutHandler = () => {
-        setPage("MainPage");
     }
 
     return (

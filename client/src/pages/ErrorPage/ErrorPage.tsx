@@ -4,42 +4,42 @@ import { Button } from "../../components";
 import { MediatorContext } from "../../App";
 import cn from "classnames";
 import "./ErrorPage.css";
-
-interface IErrorPage extends IError {
-  isShow: boolean;
-}
+import { useNavigate } from "react-router-dom";
 
 const ErrorPage: FC = () => {
-  const [error, setError] = useState<IErrorPage>({
+  const [error, setError] = useState<IError>({
     code: 404,
     text: "Page Not Found",
-    isShow: false,
   });
+
+  const navigate = useNavigate();
 
   const mediator = useContext(MediatorContext);
   const { ERROR } = mediator.getTriggerTypes();
   mediator.set(ERROR, (error: IError) => {
-    setError({ ...error, isShow: true });
+    setError({ ...error });
   });
 
   return (
-    <>
-      {error.isShow && (
-        <div className={cn("error-page-wrapper", {})}>
-          <div className="error-code-block">
-            <div className="error-code">
-               <span id="test-error-code">Error № {error.code}</span>
-            </div>
-            <div>
-            <Button appearance="primary" id="test-error-back-button">Назад</Button>
-            </div>
-         </div>
-          <div className="error-text">
-            <span id="test-error-text">{error.text}</span>
-          </div>
+    <div className={cn("error-page-wrapper", {})}>
+      <div className="error-code-block">
+        <div className="error-code">
+          <span id="test-error-code">Error № {error.code}</span>
         </div>
-      )}
-    </>
+        <div>
+          <Button
+            appearance="primary"
+            id="test-error-back-button"
+            onClick={() => navigate(-1)}
+          >
+            Назад
+          </Button>
+        </div>
+      </div>
+      <div className="error-text">
+        <span id="test-error-text">{error.text}</span>
+      </div>
+    </div>
   );
 };
 

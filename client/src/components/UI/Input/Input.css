@@ -49,7 +49,7 @@ input::-ms-clear {
   height: 85px;
 }
 
-@media (max-width:742px) {
+@media (max-width:750px) {
   .input_wrapper {
     width: 500px;
     height: 65px;
