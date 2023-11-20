@@ -30,7 +30,6 @@ const Login: React.FC = () => {
       setUserData({ ...userData, password: "" });
       return false;
     }
-    server.STORE.token = logRes.token;
     return true;
   };
 

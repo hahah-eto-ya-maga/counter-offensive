@@ -1,6 +1,5 @@
 import LoadingPage from "./LoadingPage/LoadingPage";
 import LobbyPage from "./LobbyPage/LobbyPage";
-import PageHandler from "./PageHandler/PageHandler";
 import MenuPage from "./MenuPage/MenuPage";
 import LoginPage from "./LoginPage/LoginPage";
 import GamePage from "./GamePage/GamePage";
@@ -10,7 +9,6 @@ import ErrorPage from "./ErrorPage/ErrorPage";
 export {
    LoadingPage,
    LobbyPage,
-   PageHandler,
    MenuPage,
    GamePage,
    LoginPage,
