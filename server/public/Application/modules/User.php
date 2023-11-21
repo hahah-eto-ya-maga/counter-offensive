@@ -26,7 +26,8 @@
         }
 
 
-        function registration($login, $nickname, $password){
+        function registration($login, $nickname, $password)
+        {
             $tokenLastUse = date('Y-m-d H:i:s');
             $timeCreate = $tokenLastUse;
             $token = hash('sha256', $this->v4_UUID());
@@ -35,16 +36,14 @@
             if(!$checkUser){
                 $this->db->addUser($login, $nickname, $password, $token, $tokenLastUse, $timeCreate); 
                 return array(
-                    'login'=>$login,
-                    'nickname'=>$nickname,
                     'token'=>$token
                 );
             }
             return array(false, 460);
         }
 
-
-        function login($login, $hash, $rnd){
+        function login($login, $hash, $rnd)
+        {
             $token = hash('sha256', $this->v4_UUID());
             $tokenLastUse = date('Y-m-d H:i:s');
             
@@ -54,8 +53,6 @@
                 if($hash == $hashS){
                     $this->db->updateToken($user->id, $tokenLastUse, $token);
                     return array(
-                        'login'=>$user->login,
-                        'nickname'=>$user->nickname,
                         'token'=>$token
                     );
                 }
@@ -65,49 +62,40 @@
         }
 
 
-        function logout($login, $token){
+        function logout($token){
             $tokenLastUse = date('Y-m-d H:i:s');
             
-            $user = $this ->db-> getUserByLogin($login);
-            if($user != null && $user->login != null){
-                if($user->token != null && $user->token == $token && $user->token != 0){
+            $user = $this ->db-> getUserByToken($token);
+            if($user != null && $user->token != 0 && $user->token != null){
                     $this->db->deleteToken($user->id, $tokenLastUse);
                     return true;
-                }
-                return array(false, 401); //неверный токен для этого пользователя
             }
-            return array(false, 461);
+            return array(false, 401);
         }
     
 
-        function tokenVerification($login, $token){
+        function tokenVerification($token){
             $tokenLastUse = date('Y-m-d H:i:s');
     
-            $user = $this->db->getUserByLogin($login);
-            if($user != null && $user->login != null){
-                if($user->token != null && $user->token == $token && $user->token != 0){
-                    $this->db->updateToken($user->id, $tokenLastUse, $token);
-                    return true;
-                }
-                else return array(false, 401); //неверный токен для этого пользователя
+            $user = $this->db->getUserByToken($token);
+            if($user != null && $user->token != 0 && $user->token != null){
+                $this->db->updateToken($user->id, $tokenLastUse, $token);
+                return true;
             }
-            else return array(false, 461);
+            else return array(false, 401);
         }
 
 
-        function updatePassword($login, $token, $hash){
+        function updatePassword($token, $hash){
             $tokenLastUse = date('Y-m-d H:i:s');
      
-            $user = $this->db->getUserByLogin($login);
-            if($user != null && $user->login != null){
-                if($user->token != null && $user->token == $token && $user->token != 0){
-                    $this->db->updateToken($user->id, $tokenLastUse, $token);
-                    $this->db->updatePassword($user->id, $hash);
-                    return true;
-                }
-                else return array(false, 401); //неверный токен для этого пользователя
+            $user = $this->db->getUserByToken($token);
+            if($user != null && $user->token != 0 && $user->token != null){
+                $this->db->updateToken($user->id, $tokenLastUse, $token);
+                $this->db->updatePassword($user->id, $hash);
+                return true;
             }
-            else return array(false, 461); 
+            else return array(false, 401); 
         }
 
         
