@@ -30,7 +30,7 @@ const Login: React.FC = () => {
          return false;
       }
       const { TOKEN_UPDATE } = mediator.getTriggerTypes();
-      mediator.get(TOKEN_UPDATE, logRes);
+      mediator.get(TOKEN_UPDATE, logRes.token);
       return true;
    };
 
@@ -42,7 +42,7 @@ const Login: React.FC = () => {
       e.preventDefault();
       const login = userData.login.trim();
       const pass = userData.password.trim();
-      await isValidInputs(login, pass)
+      await isValidInputs(login, pass);
    };
 
    return (

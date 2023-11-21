@@ -1,6 +1,6 @@
 import { SHA256 } from "crypto-js";
 import Mediator from "../Mediator/Mediator";
-import { IUserInfo, IError, IUser } from "./types";
+import { IUserInfo, IError, IToken } from "./types";
 import Store from "../Store/Store";
 
 export default class Server {
@@ -51,12 +51,12 @@ export default class Server {
       login: string,
       nickname: string,
       password: string
-   ): Promise<string | null> {
+   ): Promise<IToken | null> {
       const hash = SHA256(login + password).toString();
       return this.request("registration", { login, nickname, hash });
    }
 
-   login(login: string, password: string): Promise<string | null> {
+   login(login: string, password: string): Promise<IToken | null> {
       const rnd = Math.random();
       const hash = SHA256(SHA256(login + password).toString() + rnd).toString();
       return this.request("login", { login, hash, rnd });
