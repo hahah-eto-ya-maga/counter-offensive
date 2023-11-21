@@ -11,9 +11,11 @@ const LobbyPage: FC = () => {
    const server = useContext(ServerContext);
 
    const logoutHandler = async () => {
-      // допилить logout через server.logout
-      const { TOKEN_UPDATE } = mediator.getTriggerTypes();
-      mediator.get(TOKEN_UPDATE, null);
+      const res = await server.logout();
+      if (res) {
+         const { TOKEN_UPDATE } = mediator.getTriggerTypes();
+         mediator.get(TOKEN_UPDATE, null);
+      }
    };
 
    return (

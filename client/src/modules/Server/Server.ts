@@ -22,10 +22,6 @@ export default class Server {
          localStorage.setItem("token", token);
          return;
       }
-      this.clearToken();
-   }
-
-   clearToken(): void {
       localStorage.removeItem("token");
    }
 
@@ -55,24 +51,23 @@ export default class Server {
       login: string,
       nickname: string,
       password: string
-   ): Promise<IUser | null> {
+   ): Promise<string | null> {
       const hash = SHA256(login + password).toString();
       return this.request("registration", { login, nickname, hash });
    }
 
-   login(login: string, password: string): Promise<IUser | null> {
+   login(login: string, password: string): Promise<string | null> {
       const rnd = Math.random();
       const hash = SHA256(SHA256(login + password).toString() + rnd).toString();
       return this.request("login", { login, hash, rnd });
    }
 
-   logout(login: string): Promise<true | null> {
-      return this.request("logout", { token: this.STORE.token, login });
+   logout(): Promise<true | null> {
+      return this.request("logout", { token: this.STORE.token });
    }
 
-   tokenVerification(login: string): Promise<true | null> {
+   tokenVerification(): Promise<true | null> {
       return this.request("tokenVerification", {
-         login,
          token: this.STORE.token,
       });
    }
@@ -84,7 +79,6 @@ export default class Server {
    updatePassword(login: string, newPassword: string): Promise<true | null> {
       const hash = SHA256(login + newPassword).toString();
       return this.request("updatePassword", {
-         login,
          token: this.STORE.token,
          hash,
       });
