@@ -37,7 +37,7 @@ class Chat
     {
         $user = $this->db->getUserByToken($token);
 
-        if ($user) {
+        if ($user != null && $user->token != 0 && $user->token != null) {
             if (strlen($message) <= 200) {
                 $this->db->addMessage($user->id, $message);
                 $hash = hash("sha256", $this->v4_UUID());
@@ -46,7 +46,7 @@ class Chat
             }
             return array(false, 411);
         }
-        return array(false, 461);
+        return array(false, 401);
     }
 
     
