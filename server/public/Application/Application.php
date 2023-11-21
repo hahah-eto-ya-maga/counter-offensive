@@ -24,13 +24,14 @@ class Application
         $login = $params['login'] ?? false;
         $password = $params['hash'] ?? false;
         $nickname = $params['nickname'] ?? false;
-
-        if ($login && $password && $nickname) {
+        
+        if($login && $password && $nickname){
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
-            if (preg_match($pattern, $login) && preg_match($pattern, $nickname)) {
+            $pattern1 = '/^.{3,15}$/';
+            if(preg_match($pattern, $login) && preg_match($pattern1, $nickname)){
                 return $this->user->registration($login, $nickname, $password);
             }
-            return array(false, 413);
+            return array(false,413);    
         }
         return array(false, 400);
     }
@@ -41,46 +42,39 @@ class Application
         $login = $params['login'] ?? false;
         $password = $params['hash'] ?? false;
         $rnd = $params['rnd'] ?? false;
-
-        if ($login && $password && $rnd) {
+        
+        if($login && $password && $rnd){
             return $this->user->login($login, $password, $rnd);
         }
         return array(false, 400);
     }
 
-    function logout($params)
-    {
-        $login = $params['login'] ?? false;
+    function logout($params){
         $token = $params['token'] ?? false;
-
-        if ($login && $token) {
-            return $this->user->logout($login, $token);
-
+        
+        if($token){
+            return $this->user->logout($token);
         }
         return array(false, 400);
     }
 
 
-    function tokenVerification($params)
-    {
-        $login = $params['login'] ?? false;
+    function tokenVerification($params){ 
         $token = $params['token'] ?? false;
 
-        if ($login && $token) {
-            return $this->user->tokenVerification($login, $token);
+        if($token){
+            return $this->user->tokenVerification($token);
         }
         return array(false, 400);
     }
 
 
-    function updatePassword($params)
-    {
-        $login = $params['login'] ?? false;
+    function updatePassword($params){
         $token = $params['token'] ?? false;
         $hash = $params['hash'] ?? false;
-
-        if ($login && $token && $hash) {
-            return $this->user->updatePassword($login, $token, $hash);
+ 
+        if($token && $hash){
+            return $this->user->updatePassword($token, $hash);
         }
         return array(false, 400);
     }
