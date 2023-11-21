@@ -1,6 +1,6 @@
 import { SHA256 } from "crypto-js";
 import Mediator from "../Mediator/Mediator";
-import { IUserInfo, IError, IToken } from "./types";
+import { IUserInfo, IError, IToken, } from "./types";
 import Store from "../Store/Store";
 
 export default class Server {
@@ -63,6 +63,7 @@ export default class Server {
    }
 
    logout(): Promise<true | null> {
+      
       return this.request("logout", { token: this.STORE.token });
    }
 
