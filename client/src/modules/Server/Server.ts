@@ -7,11 +7,27 @@ export default class Server {
    mediator: Mediator;
    HOST: string;
    STORE: Store;
+   error: IError | null;
 
    constructor(HOST: string, mediator: Mediator) {
       this.HOST = HOST;
       this.mediator = mediator;
       this.STORE = new Store();
+      this.error = null;
+   }
+
+   setToken(token: string | null): void {
+      this.STORE.token = token;
+      if (token) {
+         localStorage.setItem("token", token);
+         console.log(localStorage.getItem("token"));
+         return;
+      }
+      this.clearToken();
+   }
+
+   clearToken(): void {
+      localStorage.removeItem("token");
    }
 
    async request<T>(method: string, params: any): Promise<T | null> {
@@ -22,19 +38,16 @@ export default class Server {
             .join("&");
          const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();
-         
 
          if (answer.result === "ok") {
             return answer.data;
          }
-         
+         this.error = answer.error;
          this.mediator.call<IError>(SERVER_ERROR, answer.error);
          return null;
       } catch (e) {
-         this.mediator.call<IError>(SERVER_ERROR, {
-            code: 9000,
-            text: "Вообще всё плохо!",
-         });
+         this.error = { code: 9000, text: "Вообще всё плохо!" };
+         this.mediator.call<IError>(SERVER_ERROR, this.error);
          return null;
       }
    }
@@ -55,7 +68,7 @@ export default class Server {
    }
 
    logout(login: string): Promise<true | null> {
-      return this.request("logout", { token:this.STORE.token, login });
+      return this.request("logout", { token: this.STORE.token, login });
    }
 
    tokenVerification(login: string): Promise<true | null> {

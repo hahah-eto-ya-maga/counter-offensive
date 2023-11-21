@@ -1,21 +1,22 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Route, RouteProps, Routes, useNavigate } from "react-router-dom";
-import { publicRoutes, privateRoutes } from "../../router";
 import { MediatorContext, ServerContext } from "../../App";
-
-import "./AppRouter.css";
+import { publicRoutes, privateRoutes } from "../../router";
 import { IError } from "../../modules/Server/types";
 import { ServerWarnings } from "../../interfaces";
 
+import "./AppRouter.css";
+
 export const AppRouter: FC = () => {
-   const [routes, setRoutes] = useState<RouteProps[]>(publicRoutes);
-   const navigate = useNavigate();
    const server = useContext(ServerContext);
    const mediator = useContext(MediatorContext);
-
+   const [routes, setRoutes] = useState<RouteProps[]>(
+      server.STORE.token ? privateRoutes : publicRoutes
+   );
+   const navigate = useNavigate();
    useEffect(() => {
       const { SERVER_ERROR } = mediator.getEventTypes();
-      const { WARNING, ERROR } = mediator.getTriggerTypes();
+      const { WARNING } = mediator.getTriggerTypes();
       mediator.subscribe(SERVER_ERROR, (error: IError & { id?: string }) => {
          const exeptions: number[] = ServerWarnings.map((el) => el.code);
          if (exeptions.includes(error.code)) {
@@ -30,10 +31,17 @@ export const AppRouter: FC = () => {
             }
          }
          navigate("/error");
-         mediator.get(ERROR, error);
       });
    }, []);
 
+   useEffect(() => {
+      const { TOKEN_UPDATE } = mediator.getTriggerTypes();
+      mediator.set(TOKEN_UPDATE, (token: string | null) => {
+         server.setToken(token);
+         setRoutes(token ? privateRoutes : publicRoutes);
+         navigate("/");
+      });
+   }, []);
    return (
       <div className="router_block">
          <Routes>

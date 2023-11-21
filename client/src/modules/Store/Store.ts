@@ -5,7 +5,7 @@ export default class Store {
    gameHash: string | null;
 
    constructor() {
-      this.token = null;
+      this.token = localStorage.getItem("token") ?? null;
       this.lobbyHash = null;
       this.bulletHash = null;
       this.gameHash = null;
