@@ -20,7 +20,6 @@ export default class Server {
       this.STORE.token = token;
       if (token) {
          localStorage.setItem("token", token);
-         console.log(localStorage.getItem("token"));
          return;
       }
       this.clearToken();

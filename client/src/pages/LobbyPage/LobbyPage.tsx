@@ -1,15 +1,17 @@
 import { FC, useContext } from "react";
+import { MediatorContext, ServerContext } from "../../App";
 import { Button, Logo } from "../../components";
 import { automat, RPG, tank2, tank3 } from "../../assets/pngs";
 import { General, FlagBearer } from "../../components/Lobby";
 import { Dossier } from "../../components";
 import "./LobbyPage.css";
-import { MediatorContext } from "../../App";
 
 const LobbyPage: FC = () => {
    const mediator = useContext(MediatorContext);
+   const server = useContext(ServerContext);
 
-   const logoutHandler = () => {
+   const logoutHandler = async () => {
+      // допилить logout через server.logout
       const { TOKEN_UPDATE } = mediator.getTriggerTypes();
       mediator.get(TOKEN_UPDATE, null);
    };
