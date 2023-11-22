@@ -1,8 +1,8 @@
+import { FC } from "react";
 import { Button, Logo } from "../../components";
-import { ISetPage } from "../../interfaces";
 import "./MenuPage.css";
 
-const MenuPage: React.FC<ISetPage> = ({ setPage }) => {
+const MenuPage: FC = () => {
   return (
     <div className="menu_page_wrapper">
       <Logo />
@@ -11,9 +11,6 @@ const MenuPage: React.FC<ISetPage> = ({ setPage }) => {
           appearance="menu"
           id="test_menu_goToLobby_button"
           className="menu_btn"
-          onClick={() => {
-            setPage("Lobby");
-          }}
         >
           <p className="l">Вернуться на службу</p>
           <p className="s">Вернуться в лобби</p>
@@ -22,9 +19,6 @@ const MenuPage: React.FC<ISetPage> = ({ setPage }) => {
           appearance="menu"
           id="test_menu_goToMain_button"
           className="menu_btn"
-          onClick={() => {
-            setPage("MainPage");
-          }}
         >
           <p className="l">Дембельнуться</p>
           <p className="s">Выйти из аккаунта</p>

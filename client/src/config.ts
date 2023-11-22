@@ -11,12 +11,11 @@ const DOMAIN = "http://localhost";
 export const HOST = PORT ? `${DOMAIN}:${PORT}` : DOMAIN;
 
 export const MEDIATOR = {
-  EVENTS: {
-    SERVER_ERROR: "SERVER_ERROR",
-  },
-  TRIGGERS: {
-    // LOG & REG ERRORS
-    WARNING: "WARNING",
-    ERROR: "ERROR",
-  },
+   EVENTS: {
+      SERVER_ERROR: "SERVER_ERROR",
+   },
+   TRIGGERS: {
+      WARNING: "WARNING",
+      TOKEN_UPDATE: "TOKEN_UPDATE",
+   },
 };

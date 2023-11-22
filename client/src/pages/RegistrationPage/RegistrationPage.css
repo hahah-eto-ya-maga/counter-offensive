@@ -2,10 +2,12 @@
   display: flex;
   justify-content: space-between;
   height: 20%;
+  gap:20px;
 }
 
 .reg_header button {
-  height: 7.5vw;
+  font-size: 60px;
+  padding: 0 10px; 
 }
 
 .reg_wrapper {
@@ -20,9 +22,7 @@
 }
 
 .reg_submit_button {
-  width: 45vw;
-  height: 7vw;
-  max-width: 1000px;
+  font-size: 60px;
   margin: 10px 0;
 }
 
@@ -36,4 +36,40 @@
 .reg_footer {
   display: flex;
   justify-content: flex-end;
+}
+
+@media  (max-width: 1130px) {
+
+  .reg_header button,
+  .reg_submit_button  {
+    font-size: 45px;
+  }
+  
+}
+
+@media  (max-width: 750px) {
+  .reg_header button {
+    font-size: 40px;
+    padding: 0 10px;
+  }
+  
+}
+
+@media (max-width: 550px) {
+  .reg_header button {
+    font-size: 30px;
+    padding: 0 10px;
+  }
+
+  .reg_submit_button{
+    font-size: 25px;
+    padding: 0 10px;
+  }
+  
+}
+
+@media (max-width: 353px) {
+  .reg_header button {
+    font-size: 25px;
+  }
 }

@@ -6,19 +6,6 @@ export interface IUserData {
   nickName?: string;
 }
 
-export interface ISetPage {
-  setPage: React.Dispatch<React.SetStateAction<TPage>>;
-}
-
-export type TPage =
-  | "Lobby"
-  | "Loading"
-  | "Menu"
-  | "MainPage"
-  | "Error"
-  | "Registration"
-  | "GamePage";
-
 export const ServerWarnings: IError[] & {id?:string} = [
   {
     code: 461,
