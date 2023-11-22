@@ -69,3 +69,16 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `sendTime` DATETIME NOT NULL DEFAULT "2000-10-01 00:00:00",
   PRIMARY KEY (`id`)
 );
+
+/* Создание юзеров для тестирования*/
+
+INSERT INTO users(login, nickname, password) VALUES 
+('puppy1', 'regresskil', '4562df1406be2e97bae613dd15c16fa9b76a221ab550a9be1aa7c517277cc2be'),
+('sergeant1', 'regresskil', '7dd348ad7304089af7276ce90a5406084cdf9622ff9b6ca3c25bf4bd3eed7d05'),
+('officer1', 'regresskil', '0a83eaf3b88b3fd111dd87132231898ed41f13a634df5ebe3d4e9a4165292761'),
+('general1', 'regresskil', 'c27d011242c894a577ddc4b2431c35a815c6bb5d981c1b13e24ff7cbdc66d617'),
+('general2', 'regresskil', '641ccaeb2bae9253a03c2737b88706ff433804b3bd897ca73fb8b13bbe11a91a'),
+('testuse', 'regresskil', 'f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e'),
+('puppy2', 'regresskil', 'c4afddcb4b4624193e2132e958dda90921a6ffe5950e467ad413c6e73c562921'),
+('sergeant2', 'regresskil', '14daf687442d9d6a81e57e87e466d592f786fcfdfef65ba20c743b469bba4a7b'),
+('officer2', 'regresskil', '2fb5c5cdd96005d70fc7f565f77d841ec4460985b78881baf7480a4e80cea815');
