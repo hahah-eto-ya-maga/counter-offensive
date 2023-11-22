@@ -1,19 +1,17 @@
 import { SHA256 } from "crypto-js";
 import Mediator from "../Mediator/Mediator";
-import { IUserInfo, IError, IToken, } from "./types";
+import { IUserInfo, IError, IToken } from "./types";
 import Store from "../Store/Store";
 
 export default class Server {
    mediator: Mediator;
    HOST: string;
    STORE: Store;
-   error: IError | null;
 
    constructor(HOST: string, mediator: Mediator) {
       this.HOST = HOST;
       this.mediator = mediator;
       this.STORE = new Store();
-      this.error = null;
    }
 
    setToken(token: string | null): void {
@@ -37,12 +35,13 @@ export default class Server {
          if (answer.result === "ok") {
             return answer.data;
          }
-         this.error = answer.error;
          this.mediator.call<IError>(SERVER_ERROR, answer.error);
          return null;
       } catch (e) {
-         this.error = { code: 9000, text: "Вообще всё плохо!" };
-         this.mediator.call<IError>(SERVER_ERROR, this.error);
+         this.mediator.call<IError>(SERVER_ERROR, {
+            code: 9000,
+            text: "Вообще всё плохо!",
+         });
          return null;
       }
    }
@@ -63,7 +62,6 @@ export default class Server {
    }
 
    logout(): Promise<true | null> {
-      
       return this.request("logout", { token: this.STORE.token });
    }
 

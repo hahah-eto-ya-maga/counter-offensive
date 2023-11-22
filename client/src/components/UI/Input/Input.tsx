@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Eye from "../Eye/Eye";
+import { ReactComponent as OpenEyeIcon } from "./openEye.svg";
+import { ReactComponent as CloseEyeIcon } from "./closeEye.svg";
 import cn from "classnames";
 
 import "./Input.css";
@@ -45,11 +46,8 @@ const Input: React.FC<IInputProps> = ({
             })}
          />
          {type === "password" && (
-            <div
-               onPointerDown={changeType}
-               className="eye"
-            >
-               <Eye open={inputType === "text"} />
+            <div onPointerDown={changeType} className="eye">
+               {inputType === "text" ? <CloseEyeIcon /> : <OpenEyeIcon />}
             </div>
          )}
       </div>

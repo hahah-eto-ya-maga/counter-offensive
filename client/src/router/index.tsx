@@ -1,4 +1,4 @@
-import { RouteProps } from "react-router-dom";
+import { Navigate, RouteProps } from "react-router-dom";
 import {
    ErrorPage,
    GamePage,
@@ -10,45 +10,45 @@ import {
 export const publicRoutes: RouteProps[] = [
    {
       path: "/",
-      Component: LoginPage,
-   },
-   {
-      path: "/registration",
-      Component: RegistrationPage,
+      element: <LoginPage />,
    },
    {
       path: "/authorization",
-      Component: LoginPage,
+      element: <LoginPage />,
+   },
+   {
+      path: "/registration",
+      element: <RegistrationPage />,
    },
    {
       path: "/error",
-      Component: ErrorPage,
+      element: <ErrorPage />,
    },
    {
       path: "*",
-      Component: ErrorPage,
+      element: <Navigate to="/" replace />,
    },
 ];
 
 export const privateRoutes: RouteProps[] = [
    {
-      path: "*",
-      Component: ErrorPage,
-   },
-   {
-      path: "/error",
-      Component: ErrorPage,
-   },
-   {
       path: "/",
-      Component: LobbyPage,
+      element: <LobbyPage />,
    },
    {
       path: "/lobby",
-      Component: LobbyPage,
+      element: <LobbyPage />,
    },
    {
       path: "/game",
-      Component: GamePage,
+      element: <GamePage />,
+   },
+   {
+      path: "/error",
+      element: <ErrorPage />,
+   },
+   {
+      path: "*",
+      element: <Navigate to="/" replace />,
    },
 ];
