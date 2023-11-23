@@ -9,7 +9,7 @@ export const useErrorHandler = (
    const { SERVER_ERROR } = mediator.getEventTypes();
    const { WARNING } = mediator.getTriggerTypes();
    return () => {
-      mediator.subscribe(SERVER_ERROR, (error: IError & { id?: string }) => {
+      mediator.subscribe(SERVER_ERROR, (error: IError) => {
          switch (error.code) {
             case 403: {
                return mediator.get(WARNING, {
@@ -30,7 +30,6 @@ export const useErrorHandler = (
                });
             }
          }
-
          navigate("/error", { state: { error } });
       });
    };
