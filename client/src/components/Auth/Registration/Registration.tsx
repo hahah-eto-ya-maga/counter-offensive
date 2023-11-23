@@ -1,7 +1,7 @@
 import { FC, useContext, useState } from "react";
 import { MediatorContext, ServerContext } from "../../../App";
 import { Button, Input, Alert } from "../../UI";
-import { IUserData } from "../../../interfaces";
+import { IUserData } from "../userData.interface";
 
 const Registration: FC = () => {
    const [userData, setUserData] = useState<IUserData>({

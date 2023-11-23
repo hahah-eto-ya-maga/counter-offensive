@@ -47,7 +47,7 @@ const Input: React.FC<IInputProps> = ({
          />
          {type === "password" && (
             <div onPointerDown={changeType} className="eye">
-               {inputType === "text" ? <CloseEyeIcon /> : <OpenEyeIcon />}
+               {inputType === "text" ? <OpenEyeIcon /> : <CloseEyeIcon />}
             </div>
          )}
       </div>

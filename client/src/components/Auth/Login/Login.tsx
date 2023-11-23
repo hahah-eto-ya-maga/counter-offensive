@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Alert } from "../../UI";
-import { IUserData } from "../../../interfaces";
+import { IUserData } from '../userData.interface'; 
 import { MediatorContext, ServerContext } from "../../../App";
 
 const Login: React.FC = () => {
