@@ -2,12 +2,12 @@ import React from "react";
 import Canvas, { ICanvasOption } from "../../modules/Graph/Canvas/Canvas";
 import MathGame from "../../modules/Graph/Math/MathGame";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
-import Collision from "../../modules/Graph/Collision/Collison";
+import Collision from "../../modules/Graph/Collision/Collision";
 import "./GamePage.css"
 import { manAutomat, corpusTank, towerTank } from "../../assets/svgs";
-import { useLocation } from "react-router-dom";
 import { grass, house, stone} from "../../assets/pngs";
 
 const GamePage: React.FC = () => {
@@ -92,7 +92,6 @@ const GamePage: React.FC = () => {
                 keydown: (event) => {keyDown(event)},
                 keyup: (event) => {keyUp(event)},
                 mousemove: (event) => {mouseMove(event)},
-                mouseleave: (event) => {mouseLeave(event)}
             }
         });
 
@@ -135,10 +134,6 @@ const GamePage: React.FC = () => {
     const mouseMove = (event: MouseEvent): void => {
         cursorPosition.x = event.clientX
         cursorPosition.y = event.clientY
-    }
-
-    const mouseLeave = (event: MouseEvent): void => {
-
     }
 
     /* движение пехотинца по карте */

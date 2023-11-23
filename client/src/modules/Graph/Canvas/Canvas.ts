@@ -10,7 +10,6 @@ export interface ICanvasOption {
         keydown: (event: KeyboardEvent) => void
         keyup: (event: KeyboardEvent) => void
         mousemove: (event: MouseEvent) => void
-        mouseleave: (event: MouseEvent) => void
     }
 }
 
@@ -30,11 +29,10 @@ class Canvas {
         this.canvas.width = width;
         this.canvas.height = height;
 
-        const {keydown, keyup, mousemove, mouseleave} = callbacks;
+        const {keydown, keyup, mousemove} = callbacks;
         window.addEventListener('keydown', (event: KeyboardEvent) => keydown(event));
         window.addEventListener('keyup', (event: KeyboardEvent) => keyup(event));
         window.addEventListener('mousemove', (event: MouseEvent) => mousemove(event));
-        window.addEventListener('mouseleave', (event: MouseEvent) => mouseleave(event));
 
         this.WIN = WIN;
 
