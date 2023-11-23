@@ -1,50 +1,62 @@
 .error-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     padding: 50px;
 }
 
-.error-page-wrapper > div {
+.error-code-block {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.error-code-block> div {
+    display: flex;
+    align-items: center;
+}
+
+.error-code-block button {
+    padding: 10px;
+    font-size: 40px;
+}
+
+.error-text, .error-code{
     background-color: #fff;
     border-radius: 15px;
     border: 5px solid var(--black);
 }
 
-.error_code {
+.error-code {
     width: fit-content;
     font-family: 'Rubik Dirt';
-    font-size: 128px;
+    font-size: 80px;
     font-weight: 400;
     padding: 5px 20px;
+    margin-right: 40px;
 }
 
-.error_text {
+.error-text {
+    box-sizing: border-box;
+    height: 40vh;
+    width: 100%;
     margin-top: 30px;
     padding: 10px 20px;
     font-weight: 400;
     font-family: 'Times New Roman';
-    font-size: 96px;
-    min-height: 400px;
+    font-size: 90px;
 }
 
-@media (max-width: 1004px) {
-    .error_code{
-        font-size: 90px;
-    }
-
-    .error_text {
-        font-size: 70px;
-    }
-}
-
-@media (max-width: 759px) {
-    .error_code{
-        font-size: 60px;
-    }
-
-    .error_text {
+@media (max-width: 777px) {
+    .error-code{
         font-size: 50px;
+    }
+
+    .error-text {
+        font-size: 60px;
     }
 
     .error-page-wrapper{
@@ -52,12 +64,17 @@
     }
 }
 
-@media (max-width: 564px) {
-    .error_code{
-        font-size: 40px;
+@media (max-width: 567px) {
+    .error-code{
+        font-size: 35px;
     }
 
-    .error_text {
+    .error-text {
+        font-size: 50px;
+    }
+
+    .error-code-block button {
+        padding: 10px;
         font-size: 30px;
     }
 }

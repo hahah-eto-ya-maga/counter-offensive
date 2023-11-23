@@ -38,6 +38,12 @@ class DB {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
     }
+
+    function queryHandlerAll($query, $params) {
+        $stmt = $this->link->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
     
     public function getUserById($id) {
         $query = "SELECT * FROM users WHERE id=?";
@@ -77,5 +83,30 @@ class DB {
     function addUser($login, $nickname, $hash, $token, $tokenLastUse=0, $timeCreate=0) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
         $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, ?, ?)"; // Запрос вставляет в базу данных полученные данные
         $this->queryHandler($query, array($login, $nickname, $hash, $token, $tokenLastUse, $timeCreate)); 
-    } 
+    }
+    function addMessage($userId, $message) {
+        $query = "INSERT INTO messages (userId, text, sendTime) VALUES(?, ?, now())";
+        $this->queryHandler($query, [$userId, $message]); 
+    }
+    
+    function updateChatHash($hash) {
+        $query = "UPDATE game SET chatHash=? WHERE id=1";
+        $this->queryHandler($query, [$hash]);
+    }
+
+    function getChatHash() {
+        $query = "SELECT chatHash FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+
+    function getMessages() {
+        $query = "SELECT u.nickname AS nickname, m.text AS text, m.sendTime AS sendTime
+            FROM messages AS m 
+            INNER JOIN users AS u ON m.userId=u.id
+            ORDER BY m.sendTime DESC
+            LIMIT 30";
+        return $this->queryHandlerAll($query, []);
+    }
+
 }

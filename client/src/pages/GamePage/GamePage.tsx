@@ -7,18 +7,19 @@ import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import Collision from "../../modules/Graph/Collision/Collison";
 import "./GamePage.css"
 import { manAutomat, corpusTank, towerTank } from "../../assets/svgs";
+import { useLocation } from "react-router-dom";
 
-interface IGamePageProps {
-    unit: string
-}
+const GamePage: React.FC = () => {
 
-const GamePage: React.FC<IGamePageProps> = ({unit}) => {
     const height = window.innerHeight - 26;
     const width = window.innerWidth - 26;
     const prop = width / height;
 
     let canvas: Canvas
     const Canvas = useCanvas((FPS) => renderScene(FPS))
+
+    const location = useLocation()
+    let unit = location.state.userRole
 
     const [FPS, setShowFPS] = useState<number>(0)
 
@@ -206,14 +207,14 @@ const GamePage: React.FC<IGamePageProps> = ({unit}) => {
             canvas.circle(circlesArray[2], '#666')
             canvas.circle(deadTank, '#333')
            
-            if (unit == 'Tank') {
+            if (unit === 'Tank') {
                 moveSceneTank(keyPressed) 
                 isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
 
                 canvas.rotateTank(corpusTankImage, angleOfMovement)
                 canvas.rotateGun(towerTankImage, angleOfMovement)
             } 
-            if (unit == 'Infantry') {
+            if (unit === 'RPG' || unit === "Automat") {
                 moveSceneInfantry(keyPressed)
                 isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
                 rotateGun()
