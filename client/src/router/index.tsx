@@ -21,14 +21,6 @@ export const publicRoutes: RouteProps[] = [
       Component: LoginPage,
    },
    {
-      path: "/lobby",
-      Component: LobbyPage,
-   },
-   {
-      path: "/game",
-      Component: GamePage,
-   },
-   {
       path: "/error",
       Component: ErrorPage,
    },
@@ -51,12 +43,12 @@ export const privateRoutes: RouteProps[] = [
       path: "/",
       Component: LobbyPage,
    },
-   // {
-   //    path: "/lobby",
-   //    Component: LobbyPage,
-   // },
-   // {
-   //    path: "/game",
-   //    Component: GamePage,
-   // },
+   {
+      path: "/lobby",
+      Component: LobbyPage,
+   },
+   {
+      path: "/game",
+      Component: GamePage,
+   },
 ];
