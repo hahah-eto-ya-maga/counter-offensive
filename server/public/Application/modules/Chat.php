@@ -49,5 +49,21 @@ class Chat
         return array(false, 401);
     }
 
+    public function getMessages($token, $oldHash)
+    {
+        $hash = $this->db->getChatHash();
+        $user = $this->db->getUserByToken($token);
+        if ($user) {
+            if ($hash->chatHash !== $oldHash) {
+                $messages = $this->db->getMessages();
+                return array(
+                    'messages' => $messages,
+                    'hash' => $hash->chatHash
+                );
+            }
+            return true;
+        }
+        return array(false, 461);
+    }
     
 }
