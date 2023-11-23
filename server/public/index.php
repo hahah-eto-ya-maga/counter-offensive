@@ -17,6 +17,8 @@
                     case 'logout': return $app->logout($params);
                     case 'tokenVerification': return $app->tokenVerification($params);
                     case 'updatePassword': return $app->updatePassword($params);
+                    case 'sendMessage': return $app->sendMessage($params);
+                    case 'getMessages': return $app->getMessages($params);
                 }
                 return array(false, 501);
             }

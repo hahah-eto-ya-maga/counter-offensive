@@ -2,10 +2,12 @@
   display: flex;
   justify-content: space-between;
   height: 20%;
+  gap:20px;
 }
 
 .reg_header button {
-  height: 7.5vw;
+  font-size: 60px;
+  padding: 0 10px; 
 }
 
 .reg_wrapper {
@@ -20,9 +22,7 @@
 }
 
 .reg_submit_button {
-  width: 45vw;
-  height: 7vw;
-  max-width: 1000px;
+  font-size: 60px;
   margin: 10px 0;
 }
 
@@ -38,36 +38,38 @@
   justify-content: flex-end;
 }
 
-.errors_div {
-  max-height: 300px;
-  overflow: auto;
+@media  (max-width: 1130px) {
+
+  .reg_header button,
+  .reg_submit_button  {
+    font-size: 45px;
+  }
+  
 }
 
-.errors_div::-webkit-scrollbar {
-  width: 0;
+@media  (max-width: 750px) {
+  .reg_header button {
+    font-size: 40px;
+    padding: 0 10px;
+  }
+  
 }
 
-.errors_div > div {
-  width: max-content;
-  font-family: Neucha;
-  font-size: 4vw;
-  font-style: normal;
-  line-height: normal;
-  text-align: center;
-  border-radius: 15px;
-  border: 5px solid #000;
-  max-height: 160px;
-  margin: 0 0 10 0;
+@media (max-width: 550px) {
+  .reg_header button {
+    font-size: 30px;
+    padding: 0 10px;
+  }
+
+  .reg_submit_button{
+    font-size: 25px;
+    padding: 0 10px;
+  }
+  
 }
 
-.errors_div span {
-  margin: 10px;
-}
-
-.warning {
-  background-color: var(--yellow);
-}
-
-.error {
-  background-color: var(--red);
+@media (max-width: 353px) {
+  .reg_header button {
+    font-size: 25px;
+  }
 }

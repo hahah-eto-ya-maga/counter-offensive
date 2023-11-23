@@ -4,7 +4,7 @@ import Shop from "./Shop/Shop";
 
 import "./Dossier.css";
 
-const Dossier: React.FC = () => {
+export const Dossier: React.FC = () => {
    const [pageType, setPageType] = useState<"info" | "shop">("info");
    const user = {
       login: "Vasya",
@@ -23,4 +23,3 @@ const Dossier: React.FC = () => {
    );
 };
 
-export default Dossier;
