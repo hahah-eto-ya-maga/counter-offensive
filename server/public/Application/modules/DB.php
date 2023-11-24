@@ -47,39 +47,39 @@ class DB {
     
     public function getUserById($id) {
         $query = "SELECT id, login, password, nickname, token FROM users WHERE id=?";
-        return $this->queryHandler($query, array($id), true);
+        return $this->queryHandler($query, [$id], true);
     }
 
     public function getUserByLogin($login) {
         $query = "SELECT id, login, password, nickname, token FROM users WHERE login = ?";
-        return $this->queryHandler($query, array($login), true);
+        return $this->queryHandler($query, [$login], true);
     }
 
     public function getUserByToken($token) {     //vnntblck вся информация о пользователе по токину                     
         $query = "SELECT id, login, password, nickname, token FROM users WHERE token = ?";
-        return $this->queryHandler($query, array($token), true);
+        return $this->queryHandler($query, [$token], true);
     
     }
 
     public function updateToken($userId, $token) {
         $query = "UPDATE users SET tokenLastUse = NOW(), token = ? WHERE id=?";
-        $this->queryHandler($query, array($token, $userId));
+        $this->queryHandler($query, [$token, $userId]);
     }
 
     function updatePassword($userId, $newPassword){
         $query = "UPDATE users SET password = ? WHERE id = ?";
-        $this->queryHandler($query, array($newPassword, $userId));
+        $this->queryHandler($query, [$newPassword, $userId]);
 
     }
 
     function deleteToken($userId) {             //Обновляет токен vnntblck
         $query = "UPDATE users SET tokenLastUse = NOW(), token = 0 WHERE id = ?";
-        $this->queryHandler($query, array($userId));
+        $this->queryHandler($query, [$userId]);
     }
 
     function addUser($login, $nickname, $hash, $token) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
         $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, NOW(), NOW())"; // Запрос вставляет в базу данных полученные данные
-        $this->queryHandler($query, array($login, $nickname, $hash, $token)); 
+        $this->queryHandler($query, [$login, $nickname, $hash, $token]); 
     }
 
     function addMessage($userId, $message) {
@@ -119,6 +119,6 @@ class DB {
         JOIN ranks next_r ON next_r.id = r.id + 1
         WHERE u.id = ?
         ORDER BY r.id DESC LIMIT 1;";
-        return $this->queryHandler($query, array($userId), true);
+        return $this->queryHandler($query, [$userId], true);
     }
 }

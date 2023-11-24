@@ -6,7 +6,7 @@ require_once("modules/Chat.php");
 class Application
 {
 
-    protected $user;
+    private $user;
     private $chat;
     public $dbStatus;
 
