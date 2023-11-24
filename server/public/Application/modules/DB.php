@@ -99,7 +99,6 @@ class DB {
         return $this->queryHandler($query, [], true);
     }
 
-
     function getMessages() {
         $query = "SELECT u.nickname AS nickname, m.text AS text, m.sendTime AS sendTime
             FROM messages AS m 
@@ -109,4 +108,19 @@ class DB {
         return $this->queryHandlerAll($query, []);
     }
 
+    function addGamer($userId){
+        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 1, 'lobby');";
+        $this->queryHandler($query, [$userId]); 
+    }
+
+    public function getRankById($userId) {
+        $query = "SELECT u.id AS user_id, r.id AS level, r.name AS rank_name, g.experience AS gamer_exp, next_r.experience - g.experience AS next_rang
+        FROM gamers g
+        JOIN users u ON u.id=g.user_id
+        JOIN ranks r ON r.experience<=g.experience
+        JOIN ranks next_r ON next_r.id = r.id + 1
+        WHERE u.id = ?
+        ORDER BY r.id DESC LIMIT 1;";
+        return $this->queryHandler($query, array($userId), true);
+    }
 }

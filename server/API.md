@@ -25,19 +25,16 @@ Error = {
 }
 ```
 
-**Токен пользователя**
-```
-userToken = {
-    token:string
-}
-```
-
 **Пользователь**
 ```
 User = {
     login:string, 
-    nickname:string
-    token:string
+    nickname:string,
+    token:string,
+    rank_name:string,
+    gamer_exp:integer,
+    next_rang:integer,
+    level:integer
 }
 ```
 
@@ -76,7 +73,7 @@ User = {
 
 ### Значение если успех
 ```
-Correct=>userToken
+Correct=>User
 ```
 
 ### Значение если ошибка
@@ -98,7 +95,7 @@ Error(460) - Логин уже занят
 |rnd|number|рандомное число|
 ### Значение если успех
 ```
-Correct=>userToken
+Correct=>User
 ```
 ### Значение если ошибка
 ```
