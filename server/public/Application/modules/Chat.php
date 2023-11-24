@@ -50,8 +50,7 @@ class Chat
         if ($hash->chatHash !== $oldHash) {
             $messages = $this->db->getMessages();
             return array(
-                'messages' => $messages,
-                'hash' => $hash->chatHash
+                'messages' => $messages
             );
         }
         return true;

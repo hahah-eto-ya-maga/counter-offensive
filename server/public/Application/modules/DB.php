@@ -46,26 +46,25 @@ class DB {
     }
     
     public function getUserById($id) {
-        $query = "SELECT * FROM users WHERE id=?";
+        $query = "SELECT id, login, password, nickname, token FROM users WHERE id=?";
         return $this->queryHandler($query, array($id), true);
     }
 
     public function getUserByLogin($login) {
-        $query = "SELECT * FROM users WHERE login = ?";
+        $query = "SELECT id, login, password, nickname, token FROM users WHERE login = ?";
         return $this->queryHandler($query, array($login), true);
     }
 
     public function getUserByToken($token) {     //vnntblck вся информация о пользователе по токину                     
-        $query = "SELECT * FROM users WHERE token = ?";
+        $query = "SELECT id, login, password, nickname, token FROM users WHERE token = ?";
         return $this->queryHandler($query, array($token), true);
     
     }
 
-    public function updateToken($userId, $tokenLastUse, $token) {
-        $query = "UPDATE users SET tokenLastUse = ?, token = ? WHERE id=?";
-        $this->queryHandler($query, array($tokenLastUse, $token, $userId));
+    public function updateToken($userId, $token) {
+        $query = "UPDATE users SET tokenLastUse = NOW(), token = ? WHERE id=?";
+        $this->queryHandler($query, array($token, $userId));
     }
-
 
     function updatePassword($userId, $newPassword){
         $query = "UPDATE users SET password = ? WHERE id = ?";
@@ -73,19 +72,18 @@ class DB {
 
     }
 
-
-    function deleteToken($userId, $tokenLastUse) {             //Обновляет токен vnntblck
-        $query = "UPDATE users SET tokenLastUse = ?, token = 0 WHERE id = ?";
-        $this->queryHandler($query, array($tokenLastUse, $userId));
+    function deleteToken($userId) {             //Обновляет токен vnntblck
+        $query = "UPDATE users SET tokenLastUse = NOW(), token = 0 WHERE id = ?";
+        $this->queryHandler($query, array($userId));
     }
 
-
-    function addUser($login, $nickname, $hash, $token, $tokenLastUse=0, $timeCreate=0) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
-        $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, ?, ?)"; // Запрос вставляет в базу данных полученные данные
-        $this->queryHandler($query, array($login, $nickname, $hash, $token, $tokenLastUse, $timeCreate)); 
+    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
+        $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, NOW(), NOW())"; // Запрос вставляет в базу данных полученные данные
+        $this->queryHandler($query, array($login, $nickname, $hash, $token)); 
     }
+
     function addMessage($userId, $message) {
-        $query = "INSERT INTO messages (userId, text, sendTime) VALUES(?, ?, now())";
+        $query = "INSERT INTO messages (userId, text, sendTime) VALUES(?, ?, NOW())";
         $this->queryHandler($query, [$userId, $message]); 
     }
     

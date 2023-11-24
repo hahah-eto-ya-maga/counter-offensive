@@ -72,7 +72,6 @@
             return array(false, 461);
         }
 
-
         function logout($token){
             $user = $this->db->getUserByToken($token);
             if($user != null && $user->token != 0 && $user->token != null){
@@ -81,7 +80,7 @@
             }
             return array(false, 401);
         }
-    
+
 
         function tokenVerification($token){
             $user = $this->db->getUserByToken($token);
@@ -89,9 +88,8 @@
                 $this->db->updateToken($user->id, $token);
                 return true;
             }
-            else return array(false, 401);
+            return array(false, 401);
         }
-
 
         function updatePassword($token, $hash){
             $user = $this->db->getUserByToken($token);
@@ -100,8 +98,10 @@
                 $this->db->updatePassword($user->id, $hash);
                 return true;
             }
-            else return array(false, 401); 
+            return array(false, 401); 
         }
 
-        
+        function getUser($token){
+            return $this->db->getUserByToken($token);
+        }
     }

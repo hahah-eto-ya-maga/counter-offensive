@@ -88,8 +88,9 @@ class Application
             if (preg_match($pattern, $message)) {
                 $user = $this->user->getUser($token);
                 if ($user != null && $user->token != 0 && $user->token != null) {
-                    return $this->chat->sendMessage($token, $message);
+                    return $this->chat->sendMessage($user->id, $message);
                 }
+                return array(false, 401);
             }
             return array(false, 432);
         }
