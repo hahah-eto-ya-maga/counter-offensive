@@ -33,37 +33,27 @@ class Chat
 
     
 
-    public function sendMessage($token, $message)
+    public function sendMessage($userId, $message)
     {
-        $user = $this->db->getUserByToken($token);
-
-        if ($user != null && $user->token != 0 && $user->token != null) {
-            if (strlen($message) <= 200) {
-                $this->db->addMessage($user->id, $message);
-                $hash = hash("sha256", $this->v4_UUID());
-                $this->db->updateChatHash($hash);
-                return array('hash' => $hash);
-            }
-            return array(false, 411);
+        if (strlen($message) <= 200) {
+            $this->db->addMessage($userId, $message);
+            $hash = hash("sha256", $this->v4_UUID());
+            $this->db->updateChatHash($hash);
+            return array('hash' => $hash);
         }
-        return array(false, 401);
+        return array(false, 411);
     }
 
-    public function getMessages($token, $oldHash)
+    public function getMessages($oldHash)
     {
         $hash = $this->db->getChatHash();
-        $user = $this->db->getUserByToken($token);
-        if ($user) {
-            if ($hash->chatHash !== $oldHash) {
-                $messages = $this->db->getMessages();
-                return array(
-                    'messages' => $messages,
-                    'hash' => $hash->chatHash
-                );
-            }
-            return true;
+        if ($hash->chatHash !== $oldHash) {
+            $messages = $this->db->getMessages();
+            return array(
+                'messages' => $messages
+            );
         }
-        return array(false, 461);
+        return true;
     }
     
 }
