@@ -35,13 +35,10 @@ class Chat
 
     public function sendMessage($userId, $message)
     {
-        if (strlen($message) <= 200) {
-            $this->db->addMessage($userId, $message);
-            $hash = hash("sha256", $this->v4_UUID());
-            $this->db->updateChatHash($hash);
-            return array('hash' => $hash);
-        }
-        return array(false, 411);
+        $this->db->addMessage($userId, $message);
+        $hash = hash("sha256", $this->v4_UUID());
+        $this->db->updateChatHash($hash);
+        return array('hash' => $hash);
     }
 
     public function getMessages($oldHash)
