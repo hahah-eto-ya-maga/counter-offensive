@@ -2,17 +2,18 @@ import React from "react";
 import Canvas, { ICanvasOption } from "../../modules/Graph/Canvas/Canvas";
 import MathGame from "../../modules/Graph/Math/MathGame";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
-import Collision from "../../modules/Graph/Collision/Collison";
+import Collision from "../../modules/Graph/Collision/Collision";
 import "./GamePage.css"
 import { manAutomat, corpusTank, towerTank } from "../../assets/svgs";
-import { useLocation } from "react-router-dom";
+import { grass, house, stone} from "../../assets/pngs";
 
 const GamePage: React.FC = () => {
 
-    const height = window.innerHeight - 26;
-    const width = window.innerWidth - 26;
+    const height = window.innerHeight;
+    const width = window.innerWidth;
     const prop = width / height;
 
     let canvas: Canvas
@@ -25,8 +26,13 @@ const GamePage: React.FC = () => {
 
     const keyPressed: TKeyboard = {}
 
-    const man: TUnit = {x: 6, y: 3, r: 0.23}
     const tank: TUnit = {x: 5, y: 4, r:0.5}
+    const tankProp: TPoint = {x: 1.1*tank.r, y: 1.2*tank.r}
+
+    const towerProp: TPoint = {x: 1.5*tank.r, y: 0.8*tank.r}
+
+    const man: TUnit = {x: 6, y: 3, r: 0.16}
+    const manProp: TPoint = {x: 1.4*man.r, y: man.r}
 
     const WIN = {
         left: -8 * prop + tank.x,
@@ -35,14 +41,23 @@ const GamePage: React.FC = () => {
         height: 16,
     };
 
-    const corpusTankImage = new Image( 1.1*width / WIN.width, height / WIN.height)
+    const corpusTankImage = new Image()
     corpusTankImage.src = corpusTank
 
-    const towerTankImage = new Image(2.92 * width / WIN.width, 1.3 * height / WIN.height)
+    const towerTankImage = new Image()
     towerTankImage.src = towerTank
 
     const manImage = new Image()
     manImage.src = manAutomat
+
+    const houseImage = new Image()
+    houseImage.src = house
+    
+    const grassImage = new Image()
+    grassImage.src = grass
+
+    const stoneImage = new Image()
+    stoneImage.src = stone
 
     const math = new MathGame({WIN})
     let angleOfMovement = Math.PI/2;
@@ -54,8 +69,8 @@ const GamePage: React.FC = () => {
     const speedInfantry = 1/18;
     let speedInfantryNow = speedInfantry
 
-    const blocksArray: TPoint[][] = [[{x:5, y: 6}, {x:5, y: 8}, {x:7, y: 8}, {x:7, y: 6}], [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
-        [{x:8, y: 9}, {x:8, y: 10}, {x:9, y: 10}, {x:9, y: 9}], [{x:6, y: 8.5}, {x:6, y: 9}, {x:11, y: 9}, {x:11, y: 8.5}],
+    const blocksArray: TPoint[][] = [[{x:4, y: 6.5}, {x:4, y: 8}, {x:7, y: 8}, {x:7, y: 6.5}], [{x:4, y: 9}, {x:4, y: 10}, {x:5, y: 10}, {x:5, y: 9}], 
+        [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
         [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
         [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}]]
     const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
@@ -76,7 +91,7 @@ const GamePage: React.FC = () => {
             callbacks: {
                 keydown: (event) => {keyDown(event)},
                 keyup: (event) => {keyUp(event)},
-                mousemove: (event) => {mouseMove(event)}
+                mousemove: (event) => {mouseMove(event)},
             }
         });
 
@@ -147,7 +162,7 @@ const GamePage: React.FC = () => {
 
     /* движение танка по карте*/
     const moveSceneTank = (keyPressed: TKeyboard) => {
-        isCollition ? speedTankNow = speedTank / 2 : speedTankNow = speedTank 
+        isCollition ? speedTankNow = speedTank / 3 : speedTankNow = speedTank 
         vectorTank.y = Math.sin(angleOfMovement) * speedTankNow;
         vectorTank.x = Math.cos(angleOfMovement) * speedTankNow;
         if(keyPressed.ArrowUp) {
@@ -183,7 +198,8 @@ const GamePage: React.FC = () => {
         vector.y = canvas.pxToY(cursorPosition.y)
         let toAngle = Math.atan2(vector.y, vector.x)
         
-        canvas.rotateGun(manImage, toAngle)
+        canvas.rotateMan(manImage, manProp, toAngle)
+        
     }
 
     const renderScene = (FPS: number) => {
@@ -193,32 +209,35 @@ const GamePage: React.FC = () => {
 
             canvas.grid()
 
-            canvas.block(blocksArray[0], '#585')
-            canvas.block(blocksArray[1], '#585')
-            canvas.block(blocksArray[2], '#585')
+            canvas.drawGrass(grassImage, [{x:0, y:0}, {x:0, y:12}, {x:12, y:12}, {x:12, y:0}])
+
             canvas.block(blocksArray[3], '#585')
             canvas.block(blocksArray[4], '#585')
             canvas.block(blocksArray[5], '#585')
             canvas.block(blocksArray[6], '#585')
-            canvas.block(blocksArray[7], '#585')
 
-            canvas.circle(circlesArray[0], '#666')
-            canvas.circle(circlesArray[1], '#666')
-            canvas.circle(circlesArray[2], '#666')
             canvas.circle(deadTank, '#333')
+
+            canvas.drawStone(stoneImage, circlesArray[0], Math.PI)
+            canvas.drawStone(stoneImage, circlesArray[1], Math.PI / 2)
+            canvas.drawStone(stoneImage, circlesArray[2], 0)
            
             if (unit === 'Tank') {
                 moveSceneTank(keyPressed) 
                 isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
-
-                canvas.rotateTank(corpusTankImage, angleOfMovement)
-                canvas.rotateGun(towerTankImage, angleOfMovement)
+                
+                canvas.rotateTank(corpusTankImage, tankProp, angleOfMovement)
+                canvas.rotateTower(towerTankImage, towerProp, angleOfMovement)
             } 
             if (unit === 'RPG' || unit === "Automat") {
                 moveSceneInfantry(keyPressed)
                 isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
                 rotateGun()
             }
+
+            canvas.drawHouse(houseImage, blocksArray[0])
+            canvas.drawHouse(houseImage, blocksArray[1])
+            canvas.drawHouse(houseImage, blocksArray[2])
         }
     }
 
