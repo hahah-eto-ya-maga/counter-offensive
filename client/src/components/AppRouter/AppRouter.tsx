@@ -43,12 +43,10 @@ export const AppRouter: FC = () => {
       });
    }, []);
    return (
-      <div className="router_block">
          <Routes>
             {routes.map((route) => {
                return <Route key={route.path} {...route} />;
             })}
          </Routes>
-      </div>
    );
 };

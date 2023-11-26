@@ -6,7 +6,7 @@ import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../modules/types/types
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import Collision from "../../modules/Graph/Collision/Collison";
 import "./GamePage.css"
-import { corpusTank, towerTank } from "../../assets/pngs";
+import { corpusTank, towerTank } from "../../assets/svg";
 
 const GamePage: React.FC = () => {
 
