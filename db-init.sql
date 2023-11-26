@@ -82,3 +82,43 @@ INSERT INTO users(login, nickname, password) VALUES
 ('puppy2', 'regresskil', 'c4afddcb4b4624193e2132e958dda90921a6ffe5950e467ad413c6e73c562921'),
 ('sergeant2', 'regresskil', '14daf687442d9d6a81e57e87e466d592f786fcfdfef65ba20c743b469bba4a7b'),
 ('officer2', 'regresskil', '2fb5c5cdd96005d70fc7f565f77d841ec4460985b78881baf7480a4e80cea815');
+
+/* Значения по умолчанию в таблице game*/
+
+INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby) VALUES ("1", "1", "1", "1", "1");
+
+
+/* Добавление уровней в таблицу ranks */
+INSERT INTO ranks (id, name, experience) VALUES 
+(1, "Private", 0),
+(2, "Private", 144),
+(3, "Private", 288),
+(4, "Private", 480),
+(5, "Sergeant", 720),
+(6, "Sergeant", 1056),
+(7, "Sergeant", 1488),
+(8, "Sergeant", 2016),
+(9, "Sergeant", 2640),
+(10, "Sergeant", 3360),
+(11, "Sergeant", 4176),
+(12, "Officer", 5088),
+(13, "Officer", 6072),
+(14, "Officer", 7128),
+(15, "Officer", 8256),
+(16, "General", 9600),
+(17, "General", 11040),
+(18, "General", 12576),
+(19, "General", 14156),
+(20, "General", 17948);
+
+/* Добавление ролей в таблицу persons*/
+INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
+(1, 'general', 100, 'standartPerson.jpg', 1, 1, 1, 16),
+(2, 'bannerman', 100, 'standartPerson.jpg', 1, 1, 1, 1),
+(3, 'heavyTankGunner', 100, 'standartPerson.jpg', 1, 1, 1, 5),
+(4, 'heavyTankMeh', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
+(5, 'heavyTankCommander', 1000, 'standartPerson.jpg', 1, 1, 1, 12),
+(6, 'middleTankMeh', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
+(7, 'middleTankGunner', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
+(8, 'infantry', 100, 'standartPerson.jpg', 1, 1, 1, 1),
+(9, 'infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 5);

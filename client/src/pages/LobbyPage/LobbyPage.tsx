@@ -6,10 +6,13 @@ import { automat, chatIcon, RPG, tank2, tank3 } from "../../assets/png";
 import { General, FlagBearer } from "../../components/Lobby";
 import { Dossier } from "../../components";
 import "./LobbyPage.css";
+import { useNavigate } from "react-router-dom";
 
 const LobbyPage: FC = () => {
   const mediator = useContext(MediatorContext);
   const server = useContext(ServerContext);
+
+  const navigate = useNavigate();
 
   const logoutHandler = async () => {
     const res = await server.logout();
@@ -36,7 +39,13 @@ const LobbyPage: FC = () => {
             id="test_button_2tank"
             className="units_item"
             appearance="image"
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/game", {
+                state: {
+                  userRole: "Tank",
+                },
+              });
+            }}
           >
             Двухместный танк
             <img src={tank2} alt="Tank_2" />
@@ -45,7 +54,13 @@ const LobbyPage: FC = () => {
             id="test_button_infantrymanRPG"
             className="units_item"
             appearance="image"
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/game", {
+                state: {
+                  userRole: "RPG",
+                },
+              });
+            }}
           >
             Пехотинец с гранотомётом
             <img src={RPG} alt="RPG" />
@@ -54,7 +69,13 @@ const LobbyPage: FC = () => {
             id="test_button_3tank"
             className="units_item"
             appearance="image"
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/game", {
+                state: {
+                  userRole: "Tank",
+                },
+              });
+            }}
           >
             Трёхместный танк
             <img src={tank3} alt="Tank_3" />
@@ -63,7 +84,13 @@ const LobbyPage: FC = () => {
             id="test_button_infantrymanGun"
             className="units_item"
             appearance="image"
-            onClick={() => {}}
+            onClick={() => {
+              navigate("/game", {
+                state: {
+                  userRole: "Automat",
+                },
+              });
+            }}
           >
             Пехотинец-автоматчик
             <img src={automat} alt="Automat" />
@@ -71,7 +98,7 @@ const LobbyPage: FC = () => {
         </div>
         <div
           className={cn("lobby_block_right", {
-            "lobby_block_right_chat": isChatOpen,
+            lobby_block_right_chat: isChatOpen,
           })}
         >
           <button

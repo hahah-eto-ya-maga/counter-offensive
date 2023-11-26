@@ -65,16 +65,13 @@ class Canvas {
     );
   }
 
-  pxinx(px: number): number {
-    return (px / this.canvas.width) * this.WIN.width - this.WIN.width / 2;
-  }
+    pxinx(px: number): number {
+        return px / this.canvas.width * this.WIN.width - this.WIN.width / 2
+    }
 
-  pxiny(px: number): number {
-    return (
-      ((this.canvas.height - px) / this.canvas.height) * this.WIN.height -
-      this.WIN.height / 2
-    );
-  }
+    pxiny(px: number): number {
+        return (this.canvas.height - px) / this.canvas.height * this.WIN.height - this.WIN.height/2
+    }
 
   point(x: number, y: number, color = "#c00000", size = 2): void {
     this.context.beginPath();
@@ -143,59 +140,47 @@ class Canvas {
         "#c1c1c1"
       );
     }
-  }
+}
 
-  border(points: TPoint[], color: string, colorBorder: string): void {
-    this.context.beginPath();
-    this.context.moveTo(this.xs(points[3].x), this.ys(points[3].y));
-    this.context.strokeStyle = colorBorder;
-    this.context.lineWidth = 2;
-    this.context.setLineDash([]);
-    for (let i = 0; i < points.length; i++) {
-      this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
-      this.context.stroke();
+    border(points:TPoint[], color: string, colorBorder: string): void {
+        this.context.beginPath();
+        this.context.moveTo(this.xs(points[3].x), this.ys(points[3].y));
+        this.context.strokeStyle = colorBorder;
+        this.context.lineWidth = 2
+        this.context.setLineDash([]);
+        for (let i = 0; i < points.length; i++) {
+                this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
+                this.context.stroke()
+        }
+        this.context.closePath();
     }
-    this.context.closePath();
-  }
-
-  rotateTank(tank: HTMLImageElement, angle: number): void {
-    this.context.save();
-    this.context.translate(this.notxs(0), this.notys(0));
-    this.context.rotate(-angle - Math.PI);
-    this.context.drawImage(
-      tank,
-      -tank.width / 2,
-      -tank.height / 2,
-      (1.1 * this.canvas.width) / this.WIN.width,
-      this.canvas.height / this.WIN.height
-    );
-    this.context.restore();
-  }
-
-  man(size: number, color = "#c00000"): void {
-    this.context.beginPath();
-    this.context.arc(
-      this.notxs(0),
-      this.notys(0),
-      (size * this.canvas.width) / this.WIN.width,
-      0,
-      2 * Math.PI
-    );
-    this.context.fillStyle = color;
-    this.context.fill();
-    this.context.closePath();
-  }
-
-  block(points: TPoint[], color: string): void {
-    this.context.beginPath();
-    this.context.moveTo(this.xs(points[0].x), this.ys(points[0].y));
-    for (let i = 1; i < points.length; i++) {
-      this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
+    
+    rotateTank(tank: HTMLImageElement, angle: number): void {
+        this.context.save()
+        this.context.translate(this.notxs(0), this.notys(0))
+        this.context.rotate(-angle - Math.PI)
+        this.context.drawImage(tank, -tank.width/2 , -tank.height/2 , 1.1*this.canvas.width/this.WIN.width,  this.canvas.height/this.WIN.height)
+        this.context.restore();
     }
-    this.context.fillStyle = color;
-    this.context.fill();
-    this.context.closePath();
-  }
+
+    man(size: number, color = '#c00000'): void {
+        this.context.beginPath();
+        this.context.arc(this.notxs(0), this.notys(0), size * this.canvas.width/ this.WIN.width, 0, 2 * Math.PI);
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
+    }
+
+    block(points: TPoint[], color: string): void {
+        this.context.beginPath();
+        this.context.moveTo(this.xs(points[0].x), this.ys(points[0].y));
+        for (let i = 1; i < points.length; i++) {
+            this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
+        }
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
+    }
 
   circle(circle: TUnit, color = "blue"): void {
     this.context.beginPath();
@@ -211,19 +196,14 @@ class Canvas {
     this.context.closePath();
   }
 
-  rotateGun(gun: HTMLImageElement, angle: number): void {
-    this.context.save();
-    this.context.translate(this.notxs(0), this.notys(0));
-    this.context.rotate(-angle - Math.PI);
-    this.context.drawImage(
-      gun,
-      -gun.width / 2.7,
-      -gun.height / 4.1,
-      gun.width / 2,
-      gun.height / 2
-    );
-    this.context.restore();
-  }
+    rotateGun(gun: HTMLImageElement, angle: number): void {
+        this.context.save()
+        this.context.translate(this.notxs(0), this.notys(0))
+        this.context.rotate(- angle - Math.PI)
+        this.context.drawImage(gun, -gun.width/2.7, -gun.height/4.1, gun.width/2, gun.height/2)
+        this.context.restore();
+    }
+
 
   clear(): void {
     this.context.fillStyle = "#999";

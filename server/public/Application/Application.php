@@ -6,7 +6,7 @@ require_once("modules/Chat.php");
 class Application
 {
 
-    protected $user;
+    private $user;
     private $chat;
     public $dbStatus;
 
@@ -84,11 +84,28 @@ class Application
         $token = $params['token'] ?? false;
         $message = trim($params['message']) ?? false;
         if ($token && $message) {
-            $pattern = '/^[a-zA-Z0-9\s\.,!?\"\'㋛-]{1,255}$/';
+            $pattern = '/^[a-zA-Z0-9\s\.,!?\"\'㋛-]{1,200}$/';
             if (preg_match($pattern, $message)) {
-                return $this->chat->sendMessage($token, $message);
+                $user = $this->user->getUser($token);
+                if ($user != null && $user->token != 0 && $user->token != null) {
+                    return $this->chat->sendMessage($user->id, $message);
+                }
+                return array(false, 401);
             }
             return array(false, 432);
+        }
+        return array(false, 400);
+    }
+
+    function getMessages($params) {
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if ($token && $hash) { 
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->chat->getMessages($hash);
+            }
+            return array(false, 401);
         }
         return array(false, 400);
     }

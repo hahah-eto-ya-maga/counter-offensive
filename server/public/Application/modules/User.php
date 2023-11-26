@@ -28,15 +28,21 @@
 
         function registration($login, $nickname, $password)
         {
-            $tokenLastUse = date('Y-m-d H:i:s');
-            $timeCreate = $tokenLastUse;
             $token = hash('sha256', $this->v4_UUID());
-            
             $checkUser = $this->db->getUserByLogin($login);
             if(!$checkUser){
-                $this->db->addUser($login, $nickname, $password, $token, $tokenLastUse, $timeCreate); 
+                $this->db->addUser($login, $nickname, $password, $token); 
+                $user = $this->db->getUserByToken($token);
+                $this->db->addGamer($user->id);
+                $rank = $this->db->getRankById($user->id);
                 return array(
-                    'token'=>$token
+                    'token'=>$token,
+                    'login'=>$login,
+                    'nickname'=>$nickname,
+                    'rank_name'=>$rank->rank_name,
+                    'gamer_exp'=>$rank->gamer_exp,
+                    'next_rang'=>$rank->next_rang,
+                    'level'=>$rank->level
                 );
             }
             return array(false, 460);
@@ -45,15 +51,20 @@
         function login($login, $hash, $rnd)
         {
             $token = hash('sha256', $this->v4_UUID());
-            $tokenLastUse = date('Y-m-d H:i:s');
-            
             $user = $this->db->getUserByLogin($login);
             if($user != null && $user->login != null){
                 $hashS = hash('sha256', $user->password.$rnd); // Хэш штрих. Строка сгенерированая с помощью хранящейсяв базе хэш-суммы
                 if($hash == $hashS){
-                    $this->db->updateToken($user->id, $tokenLastUse, $token);
+                    $rank = $this->db->getRankById($user->id);
+                    $this->db->updateToken($user->id, $token);
                     return array(
-                        'token'=>$token
+                        'token'=>$token,
+                        'login'=>$login,
+                        'nickname'=>$user->nickname,
+                        'rank_name'=>$rank->rank_name,
+                        'gamer_exp'=>$rank->gamer_exp,
+                        'next_rang'=>$rank->next_rang,
+                        'level'=>$rank->level
                     );
                 }
                 return array(false, 403);
@@ -61,42 +72,36 @@
             return array(false, 461);
         }
 
-
         function logout($token){
-            $tokenLastUse = date('Y-m-d H:i:s');
-            
-            $user = $this ->db-> getUserByToken($token);
+            $user = $this->db->getUserByToken($token);
             if($user != null && $user->token != 0 && $user->token != null){
-                    $this->db->deleteToken($user->id, $tokenLastUse);
+                    $this->db->deleteToken($user->id);
                     return true;
             }
             return array(false, 401);
         }
-    
+
 
         function tokenVerification($token){
-            $tokenLastUse = date('Y-m-d H:i:s');
-    
             $user = $this->db->getUserByToken($token);
             if($user != null && $user->token != 0 && $user->token != null){
-                $this->db->updateToken($user->id, $tokenLastUse, $token);
+                $this->db->updateToken($user->id, $token);
                 return true;
             }
-            else return array(false, 401);
+            return array(false, 401);
         }
 
-
         function updatePassword($token, $hash){
-            $tokenLastUse = date('Y-m-d H:i:s');
-     
             $user = $this->db->getUserByToken($token);
             if($user != null && $user->token != 0 && $user->token != null){
-                $this->db->updateToken($user->id, $tokenLastUse, $token);
+                $this->db->updateToken($user->id, $token);
                 $this->db->updatePassword($user->id, $hash);
                 return true;
             }
-            else return array(false, 401); 
+            return array(false, 401); 
         }
 
-        
+        function getUser($token){
+            return $this->db->getUserByToken($token);
+        }
     }
