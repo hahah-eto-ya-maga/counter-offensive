@@ -61,7 +61,11 @@
 
 .chat_input {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+}
+
+.chat_input input {
+  margin-right: 3px;
 }
 
 .chat_btn {

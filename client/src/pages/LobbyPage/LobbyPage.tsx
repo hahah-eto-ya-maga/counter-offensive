@@ -111,7 +111,7 @@ const LobbyPage: FC = () => {
           </button>
           {isChatOpen ? (
             <>
-              <Chat chatType={"lobby"} />
+              <Chat chatType={"game"} />
             </>
           ) : (
             <>
