@@ -103,7 +103,7 @@ class DB {
             INNER JOIN users AS u ON m.userId=u.id
             JOIN gamers AS g ON u.id=g.user_id
             JOIN ranks AS r ON r.experience<=g.experience
-            ORDER BY m.sendTime DESC
+            ORDER BY m.sendTime ASC
             LIMIT 30";
         return $this->queryHandlerAll($query, []);
     }

@@ -58,8 +58,7 @@ message = {
 
 **Сообщения**
 ```
-messages = {
-    messages:[
+messages = [
         message,
         message,
         ... ,
@@ -67,7 +66,6 @@ messages = {
         ... ,
         message
     ]
-}
 ```
 
 ## Значение ошибок по их коду
