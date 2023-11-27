@@ -12,7 +12,11 @@ class Answer{
         '460' => 'Login Occupied',          // Логин занят
         '461' => 'User not Exist',          // Пользователя не существует
         '462' => 'Database request Error',  // Ошибка запроса к базе
-        '432' => 'Invalid Message',         // Неправильные параметры сообщения
+        '432' => 'Invalid Message',         // Неправильные параметры сообщения  
+        '234' => 'Insufficient level',      // Недостаточный уровень 
+        '235' => 'Insufficient level',      // Уровень меньше текущего игрока
+        '236' => 'Insufficient level',      // Данный игрок уже занял эту роль 
+        '237' => 'Insufficient level',      // Роль уже занята
         '9000' => 'Unknown Error'           // Неизвестная ошибка
     );
 

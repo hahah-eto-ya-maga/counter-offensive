@@ -109,4 +109,27 @@ class Application
         }
         return array(false, 400);
     }
+
+    function setGamerRole($params){
+        $token = $params['token'] ?? false;
+        $role = $params['role'] ?? false;
+ 
+        if($role && $token){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->setGamerRole($token, $role);
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+
+    function getLobby($params){
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if($hash && $token){
+            return $this->lobby->getLobby($token, $hash);
+        }  
+        return array(false, 400);
+    }
 }

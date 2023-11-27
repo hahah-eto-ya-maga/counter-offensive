@@ -21,6 +21,9 @@
                     // Chat
                     case 'sendMessage': return $app->sendMessage($params);
                     case 'getMessages': return $app->getMessages($params);
+                    // Lobby
+                    case "setGamerRole": return $app->setGamerRole($params);
+                    case "getLobby": return $app->getLobby($params);
                 }
                 return array(false, 501);
             }

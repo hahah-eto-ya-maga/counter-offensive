@@ -123,4 +123,50 @@ class DB {
         ORDER BY r.id DESC LIMIT 1;";
         return $this->queryHandler($query, [$userId], true);
     }
+
+    function setGamerRole($userId, $role) {
+        $query = "UPDATE gamers SET person_id=?, hp=100, status='alive', x=5, y=5, angle=0 WHERE user_id=?;";
+        $this->queryHandler($query, [$role, $userId]); 
+    }
+    
+    function getLobby(){
+        $query = "SELECT user_id, person_id FROM gamers WHERE person_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);";
+        return $this->queryHandlerAll($query);
+    }
+
+    function getPerson($personId) {
+        $query = "SELECT * FROM gamers WHERE person_id=? ;";
+        return $this->queryHandler($query,[$personId], true);
+    }
+
+    function deleteRole($personId) {
+        $query = "UPDATE gamers SET person_id=-1 WHERE user_id = ?";
+        $this->queryHandler($query, [$personId]);
+    }
+
+    public function getGamerById($userId) {
+        $query = "SELECT * FROM gamers WHERE user_id=?";
+        return $this->queryHandler($query, array($userId), true);
+    }
+
+    public function getRankById($userId) {
+        $query = "SELECT u.id AS user_id, r.id AS level, r.name AS rank_name, g.experience AS gamer_exp, next_r.experience - g.experience AS next_rang
+        FROM gamers g
+        JOIN users u ON u.id=g.user_id
+        JOIN ranks r ON r.experience<=g.experience
+        JOIN ranks next_r ON next_r.id = r.id + 1
+        WHERE u.id = ?
+        ORDER BY r.id DESC LIMIT 1;";
+        return $this->queryHandler($query, array($userId), true);
+    }
+
+    public function getMinPersonLevelById($personId){
+        $query = "SELECT level FROM persons WHERE id=?;";
+        return $this->queryHandler($query, array($personId), true);
+    }
+
+    public function updateLobbyHash($hash){
+        $query = "UPDATE game SET hashLobby=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
 }
