@@ -50,20 +50,24 @@ chatHash = {
 message = {
     nickname:string,
     text:string,
+    level:integer
+    rank_name:string
     sendTime:string 
 }
 ```
 
 **Сообщения**
 ```
-messages = [
-    message,
-    message,
-    ... ,
-    ... ,
-    ... ,
-    message
-]
+messages = {
+    messages:[
+        message,
+        message,
+        ... ,
+        ... ,
+        ... ,
+        message
+    ]
+}
 ```
 
 ## Значение ошибок по их коду
