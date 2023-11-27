@@ -84,7 +84,7 @@ class Application
         $token = $params['token'] ?? false;
         $message = trim($params['message']) ?? false;
         if ($token && $message) {
-            $pattern = '/^[a-zA-Z0-9\s\.,!?\"\'㋛-]{1,200}$/';
+            $pattern = '/^[\p{L}\p{N}0-9\s\.,!?\"\'㋛-]{1,200}$/u';
             if (preg_match($pattern, $message)) {
                 $user = $this->user->getUser($token);
                 if ($user != null && $user->token != 0 && $user->token != null) {
