@@ -31,10 +31,10 @@
             $minPersonLevel = $this->db->getMinPersonLevelById($roleId);
             if(!$nowPerson){
                 if(($gamerRank->level>=$minPersonLevel->level)){    
-                    $this->db->setGamerRole($user->id, $roleId);
+                    $this->db->setGamerRole($userId, $roleId);
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);
-                    return array('hashLobby'=>$hashLobby);
+                    return true;
                 }
                 return array(false, 234);
             }
@@ -45,7 +45,7 @@
                         $this->db->setGamerRole($userId, $roleId);
                         $hashLobby = hash('sha256', $this->v4_UUID());
                         $this->db->updateLobbyHash($hashLobby);
-                        return $hashLobby;
+                        return true;
                     }
                     return array(false, 235);
                 }
@@ -60,8 +60,7 @@
         //lobby
         //tankLobby
 
-        function setGamerRole($token, $role){
-            $this->db->updateToken($userId, $token);
+        function setGamerRole($token, $role, $userId){
             switch($role){
                 case 'general': return $this->setRoleHandler(1, $userId);
                 case 'bannerman': return $this->setRoleHandler(2, $userId);

@@ -41,6 +41,7 @@ class DB {
 
     function queryHandlerAll($query, $params) {
         $stmt = $this->link->prepare($query);
+        print_r($stmt);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -140,7 +141,8 @@ class DB {
     }
 
     function deleteRole($personId) {
-        $query = "UPDATE gamers SET person_id=-1 WHERE user_id = ?";
+        $query = "UPDATE gamers SET person_id=-1 WHERE person_id = ?";
+        print($personId);
         $this->queryHandler($query, [$personId]);
     }
 
