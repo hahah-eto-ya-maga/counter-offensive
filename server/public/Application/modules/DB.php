@@ -98,7 +98,7 @@ class DB {
     }
 
     function getMessages() {
-        $query = "SELECT u.nickname AS nickname, m.text AS text, r.id AS level, r.name AS rank_name, m.sendTime AS sendTime
+        $query = "SELECT u.nickname AS nickname, m.text AS text, r.name AS rank_name, m.sendTime AS sendTime
             FROM messages AS m 
             INNER JOIN users AS u ON m.userId=u.id
             JOIN gamers AS g ON u.id=g.user_id

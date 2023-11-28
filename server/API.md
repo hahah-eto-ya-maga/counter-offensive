@@ -58,14 +58,17 @@ message = {
 
 **Сообщения**
 ```
-messages = [
+messages = {
+    messages: [
         message,
         message,
         ... ,
         ... ,
         ... ,
         message
-    ]
+    ],
+    chatHash: string
+    }
 ```
 
 ## Значение ошибок по их коду
@@ -203,7 +206,7 @@ Error(401) - Неавторизованный запрос
 
 ### Значение если успех
 ```
-Correct=>chatHash
+Correct=>true
 ```
 ### Значение если ошибка
 ```
