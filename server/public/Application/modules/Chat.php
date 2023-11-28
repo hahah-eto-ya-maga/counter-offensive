@@ -46,7 +46,6 @@ class Chat
         $hash = $this->db->getChatHash();
         if ($hash->chatHash !== $oldHash) {
             $messages = $this->db->getMessages();
-            print_r($hash);
             return array("messages" => $messages, "chatHash" => $hash->chatHash);
         }
         return true;
