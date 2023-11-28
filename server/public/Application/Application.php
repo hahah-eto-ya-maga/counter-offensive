@@ -122,7 +122,7 @@ class Application
         if($role && $token){
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->lobby->setGamerRole($token, $role, $user->id);
+                return $this->lobby->setGamerRole($role, $user->id);
             }
             return array(false, 401);
         }  

@@ -41,7 +41,6 @@ class DB {
 
     function queryHandlerAll($query, $params) {
         $stmt = $this->link->prepare($query);
-        print_r($stmt);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }

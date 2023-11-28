@@ -55,12 +55,7 @@
 
         }
 
-        //alive
-        //dead
-        //lobby
-        //tankLobby
-
-        function setGamerRole($token, $role, $userId){
+        function setGamerRole($role, $userId){
             switch($role){
                 case 'general': return $this->setRoleHandler(1, $userId);
                 case 'bannerman': return $this->setRoleHandler(2, $userId);
