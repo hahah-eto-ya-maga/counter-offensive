@@ -14,8 +14,8 @@ class Answer{
         '462' => 'Database request Error',      // Ошибка запроса к базе
         '432' => 'Invalid Message',             // Неправильные параметры сообщения  
         '234' => 'Insufficient level',          // Недостаточный уровень 
-        '235' => 'Insufficient level',          // Уровень меньше текущего игрока
-        '236' => 'You already taken this role', // Данный игрок уже занял эту роль 
+        '235' => 'Level less current gamer',    // Уровень меньше текущего игрока
+        '236' => 'You taken this role',         // Данный игрок уже занял эту роль 
         '237' => 'Role taken',                  // Роль уже занята
         '9000' => 'Unknown Error'               // Неизвестная ошибка
     );
