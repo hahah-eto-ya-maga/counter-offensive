@@ -16,9 +16,12 @@ export interface IUserInfo {
 export interface IMessage {
   nickname: string;
   text: string;
+  level: number;
+  rank_name: string;
   sendTime: string;
 }
 
-export interface IChatHash {
-  hash: string;
+export interface IMessages {
+  chatHash: string;
+  messages: IMessage[];
 }

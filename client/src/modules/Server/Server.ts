@@ -1,6 +1,6 @@
 import { SHA256 } from "crypto-js";
 import Mediator from "../Mediator/Mediator";
-import { IUserInfo, IError, IToken, IMessage, IChatHash } from "./types";
+import { IUserInfo, IError, IToken, IMessages } from "./types";
 import Store from "../Store/Store";
 
 export default class Server {
@@ -84,14 +84,14 @@ export default class Server {
     });
   }
 
-  getMessages(): Promise<IMessage[] | true | null> {
+  getMessages(): Promise<IMessages | true | null> {
     return this.request("getMessages", {
       token: this.STORE.token,
       hash: this.STORE.chatHash,
     });
   }
 
-  sendMessages(message: string): Promise<IChatHash | null> {
+  sendMessages(message: string): Promise<true | null> {
     return this.request("sendMessage", { token: this.STORE.token, message });
   }
 }

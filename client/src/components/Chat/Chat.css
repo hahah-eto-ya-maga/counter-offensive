@@ -6,6 +6,7 @@
   border: 5px solid #000;
   border-radius: 17px;
   padding: 0 10px;
+  justify-content: flex-end;
 }
 
 .body_chat {
@@ -61,11 +62,7 @@
 
 .chat_input {
   display: flex;
-  align-items: flex-end;
-}
-
-.chat_input input {
-  margin-right: 3px;
+  align-items: center;
 }
 
 .chat_btn {

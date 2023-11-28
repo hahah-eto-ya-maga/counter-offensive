@@ -10,7 +10,7 @@ interface IChatProps {
 
 export const Chat: React.FC<IChatProps> = ({ chatType }) => {
   const server = useContext(ServerContext);
-  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>();
   const [inputText, setInputText] = useState<string>("");
 
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -18,21 +18,26 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
   useEffect(() => {
     const interval = setInterval(async () => {
       const newMessages = await server.getMessages();
+
       if (newMessages && newMessages !== true) {
-        setMessages(newMessages);
+        setMessages(newMessages.messages.reverse());
+        server.STORE.chatHash = newMessages.chatHash;
       }
     }, 300);
     return () => {
       clearInterval(interval);
+      server.STORE.chatHash = null;
     };
-  });
+  }, []);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
+    scrollToBottom();
+  });
+
+  const scrollToBottom = (): void => {
+    messagesEndRef.current &&
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
-console.log(messages);
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
@@ -43,34 +48,36 @@ console.log(messages);
     if (chatType && message) {
       const res = await server.sendMessages(message);
       if (res) {
-        server.STORE.chatHash = res.hash;
+        setInputText("");
+        scrollToBottom();
       }
-      setInputText("");
     }
   };
-console.log(messages)
+
   return (
     <div className="chat_container">
-      <div className="chat_messages">
-        {messages.map((message) => (
-          <div key={message.sendTime} className="message_author">
-            [{message.nickname}]: {}
-            <span className="message_text">{message.text}</span>
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-      {chatType === "game" && (
-        <div className="chat_input">
-          <input
-            type="text"
-            value={inputText}
-            onChange={handleInputChange}
-            placeholder="Введите сообщение..."
-          />
-          <button onClick={handleSendMessage}>Отправить</button>
+      <div className="body_chat">
+        <div className="chat_messages ">
+          {messages?.map((message) => (
+            <div key={message.sendTime} className="message_author">
+              [{message.nickname}]: {}
+              <span className="message_text">{message.text}</span>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
         </div>
-      )}
+        {chatType === "lobby" && (
+          <div className="chat_input">
+            <input
+              type="text"
+              value={inputText}
+              onChange={handleInputChange}
+              placeholder="Введите сообщение..."
+            />
+            <button onClick={handleSendMessage}>Отправить</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
