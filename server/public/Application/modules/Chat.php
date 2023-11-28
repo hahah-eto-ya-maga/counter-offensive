@@ -38,7 +38,7 @@ class Chat
         $this->db->addMessage($userId, $message);
         $hash = hash("sha256", $this->v4_UUID());
         $this->db->updateChatHash($hash);
-        return array('hash' => $hash);
+        return true;
     }
 
     public function getMessages($oldHash)
@@ -46,9 +46,7 @@ class Chat
         $hash = $this->db->getChatHash();
         if ($hash->chatHash !== $oldHash) {
             $messages = $this->db->getMessages();
-            return array(
-                'messages' => $messages
-            );
+            return array("messages" => $messages, "chatHash" => $hash->chatHash);
         }
         return true;
     }
