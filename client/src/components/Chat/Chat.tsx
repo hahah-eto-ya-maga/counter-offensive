@@ -27,7 +27,6 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
   useEffect(() => {
     const interval = setInterval(async () => {
       const newMessages = await server.getMessages();
-      console.log(messages);
       if (newMessages && newMessages !== true) {
         setMessages(newMessages.messages.reverse());
         server.STORE.chatHash = newMessages.chatHash;
