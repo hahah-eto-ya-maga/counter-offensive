@@ -29,8 +29,10 @@ export const useErrorHandler = (
                   id: "test_error_auth_userNotExist",
                });
             }
+            default: {
+               return navigate("/error", { state: { error } });
+            }
          }
-         navigate("/error", { state: { error } });
       });
    };
 };

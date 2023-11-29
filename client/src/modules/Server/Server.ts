@@ -14,15 +14,6 @@ export default class Server {
       this.STORE = new Store();
    }
 
-   setToken(token: string | null): void {
-      this.STORE.token = token;
-      if (token) {
-         localStorage.setItem("token", token);
-         return;
-      }
-      localStorage.removeItem("token");
-   }
-
    async request<T>(method: string, params: any): Promise<T | null> {
       const { SERVER_ERROR } = this.mediator.getEventTypes();
       try {
@@ -62,7 +53,7 @@ export default class Server {
    }
 
    logout(): Promise<true | null> {
-      return this.request("logout", { token: this.STORE.token });
+      return this.request("logout", { token: this.STORE.getToken() });
    }
 
    tokenVerification(): Promise<true | null> {
@@ -72,7 +63,10 @@ export default class Server {
    }
 
    getAllInfo(login: string): Promise<IUserInfo | null> {
-      return this.request("getAllInfo", { login, token: this.STORE.token });
+      return this.request("getAllInfo", {
+         login,
+         token: this.STORE.token,
+      });
    }
 
    updatePassword(login: string, newPassword: string): Promise<true | null> {

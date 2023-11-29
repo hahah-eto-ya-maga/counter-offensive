@@ -11,9 +11,9 @@ const LobbyPage: FC = () => {
    const server = useContext(ServerContext);
 
    const logoutHandler = async () => {
+      const { LOGOUT } = mediator.getTriggerTypes();
       const res = await server.logout();
-      const { TOKEN_UPDATE } = mediator.getTriggerTypes();
-      mediator.get(TOKEN_UPDATE, null);
+      res && mediator.get(LOGOUT);
    };
 
    return (

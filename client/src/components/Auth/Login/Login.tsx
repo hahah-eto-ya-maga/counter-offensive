@@ -29,8 +29,8 @@ const Login: React.FC = () => {
       if (!logRes) {
          return false;
       }
-      const { TOKEN_UPDATE } = mediator.getTriggerTypes();
-      mediator.get(TOKEN_UPDATE, logRes.token);
+      const { LOGIN } = mediator.getTriggerTypes();
+      mediator.get(LOGIN, logRes.token);
       return true;
    };
 
