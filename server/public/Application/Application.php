@@ -2,12 +2,14 @@
 require_once("modules/DB.php");
 require_once("modules/User.php");
 require_once("modules/Chat.php");
+require_once("modules/Game.php");
 
 class Application
 {
 
     private $user;
     private $chat;
+    private $game;
     public $dbStatus;
 
     function __construct()
@@ -16,6 +18,7 @@ class Application
         $this->dbStatus = $db->dbStatus;
         $this->user = new User($db);
         $this->chat = new Chat($db);
+        $this->game = new Game($db);
     }
 
 
@@ -104,6 +107,21 @@ class Application
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
                 return $this->chat->getMessages($hash);
+            }
+            return array(false, 401);
+        }
+        return array(false, 400);
+    }
+
+    function updateUserStatus($params) {
+        $token = $params['token'] ?? false;
+        $status = strtolower(str_replace(" ", '',$params['status'])) ?? false;
+        $pattern = 'lobby alive dead ready';
+        
+        if ($token && $status && str_contains($pattern, $status)) {
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->updateUserStatus($user->id, $status);
             }
             return array(false, 401);
         }

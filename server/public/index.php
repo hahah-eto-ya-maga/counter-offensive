@@ -21,6 +21,7 @@
                     // Chat
                     case 'sendMessage': return $app->sendMessage($params);
                     case 'getMessages': return $app->getMessages($params);
+                    case 'updateUserStatus': return $app->updateUserStatus($params);
                 }
                 return array(false, 501);
             }

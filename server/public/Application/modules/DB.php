@@ -121,4 +121,9 @@ class DB {
         ORDER BY r.id DESC LIMIT 1;";
         return $this->queryHandler($query, [$userId], true);
     }
+
+    function updateUserStatus($userId, $status) {
+        $query = "UPDATE gamers SET status = ? WHERE user_id = ?";
+        return $this->queryHandler($query, [$status, $userId]);
+    }
 }
