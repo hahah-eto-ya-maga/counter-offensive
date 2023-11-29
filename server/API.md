@@ -29,8 +29,44 @@ Error = {
 ```
 User = {
     login:string, 
-    nickname:string
-    token:string
+    nickname:string,
+    token:string,
+    rank_name:string,
+    gamer_exp:integer,
+    next_rang:integer,
+    level:integer
+}
+```
+
+**Хэш чата**
+```
+chatHash = {
+    hash:string, 
+}
+```
+
+**Сообщение**
+```
+message = {
+    nickname:string,
+    text:string,
+    level:integer
+    rank_name:string
+    sendTime:string 
+}
+```
+
+**Сообщения**
+```
+messages = {
+    messages:[
+        message,
+        message,
+        ... ,
+        ... ,
+        ... ,
+        message
+    ]
 }
 ```
 
@@ -51,6 +87,8 @@ User = {
 
 *460*:**Login Occupied** - Логин занят
 
+*432*:**Invalid Message** - Неправильные параметры сообщения
+
 *461*:**User not Exist** - Пользователь не существует
 
 *9000*:**Unknown Error** - Неизвестная ошибка
@@ -69,7 +107,7 @@ User = {
 
 ### Значение если успех
 ```
-Correct=>token
+Correct=>User
 ```
 
 ### Значение если ошибка
@@ -91,7 +129,7 @@ Error(460) - Логин уже занят
 |rnd|number|рандомное число|
 ### Значение если успех
 ```
-Correct=>token
+Correct=>User
 ```
 ### Значение если ошибка
 ```
@@ -154,4 +192,45 @@ Correct=>true
 ```
 Error(400) - Указаны не все обязательные параметры
 Error(401) - Неавторизованный запрос
+```
+
+## Метод отправки сообщения
+### Адрес
+```method=sendMessage```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|message|string|```строка длиной от 1-го до 200 символов, содержащая символы кириллицы, латиницы и -+,.?!"'```|
+
+### Значение если успех
+```
+Correct=>chatHash
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(432) - Неправильные параметры сообщения
+Error(401) - Пользователя не существует
+```
+
+---
+
+## Метод получения сообщений
+### Адрес
+```method=getMessages```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|hash|string|```Хэш чата```|
+
+### Значение если успех
+```
+Correct=>messages || true
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
 ```
