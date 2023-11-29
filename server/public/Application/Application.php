@@ -103,10 +103,10 @@ class Application
         if ($token && $hash) { 
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
-                return $this->chat->getMessages($hash);
+                return $this->chat->getMessages($hash, $user->id);
             }
             return array(false, 401);
         }
         return array(false, 400);
     }
-}
+} 

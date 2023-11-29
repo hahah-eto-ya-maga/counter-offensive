@@ -41,11 +41,11 @@ class Chat
         return true;
     }
 
-    public function getMessages($oldHash)
+    public function getMessages($oldHash, $userId)
     {
         $hash = $this->db->getChatHash();
         if ($hash->chatHash !== $oldHash) {
-            $messages = $this->db->getMessages();
+            $messages = $this->db->getMessages($userId);
             return array("messages" => $messages, "chatHash" => $hash->chatHash);
         }
         return true;
