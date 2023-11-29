@@ -17,11 +17,18 @@ export interface IMessage {
   nickname: string;
   text: string;
   level: number;
-  rank_name: string;
+  rank_name: ERank;
   sendTime: string;
 }
 
 export interface IMessages {
   chatHash: string;
   messages: IMessage[];
+}
+
+export enum ERank {
+  Private='Private',
+  Sergeant='Sergeant',
+  Officer= 'Officer',
+  General='General',
 }
