@@ -106,12 +106,12 @@ const LobbyPage: FC = () => {
             id="test-button-openCloseCchat"
             onClick={() => handleChat()}
           >
-            <img src={chatIcon} />
+            <img src={chatIcon} alt='chat_icon'/>
             <span className="chat_text">Чат</span>
           </button>
           {isChatOpen ? (
             <>
-              <Chat chatType={"game"} />
+              <Chat chatType={"lobby"} />
             </>
           ) : (
             <>

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ServerContext } from "../../App";
 import { IMessage } from "../../modules/Server/types";
+import { firstRank } from "../../assets/png";
+import cn from "classnames";
 
 import "./Chat.css";
 
@@ -55,26 +57,30 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
   };
 
   return (
-    <div className="chat_container">
+    <div className={cn("chat_container", `chat_container_${chatType}`)}>
       <div className="body_chat">
-        <div className="chat_messages ">
+        <div className={cn("chat_messages", `chat_messages_${chatType}`)}>
           {messages?.map((message) => (
             <div key={message.sendTime} className="message_author">
-              [{message.nickname}]: {}
+              [{message.nickname}
+              <img src={firstRank} alt="rank" className="rank_img"></img>]: {}
               <span className="message_text">{message.text}</span>
             </div>
           ))}
           <div ref={messagesEndRef} />
         </div>
-        {chatType === "lobby" && (
+        {chatType === "game" && (
           <div className="chat_input">
             <input
               type="text"
+              className="input_chat"
               value={inputText}
               onChange={handleInputChange}
-              placeholder="Введите сообщение..."
+              placeholder="Написать в чат"
             />
-            <button onClick={handleSendMessage}>Отправить</button>
+            <div className="chat_send_btn " onClick={handleSendMessage}>
+              Отправить
+            </div>
           </div>
         )}
       </div>

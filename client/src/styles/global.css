@@ -10,16 +10,18 @@ body {
     rgba(1, 19, 3, 0.68) 100%
   );
   font-family: "Cranberry Cyr", sans-serif;
+  padding: 20px;
+
 }
 
 :root {
   --black: #000000;
   --primary-green: #92f663;
   --primary-green-hover: #6ed340;
-  --green-yellow: #a0e0a682 ;
+  --green-yellow: #A0E0A685 ;
   --salad: #cfd262;
   --gray: #d9d9d9;
-  --yellow: #faff00;
+  --yellow: #EBFF00;
   --dark-green: #A3D7B5;
   --light-green: #85ba65;
   --red: #f00;
