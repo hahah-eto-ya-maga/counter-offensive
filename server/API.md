@@ -43,9 +43,10 @@ User = {
 message = {
     nickname:string,
     text:string,
-    level:integer
-    rank_name:string
-    sendTime:string 
+    level:integer,
+    rank_name:string,
+    sendTime:string,
+    is_user:bool(0/1)
 }
 ```
 
