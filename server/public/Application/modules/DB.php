@@ -98,15 +98,14 @@ class DB {
     }
 
     function getMessages($userId) {
-        $query = "SELECT u.nickname AS nickname, m.text AS text, r.name AS rank_name, m.sendTime AS sendTime,
-            (CASE WHEN ? = m.userId THEN true ELSE false END) AS is_user
-            FROM messages AS m 
-            INNER JOIN users AS u ON m.userId=u.id
-            JOIN gamers AS g ON u.id=g.user_id
-            JOIN ranks AS r ON r.experience<=g.experience
-            ORDER BY m.sendTime DESC
-            LIMIT 30";
-        return $this->queryHandlerAll($query, [$userId]);
+        $query = "SELECT u.id AS userId, u.nickname AS nickname, m.text AS text, r.name AS rank_name, m.sendTime AS sendTime
+        FROM messages AS m 
+        INNER JOIN users AS u ON m.userId=u.id
+        JOIN gamers AS g ON u.id=g.user_id
+        JOIN ranks AS r ON r.experience<=g.experience
+        ORDER BY m.sendTime DESC
+        LIMIT 30";
+        return $this->queryHandlerAll($query, []);
     }
 
     function addGamer($userId){
