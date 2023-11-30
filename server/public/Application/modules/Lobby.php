@@ -69,13 +69,13 @@
                     $this->db->setGamerRole($userId, 8);
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);
-                    return $hashLobby;
+                    return true;
                 }
                 case 'infantryRPG': {
                     $this->db->setGamerRole($userId, 9);
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);
-                    return $hashLobby;
+                    return true;
                 }
             }
             return array(false, 463);
