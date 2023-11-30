@@ -58,7 +58,6 @@ class DB {
     public function getUserByToken($token) {     //vnntblck вся информация о пользователе по токину                     
         $query = "SELECT id, login, password, nickname, token FROM users WHERE token = ?";
         return $this->queryHandler($query, [$token], true);
-    
     }
 
     public function updateToken($userId, $token) {
@@ -69,7 +68,6 @@ class DB {
     function updatePassword($userId, $newPassword){
         $query = "UPDATE users SET password = ? WHERE id = ?";
         $this->queryHandler($query, [$newPassword, $userId]);
-
     }
 
     function deleteToken($userId) {             //Обновляет токен vnntblck
@@ -124,9 +122,9 @@ class DB {
         return $this->queryHandler($query, [$userId], true);
     }
 
-    function setGamerRole($userId, $role) {
-        $query = "UPDATE gamers SET person_id=?, hp=100, status='alive', x=5, y=5, angle=0 WHERE user_id=?;";
-        $this->queryHandler($query, [$role, $userId]); 
+    function setGamerRole($userId, $role, $status='alive') {
+        $query = "UPDATE gamers SET person_id=?, hp=100, status=?, x=5, y=5, angle=0 WHERE user_id=?;";
+        $this->queryHandler($query, [$role, $status, $userId]); 
     }
     
     function getLobby(){

@@ -31,7 +31,7 @@
             $minPersonLevel = $this->db->getMinPersonLevelById($roleId);
             if(!$nowPerson){
                 if(($gamerRank->level>=$minPersonLevel->level)){    
-                    $this->db->setGamerRole($userId, $roleId);
+                    in_array($roleId, array(3, 4, 5, 6, 7)) ? $this->db->setGamerRole($userId, $roleId, "ready") : $this->db->setGamerRole($userId, $roleId);
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);
                     return true;
