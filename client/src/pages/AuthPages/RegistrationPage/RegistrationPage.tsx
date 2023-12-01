@@ -38,7 +38,7 @@ const RegistrationPage: FC = () => {
    return (
       <div className="auth_wrapper">
          <Logo />
-         <div className="auth_title">Повестка</div>
+         <div className="auth_title" id="test_auth_reg_title">Повестка</div>
          <form className="auth_form" onSubmit={onSubmitHandler}>
             <div>
                <Input

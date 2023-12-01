@@ -36,7 +36,9 @@ const LoginPage: React.FC = () => {
    return (
       <div className="auth_wrapper">
          <Logo />
-         <div className="auth_title">Уже служил</div>
+         <div className="auth_title" id="test_auth_reg_title">
+            Уже служил
+         </div>
          <form className="auth_form" onSubmit={onSubmitHandler}>
             <div>
                <Input
