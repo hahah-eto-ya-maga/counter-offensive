@@ -2,9 +2,9 @@ import { FC, useContext, useEffect, useState } from "react";
 import { Route, RouteProps, Routes, useNavigate } from "react-router-dom";
 import { MediatorContext, ServerContext } from "../../App";
 import { publicRoutes, privateRoutes } from "../../router";
+import { useErrorHandler } from "../../hooks/useErrorHandler";
 
 import "./AppRouter.css";
-import { useErrorHandler } from "../../hooks/useErrorHandler";
 
 export const AppRouter: FC = () => {
    const server = useContext(ServerContext);
@@ -18,7 +18,6 @@ export const AppRouter: FC = () => {
 
    useEffect(() => {
       errorHandler();
-
       const { LOGIN, LOGOUT } = mediator.getTriggerTypes();
       mediator.set(LOGIN, (token: string) => {
          server.STORE.setToken(token);

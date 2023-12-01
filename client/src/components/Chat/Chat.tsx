@@ -19,9 +19,9 @@ interface IChatProps {
 }
 
 export const Chat: React.FC<IChatProps> = ({ chatType }) => {
-   const server = useContext(ServerContext);
    const [messages, setMessages] = useState<IMessage[]>();
    const [inputText, setInputText] = useState<string>("");
+   const server = useContext(ServerContext);
 
    const messagesEndRef = useRef<null | HTMLDivElement>(null);
 

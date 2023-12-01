@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MediatorContext } from "../../../App";
 import "./Alert.css";
 
@@ -19,6 +19,9 @@ export const Alert: React.FC = () => {
    const { WARNING } = mediator.getTriggerTypes();
    mediator.set(WARNING, (warning: IAlert) => {
       setAlert({ ...warning, style: warning.style ?? "error" });
+      setTimeout(() => {
+         setAlert({ ...alert, style: null });
+      }, 5000);
    });
    return (
       <div className={alert.style ?? "disabled"} id={alert.id}>
