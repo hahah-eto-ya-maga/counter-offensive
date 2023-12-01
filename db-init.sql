@@ -73,15 +73,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
 /* Создание записей в таблицах users и gamers для тестирования*/
 
 INSERT INTO users(login, nickname, password) VALUES 
-('testuse', 'regresskil', 'f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e'),
-('testpuppy1', 'regresskil', 'f1e4b081ffe08f6d8f9403ed1bc6b83ea6d027d8a9d6f73b5d1175bed693d385'),
-('testpuppy2', 'regresskil', '344af117117405ed0833acbd224d259b02da239ef686f32a5394f652f9dbfe9f'),
-('testsergeant1', 'regresskil', 'c47ecdbe986e2e7a3a7400b382ee8c7d8c8d283b3c38294eb9836e2145882508'),
-('testsergeant2', 'regresskil', '57d4716b29517cdef63b773faac14ee2ebd08b3f2f79b78412ce818ad438b62a'),
-('testofficer1', 'regresskil', '3defc6de1987c02e2456c44f25f5e3f9adf8f4155458562642a930a04d271883'),
-('testofficer2', 'regresskil', '6cc57c932bde7360e32109400438f8f6be28b5a908d6e6a1156b170859c69cdf'),
-('testgeneral1', 'regresskil', 'aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547'),
-('testgeneral2', 'regresskil', 'f13da73dfccd34814fc79bdfd6d7d4d75b6369c1802ff89a3e522897c9d575c5');
+('testuse', 'testuser', 'f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e'),
+('testpuppy1', 'testuser', 'f1e4b081ffe08f6d8f9403ed1bc6b83ea6d027d8a9d6f73b5d1175bed693d385'),
+('testpuppy2', 'testuser', '344af117117405ed0833acbd224d259b02da239ef686f32a5394f652f9dbfe9f'),
+('testsergeant1', 'testuser', 'c47ecdbe986e2e7a3a7400b382ee8c7d8c8d283b3c38294eb9836e2145882508'),
+('testsergeant2', 'testuser', '57d4716b29517cdef63b773faac14ee2ebd08b3f2f79b78412ce818ad438b62a'),
+('testofficer1', 'testuser', '3defc6de1987c02e2456c44f25f5e3f9adf8f4155458562642a930a04d271883'),
+('testofficer2', 'testuser', '6cc57c932bde7360e32109400438f8f6be28b5a908d6e6a1156b170859c69cdf'),
+('testgeneral1', 'testuser', 'aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547'),
+('testgeneral2', 'testuser', 'f13da73dfccd34814fc79bdfd6d7d4d75b6369c1802ff89a3e522897c9d575c5');
 
 INSERT INTO gamers(user_id,experience) VALUES
 (1, 0), (2, 0), (3, 0), (4, 720), (5, 720), (6, 5088), (7, 5088), (8, 9600), (9, 17948);
