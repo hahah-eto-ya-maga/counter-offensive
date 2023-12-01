@@ -59,7 +59,7 @@
 .chat_block {
   display: grid;
   justify-self: right;
-  grid-template-columns: 100px auto ;
+  grid-template-columns: auto auto ;
   align-items: center;
   background-color: var(--yellow);
   border-radius: 17px;
@@ -98,10 +98,13 @@
 @media (max-width: 1000px) {
   .chat_block,
   .chat_btn {
-    font-size: 40px;
+    font-size: 35px;
   }
   .logout_button {
     font-size: 40px;
+  }
+  .chat_block img {
+	height: 60px;
   }
 }
 

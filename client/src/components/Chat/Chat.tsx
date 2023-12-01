@@ -90,18 +90,22 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
           </div>
         )}
         <div className={cn("chat_messages", `chat_messages_${chatType}`)}>
-          {messages?.map((message, index) => (
-            <div key={index} className="message_author">
-              [{message.nickname}
-              <img
-                src={messageImage(message.rank_name)}
-                alt="rank"
-                className="rank_img"
-              />
-              ]: {}
-              <span className="message_text">{message.text}</span>
-            </div>
-          ))}
+          {messages?.length === 0 ? (
+            <div className="no_message">Пусто!</div>
+          ) : (
+            messages?.map((message, index) => (
+              <div key={index} className="message_author">
+                [{message.nickname}
+                <img
+                  src={messageImage(message.rank_name)}
+                  alt="rank"
+                  className="rank_img"
+                />
+                ]: {}
+                <span className="message_text">{message.text}</span>
+              </div>
+            ))
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>
