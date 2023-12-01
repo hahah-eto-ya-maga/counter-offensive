@@ -122,9 +122,9 @@ class DB {
         return $this->queryHandler($query, [$userId], true);
     }
 
-    function setGamerRole($userId, $role, $status='alive') {
-        $query = "UPDATE gamers SET person_id=?, hp=100, status=?, x=5, y=5, angle=0 WHERE user_id=?;";
-        $this->queryHandler($query, [$role, $status, $userId]); 
+    function setGamerRole($userId, $role) {
+        $query = "UPDATE gamers SET person_id=?, hp=100, status='alive', x=5, y=5, angle=0 WHERE user_id=?;";
+        $this->queryHandler($query, [$role, $userId]); 
     }
     
     function getLobby(){
@@ -139,7 +139,6 @@ class DB {
 
     function deleteRole($personId) {
         $query = "UPDATE gamers SET person_id=-1 WHERE person_id = ?";
-        print($personId);
         $this->queryHandler($query, [$personId]);
     }
 
@@ -159,7 +158,12 @@ class DB {
     }
 
     public function setTank($userId, $roleId, $tankId){
-        $query = "INSERT INTO tank_lobby (person_id, user_id, tank_number) VALUES (?, ?, ?)";
+        $query = "INSERT INTO tank_lobby (person_id, user_id, tank_id) VALUES (?, ?, ?)";
         $this->queryHandler($query, [$roleId, $userId, $tankId]);
+    }
+
+    public function getTankById($tankId){
+        $query = "SELECT person_id, user_id FROM tank_lobby WHERE tank_id=?";
+        return $this->queryHandlerAll($query, [$tankId]);
     }
 }

@@ -17,6 +17,9 @@ class Answer{
         '235' => 'Level less current gamer',    // Уровень меньше текущего игрока
         '236' => 'You taken this role',         // Данный игрок уже занял эту роль 
         '237' => 'Role taken',                  // Роль уже занята
+        '238' => 'Place already occupied',      // Это место уже занято 
+        '239' => 'Incorrect tank number',       // Неверный номер танка 
+        '463' => 'Role not implemented',        // Роль не реализована  
         '9000' => 'Unknown Error'               // Неизвестная ошибка
     );
 

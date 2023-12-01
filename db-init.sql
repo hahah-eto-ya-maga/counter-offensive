@@ -72,10 +72,10 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 CREATE TABLE `tank_lobby` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
-  `userId` MEDIUMINT NOT NULL DEFAULT -1,
   `person_id` MEDIUMINT NOT NULL DEFAULT -1,
   `user_id` MEDIUMINT NOT NULL DEFAULT -1,
-  `tank_number` INT NOT NULL DEFAULT -1
+  `tank_id` INT NOT NULL DEFAULT -1,
+  PRIMARY KEY (`id`)
 ); 
 
 /* Создание юзеров для тестирования*/

@@ -118,7 +118,7 @@ class Application
     function setGamerRole($params){
         $token = $params['token'] ?? false;
         $role = $params['role'] ?? false;
-        $tankId = $params['tankId'];
+        $tankId = $params['tankId'] ?? false;
  
         if($role && $token){
             $user = $this->user->getUser($token);
