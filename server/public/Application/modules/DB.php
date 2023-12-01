@@ -157,4 +157,9 @@ class DB {
         $query = "UPDATE game SET hashLobby=? WHERE id=1";
         $this->queryHandler($query, array($hash));
     }
+
+    public function setTank($userId, $roleId, $tankId){
+        $query = "INSERT INTO tank_lobby (person_id, user_id, tank_number) VALUES (?, ?, ?)";
+        $this->queryHandler($query, [$roleId, $userId, $tankId]);
+    }
 }

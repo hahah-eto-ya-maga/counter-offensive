@@ -70,6 +70,14 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `tank_lobby` (
+  `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
+  `userId` MEDIUMINT NOT NULL DEFAULT -1,
+  `person_id` MEDIUMINT NOT NULL DEFAULT -1,
+  `user_id` MEDIUMINT NOT NULL DEFAULT -1,
+  `tank_number` INT NOT NULL DEFAULT -1
+); 
+
 /* Создание юзеров для тестирования*/
 
 INSERT INTO users(login, nickname, password) VALUES 

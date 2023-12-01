@@ -25,13 +25,17 @@
             );
         }
 
-        function setRoleHandler($roleId, $userId){
+        function setTank($userId, $roleId, $tankId){
+            
+        }
+
+        function setRoleHandler($roleId, $userId, $tankId=null){
             $nowPerson = $this->db->getPerson($roleId);
             $gamerRank = $this->db->getRankById($userId);
             $minPersonLevel = $this->db->getMinPersonLevelById($roleId);
             if(!$nowPerson){
                 if(($gamerRank->level>=$minPersonLevel->level)){    
-                    in_array($roleId, array(3, 4, 5, 6, 7)) ? $this->db->setGamerRole($userId, $roleId, "ready") : $this->db->setGamerRole($userId, $roleId);
+                    in_array($roleId, array(3, 4, 5, 6, 7)) ? $this->db->setTank($userId, $roleId, $tankId) : $this->db->setGamerRole($userId, $roleId);
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);
                     return true;
@@ -55,15 +59,15 @@
 
         }
 
-        function setGamerRole($role, $userId){
+        function setGamerRole($role, $userId, $tankId=null){
             switch($role){
                 case 'general': return $this->setRoleHandler(1, $userId);
                 case 'bannerman': return $this->setRoleHandler(2, $userId);
-                case 'heavyTankGunner': return $this->setRoleHandler(3, $userId);                        
-                case 'heavyTankMeh': return $this->setRoleHandler(4, $userId);                
-                case 'heavyTankCommander': return $this->setRoleHandler(5, $userId);                        
-                case 'middleTankMeh': return $this->setRoleHandler(6, $userId);
-                case 'middleTankGunner': return $this->setRoleHandler(7, $userId);
+                case 'heavyTankGunner': return $this->setRoleHandler(3, $userId, $tankId);                        
+                case 'heavyTankMeh': return $this->setRoleHandler(4, $userId, $tankId);                
+                case 'heavyTankCommander': return $this->setRoleHandler(5, $userId, $tankId);                        
+                case 'middleTankMeh': return $this->setRoleHandler(6, $userId, $tankId);
+                case 'middleTankGunner': return $this->setRoleHandler(7, $userId, $tankId);
                 case 'infantry': 
                     {
                     $this->db->setGamerRole($userId, 8);

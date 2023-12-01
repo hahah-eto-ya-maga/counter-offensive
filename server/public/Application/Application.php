@@ -118,11 +118,12 @@ class Application
     function setGamerRole($params){
         $token = $params['token'] ?? false;
         $role = $params['role'] ?? false;
+        $tankId = $params['tankId'];
  
         if($role && $token){
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->lobby->setGamerRole($role, $user->id);
+                return $this->lobby->setGamerRole($role, $user->id, $tankId); 
             }
             return array(false, 401);
         }  
