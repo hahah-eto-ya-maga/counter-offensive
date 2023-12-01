@@ -10,6 +10,7 @@ import {
 export const publicRoutes: RouteProps[] = [
    {
       path: "/",
+      // element: <LobbyPage />,
       element: <LoginPage />,
    },
    {

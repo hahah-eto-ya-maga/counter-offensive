@@ -95,7 +95,7 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
                </div>
             )}
             <div className={cn("chat_messages", `chat_messages_${chatType}`)}>
-               {messages?.length === 0 ? (
+               {!messages || messages.length === 0 ? (
                   <div className="no_message">Пусто!</div>
                ) : (
                   messages?.map((message, index) => (
@@ -123,7 +123,7 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
                   onChange={handleInputChange}
                   placeholder="Написать в чат"
                />
-               <button className="chat_send_btn ">
+               <button className="chat_send_btn">
                   <img src={sendMessage} alt="send" className="send_btn_game" />
                </button>
             </form>

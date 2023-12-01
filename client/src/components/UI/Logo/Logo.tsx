@@ -6,7 +6,7 @@ import "./Logo.css";
 
 const Logo: FC = () => {
    return (
-      <img src={LogoSRC} className="logo" alt="counter-nastup" height={'20%'}/>
+      <img src={LogoSRC} className="logo" alt="counter-nastup"/>
    );
 };
 

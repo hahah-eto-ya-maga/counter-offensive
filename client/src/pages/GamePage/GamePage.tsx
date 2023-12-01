@@ -27,8 +27,6 @@ const GamePage: React.FC = () => {
   const location = useLocation();
   let unit = location.state.userRole;
 
-/*   const [FPS, setShowFPS] = useState<number>(0); */
-
   const keyPressed: TKeyboard = {};
 
   const tank: TUnit = { x: 5, y: 4, r: 0.5 };
@@ -305,9 +303,8 @@ const GamePage: React.FC = () => {
   return (
     <div className="game_page">
       <canvas id="canvas"></canvas>
-      <span className="fps">FPS: {/* FPS */}</span>
-      <div>
-        <Chat chatType="game"></Chat>
+      <div className="game_chat_block">
+        <Chat chatType="game"/>
       </div>
     </div>
   );
