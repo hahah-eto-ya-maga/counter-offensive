@@ -1,6 +1,6 @@
 import { NavigateFunction } from "react-router-dom";
 import { Mediator } from "../modules";
-import { IError } from "../modules/Server/types";
+import { IError } from "../modules/Server/interfaces";
 
 export const useErrorHandler = (
    mediator: Mediator,

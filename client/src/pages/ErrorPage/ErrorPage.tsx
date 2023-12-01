@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../components";
-import { IError } from "../../modules/Server/types";
+import { IError } from "../../modules/Server/interfaces";
 import "./ErrorPage.css";
 
 const ErrorPage: FC = () => {

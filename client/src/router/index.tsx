@@ -1,10 +1,10 @@
 import { Navigate, RouteProps } from "react-router-dom";
 import {
-   ErrorPage,
-   GamePage,
-   LobbyPage,
-   LoginPage,
-   RegistrationPage,
+  ErrorPage,
+  GamePage,
+  LobbyPage,
+  LoginPage,
+  RegistrationPage,
 } from "../pages";
 
 export const publicRoutes: RouteProps[] = [
