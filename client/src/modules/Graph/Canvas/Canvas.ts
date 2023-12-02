@@ -1,4 +1,3 @@
-import { tank2 } from "../../../assets/pngs";
 import { TPoint, TWIN, TUnit } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
@@ -56,11 +55,11 @@ class Canvas {
         return this.canvas.height - (y + this.WIN.height / 2) / this.WIN.height * this.canvas.height;
     }
 
-    pxinx(px: number): number {
+    pxToX(px: number): number {
         return px / this.canvas.width * this.WIN.width - this.WIN.width / 2
     }
 
-    pxiny(px: number): number {
+    pxToY(px: number): number {
         return (this.canvas.height - px) / this.canvas.height * this.WIN.height - this.WIN.height/2
     }
 
@@ -97,42 +96,21 @@ class Canvas {
             this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.1, '#c1c1c1');
         }
     }
-
-    border (points:TPoint[], color: string, colorBorder: string): void {
-        this.context.beginPath();
-        this.context.moveTo(this.xs(points[3].x), this.ys(points[3].y));
-        this.context.strokeStyle = colorBorder;
-        this.context.lineWidth = 2
-        this.context.setLineDash([]);
-        for (let i = 0; i < points.length; i++) {
-                this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
-                this.context.stroke()
-        }
-        this.context.closePath();
-    }
     
-    rotateTank(tank: HTMLImageElement, angle: number): void {
-        this.context.save()
-        this.context.translate(this.notxs(0), this.notys(0))
-        this.context.rotate(-angle - Math.PI)
-        this.context.drawImage(tank, -tank.width/2 , -tank.height/2 , 1.1*this.canvas.width/this.WIN.width,  this.canvas.height/this.WIN.height)
-        this.context.restore();
-    }
-
-    man(size: number, color = '#c00000'): void {
-        this.context.beginPath();
-        this.context.arc(this.notxs(0), this.notys(0), size * this.canvas.width/ this.WIN.width, 0, 2 * Math.PI);
-        this.context.fillStyle = color;
-        this.context.fill();
-        this.context.closePath();
-    }
-
     block(points: TPoint[], color: string): void {
         this.context.beginPath();
         this.context.moveTo(this.xs(points[0].x), this.ys(points[0].y));
         for (let i = 1; i < points.length; i++) {
             this.context.lineTo(this.xs(points[i].x), this.ys(points[i].y));
         }
+        this.context.fillStyle = color;
+        this.context.fill();
+        this.context.closePath();
+    }
+
+    man(size: number, color = '#c00000'): void {
+        this.context.beginPath();
+        this.context.arc(this.notxs(0), this.notys(0), size * this.canvas.width/ this.WIN.width, 0, 2 * Math.PI);
         this.context.fillStyle = color;
         this.context.fill();
         this.context.closePath();
@@ -146,11 +124,44 @@ class Canvas {
         this.context.closePath();
     }
 
-    rotateGun(gun: HTMLImageElement, angle: number): void {
+    drawHouse(house: HTMLImageElement, points: TPoint[]): void {
+        this.context.drawImage(house, this.xs(points[1].x), this.ys(points[1].y), this.xs(points[2].x) - this.xs(points[0].x), this.ys(points[0].y) -  this.ys(points[2].y + 0.1));
+    }
+
+    drawGrass(grass: HTMLImageElement, points: TPoint[]): void {
+        this.context.drawImage(grass, this.xs(points[1].x), this.ys(points[1].y), this.xs(points[2].x) - this.xs(points[0].x), this.ys(points[0].y) -  this.ys(points[2].y));
+    }
+
+    drawStone(stone: HTMLImageElement, circle: TUnit, angle: number): void {
+        this.context.drawImage(stone,
+            this.xs(circle.x - circle.r) - 7, this.ys(circle.y + circle.r) - 5, 
+            this.xs(circle.x + circle.r) - this.xs(circle.x - circle.r) + 8,  this.ys(circle.y - circle.r) - this.ys(circle.y + circle.r) + 7);
+    }
+
+    rotateTank(tank: HTMLImageElement, tankProp: TPoint, angle: number): void {
         this.context.save()
         this.context.translate(this.notxs(0), this.notys(0))
-        this.context.rotate(- angle - Math.PI)
-        this.context.drawImage(gun, -gun.width/2.7, -gun.height/4.1, gun.width/2, gun.height/2)
+        this.context.rotate(-angle - Math.PI)
+        this.context.drawImage(tank, -tankProp.x*this.canvas.width/this.WIN.width, -tankProp.y*this.canvas.height/this.WIN.height, 
+                                2*tankProp.x*this.canvas.width/this.WIN.width, 2*tankProp.y*this.canvas.height/this.WIN.height)
+        this.context.restore();
+    }
+
+    rotateTower(tower: HTMLImageElement, towerProp: TPoint, angle: number): void {
+        this.context.save()
+        this.context.translate(this.notxs(0), this.notys(0))
+        this.context.rotate(-angle + Math.PI)
+        this.context.drawImage(tower, -1.5*towerProp.x*this.canvas.width/this.WIN.width, -towerProp.y*this.canvas.height/this.WIN.height, 
+                             2*towerProp.x*this.canvas.width/this.WIN.width, 2*towerProp.y*this.canvas.height/this.WIN.height)
+        this.context.restore();
+    }
+
+    rotateMan(man: HTMLImageElement, manProp:TPoint, angle: number): void {
+        this.context.save()
+        this.context.translate(this.notxs(0), this.notys(0))
+        this.context.rotate(- angle + Math.PI)
+        this.context.drawImage(man, -1.8*manProp.x*this.canvas.width/this.WIN.width, -1.2*manProp.y*this.canvas.height/this.WIN.height, 
+                             2.8*manProp.x*this.canvas.width/this.WIN.width, 2.8*manProp.y*this.canvas.height/this.WIN.height)
         this.context.restore();
     }
 

@@ -1,15 +1,14 @@
 export interface IError {
    code: number;
    text: string;
+   id?: string;
 }
 
-export interface IUser {
-   login: string;
+export interface IToken {
    token: string;
 }
 
-export interface IUserInfo{
+export interface IUserInfo {
    gameCount: number;
    scoreCount: number;
 }
-

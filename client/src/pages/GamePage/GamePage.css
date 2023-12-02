@@ -1,9 +1,13 @@
 .game_page {
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .canvas::-webkit-scrollbar {
     width: 0;
+    overflow: hidden;
   }
 
 .fps {

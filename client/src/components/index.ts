@@ -1,4 +1,4 @@
-export { Shop, Info } from "./Dossier";
+export { Dossier } from "./Dossier/Dossier";
 export { ProgressBar, CardAdvise } from "./Loading";
-export { Logo, Button, Input, Eye } from "./UI";
+export { Logo, Button, Input, Eye, Alert } from "./UI";
 export { Login, Registration } from "./Auth";

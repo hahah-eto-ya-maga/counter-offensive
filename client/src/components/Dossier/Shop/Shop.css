@@ -1,7 +1,7 @@
 .dossier_shop {
     display: flex;
     width: 100%;
-
+    height: 100%;
 }
 
 .dossier_shop > div {
