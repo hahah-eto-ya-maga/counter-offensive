@@ -96,7 +96,7 @@ const GamePage: React.FC = () => {
         });
 
       return () => {
-         canvas = null;
+         canvas.clearRect();
       };
    }, []);
 
@@ -181,8 +181,8 @@ const GamePage: React.FC = () => {
             WIN.left -= vectorTank.x
         }
 
-      tank.x = WIN.LEFT + 8 * prop;
-      tank.y = WIN.BOTTOM + 8;
+      tank.x = WIN.left + 8 * prop;
+      tank.y = WIN.bottom + 8;
 
       if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
          angleOfMovement -= speedRotate;
@@ -210,9 +210,8 @@ const GamePage: React.FC = () => {
 
    const renderScene = (FPS: number) => {
       if (canvas) {
-         const fpsGap = 0.5;
          canvas.clear();
-
+            setShowFPS(FPS)
             canvas.grid()
 
             canvas.drawGrass(grassImage, [{x:0, y:0}, {x:0, y:12}, {x:12, y:12}, {x:12, y:0}])
