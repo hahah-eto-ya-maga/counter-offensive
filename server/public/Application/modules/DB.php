@@ -166,4 +166,28 @@ class DB {
         $query = "SELECT person_id, user_id FROM tank_lobby WHERE tank_id=?";
         return $this->queryHandlerAll($query, [$tankId]);
     }
+
+    function getLobbyHash() {
+        $query = "SELECT hashLobby FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    function getPersons() {
+        $query = "SELECT p.id AS person_id, p.name AS name, p.level as level, r.experience AS exp 
+        FROM persons p
+        JOIN ranks r ON p.level = r.id";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function getTankmans(){
+        $query = "SELECT person_id, user_id, tank_id FROM tank_lobby;";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function deleteTank($tankId){
+        $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
+        $this->queryHandler($query, [$tankId]);
+    }
+
+
 }

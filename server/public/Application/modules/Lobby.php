@@ -3,8 +3,31 @@
 
         protected $db;
 
+        private $lobbyState;
+
         public function __construct($db){
             $this->db = $db;
+
+            $this->lobbyState = array(
+                "general" => array(
+                        "occupied" => false,
+                        "available" => false
+                    ),
+                "bannerman" => array(
+                        "occupied" => false,
+                        "available" => false
+                    ),
+                "heavyTank" => array(
+                    "commander" => false,
+                    "mechanic" => false,
+                    "gunner" => false
+                    ),
+                "middleTank" => array(
+                    "gunner" => false,
+                    "mechanic" => false,
+                    ),
+                "infantryRPG" => false
+                );
         }
 
 
@@ -34,10 +57,14 @@
                 $hashLobby = hash('sha256', $this->v4_UUID());
                 $this->db->updateLobbyHash($hashLobby);
                 return true;
-            }
+            } 
             $is_free = true;
+            $checkTankId = $tank[0]->person_id;
+            if((in_array($roleId, array(3, 4, 5)) && in_array($checkTankId, array(6, 7))) ||
+            (in_array($roleId, array(6, 7)) && in_array($checkTankId, array(3, 4, 5)))) return array(false, 240);
             foreach($tank as $seat)
                 if($seat->person_id == $roleId) $is_free=false;
+                if($seat->user_id == $userId) return array(false, 241);
             if ($is_free){
                 $this->db->setTank($userId, $roleId, $tankId);
                 $this->db->setGamerRole($userId, $roleId);
@@ -82,6 +109,93 @@
 
         }
 
+        function checkRoleOccupied($lobby){
+            foreach($lobby as $role) {
+                $personId = $role->person_id;
+                switch($personId){
+                    case 1: 
+                        $this->lobbyState['general']['occupied'] = true;
+                        break;
+                    case 2: 
+                        $this->lobbyState['bannerman']['occupied'] = true;
+                        break;
+                }
+            }
+        }
+
+        /* Функция проверки достпности роли для пользователя */
+        function checkRoleAvailability($gamerRank, $persons){
+            foreach($persons as $person) {
+                switch($person->person_id){
+                    case 1: 
+                        $this->lobbyState['general']['available'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;
+                    case 2: 
+                        $this->lobbyState['bannerman']['available'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;
+                    case 3: 
+                        $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;   
+                    case 4: 
+                        $this->lobbyState['heavyTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;
+                    case 5: 
+                        $this->lobbyState['heavyTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;  
+                    case 6: 
+                        $this->lobbyState['middleTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;                   
+                    case 7: 
+                        $this->lobbyState['middleTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;
+                    case 9: 
+                        $this->lobbyState['infantryRPG'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;    
+                    }
+            }
+        }
+
+        /* Нужно получить все танки */
+        function checkTanks($userId)
+        {
+            $tankmans = $this->db->getTankmans();
+            $tanks = [];
+                foreach ($tankmans as $tankman){ 
+                    $tank_id = $tankman->tank_id;
+                    switch($tankman->person_id){
+                        case 3:
+                            $tanks[$tank_id]["heavyTankCommander"] = true;
+                            break;
+                        case 4:
+                            $tanks[$tank_id]["heavyTankGunner"] = true;
+                            break;
+                        case 5:
+                            $tanks[$tank_id]["heavyTankMechanic"] = true;
+                            break;
+                        case 6:
+                            $tanks[$tank_id]["middleTankGunner"] = true;
+                            break;
+                        case 7:
+                            $tanks[$tank_id]["middleTankMechanic"] = true;
+                            break;
+                    }
+
+                    if(in_array($tankman->person_id, array(3, 4, 5))){
+                        if($tanks[$tank_id]["heavyTankCommander"] && 
+                        $tanks[$tank_id]["heavyTankGunner"] && 
+                        $tanks[$tank_id]["heavyTankMechanic"]) $this->db->deleteTank($tank_id);
+                        
+                    }
+                    else if(in_array($tankman->person_id, array(6, 7))){
+                        if($tanks[$tank_id]["middleTankGunner"] && 
+                        $tanks[$tank_id]["middleTankMechanic"]) $this->db->deleteTank($tank_id);
+                    }                    
+                }
+            return $tanks;
+        }
+
+
+
         function setGamerRole($role, $userId, $tankId){
             switch($role){
                 case 'general': return $this->setRoleHandler(1, $userId);
@@ -102,6 +216,24 @@
             }
             return array(false, 463);
         }
+
+        function getLobby($role, $userId, $oldHash){
+            $hash = $this->db->getLobbyHash();
+            
+            if ($hash->hashLobby !== $oldHash) {
+                $lobby = $this->db->getLobby();
+                $gamerRank = $this->db->getRankById($userId);
+                $persons = $this->db->getPersons();
+                $this->checkRoleOccupied($lobby);
+                $this->checkRoleAvailability($gamerRank, $persons);
+                $tanks = $this->checkTanks($userId);
+                return array("lobby" => $this->lobbyState,"tanks" => $tanks, "lobbyHash" => $hash->hashLobby);
+            }
+            return true;
+        }
     }
+    // Нужно создать массив танков в котором будут указаны места 
+    // В них будет указываться свободность и доступность мест
+
 
 
