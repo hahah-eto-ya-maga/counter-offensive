@@ -32,8 +32,8 @@ class Application
         
         if($login && $password && $nickname){
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
-            $pattern1 = '/^.{3,15}$/';
-            if(preg_match($pattern, $login) && preg_match($pattern1, $nickname)){
+            $pattern1 = strlen($nickname);
+            if(preg_match($pattern, $login) && $pattern1>2 && $pattern1<17){
                 return $this->user->registration($login, $nickname, $password);
             }
             return array(false,413);    
@@ -108,7 +108,7 @@ class Application
         if ($token && $hash) { 
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
-                return $this->chat->getMessages($hash);
+                return $this->chat->getMessages($hash, $user->id);
             }
             return array(false, 401);
         }

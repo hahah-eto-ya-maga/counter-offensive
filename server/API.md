@@ -28,6 +28,7 @@ Error = {
 **Пользователь**
 ```
 User = {
+    id:integer
     login:string, 
     nickname:string,
     token:string,
@@ -38,36 +39,31 @@ User = {
 }
 ```
 
-**Хэш чата**
-```
-chatHash = {
-    hash:string, 
-}
-```
-
 **Сообщение**
 ```
 message = {
+    userId:integer,
     nickname:string,
     text:string,
-    level:integer
-    rank_name:string
-    sendTime:string 
+    level:integer,
+    rank_name:string,
+    sendTime:string,
 }
 ```
 
 **Сообщения**
 ```
 messages = {
-    messages:[
+    messages: [
         message,
         message,
         ... ,
         ... ,
         ... ,
         message
-    ]
-}
+    ],
+    chatHash: string
+    }
 ```
 
 ## Значение ошибок по их коду
@@ -205,7 +201,7 @@ Error(401) - Неавторизованный запрос
 
 ### Значение если успех
 ```
-Correct=>chatHash
+Correct=>true
 ```
 ### Значение если ошибка
 ```
