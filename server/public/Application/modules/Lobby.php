@@ -159,6 +159,7 @@
         function checkTanks($userId)
         {
             $tankmans = $this->db->getTankmans();
+            print_r($tankmans);
             $tanks = [];
                 foreach ($tankmans as $tankman){ 
                     $tank_id = $tankman->tank_id;
@@ -179,16 +180,15 @@
                             $tanks[$tank_id]["middleTankMechanic"] = true;
                             break;
                     }
-
+                    print_r($tanks);
                     if(in_array($tankman->person_id, array(3, 4, 5))){
-                        if($tanks[$tank_id]["heavyTankCommander"] && 
-                        $tanks[$tank_id]["heavyTankGunner"] && 
-                        $tanks[$tank_id]["heavyTankMechanic"]) $this->db->deleteTank($tank_id);
-                        
+                        if(isset($tanks[$tank_id]["heavyTankCommander"]) && 
+                        isset($tanks[$tank_id]["heavyTankGunner"]) && 
+                        isset($tanks[$tank_id]["heavyTankMechanic"])) $this->db->deleteTank($tank_id);  
                     }
                     else if(in_array($tankman->person_id, array(6, 7))){
-                        if($tanks[$tank_id]["middleTankGunner"] && 
-                        $tanks[$tank_id]["middleTankMechanic"]) $this->db->deleteTank($tank_id);
+                        if(isset($tanks[$tank_id]["middleTankGunner"]) && 
+                        isset($tanks[$tank_id]["middleTankMechanic"])) $this->db->deleteTank($tank_id);
                     }                    
                 }
             return $tanks;
