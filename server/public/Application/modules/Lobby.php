@@ -15,7 +15,6 @@
                     ),
                 "bannerman" => array(
                         "occupied" => false,
-                        "available" => false
                     ),
                 "heavyTank" => array(
                     "commander" => false,
@@ -130,9 +129,6 @@
                     case 1: 
                         $this->lobbyState['general']['available'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 2: 
-                        $this->lobbyState['bannerman']['available'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;
                     case 3: 
                         $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
                         break;   
@@ -155,45 +151,54 @@
             }
         }
 
-        /* Нужно получить все танки */
         function checkTanks($userId)
         {
             $tankmans = $this->db->getTankmans();
-            print_r($tankmans);
-            $tanks = [];
-                foreach ($tankmans as $tankman){ 
-                    $tank_id = $tankman->tank_id;
-                    switch($tankman->person_id){
+            $usersByTank = [];
+            foreach ($tankmans as $tankman){ 
+                $tankId = $tankman->tank_id;
+                if (!isset($usersByTank[$tankId])) 
+                    $usersByTank[$tankId] = [];
+                array_push($usersByTank[$tankId], $tankman);
+            }
+            $result['heavyTank'] = [];
+            $result['middleTank'] = [];
+            $tankKeys = array_keys($usersByTank);
+            
+            foreach($tankKeys as $tankKey){
+                $tank = array("id" => $tankKey);
+                foreach($usersByTank[$tankKey] as $user){
+                    array_push($tank);
+                    switch($user->person_id){
                         case 3:
-                            $tanks[$tank_id]["heavyTankCommander"] = true;
+                            $tank["Commander"] = true;
                             break;
                         case 4:
-                            $tanks[$tank_id]["heavyTankGunner"] = true;
+                            $tank["Gunner"] = true;
                             break;
                         case 5:
-                            $tanks[$tank_id]["heavyTankMechanic"] = true;
+                            $tank["Mechanic"] = true;
                             break;
                         case 6:
-                            $tanks[$tank_id]["middleTankGunner"] = true;
+                            $tank["Gunner"] = true;
                             break;
                         case 7:
-                            $tanks[$tank_id]["middleTankMechanic"] = true;
+                            $tank["Mechanic"] = true;
                             break;
                     }
-                    print_r($tanks);
-                    if(in_array($tankman->person_id, array(3, 4, 5))){
-                        if(isset($tanks[$tank_id]["heavyTankCommander"]) && 
-                        isset($tanks[$tank_id]["heavyTankGunner"]) && 
-                        isset($tanks[$tank_id]["heavyTankMechanic"])) $this->db->deleteTank($tank_id);  
-                    }
-                    else if(in_array($tankman->person_id, array(6, 7))){
-                        if(isset($tanks[$tank_id]["middleTankGunner"]) && 
-                        isset($tanks[$tank_id]["middleTankMechanic"])) $this->db->deleteTank($tank_id);
-                    }                    
                 }
-            return $tanks;
+                if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5)))
+                    array_push($result['heavyTank'], $tank); 
+                    if(isset($tank["Commander"]) && isset($tank["Gunner"]) && 
+                    isset($tank["Mechanic"])) $this->db->deleteTank($tankKey);
+                    
+                else if(in_array($tankman->person_id, array(6, 7))){
+                    array_push($result['middleTank'], $tank);
+                    if(isset($tank["Gunner"]) && isset($tank["Mechanic"])) $this->db->deleteTank($tankKey);
+                }                    
+            }
+            return $result;
         }
-
 
 
         function setGamerRole($role, $userId, $tankId){
@@ -218,8 +223,7 @@
         }
 
         function getLobby($role, $userId, $oldHash){
-            $hash = $this->db->getLobbyHash();
-            
+            $hash = $this->db->getLobbyHash();       
             if ($hash->hashLobby !== $oldHash) {
                 $lobby = $this->db->getLobby();
                 $gamerRank = $this->db->getRankById($userId);
@@ -232,8 +236,6 @@
             return true;
         }
     }
-    // Нужно создать массив танков в котором будут указаны места 
-    // В них будет указываться свободность и доступность мест
 
 
 
