@@ -36,8 +36,12 @@
                 return true;
             }
             $is_free = true;
+            $checkTankId = $tank[0]->person_id;
+            if((in_array($roleId, array(3, 4, 5)) && in_array($checkTankId, array(6, 7))) ||
+            (in_array($roleId, array(6, 7)) && in_array($checkTankId, array(3, 4, 5)))) return array(false, 240);
             foreach($tank as $seat)
                 if($seat->person_id == $roleId) $is_free=false;
+                if($seat->user_id == $userId) return array(false, 241);
             if ($is_free){
                 $this->db->setTank($userId, $roleId, $tankId);
                 $this->db->setGamerRole($userId, $roleId);
