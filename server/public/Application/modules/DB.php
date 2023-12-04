@@ -166,4 +166,9 @@ class DB {
         $query = "SELECT person_id, user_id FROM tank_lobby WHERE tank_id=?";
         return $this->queryHandlerAll($query, [$tankId]);
     }
+
+    public function deleteGamerInTank($userId){
+        $query = "DELETE FROM tank_lobby WHERE user_id = ?";
+        $this->queryHandler($query, [$userId]);
+    }
 }
