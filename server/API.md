@@ -66,6 +66,84 @@ messages = {
     }
 ```
 
+**Лобби**
+```
+lobby = {
+    "general": {
+                "occupied": bool,
+                "available": bool 
+            },
+            "bannerman": {
+                "occupied": bool
+            },
+            "heavyTank": {
+                "commander": bool,
+                "mechanic": bool,
+                "gunner": bool
+            },
+            "middleTank": {
+                "gunner": bool,
+                "mechanic": bool
+            },
+            "infantryRPG": bool
+}
+```
+
+**Тяжелый танк**
+```
+heavyTank = {
+    "id": integer,
+    "Gunner": bool,
+    "Mechanic": bool,
+    "Commander": bool
+}
+```
+
+**Средний танк**
+```
+middleTank = {
+    "id": integer,
+    "Gunner": bool,
+    "Mechanic": bool
+}
+```
+
+**Танки**
+```
+tanks = {
+    "heavyTank": [
+        heavyTank,
+        heavyTank,
+        ...,
+        ...,
+        ...,
+        heavyTank,
+        heavyTank
+    ],
+    "middleTank": [
+        middleTank,
+        middleTank,
+        .
+        .
+        .
+        middleTank,
+        middleTank
+    ]
+}
+```
+
+
+
+
+**Состояние лобби**
+```
+lobbyState = {
+    lobby: lobby,
+    tanks: tanks
+    lobbyHash:string
+}
+```
+
 ## Значение ошибок по их коду
 400:**Bad Request** - Указаны не все параметры
 
@@ -291,7 +369,7 @@ Error(463) - Роль не реализована
 
 ### Значение если успех
 ```
-Correct=>Lobby || true
+Correct=>lobbyState || true
 ```
 ### Значение если ошибка
 ```
