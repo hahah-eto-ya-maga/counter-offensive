@@ -28,7 +28,7 @@ function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number
     const img = new Image();
     img.src = gras;
 
-    const grass= [SPRITE_SIZE*1, SIZE * 0, SIZE * 0, SIZE*1]; 
+    const grass= [SPRITE_SIZE*12, SIZE * 0, SIZE * 0, SIZE*0]; 
     const stone = [SPRITE_SIZE, SIZE * 4, SIZE * 2, SIZE];
     const bullet = [SPRITE_SIZE, SIZE * 3, SIZE * 0, SIZE];
 

@@ -214,22 +214,13 @@ const GameCanvas: React.FC = () => {
      ] = useSprites(SPRITE_SIZE, SIZE)
 
    const renderScene = (FPS: number) => {
+      let fpsGap = 0.5
       if (canvas) {
          canvas.clearRect();
             setShowFPS(FPS)
             // canvas.grid()
 
-            // blocksArray.forEach(block => {
-              
-            // })
-           
-
-            canvas.polygon([], '#585')
-            canvas.polygon(blocksArray[4], '#585')
-            canvas.polygon(blocksArray[5], '#585')
-            canvas.polygon(blocksArray[6], '#585')
-
-            canvas.circle(deadTank, '#333')
+            canvas.spriteMap(img, 0, 12, grass[0], grass[1], grass[2], grass[3])
 
             // canvas.drawStone(stoneImage, circlesArray[0], Math.PI)
             // canvas.drawStone(stoneImage, circlesArray[1], Math.PI / 2)
@@ -237,11 +228,9 @@ const GameCanvas: React.FC = () => {
            
             if (unit === 'Tank') {
                 moveSceneTank(keyPressed) 
-                canvas.circle(tank)
+               canvas.circle(tank, "blue")
                 isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
-                canvas.spriteDir(img, tank.x-0.5, tank.y+0.5, grass[0], grass[1], grass[2], grass[3], -angleOfMovement)
-               //  canvas.rotateTank(corpusTankImage, tankProp, angleOfMovement)
-               //  canvas.rotateTower(towerTankImage, towerProp, angleOfMovement)
+               //  canvas.spriteDir(img, tank.x-0.5, tank.y+0.5, grass[0], grass[1], grass[2], grass[3], -angleOfMovement)
             } 
             if (unit === 'RPG' || unit === "Automat") {
                moveSceneInfantry(keyPressed)
@@ -252,6 +241,14 @@ const GameCanvas: React.FC = () => {
             canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
             canvas.render()
 
+            canvas.printText(
+               `FPS: ${FPS}`,
+               WIN.left + fpsGap,
+               WIN.bottom + WIN.height - fpsGap,
+               "white",
+               20
+            );
+
             // canvas.drawHouse(houseImage, blocksArray[0])
       //       canvas.drawHouse(houseImage, blocksArray[1])
       //       canvas.drawHouse(houseImage, blocksArray[2])
@@ -259,8 +256,10 @@ const GameCanvas: React.FC = () => {
     }
 
 
-    return(
+    return(<div>
         <canvas id="canvas"></canvas>
+        <p>FPS: {FPS}</p>
+        </div>
     )
 }
 

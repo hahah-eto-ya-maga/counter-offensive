@@ -361,7 +361,7 @@ export default class Canvas {
       }
 
       this.contextTrace.clearRect(0,0,this.canvasTrace.width, this.canvasTrace.height)
-      this.contextTrace.fillStyle = "#000f";
+      this.contextTrace.fillStyle = "#333f";
       this.contextTrace.fillRect(0, 0, this.canvasTrace.width, this.canvasTrace.height);
 
       this.contextTrace.globalCompositeOperation = 'destination-out'
@@ -439,14 +439,14 @@ export default class Canvas {
    }
 
    printText(text:string, x:number, y:number, color = "black", size = 12) {
-      this.contextV.font = `${size}px serif`;
-      this.contextV.fillStyle = color;
-      this.contextV.fillText(text, this.xs(x), this.ys(y));
+      this.context.font = `${size}px serif`;
+      this.context.fillStyle = color;
+      this.context.fillText(text, this.xs(x), this.ys(y));
    }
 
    render(): void {
       this.context.drawImage(this.canvasV, 0, 0);
-      // this.context.drawImage(this.canvasTrace, 0, 0);      
+      this.context.drawImage(this.canvasTrace, 0, 0);      
    }
 
    
