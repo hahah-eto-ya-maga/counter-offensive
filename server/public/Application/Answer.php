@@ -20,7 +20,6 @@ class Answer{
         '238' => 'Place already occupied',          // Это место уже занято 
         '239' => 'Incorrect tank number',           // Неверный номер танка 
         '240' => 'Tank number have another type',   // Номер танка принадлежит другому типу
-        '241' => 'Gamer already taken another role',// Игрок уже выбрал другое место
         '463' => 'Role not implemented',            // Роль не реализована  
         '9000' => 'Unknown Error'                   // Неизвестная ошибка
     );
