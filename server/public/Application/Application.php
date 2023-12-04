@@ -129,4 +129,18 @@ class Application
         }  
         return array(false, 400);
     }
+
+    function getLobby($params){
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if($token && $hash){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->getLobby($token, $user->id, $hash);
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+
 }
