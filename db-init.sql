@@ -70,7 +70,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`)
 );
 
-/* Создание записей в таблицах users и gamers для тестирования*/
+CREATE TABLE `tank_lobby` (
+  `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
+  `person_id` MEDIUMINT NOT NULL DEFAULT -1,
+  `user_id` MEDIUMINT NOT NULL DEFAULT -1,
+  `tank_id` INT NOT NULL DEFAULT -1,
+  PRIMARY KEY (`id`)
+); 
+
+/* Создание юзеров для тестирования*/
 
 INSERT INTO users(login, nickname, password) VALUES 
 ('testuse', 'testuser', 'f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e'),

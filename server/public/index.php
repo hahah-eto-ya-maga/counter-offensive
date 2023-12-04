@@ -21,11 +21,13 @@
                     // Chat
                     case 'sendMessage': return $app->sendMessage($params);
                     case 'getMessages': return $app->getMessages($params);
-                }
+                    // Lobby
+                    case "setGamerRole": return $app->setGamerRole($params);
+                } 
                 return array(false, 501);
             }
             return array(false, 503);
-            }
+        }
         return array(false, 405);
     }
 
