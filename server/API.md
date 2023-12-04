@@ -139,7 +139,7 @@ tanks = {
 ```
 lobbyState = {
     lobby: lobby,
-    tanks: tanks
+    tanks: tanks,
     lobbyHash:string
 }
 ```
