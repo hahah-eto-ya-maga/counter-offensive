@@ -63,7 +63,6 @@ function checkTanks($userId)
             foreach($tankKeys as $tankKey){
                 $tank = array("id" => $tankKey);
                 foreach($usersByTank[$tankKey] as $user){
-                    array_push($tank);
                     switch($user->person_id){
                         case 3:
                             $tank["Gunner"] = true;
@@ -87,7 +86,7 @@ function checkTanks($userId)
                     if(isset($tank["Commander"]) && isset($tank["Gunner"]) && 
                     isset($tank["Mechanic"])) $this->db->deleteTank($tankKey);
                     
-                else if(in_array($tankman->person_id, array(6, 7))){
+                else if(in_array($usersByTank[$tankKey][0]->person_id, array(6, 7))){
                     array_push($result['middleTank'], $tank);
                     if(isset($tank["Gunner"]) && isset($tank["Mechanic"])) $this->db->deleteTank($tankKey);
                 }                    
