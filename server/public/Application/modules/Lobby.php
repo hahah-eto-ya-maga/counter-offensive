@@ -130,13 +130,13 @@
                         $this->lobbyState['general']['available'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 3: 
-                        $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;   
-                    case 4: 
                         $this->lobbyState['heavyTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 5: 
+                    case 4: 
                         $this->lobbyState['heavyTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;
+                    case 5: 
+                        $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
                         break;  
                     case 6: 
                         $this->lobbyState['middleTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
@@ -171,19 +171,19 @@
                     array_push($tank);
                     switch($user->person_id){
                         case 3:
-                            $tank["Commander"] = true;
+                            $tank["Gunner"] = true;
                             break;
                         case 4:
-                            $tank["Gunner"] = true;
+                            $tank["Mechanic"] = true;
                             break;
                         case 5:
-                            $tank["Mechanic"] = true;
+                            $tank["Commander"] = true;
                             break;
                         case 6:
-                            $tank["Gunner"] = true;
+                            $tank["Mechanic"] = true;
                             break;
                         case 7:
-                            $tank["Mechanic"] = true;
+                            $tank["Gunner"] = true;
                             break;
                     }
                 }
