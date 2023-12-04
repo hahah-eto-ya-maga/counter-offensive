@@ -57,7 +57,7 @@
             $nowPerson = $this->db->getPerson($roleId);
             $gamerRank = $this->db->getRankById($userId);
             $minPersonLevel = $this->db->getMinPersonLevelById($roleId);
-            if(!$nowPerson || in_array($roleId, array(3, 4, 5, 6, 7))){
+            if(!$nowPerson || in_array($roleId, array(3, 4, 5, 6, 7, 9))){
                 if(($gamerRank->level>=$minPersonLevel->level)){
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);    
@@ -65,6 +65,7 @@
                         $setRole = $this->setTankRole($userId, $roleId, $tankId);
                         return $setRole;
                     }
+                    $this->db->deleteGamerInTank($userId);
                     $this->db->setGamerRole($userId, $roleId);
                     return true;
                 }
@@ -74,6 +75,7 @@
                 if($roleId==1){
                     if ($gamerRank->gamer_exp>$nowPerson->experience){
                         $this->db->deleteRole($roleId);
+                        $this->db->deleteGamerInTank($userId);
                         $this->db->setGamerRole($userId, $roleId);
                         $hashLobby = hash('sha256', $this->v4_UUID());
                         $this->db->updateLobbyHash($hashLobby);
