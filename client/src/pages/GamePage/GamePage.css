@@ -8,13 +8,5 @@
 .canvas::-webkit-scrollbar {
     width: 0;
     overflow: hidden;
-  }
-
-.fps {
-  position: absolute;
-  top: 13px;
-  left: 13px;
-  font-family: 'Neucha', sans-serif;
-  font-size: 30px;
 }
 
