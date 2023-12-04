@@ -126,4 +126,19 @@ class DB {
         $query = "UPDATE gamers SET status = ? WHERE user_id = ?";
         return $this->queryHandler($query, [$status, $userId]);
     }
+
+    function updateGamerHp($userId, $hp) {
+        $query = "UPDATE gamers SET hp = ? WHERE user_id = ?";
+        return $this->queryHandler($query, [$hp, $userId]);
+    }
+
+    function updateGamerExp($userId, $exp) {
+        $query = "UPDATE gamers SET experience = ? WHERE user_id = ?";
+        return $this->queryHandler($query, [$hp, $exp]);
+    }
+
+    function updateGamerMoney($userId, $money) {
+        $query = "UPDATE gamers SET experience = ? WHERE money = ?";
+        return $this->queryHandler($query, [$hp, $money]);
+    }
 }

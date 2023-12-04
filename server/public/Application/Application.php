@@ -127,4 +127,40 @@ class Application
         }
         return array(false, 400);
     }
+
+    function updateGamerHp($params) {
+        $token = $params['token'] ?? false;
+        $hp = $params['hp'] ?? false;
+        if (!is_numeric($hp) or !$token) return array(false, 400);
+
+        $user = $this->user->getUser($token);
+        if ($user == null or $user->token == 0 or $user->token == null) 
+            return array(false, 401);
+
+        return $this->game->updateGamerHp($user->id, $hp);
+    }
+
+    function updateGamerExp($params) {
+        $token = $params['token'] ?? false;
+        $exp = $params['exp'] ?? false;
+        if (!is_numeric($exp) or !$token) return array(false, 400);
+
+        $user = $this->user->getUser($token);
+        if ($user == null or $user->token == 0 or $user->token == null) 
+            return array(false, 401);
+
+        return $this->game->updateGamerExp($user->id, $exp);
+    }
+
+    function updateGamerMoney($params) {
+        $token = $params['token'] ?? false;
+        $money = $params['money'] ?? false;
+        if (!is_numeric($money) or !$token) return array(false, 400);
+
+        $user = $this->user->getUser($token);
+        if ($user == null or $user->token == 0 or $user->token == null) 
+            return array(false, 401);
+
+        return $this->game->updateGamerMoney($user->id, $money);
+    }
 }

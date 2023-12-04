@@ -21,7 +21,11 @@
                     // Chat
                     case 'sendMessage': return $app->sendMessage($params);
                     case 'getMessages': return $app->getMessages($params);
+                    // Gamer
                     case 'updateUserStatus': return $app->updateUserStatus($params);
+                    case 'updateGamerHp': return $app->updateGamerHp($params);
+                    case 'updateGamerExp': return $app->updateGamerExp($params);
+                    case 'updateGamerMoney': return $app->updateGamerMoney($params);
                 }
                 return array(false, 501);
             }
