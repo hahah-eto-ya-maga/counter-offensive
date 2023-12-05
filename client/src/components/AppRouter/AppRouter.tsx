@@ -18,7 +18,6 @@ export const AppRouter: FC = () => {
 
    useEffect(() => {
       errorHandler();
-      console.log(123);
       
       const { LOGIN, LOGOUT, AUTH_ERROR } = mediator.getTriggerTypes();
       mediator.set(LOGIN, (user: IUserInfo) => {
