@@ -93,12 +93,12 @@
                 }
                 if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5)))
                     array_push($result['heavyTank'], $heavyTank); 
-                    if(isset($heavyTank["Commander"]) && isset($heavyTank["Gunner"]) && 
-                    isset($heavyTank["Mechanic"])) $this->db->deleteTank($tankKey);
+                    if($heavyTank["Commander"] && $heavyTank["Gunner"] && 
+                    $heavyTank["Mechanic"]) $this->db->deleteTank($tankKey);
                     
                 else if(in_array($usersByTank[$tankKey][0]->person_id, array(6, 7))){
                     array_push($result['middleTank'], $middleTank);
-                    if(isset($middleTank["Gunner"]) && isset($middleTank["Mechanic"])) $this->db->deleteTank($tankKey);
+                    if($middleTank["Gunner"] && $middleTank["Mechanic"]) $this->db->deleteTank($tankKey);
                 }                    
             }
             return $result;
