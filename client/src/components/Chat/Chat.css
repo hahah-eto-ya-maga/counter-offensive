@@ -26,7 +26,7 @@
    font-family: Neucha, "Times New Roman", Times, serif;
    scrollbar-width: none;
    align-items: flex-start;
-   max-height: 550px;
+   max-height: 500px;
 }
 
 .chat_messages_game {

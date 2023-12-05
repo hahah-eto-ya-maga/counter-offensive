@@ -1,0 +1,81 @@
+.tank_details {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   position: relative;
+   width: 100%;
+   height: 100%;
+   border-radius: 15px;
+   border: 3px solid var(--black);
+   background: var(--gray);
+   padding: 5px 10px;
+   box-sizing: border-box;
+}
+
+.tank_details svg {
+   width: 100%;
+   height: fit-content;
+}
+
+.tank_lobby_close {
+   position: absolute;
+   right: 0;
+   top: -2px;
+   cursor: pointer;
+}
+
+.tank_info {
+   font-family: Neucha;
+   font-size: 40px;
+   font-weight: 400;
+}
+
+.tank_svg_wrapper {
+   position: relative;
+   margin-right: 30px;
+}
+
+.tank_svg_wrapper div {
+   cursor: default;
+   background-color: var(--red);
+   border-radius: 50%;
+   border: 2px solid black;
+   padding: 10px 15px;
+
+   text-align: center;
+   font-family: Neucha;
+   font-size: 40px;
+   font-weight: 400;
+   position: absolute;
+   -webkit-text-stroke: 0.5px #fff;
+}
+
+.middle_tank .tank_driver {
+   top: 50%;
+   left: 50%;
+}
+
+.middle_tank .tank_gunner {
+   top: 20%;
+   left: 37%;
+}
+
+.heavy_tank .tank_driver {
+   top: 55%;
+   left: 65%;
+}
+
+.heavy_tank .tank_gunner {
+   top: 37%;
+   left: 53%;
+}
+
+.heavy_tank .tank_commander {
+   top: 20%;
+   left: 30%;
+}
+
+.tank_available_role {
+   cursor: pointer !important;
+   background-color: #0f0 !important;
+}

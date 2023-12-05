@@ -63,7 +63,7 @@ const LoginPage: React.FC = () => {
                <Alert />
             </div>
             <div className="auth_footer">
-               <Link to="/registration">
+               <Link to="/registration" tabIndex={-1}>
                   <Button
                      appearance="primary"
                      className="auth_switch_page"

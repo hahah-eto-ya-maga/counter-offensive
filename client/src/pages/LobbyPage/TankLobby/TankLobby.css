@@ -1,0 +1,38 @@
+.tank_lobby {
+   background: #93704d;
+   grid-column: secondcolstart / end;
+}
+
+.tank_lobby_list {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.tank_list_el {
+   display: flex;
+   justify-content: space-between;
+   width: 100%;
+   background-color: antiquewhite;
+   align-items: center;
+   padding: 10px;
+   box-sizing: border-box;
+}
+
+.tank_list_circles {
+   display: flex;
+   gap: 20px;
+}
+
+.tank_circle {
+   height: 30px;
+   width: 30px;
+   border-radius: 50%;
+   background-color: var(--red);
+}
+
+.tank_circle_free {
+   background-color: var(--primary-green);
+}
+
+

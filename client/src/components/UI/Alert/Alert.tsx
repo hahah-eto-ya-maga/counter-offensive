@@ -17,12 +17,25 @@ export const Alert: React.FC = () => {
 
    const mediator = useContext(MediatorContext);
    const { WARNING } = mediator.getTriggerTypes();
-   mediator.set(WARNING, (warning: IAlert) => {
-      setAlert({ ...warning, style: warning.style ?? "error" });
-      setTimeout(() => {
-         setAlert({ ...alert, style: null });
-      }, 5000);
-   });
+
+   useEffect(() => {
+      let timeoutId: NodeJS.Timeout;
+
+      mediator.set(WARNING, (warning: IAlert) => {
+         setAlert({ ...warning, style: warning.style ?? "error" });
+
+         clearTimeout(timeoutId);
+
+         timeoutId = setTimeout(() => {
+            setAlert((prevAlert) => ({ ...prevAlert, style: null }));
+         }, 5000);
+      });
+
+      return () => {
+         clearTimeout(timeoutId);
+      };
+   }, []);
+
    return (
       <div className={alert.style ?? "disabled"} id={alert.id}>
          <span>{alert.message}</span>

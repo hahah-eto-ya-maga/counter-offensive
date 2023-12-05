@@ -38,7 +38,9 @@ const RegistrationPage: FC = () => {
    return (
       <div className="auth_wrapper">
          <Logo />
-         <div className="auth_title" id="test_auth_reg_title">Повестка</div>
+         <div className="auth_title" id="test_auth_reg_title">
+            Повестка
+         </div>
          <form className="auth_form" onSubmit={onSubmitHandler}>
             <div>
                <Input
@@ -71,7 +73,7 @@ const RegistrationPage: FC = () => {
                <Alert />
             </div>
             <div className="auth_footer">
-               <Link to="/authorization">
+               <Link to="/authorization" tabIndex={-1}>
                   <Button
                      appearance="primary"
                      className="auth_switch_page"

@@ -1,10 +1,11 @@
 import { Navigate, RouteProps } from "react-router-dom";
 import {
-  ErrorPage,
-  GamePage,
-  LobbyPage,
-  LoginPage,
-  RegistrationPage,
+   ErrorPage,
+   GamePage,
+   LobbyInfo,
+   LoginPage,
+   RegistrationPage,
+   TankLobby,
 } from "../pages";
 
 export const publicRoutes: RouteProps[] = [
@@ -34,11 +35,15 @@ export const publicRoutes: RouteProps[] = [
 export const privateRoutes: RouteProps[] = [
    {
       path: "/",
-      element: <LobbyPage />,
+      element: <LobbyInfo />,
    },
    {
       path: "/lobby",
-      element: <LobbyPage />,
+      element: <LobbyInfo />,
+   },
+   {
+      path: "/tanks",
+      element: <TankLobby />,
    },
    {
       path: "/game",
