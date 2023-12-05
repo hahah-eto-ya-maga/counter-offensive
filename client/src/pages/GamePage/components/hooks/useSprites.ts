@@ -24,7 +24,7 @@ const getSpriteFromFrames = (frames: number[][]) => {
     }
 }
 
-function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number[], number[], number[], number[], number[], number[], number[], number[], Function, Function, Function] {
+function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number[], number[], number[], number[], number[], number[], number[], number[], number[], Function, Function, Function] {
     const img = new Image();
     img.src = sprites;
 
@@ -35,6 +35,7 @@ function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number
 
     const manRPG = [SPRITE_SIZE, SIZE * 4, SIZE * 3, SIZE];
     const manAutomat = [SPRITE_SIZE, SIZE * 4, SIZE * 4, SIZE];
+    const manFlag = [SPRITE_SIZE, SIZE * 3, SIZE * 1, SIZE];
 
     const tank2 =   [SPRITE_SIZE*1.2, SIZE * 2, SIZE * 0, SIZE*1.2];
     const tank3 =   [SPRITE_SIZE*1.3, SIZE * 0, SIZE * 0, SIZE*1.3];
@@ -58,7 +59,7 @@ function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number
         [SPRITE_SIZE, SIZE * 0, SIZE * 1, SIZE],
         [SPRITE_SIZE, SIZE * 1, SIZE * 1, SIZE],
     ]);
-    return [img, grass, home, stone, bullet, tank2, tank3, manAutomat, manRPG, middleTank, heavyTank, boom];
+    return [img, grass, home, stone, bullet, tank2, tank3, manAutomat, manRPG, manFlag, middleTank, heavyTank, boom];
 }
 
 export default useSprites;

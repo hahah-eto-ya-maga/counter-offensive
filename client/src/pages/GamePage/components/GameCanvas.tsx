@@ -191,20 +191,16 @@ const GameCanvas: React.FC = () => {
         tank3,
         manAutomat,
         manRPG, 
+        manFlag,
         boom
       ] = useSprites(SPRITE_SIZE, SIZE)
 
-   const rotateGun = (unit: string) => {
+   const rotateGun = (): number => {
       let vector: TPoint = {x:1,y:0}
       vector.x = canvas.pxToX(cursorPosition.x)
       vector.y = canvas.pxToY(cursorPosition.y)
       const toAngle = Math.atan2(vector.y, vector.x)
-      canvas.trace(vectorTank, toAngle, 60, blocksArray, circlesArray)
-      if (unit === 'RPG') {
-         canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manRPG[0], manRPG[1], manRPG[2], manRPG[3], -toAngle + Math.PI/2)
-      } else {
-         canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manAutomat[0], manAutomat[1], manAutomat[2], manAutomat[3], -toAngle + Math.PI/2)
-      }
+      return toAngle
    }
 
 
@@ -244,10 +240,32 @@ const GameCanvas: React.FC = () => {
                isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
                 
            } 
-            if (unit === 'RPG' || unit === "Automat") {
+            if (unit === 'RPG') {
                moveSceneInfantry(keyPressed)
-               rotateGun(unit)
-              
+
+               let toAngle = rotateGun()
+               canvas.trace(vectorTank, toAngle, 60, blocksArray, circlesArray)
+               canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manRPG[0], manRPG[1], manRPG[2], manRPG[3], - toAngle+ Math.PI/2)
+        
+               isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
+               
+            }
+            if (unit === 'Automat') {
+               moveSceneInfantry(keyPressed)
+               
+               let toAngle = rotateGun()
+               canvas.trace(vectorTank, toAngle, 60, blocksArray, circlesArray)
+               canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manAutomat[0], manAutomat[1], manAutomat[2], manAutomat[3], - toAngle+ Math.PI/2)
+        
+               isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)       
+            }
+            if (unit === 'Flag') {
+               moveSceneInfantry(keyPressed)
+               
+               let toAngle = rotateGun()
+               canvas.trace(vectorTank, toAngle, 60, blocksArray, circlesArray)
+               canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manFlag[0], manFlag[1], manFlag[2], manFlag[3], - toAngle+ Math.PI/2)
+        
                isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
                
             }

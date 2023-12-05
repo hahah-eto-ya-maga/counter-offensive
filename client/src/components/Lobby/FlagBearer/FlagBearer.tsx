@@ -3,12 +3,18 @@ import cn from "classnames";
 import { Button } from "../../UI";
 import { flag } from "../../../assets/pngs";
 import "./FlagBearer.css";
+import { useNavigate } from "react-router-dom";
 
 const FlagBearer: React.FC = () => {
    let [statusFlag, setStatusFlag] = useState(false);
+   const navigate = useNavigate()
    const changeStatusFlag = () => {
       setStatusFlag(true);
-
+      navigate("/game", {
+         state: {
+            userRole: "Flag"
+         }
+      })
       // отправка статуса на сервер
    };
 
