@@ -66,6 +66,84 @@ messages = {
     }
 ```
 
+**Лобби**
+```
+lobby = {
+    "general": {
+                "occupied": bool,
+                "available": bool 
+            },
+            "bannerman": {
+                "occupied": bool
+            },
+            "heavyTank": {
+                "commander": bool,
+                "mechanic": bool,
+                "gunner": bool
+            },
+            "middleTank": {
+                "gunner": bool,
+                "mechanic": bool
+            },
+            "infantryRPG": bool
+}
+```
+
+**Тяжелый танк**
+```
+heavyTank = {
+    "id": integer,
+    "Gunner": bool,
+    "Mechanic": bool,
+    "Commander": bool
+}
+```
+
+**Средний танк**
+```
+middleTank = {
+    "id": integer,
+    "Gunner": bool,
+    "Mechanic": bool
+}
+```
+
+**Танки**
+```
+tanks = {
+    "heavyTank": [
+        heavyTank,
+        heavyTank,
+        ...,
+        ...,
+        ...,
+        heavyTank,
+        heavyTank
+    ],
+    "middleTank": [
+        middleTank,
+        middleTank,
+        .
+        .
+        .
+        middleTank,
+        middleTank
+    ]
+}
+```
+
+
+
+
+**Состояние лобби**
+```
+lobbyState = {
+    lobby: lobby,
+    tanks: tanks,
+    lobbyHash:string
+}
+```
+
 ## Значение ошибок по их коду
 400:**Bad Request** - Указаны не все параметры
 
@@ -86,6 +164,22 @@ messages = {
 *432*:**Invalid Message** - Неправильные параметры сообщения
 
 *461*:**User not Exist** - Пользователь не существует
+
+*234*:**Insufficient level** - Недостаточный уровень
+
+*235*:**Level less current gamer**- Уровень меньше текущего игрока
+
+*236*:**You taken this role** - Данный игрок уже занял эту роль
+
+*237*:**Role taken** - Роль уже занята
+
+*238*:**Place already occupied** - Это место уже занято 
+
+*239*:**Incorrect tank number** - Неверный номер танка 
+
+*240*:**Tank number have another type** - Номер танка принадлежит другому типу
+
+*463*:**Role not implemented** - Роль не реализована  
 
 *9000*:**Unknown Error** - Неизвестная ошибка
 
@@ -224,6 +318,57 @@ Error(401) - Пользователя не существует
 ### Значение если успех
 ```
 Correct=>messages || true
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
+```
+
+---
+
+## Метод установик роли игрока
+### Адрес
+```method=setGamerRole```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|role|string|```Роль которую хочет занять игрок```|
+|tankId|integer|```Номер танка который хочет занять игрок(необязательный параметр)```|
+
+### Значение если успех
+```
+Correct=>true
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
+Error(234) - Недостаточный уровень 
+Error(235) - Уровень меньше текущего игрока
+Error(236) - Данный игрок уже занял эту роль 
+Error(237) - Роль уже занята
+Error(238) - Это место уже занято
+Error(239) - Неверный номер танка
+Error(240) - Номер танка принадлежит другому типу
+Error(463) - Роль не реализована
+```
+
+---
+
+## Метод получения лобби
+### Адрес
+```method=getLobby```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|hash|string|```Хэш лобби```|
+
+### Значение если успех
+```
+Correct=>lobbyState || true
 ```
 ### Значение если ошибка
 ```
