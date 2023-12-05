@@ -1,0 +1,3175 @@
+{
+	"info": {
+		"_postman_id": "058f29a5-6fcf-429d-964b-044eee831120",
+		"name": "Andriianov Artemm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30955074"
+	},
+	"item": [
+		{
+			"name": "tests",
+			"item": [
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('testuse'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('testuser'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response rank_name is correct', ()=>{ \r",
+											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response gamer_exp is correct', ()=>{ \r",
+											"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response next_rang is correct', ()=>{ \r",
+											"    pm.expect(response.data.next_rang).to.eql(144); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response level is correct', ()=>{ \r",
+											"    pm.expect(response.data.level).to.eql(1); \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "nickname",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "token",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "login",
+											"value": "{{login}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginError400(emptyLogin)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "login",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginError400(emptyHash)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=login&hash=&rnd={{rnd}}&login={{login}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "login",
+											"value": "{{login}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginError403",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 403', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(403);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Forbidden', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Forbidden');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}1$$$%%%&rnd={{rnd}}&login={{login}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}1$$$%%%"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "login",
+											"value": "{{login}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginError461",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 461', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(461);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is User not Exist', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('User not Exist');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}1234$$%23",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "login",
+											"value": "{{login}}1234$$%23"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "login",
+											"value": "{{login}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=login1&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login1"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										},
+										{
+											"key": "login",
+											"value": "{{login}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "registration",
+					"item": [
+						{
+							"name": "registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('testuserreg'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response rank_name is correct', ()=>{ \r",
+											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response gamer_exp is correct', ()=>{ \r",
+											"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response next_rang is correct', ()=>{ \r",
+											"    pm.expect(response.data.next_rang).to.eql(143); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response level is correct', ()=>{ \r",
+											"    pm.expect(response.data.level).to.eql(1); \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registratonError400(emptyHash)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=&method=registration&login=testuserreg&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": ""
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registratonError400(emptyNickname)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg"
+										},
+										{
+											"key": "nickname",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registratonError400(emptyLogin)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": ""
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationError413(wrongLogin)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 413', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(413);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Invalid login(nickname)');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg1111111111111111111111111111111&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg1111111111111111111111111111111"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationError413(wrongNickname)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 413', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(413);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Invalid login(nickname)');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=testuserreg111111111111111111111111",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg111111111111111111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationError460",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 460', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(460);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Login Occupied', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Login Occupied');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{login}}&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "{{login}}"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=&login=testuserreg32&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "login",
+											"value": "testuserreg32"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration1&login=testuserreg&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration1"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"item": [
+						{
+							"name": "logout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// pm.sendRequest({\r",
+											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
+											"//     method:`GET`,\r",
+											"// }, function(err, res){\r",
+											"//     const { token } = res.json().data;\r",
+											"//     pm.environment.set(\"token\", token)\r",
+											"// }\r",
+											"// );"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=logout&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutError400(emptyToken)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=logout&token=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout"
+										},
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Unauthorized', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=logout&token={{token}}$$$%23%23%23",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}$$$%23%23%23"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=logout1&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout1"
+										},
+										{
+											"key": "token",
+											"value": "f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "tokenVerification",
+					"item": [
+						{
+							"name": "tokenVerification",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=tokenVerification&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "tokenVerification"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "tokenVerificationError400(no token)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=tokenVerification&token=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "tokenVerification"
+										},
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "tokenVerificationError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Unauthorized', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=tokenVerification&token={{token}}123!",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "tokenVerification"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}123!"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "tokenVerificationError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "tokenVerificationError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=tokenVerification1&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "tokenVerification1"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "updatePassword",
+					"item": [
+						{
+							"name": "updatePassword",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// pm.sendRequest({\r",
+											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
+											"//     method:`GET`,\r",
+											"// }, function(err, res){\r",
+											"//     const { token } = res.json().data;\r",
+											"//     pm.environment.set(\"token\", token)\r",
+											"// }\r",
+											"// );"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "updatePassword"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updatePasswordError400(emptyToken)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=updatePassword&token=&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "updatePassword"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updatePasswordError400(emptyHash)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}&hash=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "updatePassword"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updatePasswordError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Unauthorized', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}%23%23%23$$$&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "updatePassword"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}%23%23%23$$$"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updatePasswordError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updatePasswordError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=updatePassword1&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "updatePassword1"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "sendMessage",
+					"item": [
+						{
+							"name": "sendMessage",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// pm.sendRequest({\r",
+											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
+											"//     method:`GET`,\r",
+											"// }, function(err, res){\r",
+											"//     const { token } = res.json().data;\r",
+											"//     pm.environment.set(\"token\", token)\r",
+											"// }\r",
+											"// );"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message={{message}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageError400(emptyToken)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check sendMessage status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=sendMessage&token=&message={{message}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageError400(emptyMessage)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check sendMessage status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "message",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check sendMessage status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Unauthorized', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}123432$$$%23&message={{message}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}123432$$$%23"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageError432",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// pm.sendRequest({\r",
+											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
+											"//     method:`GET`,\r",
+											"// }, function(err, res){\r",
+											"//     const { token } = res.json().data;\r",
+											"//     pm.environment.set(\"token\", token)\r",
+											"// }\r",
+											"// );"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check sendMessage status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 432', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(432);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Invalid Message', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Invalid Message');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "message",
+											"value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check sendMessage status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=&token={{token}}&message={{message}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check sendMessage status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=sendMessage111&token={{token}}&message={{message}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage111"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getMessages",
+					"item": [
+						{
+							"name": "getMessages",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response userId is correct', ()=>{ \r",
+											"    pm.expect(response.data.messages[0].userId).to.eql(1); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.messages[0].nickname).to.eql('testuser'); \r",
+											"}); \r",
+											" \r",
+											" pm.test('check response text is correct', ()=>{ \r",
+											"    pm.expect(response.data.messages[0].text).to.eql(\"12312311\"); \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response rank_name is correct', ()=>{ \r",
+											"    pm.expect(response.data.messages[0].rank_name).to.eql('Private'); \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response level is correct', ()=>{ \r",
+											"    pm.expect(response.data.messages[0].level).to.eql(1); \r",
+											"}); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// pm.sendRequest({\r",
+											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
+											"//     method:`GET`,\r",
+											"// }, function(err, res){\r",
+											"//     const{token} = res.json().data;\r",
+											"//     pm.environment.set(\"token\", token)\r",
+											"// }\r",
+											"// );"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesError400(no token)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=getMessages&token=&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesError400(no hash)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}&hash=",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Unauthorized', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}123%23%23%23$$$&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}123%23%23%23$$$"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://counter-offensive/api/?method=getMessages11&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"counter-offensive"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages11"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "login",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "rnd",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hash",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "nickname",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "message",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
