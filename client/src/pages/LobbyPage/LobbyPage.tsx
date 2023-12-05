@@ -35,7 +35,7 @@ const LobbyPage: FC = () => {
                   onClick={() => {
                      navigate("/game", {
                         state: {
-                           userRole: "Tank"
+                           userRole: "Tank2"
                         }
                      })
                   }}
@@ -65,7 +65,7 @@ const LobbyPage: FC = () => {
                   onClick={() => {
                      navigate("/game", {
                         state: {
-                           userRole: "Tank"
+                           userRole: "Tank3"
                         }
                      })
                   }}

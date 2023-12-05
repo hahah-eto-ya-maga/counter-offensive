@@ -35,8 +35,8 @@ const GameCanvas: React.FC = () => {
     const manProp: TPoint = {x: 1.4*man.r, y: man.r}
 
     const WIN = {
-        left: -5 * prop + tank.x,
-        bottom: -5 + tank.y,
+        left: -5 * prop + man.x,
+        bottom: -5 + man.y,
         width: 10 * prop,
         height: 10,
     };
@@ -180,27 +180,28 @@ const GameCanvas: React.FC = () => {
          angleOfMovement -= speedRotate;
       }
    };
-
     
-    const rotateGun = () => {
-        let vector: TPoint = {x:1,y:0}
-        vector.x = canvas.pxToX(cursorPosition.x)
-        vector.y = canvas.pxToY(cursorPosition.y)
-        const toAngle = Math.atan2(vector.y, vector.x)
-        canvas.point(cursorPosition.x, cursorPosition.y)
-    }
-
-    
-    const [
+   const [
         img,
         grass, 
         home, 
         stone, 
         bullet, 
         tank2,
-        tank3, 
+        tank3,
+        manAutomat, 
         boom
-     ] = useSprites(SPRITE_SIZE, SIZE)
+      ] = useSprites(SPRITE_SIZE, SIZE)
+
+   const rotateGun = () => {
+      let vector: TPoint = {x:1,y:0}
+      vector.x = canvas.pxToX(cursorPosition.x)
+      vector.y = canvas.pxToY(cursorPosition.y)
+      const toAngle = Math.atan2(vector.y, vector.x)
+      canvas.trace(vectorTank, toAngle, 60, blocksArray, circlesArray)
+      canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manAutomat[0], manAutomat[1], manAutomat[2], manAutomat[3], -toAngle + Math.PI/2)
+   }
+
 
    const renderScene = (FPS: number) => {
       let fpsGap = 0.5
@@ -224,14 +225,20 @@ const GameCanvas: React.FC = () => {
             })
 
            
-            if (unit === 'Tank') {
+            if (unit === 'Tank2') {
                 moveSceneTank(keyPressed) 
                 canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
-                canvas.spriteDir(img, tank.x-0.5, tank.y+0.5, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
+                canvas.spriteDir(img, tank.x-0.52, tank.y+0.6, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
                 isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
-                
-               
+                 
             } 
+            if (unit === 'Tank3') {
+               moveSceneTank(keyPressed) 
+               canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
+               canvas.spriteDir(img, tank.x-0.6, tank.y+0.6, tank3[0], tank3[1], tank3[2], tank3[3], -angleOfMovement)
+               isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
+                
+           } 
             if (unit === 'RPG' || unit === "Automat") {
                moveSceneInfantry(keyPressed)
                rotateGun()
@@ -241,7 +248,7 @@ const GameCanvas: React.FC = () => {
             }
             // canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
             canvas.render()
-
+           
             canvas.printText(
                `FPS: ${FPS}`,
                WIN.left + fpsGap,
@@ -249,10 +256,6 @@ const GameCanvas: React.FC = () => {
                "white",
                20
             );
-
-            // canvas.drawHouse(houseImage, blocksArray[0])
-      //       canvas.drawHouse(houseImage, blocksArray[1])
-      //       canvas.drawHouse(houseImage, blocksArray[2])
         }
     }
 
