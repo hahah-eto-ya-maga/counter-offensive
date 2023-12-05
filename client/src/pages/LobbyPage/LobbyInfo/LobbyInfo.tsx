@@ -5,7 +5,10 @@ import { MediatorContext, ServerContext } from "../../../App";
 import { Button, Chat, FlagBearer, Dossier } from "../../../components";
 import { automat, chatIcon, RPG } from "../../../assets/png";
 
-import { lobbyContext, withLayout } from "../../../components/LobbyLayout/Layout";
+import {
+   lobbyContext,
+   withLayout,
+} from "../../../components/LobbyLayout/Layout";
 
 import "./LobbyInfo.css";
 
@@ -15,9 +18,10 @@ enum EOpen {
 }
 
 const Lobby: FC = () => {
+   const [isOpen, setIsOpen] = useState<EOpen>(EOpen.info);
    const mediator = useContext(MediatorContext);
    const server = useContext(ServerContext);
-   const { lobby } = useContext(lobbyContext);
+   const lobby = useContext(lobbyContext);
 
    const navigate = useNavigate();
 
@@ -26,8 +30,6 @@ const Lobby: FC = () => {
       const res = await server.logout();
       res && mediator.get(LOGOUT);
    };
-
-   const [isOpen, setIsOpen] = useState<EOpen>(EOpen.info);
 
    const handleChat = () => {
       switch (isOpen) {

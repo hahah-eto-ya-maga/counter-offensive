@@ -7,7 +7,7 @@ export const useErrorHandler = (
    navigate: NavigateFunction
 ) => {
    const { SERVER_ERROR } = mediator.getEventTypes();
-   const { WARNING } = mediator.getTriggerTypes();
+   const { WARNING, AUTH_ERROR } = mediator.getTriggerTypes();
    return () => {
       mediator.subscribe(SERVER_ERROR, (error: IError) => {
          switch (error.code) {
@@ -28,6 +28,9 @@ export const useErrorHandler = (
                   message: "Пользователя с таким логином не существует",
                   id: "test_error_auth_userNotExist",
                });
+            }
+            case 401: {
+               return mediator.get(AUTH_ERROR);
             }
             default: {
                return navigate("/error", { state: { error } });

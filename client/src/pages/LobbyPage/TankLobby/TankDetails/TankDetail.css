@@ -36,8 +36,8 @@
 }
 
 .tank_svg_wrapper div {
-   cursor: default;
-   background-color: var(--red);
+   cursor: pointer;
+   background-color: #0f0;
    border-radius: 50%;
    border: 2px solid black;
    padding: 10px 15px;
@@ -75,7 +75,7 @@
    left: 30%;
 }
 
-.tank_available_role {
-   cursor: pointer !important;
-   background-color: #0f0 !important;
+.tank_unavailable_role {
+   cursor: default !important;
+   background-color: var(--red) !important;
 }

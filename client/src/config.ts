@@ -17,6 +17,8 @@ export const MEDIATOR = {
    TRIGGERS: {
       WARNING: "WARNING",
       LOGIN: "LOGIN",
-      LOGOUT:"LOGOUT",
+      LOGOUT: "LOGOUT",
+      AUTH_ERROR: "AUTH_ERROR",
+      SWITCH_TANK_LOBBY: "SWITCH_TANK_LOBBY",
    },
 };

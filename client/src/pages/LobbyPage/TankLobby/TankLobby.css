@@ -4,9 +4,11 @@
 }
 
 .tank_lobby_list {
+   position: relative;
    display: flex;
    flex-direction: column;
    gap: 20px;
+   height: 100%;
 }
 
 .tank_list_el {
@@ -28,11 +30,17 @@
    height: 30px;
    width: 30px;
    border-radius: 50%;
-   background-color: var(--red);
-}
-
-.tank_circle_free {
    background-color: var(--primary-green);
 }
 
+.tank_circle_occupied {
+   background-color: var(--red);
+}
 
+.tank_lobby_add {
+   width: 100%;
+   position: absolute;
+   bottom: 0;
+   background-color: aqua;
+   text-align: center;
+}

@@ -14,11 +14,10 @@ export const AppRouter: FC = () => {
    );
    const navigate = useNavigate();
    const errorHandler = useErrorHandler(mediator, navigate);
-   
 
    useEffect(() => {
       errorHandler();
-      const { LOGIN, LOGOUT } = mediator.getTriggerTypes();
+      const { LOGIN, LOGOUT, AUTH_ERROR } = mediator.getTriggerTypes();
       mediator.set(LOGIN, (token: string) => {
          server.STORE.setToken(token);
          setRoutes(server.STORE.getToken() ? privateRoutes : publicRoutes);
@@ -30,12 +29,16 @@ export const AppRouter: FC = () => {
          setRoutes(publicRoutes);
          navigate("/");
       });
+
+      mediator.set(AUTH_ERROR, () => {
+         mediator.get(LOGOUT);
+      });
    });
    return (
-         <Routes>
-            {routes.map((route) => {
-               return <Route key={route.path} {...route} />;
-            })}
-         </Routes>
+      <Routes>
+         {routes.map((route) => {
+            return <Route key={route.path} {...route} />;
+         })}
+      </Routes>
    );
 };

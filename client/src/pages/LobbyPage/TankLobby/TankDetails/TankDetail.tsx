@@ -1,6 +1,10 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import cn from "classnames";
-import { IHeavyTank, IMiddleTank } from "../../../../modules/Server/interfaces";
+import {
+   EGamerRole,
+   IHeavyTank,
+   IMiddleTank,
+} from "../../../../modules/Server/interfaces";
 import { ETank } from "../../../../components/LobbyLayout/Layout";
 
 import { ReactComponent as MiddleTank } from "./middleTank.svg";
@@ -8,6 +12,7 @@ import { ReactComponent as HeavyTank } from "./heavyTank.svg";
 import CrossIcon from "./closeIcon.png";
 
 import "./TankDetail.css";
+import { ServerContext } from "../../../../App";
 
 interface TankDetProps {
    tank: IHeavyTank | IMiddleTank;
@@ -16,16 +21,22 @@ interface TankDetProps {
 }
 
 const TankDetail: FC<TankDetProps> = ({ tank, closeDetail, tankType }) => {
+   const server = useContext(ServerContext);
+
    const calcPlaces = (): string => {
       const placesCount = tankType === ETank.middle ? 2 : 3;
       var occupiedPlacesCount = 0;
-      !tank.Gunner && occupiedPlacesCount++;
-      !tank.Mechanic && occupiedPlacesCount++;
+      tank.Gunner && occupiedPlacesCount++;
+      tank.Mechanic && occupiedPlacesCount++;
       tankType === ETank.heavy &&
-         !(tank as IHeavyTank).Commander &&
+         (tank as IHeavyTank).Commander &&
          occupiedPlacesCount++;
 
       return `${occupiedPlacesCount}/${placesCount}`;
+   };
+
+   const setRole = async (role: EGamerRole) => {
+      const res = await server.setGamerRole(role, tank.id);
    };
 
    return (
@@ -46,23 +57,38 @@ const TankDetail: FC<TankDetProps> = ({ tank, closeDetail, tankType }) => {
             })}
          >
             <div
+               onClick={() =>
+                  setRole(
+                     tankType === ETank.middle
+                        ? EGamerRole.middleTankMeh
+                        : EGamerRole.heavyTankMeh
+                  )
+               }
                className={cn("tank_driver", {
-                  tank_available_role: tank.Mechanic,
+                  tank_unavailable_role: tank.Mechanic,
                })}
             >
                МехВод
             </div>
             <div
+               onClick={() =>
+                  setRole(
+                     tankType === ETank.middle
+                        ? EGamerRole.middleTankGunner
+                        : EGamerRole.heavyTankGunner
+                  )
+               }
                className={cn("tank_gunner", {
-                  tank_available_role: tank.Gunner,
+                  tank_unavailable_role: tank.Gunner,
                })}
             >
                Наводчик
             </div>
             {tankType === ETank.heavy && (
                <div
+                  onClick={() => setRole(EGamerRole.heavyTankCommander)}
                   className={cn("tank_commander", {
-                     tank_available_role: (tank as IHeavyTank).Commander,
+                     tank_unavailable_role: (tank as IHeavyTank).Commander,
                   })}
                >
                   Командир
@@ -77,7 +103,6 @@ const TankDetail: FC<TankDetProps> = ({ tank, closeDetail, tankType }) => {
             alt="Закрыть"
             onClick={closeDetail}
          />
-         {/* круглешочки (ТОТАЛ ПИЗДААААА) */}
       </div>
    );
 };

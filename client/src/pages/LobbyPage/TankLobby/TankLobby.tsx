@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import cn from "classnames";
 import { IHeavyTank, IMiddleTank } from "../../../modules/Server/interfaces";
@@ -10,26 +10,49 @@ import {
 import TankDetail from "./TankDetails/TankDetail";
 
 import "./TankLobby.css";
+import { MediatorContext } from "../../../App";
 
 const Lobby: FC = () => {
    const [tankOpen, setTankOpen] = useState<IHeavyTank | IMiddleTank | null>(
       null
    );
-   const { lobby } = useContext(lobbyContext);
+   const lobby = useContext(lobbyContext);
+   const mediator = useContext(MediatorContext);
    const { state }: { state: { tank: ETank } } = useLocation();
-   const tankType = state?.tank ?? ETank.middle;
+   const { SWITCH_TANK_LOBBY } = mediator.getTriggerTypes();
 
-   const tankArr: IHeavyTank[] | IMiddleTank[] = [
-      { id: 1, Mechanic: false, Gunner: true },
-      { id: 2, Mechanic: true, Gunner: true },
-   ];
-   /* tankType === ETank.heavy ? lobby.tanks.heavyTank : lobby.tanks.middleTank; */
+   useEffect(() => {
+      mediator.set(SWITCH_TANK_LOBBY, () => {
+         closeTankDetail();
+      });
+   });
 
-   const closeTankDetail = () => {
+   const tankType = state?.tank;
+
+   const tankArr: IHeavyTank[] | IMiddleTank[] =
+      tankType === ETank.heavy
+         ? lobby?.tanks.heavyTank
+         : lobby?.tanks.middleTank;
+
+   const addTankHandler = () => {
+      
+      const newTank: IMiddleTank | IHeavyTank = {
+         id: 1,
+         Mechanic: false,
+         Gunner: false,
+      };
+
+      if (tankType === ETank.heavy) {
+         (newTank as IHeavyTank).Commander = false;
+      }
+      setTankOpen(newTank);
+   };
+
+   const closeTankDetail = (): void => {
       setTankOpen(null);
    };
 
-   const selectTankHandler = (tank: IHeavyTank | IMiddleTank) => {
+   const selectTankHandler = (tank: IHeavyTank | IMiddleTank): void => {
       setTankOpen(tank);
    };
 
@@ -43,32 +66,35 @@ const Lobby: FC = () => {
             />
          ) : (
             <div className="tank_lobby_list">
-               {tankArr.map((tank) => (
+               <div className="tank_lobby_add" onClick={addTankHandler}>
+                  Добавить танк
+               </div>
+               {tankArr?.map((tank) => (
                   <div
                      className="tank_list_el"
                      key={tank.id}
                      onClick={() => selectTankHandler(tank)}
                   >
-                     <div>Танк № {tank.id}</div>
+                     <div>Танк №{tank.id}</div>
                      <div className="tank_list_circles">
-                        <div
-                           className={cn("tank_circle", {
-                              tank_circle_free: tank.Gunner,
-                           })}
-                        />
-                        <div
-                           className={cn("tank_circle", {
-                              tank_circle_free: tank.Mechanic,
-                           })}
-                        />
                         {tankType === ETank.heavy && (
                            <div
                               className={cn("tank_circle", {
-                                 tank_circle_free: (tank as IHeavyTank)
+                                 tank_circle_occupied: (tank as IHeavyTank)
                                     .Commander,
                               })}
                            />
                         )}
+                        <div
+                           className={cn("tank_circle", {
+                              tank_circle_occupied: tank.Gunner,
+                           })}
+                        />
+                        <div
+                           className={cn("tank_circle", {
+                              tank_circle_occupied: tank.Mechanic,
+                           })}
+                        />
                      </div>
                   </div>
                ))}

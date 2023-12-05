@@ -1,6 +1,13 @@
 import { SHA256 } from "crypto-js";
 import Mediator from "../Mediator/Mediator";
-import { IUserInfo, IError, IToken, IMessages } from "./interfaces";
+import {
+   IUserInfo,
+   IError,
+   IToken,
+   IMessages,
+   EGamerRole,
+   ILobbyState,
+} from "./interfaces";
 import Store, { EHash } from "../Store/Store";
 
 export default class Server {
@@ -59,19 +66,40 @@ export default class Server {
    updatePassword(login: string, newPassword: string): Promise<true | null> {
       const hash = SHA256(login + newPassword).toString();
       return this.request("updatePassword", {
-         token: this.STORE.token,
+         token: this.STORE.getToken(),
          hash,
       });
    }
 
    getMessages(): Promise<IMessages | true | null> {
       return this.request("getMessages", {
-         token: this.STORE.token,
+         token: this.STORE.getToken(),
          hash: this.STORE.getHash(EHash.chatHash),
       });
    }
 
    sendMessages(message: string): Promise<true | null> {
-      return this.request("sendMessage", { token: this.STORE.token, message });
+      return this.request("sendMessage", {
+         token: this.STORE.getToken(),
+         message,
+      });
+   }
+
+   setGamerRole(
+      role: EGamerRole,
+      tankId: number | null = null
+   ): Promise<true | null> {
+      return this.request("setGamerRole", {
+         token: this.STORE.token,
+         role,
+         tankId,
+      });
+   }
+
+   getLobby(): Promise<ILobbyState | true | null> {
+      return this.request("getLobby", {
+         token: this.STORE.getToken(),
+         hash: this.STORE.getHash(EHash.lobbyHash),
+      });
    }
 }

@@ -65,9 +65,25 @@ export interface ILobby {
    };
 
    infantryRPG: boolean;
+}
 
+export interface ILobbyState {
+   lobby: ILobby;
    tanks: {
       heavyTank: IHeavyTank[];
       middleTank: IMiddleTank[];
    };
+   lobbyHash: string;
+}
+
+export enum EGamerRole {
+   general = "general",
+   bannerman = "bannerman",
+   heavyTankGunner = "heavyTankGunner",
+   heavyTankMeh = "heavyTankMeh",
+   heavyTankCommander = "heavyTankCommander",
+   middleTankMeh = "middleTankMeh",
+   middleTankGunner = "middleTankGunner",
+   infantryRPG = "infantryRPG",
+   infantry = "infantry",
 }
