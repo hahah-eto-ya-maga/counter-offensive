@@ -189,17 +189,22 @@ const GameCanvas: React.FC = () => {
         bullet, 
         tank2,
         tank3,
-        manAutomat, 
+        manAutomat,
+        manRPG, 
         boom
       ] = useSprites(SPRITE_SIZE, SIZE)
 
-   const rotateGun = () => {
+   const rotateGun = (unit: string) => {
       let vector: TPoint = {x:1,y:0}
       vector.x = canvas.pxToX(cursorPosition.x)
       vector.y = canvas.pxToY(cursorPosition.y)
       const toAngle = Math.atan2(vector.y, vector.x)
       canvas.trace(vectorTank, toAngle, 60, blocksArray, circlesArray)
-      canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manAutomat[0], manAutomat[1], manAutomat[2], manAutomat[3], -toAngle + Math.PI/2)
+      if (unit === 'RPG') {
+         canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manRPG[0], manRPG[1], manRPG[2], manRPG[3], -toAngle + Math.PI/2)
+      } else {
+         canvas.spriteDir(img, man.x-0.5, man.y + 0.5, manAutomat[0], manAutomat[1], manAutomat[2], manAutomat[3], -toAngle + Math.PI/2)
+      }
    }
 
 
@@ -241,7 +246,7 @@ const GameCanvas: React.FC = () => {
            } 
             if (unit === 'RPG' || unit === "Automat") {
                moveSceneInfantry(keyPressed)
-               rotateGun()
+               rotateGun(unit)
               
                isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
                
