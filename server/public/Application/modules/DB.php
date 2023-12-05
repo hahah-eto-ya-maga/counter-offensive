@@ -95,12 +95,11 @@ class DB {
         return $this->queryHandler($query, [], true);
     }
 
-    function getMessages($userId) {
-        $query = "SELECT u.id AS userId, u.nickname AS nickname, m.text AS text, r.name AS rank_name, m.sendTime AS sendTime
+    function getMessages($userId){
+        $query = "SELECT u.id AS userId, u.nickname AS nickname, m.text AS text, r.id AS level, r.name AS rank_name, m.sendTime AS sendTime
         FROM messages AS m 
         INNER JOIN users AS u ON m.userId=u.id
-        JOIN gamers AS g ON u.id=g.user_id
-        JOIN ranks AS r ON r.experience<=g.experience
+        JOIN ranks AS r ON r.id=(SELECT MAX(r.id) as level FROM gamers AS g JOIN ranks as r ON r.experience<=g.experience WHERE g.user_id=u.id)
         ORDER BY m.sendTime DESC
         LIMIT 30";
         return $this->queryHandlerAll($query, []);
@@ -170,5 +169,27 @@ class DB {
     public function deleteGamerInTank($userId){
         $query = "DELETE FROM tank_lobby WHERE user_id = ?";
         $this->queryHandler($query, [$userId]);
+    }
+
+    function getLobbyHash() {
+        $query = "SELECT hashLobby FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    function getPersons() {
+        $query = "SELECT p.id AS person_id, p.name AS name, p.level as level, r.experience AS exp 
+        FROM persons p
+        JOIN ranks r ON p.level = r.id";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function getTankmans(){
+        $query = "SELECT person_id, user_id, tank_id FROM tank_lobby;";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function deleteTank($tankId){
+        $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
+        $this->queryHandler($query, [$tankId]);
     }
 }
