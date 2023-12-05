@@ -36,6 +36,7 @@
                 $this->db->addGamer($user->id);
                 $rank = $this->db->getRankById($user->id);
                 return array(
+                    'id'=>$user->id,
                     'token'=>$token,
                     'login'=>$login,
                     'nickname'=>$nickname,
@@ -58,6 +59,7 @@
                     $rank = $this->db->getRankById($user->id);
                     $this->db->updateToken($user->id, $token);
                     return array(
+                        'id'=>$user->id,
                         'token'=>$token,
                         'login'=>$login,
                         'nickname'=>$user->nickname,

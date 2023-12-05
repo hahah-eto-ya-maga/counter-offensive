@@ -2,12 +2,16 @@
 require_once("modules/DB.php");
 require_once("modules/User.php");
 require_once("modules/Chat.php");
+require_once("modules/Lobby.php");
+
 
 class Application
 {
 
     private $user;
     private $chat;
+    private $lobby;
+
     public $dbStatus;
 
     function __construct()
@@ -16,6 +20,7 @@ class Application
         $this->dbStatus = $db->dbStatus;
         $this->user = new User($db);
         $this->chat = new Chat($db);
+        $this->lobby = new Lobby($db);
     }
 
 
@@ -109,4 +114,33 @@ class Application
         }
         return array(false, 400);
     }
-} 
+
+    function setGamerRole($params){
+        $token = $params['token'] ?? false;
+        $role = $params['role'] ?? false;
+        $tankId = $params['tankId'] ?? false;
+ 
+        if($role && $token){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->setGamerRole($role, $user->id, $tankId); 
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+
+    function getLobby($params){
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if($token && $hash){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->getLobby($token, $user->id, $hash);
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+
+}
