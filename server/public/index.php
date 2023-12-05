@@ -12,16 +12,23 @@
             $app = new Application();
             if($app->dbStatus){
                 switch($method){
+                    // User
                     case 'registration': return $app->registration($params);
                     case 'login': return $app->login($params);
                     case 'logout': return $app->logout($params);
                     case 'tokenVerification': return $app->tokenVerification($params);
                     case 'updatePassword': return $app->updatePassword($params);
-                }
+                    // Chat
+                    case 'sendMessage': return $app->sendMessage($params);
+                    case 'getMessages': return $app->getMessages($params);
+                    // Lobby
+                    case "setGamerRole": return $app->setGamerRole($params);
+                    case "getLobby": return $app->getLobby($params);
+                } 
                 return array(false, 501);
             }
             return array(false, 503);
-            }
+        }
         return array(false, 405);
     }
 

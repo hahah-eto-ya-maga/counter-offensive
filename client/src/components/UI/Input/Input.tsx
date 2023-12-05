@@ -4,58 +4,56 @@ import cn from "classnames";
 
 import "./Input.css";
 
-type TType = "password" | "text" | "hidePassword";
+type TType = "password" | "text";
 
 interface IInputProps {
-  id: string;
-  text: string;
-  value: string;
-  onChange: (value: string) => void;
-  className?: string;
-  type?: TType;
+   id: string;
+   text: string;
+   value: string;
+   onChange: (value: string) => void;
+   className?: string;
+   type?: TType;
 }
 
 const Input: React.FC<IInputProps> = ({
-  text,
-  id,
-  className,
-  value,
-  type = "text",
-  onChange,
+   text,
+   id,
+   className,
+   type = "text",
+   onChange,
 }) => {
-  const [inputType, setInputType] = useState<TType>(type);
+   const [inputType, setInputType] = useState<TType>(type);
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
+   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+   };
 
-  const changeType = () => {
-    setInputType(inputType === "text" ? "password" : "text");
-  };
+   const changeType = () => {
+      setInputType(inputType === "text" ? "password" : "text");
+   };
 
-  return (
-    <div className="input_box">
-      <div className="input_text">
-        <span className="span_text">{text}</span>
-      </div>
+   return (
       <div className="input_wrapper">
-        <input
-          className={cn("input_value", className)}
-          id={id}
-          value={value}
-          onChange={onChangeHandler}
-          type={inputType === "text" ? "text" : "password"}
-        />
-        {type === "hidePassword" ? (
-          <div className="toggle_password" onClick={changeType}>
-            <Eye open={inputType === "text"} />
-          </div>
-        ) : (
-          <></>
-        )}
+         <input
+            id={id}
+            type={inputType}
+            onChange={onChangeHandler}
+            placeholder={text}
+            autoComplete="off"
+            className={cn("input_element", className, {
+               input_password: type === "password",
+            })}
+         />
+         {type === "password" && (
+            <div
+               onPointerDown={changeType}
+               className="eye"
+            >
+               <Eye open={inputType === "text"} />
+            </div>
+         )}
       </div>
-    </div>
-  );
+   );
 };
 
 export default Input;
