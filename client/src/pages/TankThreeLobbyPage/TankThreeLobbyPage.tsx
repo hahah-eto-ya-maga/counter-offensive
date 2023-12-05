@@ -2,8 +2,12 @@ import React from "react";
 import "./TankThreeLobbyPage.css"
 import { closeImg, tank2Img, tank3Img, generalImg, ellepsGreen, ellepsRed } from "./svgLobbyTank"; 
 import { Button, Logo } from "../../components"
+import LobbyPage from "../LobbyPage/LobbyPage";
 import cn from "classnames";
 const TankThreeLobbyPage: React.FC = ()=>{
+    const close = () => {
+        alert(1)
+    }
     return(
         <div>
             {/* <div id="tank_lobby_Page" className="tank_lobby_page">
@@ -14,7 +18,7 @@ const TankThreeLobbyPage: React.FC = ()=>{
             </div> */}
             <div className="window" id="window">
                 <div id="title_window" className="title_window">Трёхместныйместный танк 3 занято мест - 0/3</div>
-                <button className="test_button_cross" id="test_button_cross"><img src={closeImg} alt="test_button_cross" /></button>
+                <button className="test_button_cross" id="test_button_cross" onClick={() => close()}><img src={closeImg} alt="test_button_cross" /></button>
                 <button className="test_button_shooter_3" id="test_button_shooter_3" onClick={() => {}}> МехВод</button>
                 <button className="test_button_tank_driver_3" id="test_button_tank_driver_3"  onClick={() => {}}> Наводчик</button>
                 <button className="test_button_tank_commander" id="test_button_tank_commander" onClick={() => {}}> Командир </button>
