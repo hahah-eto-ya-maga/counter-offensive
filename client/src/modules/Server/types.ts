@@ -9,8 +9,14 @@ export interface IToken {
 }
 
 export interface IUserInfo {
-  gameCount: number;
-  scoreCount: number;
+  id: number;
+  login: string;
+  nickname: string;
+  token: string;
+  rank_name: string;
+  gamer_exp: number;
+  next_rang: number;
+  level: number;
 }
 
 export interface IMessage {
@@ -19,6 +25,7 @@ export interface IMessage {
   level: number;
   rank_name: ERank;
   sendTime: string;
+  userId: number;
 }
 
 export interface IMessages {
@@ -27,8 +34,8 @@ export interface IMessages {
 }
 
 export enum ERank {
-  Private='Private',
-  Sergeant='Sergeant',
-  Officer= 'Officer',
-  General='General',
+  Private = "Private",
+  Sergeant = "Sergeant",
+  Officer = "Officer",
+  General = "General",
 }

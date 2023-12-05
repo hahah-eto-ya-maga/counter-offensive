@@ -94,7 +94,7 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
             <div className="no_message">Пусто!</div>
           ) : (
             messages?.map((message, index) => (
-              <div key={index} className="message_author">
+              <div key={index} className={cn("message_author", {'message_author_user': server.STORE.user?.id === message.userId})}>
                 [{message.nickname}
                 <img
                   src={messageImage(message.rank_name)}

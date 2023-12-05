@@ -16,15 +16,6 @@ export default class Server {
     this.error = null;
   }
 
-  setToken(token: string | null): void {
-    this.STORE.token = token;
-    if (token) {
-      localStorage.setItem("token", token);
-      return;
-    }
-    localStorage.removeItem("token");
-  }
-
   async request<T>(method: string, params: any): Promise<T | null> {
     const { SERVER_ERROR } = this.mediator.getEventTypes();
     try {
@@ -51,19 +42,19 @@ export default class Server {
     login: string,
     nickname: string,
     password: string
-  ): Promise<IToken | null> {
+  ): Promise<IUserInfo | null> {
     const hash = SHA256(login + password).toString();
     return this.request("registration", { login, nickname, hash });
   }
 
-  login(login: string, password: string): Promise<IToken | null> {
+  login(login: string, password: string): Promise<IUserInfo | null> {
     const rnd = Math.random();
     const hash = SHA256(SHA256(login + password).toString() + rnd).toString();
     return this.request("login", { login, hash, rnd });
   }
 
   logout(): Promise<true | null> {
-    return this.request("logout", { token: this.STORE.token });
+    return this.request("logout", { token: this.STORE.user?.token });
   }
 
   tokenVerification(): Promise<true | null> {
@@ -79,19 +70,20 @@ export default class Server {
   updatePassword(login: string, newPassword: string): Promise<true | null> {
     const hash = SHA256(login + newPassword).toString();
     return this.request("updatePassword", {
-      token: this.STORE.token,
+      token: this.STORE.user?.token,
       hash,
     });
   }
 
   getMessages(): Promise<IMessages | true | null> {
     return this.request("getMessages", {
-      token: this.STORE.token,
+      token: this.STORE.user?.token,
       hash: this.STORE.chatHash,
     });
   }
 
   sendMessages(message: string): Promise<true | null> {
-    return this.request("sendMessage", { token: this.STORE.token, message });
+	console.log(this.STORE.user?.token)
+    return this.request("sendMessage", { token: this.STORE.user?.token, message });
   }
 }

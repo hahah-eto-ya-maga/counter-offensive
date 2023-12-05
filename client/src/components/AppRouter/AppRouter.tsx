@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import { Route, RouteProps, Routes, useNavigate } from "react-router-dom";
 import { MediatorContext, ServerContext } from "../../App";
 import { publicRoutes, privateRoutes } from "../../router";
-import { IError } from "../../modules/Server/types";
+import { IError, IUserInfo } from "../../modules/Server/types";
 import { ServerWarnings } from "../../interfaces";
 
 import "./AppRouter.css";
@@ -11,7 +11,7 @@ export const AppRouter: FC = () => {
    const server = useContext(ServerContext);
    const mediator = useContext(MediatorContext);
    const [routes, setRoutes] = useState<RouteProps[]>(
-      server.STORE.token ? privateRoutes : publicRoutes
+      server.STORE.user?.token ? privateRoutes : publicRoutes
    );
    const navigate = useNavigate();
    useEffect(() => {
@@ -36,9 +36,9 @@ export const AppRouter: FC = () => {
 
    useEffect(() => {
       const { TOKEN_UPDATE } = mediator.getTriggerTypes();
-      mediator.set(TOKEN_UPDATE, (token: string | null) => {
-         server.setToken(token);
-         setRoutes(token ? privateRoutes : publicRoutes);
+      mediator.set(TOKEN_UPDATE, (user: IUserInfo | null) => {
+         server.STORE.user = user;
+         setRoutes(server.STORE.user?.token ? privateRoutes : publicRoutes);
          navigate("/");
       });
    }, []);
