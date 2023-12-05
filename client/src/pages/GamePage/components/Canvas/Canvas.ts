@@ -151,6 +151,21 @@ export default class Canvas {
       this.contextTrace.closePath();
    }
 
+   grid() {
+      for (let i = 0; i <= this.WIN.left + this.WIN.width; i++) {
+          this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.3, '#c1c1c1');
+      }
+      for (let i = 0; i >= this.WIN.left; i--) {
+          this.line(i, this.WIN.bottom, i, this.WIN.bottom + this.WIN.height, 0.3, '#c1c1c1');
+      }
+      for (let i = 0; i <= this.WIN.bottom + this.WIN.height; i++) {
+          this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.3, '#c1c1c1');
+      }
+      for (let i = 0; i >= this.WIN.bottom; i--) {
+          this.line(this.WIN.left, i, this.WIN.left + this.WIN.width, i, 0.3, '#c1c1c1');
+      }
+  }
+
    areaVis(points: TPoint[], color: string): void {
          this.contextTrace.fillStyle = color;
          this.contextTrace.beginPath();
@@ -284,11 +299,11 @@ export default class Canvas {
          const ys = this.ys(dy);
          const transX = xs + dSize / 2;
          const transY = ys + dSize / 2;
-         this.contextV.save();
-         this.contextV.translate(transX, transY);
-         this.contextV.rotate(direction);
-         this.contextV.translate(-transX, -transY);
-         this.contextV.drawImage(
+         this.contextTrace.save();
+         this.contextTrace.translate(transX, transY);
+         this.contextTrace.rotate(direction);
+         this.contextTrace.translate(-transX, -transY);
+         this.contextTrace.drawImage(
             image,
             sx,
             sy,
@@ -299,7 +314,7 @@ export default class Canvas {
             dSize,
             dSize
          );
-         this.contextV.restore();
+         this.contextTrace.restore();
          return;
       }
       this.sprite(image, dx, dy, dSize, sx, sy, sSize);
@@ -315,7 +330,7 @@ export default class Canvas {
       sSize: number
  ) {
       if (dSize && sx >= 0 && sy >= 0 && sSize) {
-         this.context.drawImage(
+         this.contextV.drawImage(
             image,
             sx,
             sy,
@@ -329,10 +344,10 @@ export default class Canvas {
          return;
       }
       if (dSize) {
-         this.context.drawImage(image, this.xs(dx), this.ys(dy), dSize, dSize);
+         this.contextV.drawImage(image, this.xs(dx), this.ys(dy), dSize, dSize);
          return;
       }
-      this.context.drawImage(image, this.xs(dx), this.ys(dy));
+      this.contextV.drawImage(image, this.xs(dx), this.ys(dy));
    }
 
    trace (
@@ -388,24 +403,20 @@ export default class Canvas {
       let n = dx > -dy ? 10*dx : -10*dy;
       let err2;
       let error = dx + dy;
-      for (; n/10 > 0; n--) {
+      for (; n > 0; n--) {
          if (isVisiable) {
             this.contextTrace.beginPath();
             const pixel = this.contextTrace.getImageData(x1, y1, 1, 1);
 
-            if (isObject && pixel.data[0] !== 255) {
+            if (isObject && pixel.data[0] !== 255 && pixel.data[0] === 0 ) {
                isVisiable = false;
                isObject = false;
                this.areaVisible.push({x: x1, y: y1})
                return
             } else {
-               if (pixel.data[0] === 255) {
+               if (pixel.data[0] === 255 && pixel.data[1] === 0) {
                   isObject = true;
                }
-
-               this.contextTrace.fillStyle = "#eeef";
-               this.contextTrace.fillRect(x1, y1, 1, 1);
-
             }
             this.contextTrace.closePath();
          }

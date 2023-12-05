@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../../../modules/types/types";
 import useCanvas from "./hooks/useCanvas";
 import Collision from "./Collision/Collision";
-import { manAutomat, corpusTank, towerTank } from "../../../assets/svgs";
 import useSprites from "./hooks/useSprites";
+import "./GameCanvas.css"
 
 const GameCanvas: React.FC = () => {
 
@@ -35,23 +35,14 @@ const GameCanvas: React.FC = () => {
     const manProp: TPoint = {x: 1.4*man.r, y: man.r}
 
     const WIN = {
-        left: -8 * prop + tank.x,
-        bottom: -8 + tank.y,
-        width: 16 * prop,
-        height: 16,
+        left: -5 * prop + tank.x,
+        bottom: -5 + tank.y,
+        width: 10 * prop,
+        height: 10,
     };
 
-    const SPRITE_SIZE = height / WIN.height
-    const SIZE = height / WIN.height
-
-    const corpusTankImage = new Image()
-    corpusTankImage.src = corpusTank
-
-    const towerTankImage = new Image()
-    towerTankImage.src = towerTank
-
-    const manImage = new Image()
-    manImage.src = manAutomat   
+    const SPRITE_SIZE = width / WIN.width
+    const SIZE = height / WIN.height  
 
     const math = new MathGame({WIN})
     let angleOfMovement = Math.PI/2;
@@ -63,11 +54,10 @@ const GameCanvas: React.FC = () => {
     const speedInfantry = 1/18;
     let speedInfantryNow = speedInfantry
 
-    const blocksArray: TPoint[][] = [[{x:4, y: 6.5}, {x:4, y: 8}, {x:7, y: 8}, {x:7, y: 6.5}], [{x:4, y: 9}, {x:4, y: 10}, {x:5, y: 10}, {x:5, y: 9}], 
-        [{x:6, y: 9}, {x:6, y: 10}, {x:7, y: 10}, {x:7, y: 9}], 
-        [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],
+    const blocksArray: TPoint[][] = [[{x:4, y: 6}, {x:4, y: 8}, {x:8, y: 8}, {x:8, y: 6}],  
+        [{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],    //граница
         [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}]]
-    const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.3}, {x: 3.5, y: 6.5, r: 0.2}]
+    const circlesArray: TUnit[] = [{x: 8, y: 6, r: 0.4}, {x: 9, y: 5, r: 0.4}, {x: 3.5, y: 6.5, r: 0.4}]
     const deadTank: TUnit = {x: 7.5, y: 3, r: 0.5}
     
     let isCollition: boolean = false
@@ -125,8 +115,8 @@ const GameCanvas: React.FC = () => {
    };
 
    const mouseMove = (event: MouseEvent): void => {
-      cursorPosition.x = event.pageX - 13;
-      cursorPosition.y = event.pageY - 13;
+      cursorPosition.x = event.pageX;
+      cursorPosition.y = event.pageY;
    };
 
    const mouseUp = (event: MouseEvent): void => {
@@ -157,8 +147,8 @@ const GameCanvas: React.FC = () => {
             WIN.left += speedInfantryNow;
         } 
         
-        man.x = WIN.left + 8 * prop;
-        man.y = WIN.bottom + 8
+        man.x = WIN.left + 5 * prop;
+        man.y = WIN.bottom + 5
     }
 
     /* движение танка по карте*/
@@ -175,8 +165,8 @@ const GameCanvas: React.FC = () => {
             WIN.left -= vectorTank.x
         }
 
-      tank.x = WIN.left + 8 * prop;
-      tank.y = WIN.bottom + 8;
+      tank.x = WIN.left + 5 * prop;
+      tank.y = WIN.bottom + 5;
 
       if (keyPressed.ArrowLeft && keyPressed.ArrowDown) {
          angleOfMovement -= speedRotate;
@@ -196,20 +186,19 @@ const GameCanvas: React.FC = () => {
         let vector: TPoint = {x:1,y:0}
         vector.x = canvas.pxToX(cursorPosition.x)
         vector.y = canvas.pxToY(cursorPosition.y)
-        let toAngle = Math.atan2(vector.y, vector.x)
-        
-      //   canvas.rotateMan(manImage, manProp, toAngle)
-        canvas.circle(man)
+        const toAngle = Math.atan2(vector.y, vector.x)
+        canvas.point(cursorPosition.x, cursorPosition.y)
     }
 
     
     const [
         img,
         grass, 
-        walls, 
+        home, 
         stone, 
         bullet, 
-        tankI, 
+        tank2,
+        tank3, 
         boom
      ] = useSprites(SPRITE_SIZE, SIZE)
 
@@ -218,27 +207,39 @@ const GameCanvas: React.FC = () => {
       if (canvas) {
          canvas.clearRect();
             setShowFPS(FPS)
-            // canvas.grid()
 
-            canvas.spriteMap(img, 0, 12, grass[0], grass[1], grass[2], grass[3])
+            canvas.grid()
 
-            // canvas.drawStone(stoneImage, circlesArray[0], Math.PI)
-            // canvas.drawStone(stoneImage, circlesArray[1], Math.PI / 2)
-            // canvas.drawStone(stoneImage, circlesArray[2], 0)
+            canvas.spriteMap(img, 0, 5, grass[0], grass[1], grass[2], grass[3])
+            canvas.spriteMap(img, 5, 5, grass[0], grass[1], grass[2], grass[3])
+            canvas.spriteMap(img, 5, 10, grass[0], grass[1], grass[2], grass[3])
+            canvas.spriteMap(img, 0, 10, grass[0], grass[1], grass[2], grass[3])
+
+            blocksArray.forEach(block => {
+               canvas.spriteMap(img, block[1].x, block[1].y, home[0], home[1], home[2], home[3])
+            })
+
+            circlesArray.forEach(circle => {
+               canvas.spriteMap(img, circle.x - 0.5, circle.y + 0.5, stone[0], stone[1], stone[2], stone[3])
+            })
+
            
             if (unit === 'Tank') {
                 moveSceneTank(keyPressed) 
-               canvas.circle(tank, "blue")
+                canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
+                canvas.spriteDir(img, tank.x-0.5, tank.y+0.5, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
                 isCollition = collision.checkAllBlocksUnit(tank, deadTank, isCollition, true)
-               //  canvas.spriteDir(img, tank.x-0.5, tank.y+0.5, grass[0], grass[1], grass[2], grass[3], -angleOfMovement)
+                
+               
             } 
             if (unit === 'RPG' || unit === "Automat") {
                moveSceneInfantry(keyPressed)
                rotateGun()
+              
                isCollition = collision.checkAllBlocksUnit(man, deadTank, isCollition)
                
             }
-            canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
+            // canvas.trace(vectorTank, angleOfMovement, 60, blocksArray, circlesArray)
             canvas.render()
 
             canvas.printText(
@@ -256,10 +257,8 @@ const GameCanvas: React.FC = () => {
     }
 
 
-    return(<div>
-        <canvas id="canvas"></canvas>
-        <p>FPS: {FPS}</p>
-        </div>
+    return(
+         <canvas id="canvas"></canvas>
     )
 }
 
