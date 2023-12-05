@@ -3,6 +3,7 @@ import { Route, RouteProps, Routes, useNavigate } from "react-router-dom";
 import { MediatorContext, ServerContext } from "../../App";
 import { publicRoutes, privateRoutes } from "../../router";
 import { useErrorHandler } from "../../hooks/useErrorHandler";
+import { IUserInfo } from "../../modules/Server/interfaces";
 
 import "./AppRouter.css";
 
@@ -17,9 +18,11 @@ export const AppRouter: FC = () => {
 
    useEffect(() => {
       errorHandler();
+      console.log(123);
+      
       const { LOGIN, LOGOUT, AUTH_ERROR } = mediator.getTriggerTypes();
-      mediator.set(LOGIN, (token: string) => {
-         server.STORE.setToken(token);
+      mediator.set(LOGIN, (user: IUserInfo) => {
+         server.STORE.user = user;
          setRoutes(server.STORE.getToken() ? privateRoutes : publicRoutes);
          navigate("/");
       });
@@ -33,7 +36,7 @@ export const AppRouter: FC = () => {
       mediator.set(AUTH_ERROR, () => {
          mediator.get(LOGOUT);
       });
-   });
+   }, []);
    return (
       <Routes>
          {routes.map((route) => {

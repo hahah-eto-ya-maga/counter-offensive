@@ -1,10 +1,10 @@
 import { Mediator, Server } from "../../../modules";
-import { IToken } from "../../../modules/Server/interfaces";
+import {  IUserInfo } from "../../../modules/Server/interfaces";
 
 const useLoginValidator = (mediator: Mediator, server: Server) => {
    const { WARNING } = mediator.getTriggerTypes();
 
-   return async (login: string, password: string): Promise<false | IToken> => {
+   return async (login: string, password: string): Promise<false | IUserInfo> => {
       if (!login || !password) {
          mediator.get(WARNING, {
             message: "Заполните все поля",

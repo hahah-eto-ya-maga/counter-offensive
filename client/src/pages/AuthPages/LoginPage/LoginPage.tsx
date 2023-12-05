@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
       const pass = userData.password.trim();
       const res = await validate(login, pass);
       if (res) {
-         mediator.get(LOGIN, res.token);
+         mediator.get(LOGIN, res);
       }
    };
 

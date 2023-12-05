@@ -31,7 +31,7 @@ const RegistrationPage: FC = () => {
       const nick = userData.nickName?.trim();
       const res = await validator(login, pass, nick ?? "");
       if (res) {
-         mediator.get(LOGIN, res.token);
+         mediator.get(LOGIN, res);
       }
    };
 

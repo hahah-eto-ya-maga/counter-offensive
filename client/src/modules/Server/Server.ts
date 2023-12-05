@@ -3,7 +3,6 @@ import Mediator from "../Mediator/Mediator";
 import {
    IUserInfo,
    IError,
-   IToken,
    IMessages,
    EGamerRole,
    ILobbyState,
@@ -48,12 +47,12 @@ export default class Server {
       login: string,
       nickname: string,
       password: string
-   ): Promise<IToken | null> {
+   ): Promise<IUserInfo | null> {
       const hash = SHA256(login + password).toString();
       return this.request("registration", { login, nickname, hash });
    }
 
-   login(login: string, password: string): Promise<IToken | null> {
+   login(login: string, password: string): Promise<IUserInfo | null> {
       const rnd = Math.random();
       const hash = SHA256(SHA256(login + password).toString() + rnd).toString();
       return this.request("login", { login, hash, rnd });
@@ -90,7 +89,7 @@ export default class Server {
       tankId: number | null = null
    ): Promise<true | null> {
       return this.request("setGamerRole", {
-         token: this.STORE.token,
+         token: this.STORE.getToken(),
          role,
          tankId,
       });

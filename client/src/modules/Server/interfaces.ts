@@ -4,10 +4,6 @@ export interface IError {
    id?: string;
 }
 
-export interface IToken {
-   token: string;
-}
-
 export interface IUserInfo {
    gameCount: number;
    scoreCount: number;
@@ -86,4 +82,15 @@ export enum EGamerRole {
    middleTankGunner = "middleTankGunner",
    infantryRPG = "infantryRPG",
    infantry = "infantry",
+}
+
+export interface IUserInfo {
+   id: number;
+   login: string;
+   nickname: string;
+   token: string | null;
+   rank_name: string;
+   gamer_exp: number;
+   next_rang: number;
+   level: number;
 }

@@ -1,3 +1,5 @@
+import { IUserInfo } from "../Server/interfaces";
+
 export enum EHash {
    lobbyHash = "lobbyHash",
    bulletHash = "bulletHash",
@@ -14,7 +16,7 @@ interface IHash {
 
 export default class Store {
    hash: IHash;
-   token: string | null;
+   user: IUserInfo | null;
 
    constructor() {
       this.hash = {
@@ -23,7 +25,7 @@ export default class Store {
          gameHash: null,
          lobbyHash: null,
       };
-      this.token = null;
+      this.user = null;
    }
 
    getHash(type: EHash): string | null {
@@ -31,7 +33,7 @@ export default class Store {
    }
 
    getToken(): string | null {
-      return this.token;
+      return this.user ? this.user.token : null;
    }
 
    setHash(type: EHash, hash: string | null) {
@@ -39,6 +41,8 @@ export default class Store {
    }
 
    setToken(token: string | null) {
-      this.token = token;
+      if (this.user) {
+         this.user.token = token;
+      }
    }
 }

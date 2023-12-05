@@ -1,5 +1,5 @@
 import { Mediator, Server } from "../../../modules";
-import { IToken } from "../../../modules/Server/interfaces";
+import { IUserInfo } from "../../../modules/Server/interfaces";
 
 const useRegValidator = (mediator: Mediator, server: Server) => {
    const { WARNING } = mediator.getTriggerTypes();
@@ -68,7 +68,7 @@ const useRegValidator = (mediator: Mediator, server: Server) => {
       login: string,
       password: string,
       nick: string
-   ): Promise<false | IToken> => {
+   ): Promise<false | IUserInfo> => {
       if (!login || !password || !nick) {
          mediator.get(WARNING, {
             message: "Заполните все поля",

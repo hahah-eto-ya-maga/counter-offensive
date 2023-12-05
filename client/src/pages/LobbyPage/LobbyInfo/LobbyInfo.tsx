@@ -94,10 +94,6 @@ const Lobby: FC = () => {
                <>
                   <div className="lobby_dossier_block">
                      <Dossier
-                        nick="Алексей"
-                        rang="Сержант"
-                        exp={230}
-                        needExp={300}
                      />
                   </div>
                   <Button
