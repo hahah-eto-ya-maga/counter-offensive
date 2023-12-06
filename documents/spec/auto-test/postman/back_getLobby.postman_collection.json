@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "e1f038aa-b51b-4428-90e9-2c7d652b3e0e",
+		"name": "setGameRole",
+		"description": "# About this collection\n\nThis collection helps you set up contract tests to ensure that two separate systems are compatible and can communicate with one another.\n\n## **Using the collection**\n\n**Step 1:** Send the sample requests and view the response and test results.\n\n**Step 2:** Replace the sample request URLs with your desired API endpoints.\n\n**Step 3:** Customize the tests in the \"Tests\" tab if needed. Don't forget to save your changes.\n\n### Resources\n\n[Scripting in Postman](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/)\n\n[Test script examples](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/)\n\n[Postman Sandbox API reference](https://learning.postman.com/docs/sending-requests/grpc/postman-sandbox-api/#writing-assertions)\n\n[Using the Collection Runner](https://learning.postman.com/docs/collections/running-collections/intro-to-collection-runs/)\n\n[  \n](https://postman.postman.co/documentation/24552533-5bead607-0197-4e1d-87d4-3160bc7631c1?entity=&branch=&version=)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31389836"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/?method=registration&login=tester7&nickname=\"№;%:?*()&hash=134774cf5bf3538e7639484473af4577bf603f5bbc4bf74df9ce11f6c3992189",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "registration"
+						},
+						{
+							"key": "login",
+							"value": "tester7"
+						},
+						{
+							"key": "nickname",
+							"value": "\"№;%:?*()"
+						},
+						{
+							"key": "hash",
+							"value": "134774cf5bf3538e7639484473af4577bf603f5bbc4bf74df9ce11f6c3992189"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLobby",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Test for the impossibility of choosing an already occupied role in the tank\", function () {\r",
+							"    const getDataOccupied = pm.response.json();\r",
+							"    pm.expect(getDataOccupied.error.code).to.eql(238);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the impossibility of choosing a general (the player who wants to take the role of general has less experience than the player who currently holds this role)\", function () {\r",
+							"    const getDataOccupied = pm.response.json();\r",
+							"    pm.expect(getDataOccupied.error.code).to.eql(235);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the impossibility of selecting a tank with an incorrect number\", function () {\r",
+							"    const getDataOccupied = pm.response.json();\r",
+							"    pm.expect(getDataOccupied.error.code).to.eql(239);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking if it is impossible to take a role that is already occupied by another player\", function () {\r",
+							"    const getDataRole = pm.response.json();\r",
+							"    pm.expect(getDataRole.error.code).to.eql(237);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the impossibility of taking a role that is already occupied by you\", function () {\r",
+							"    const getDataOccupiedByYou = pm.response.json();\r",
+							"    pm.expect(getDataOccupiedByYou.error.code).to.eql(236);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the insufficient level to take the role\", function () {\r",
+							"    const getDataInsufficientLevel = pm.response.json();\r",
+							"    pm.expect(getDataInsufficientLevel.error.code).to.eql(234);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checking the number of a tank belonging to another type\", function () {\r",
+							"    const getDataAnotherTypeOfTank = pm.response.json();\r",
+							"    pm.expect(getDataAnotherTypeOfTank.error.code).to.eql(240);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Сhecking for the implementation of the role\", function () {\r",
+							"    const getDataAnotherTypeOfTank = pm.response.json();\r",
+							"    pm.expect(getDataAnotherTypeOfTank.error.code).to.eql(463);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verification of the user's existence (correctness of login data)\", function () {\r",
+							"    const getDataExistence = pm.response.json();\r",
+							"    pm.expect(getDataExistence.error.code).to.eql(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Сhecking to specify all required parameters\", function () {\r",
+							"    const getDataRequiredParameters = pm.response.json();\r",
+							"    pm.expect(getDataRequiredParameters.error.code).to.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/?method=setGamerRole&token=50e1c3d0ce39db0144e329b59ef862886028da1f8b5b6c0376425d7f80070a8f&tankId=%$$$&role=heavyTankMeh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "setGamerRole"
+						},
+						{
+							"key": "token",
+							"value": "50e1c3d0ce39db0144e329b59ef862886028da1f8b5b6c0376425d7f80070a8f"
+						},
+						{
+							"key": "tankId",
+							"value": "%$$$"
+						},
+						{
+							"key": "role",
+							"value": "heavyTankMeh"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://postman-echo.com"
+		}
+	]
+}
