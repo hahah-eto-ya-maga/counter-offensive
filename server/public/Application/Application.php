@@ -3,7 +3,7 @@ require_once("modules/DB.php");
 require_once("modules/User.php");
 require_once("modules/Chat.php");
 require_once("modules/Lobby.php");
-
+require_once("modules/Game.php");
 
 class Application
 {
@@ -11,6 +11,7 @@ class Application
     private $user;
     private $chat;
     private $lobby;
+    private $game;
 
     public $dbStatus;
 
@@ -21,6 +22,7 @@ class Application
         $this->user = new User($db);
         $this->chat = new Chat($db);
         $this->lobby = new Lobby($db);
+        $this->game = new Game($db);
     }
 
 
@@ -143,4 +145,30 @@ class Application
         return array(false, 400);
     }
 
+    function move($params){
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        if(is_float((float)$x) && is_float((float)$y) && $token){
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->move($user->id, $x,$y);
+            }
+            return array(false, 401);
+        }
+    return array(false, 400);
+    }
+
+    function rotate($params){
+        $token = $params['token'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if(is_float((float)$angle) && $token){
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->rotate($user->id,$angle);
+            }
+            return array(false, 401);
+        }
+    return array(false, 400);
+    }
 }
