@@ -15,15 +15,9 @@
                 "bannerman" => array(
                         "occupied" => false,
                     ),
-                "heavyTank" => array(
-                    "commander" => false,
-                    "mechanic" => false,
-                    "gunner" => false
-                    ),
-                "middleTank" => array(
-                    "gunner" => false,
-                    "mechanic" => false,
-                    ),
+                "commander" => false,
+                "mechanic" => false,
+                "gunner" => false,
                 "infantryRPG" => false
                 );
         }
@@ -91,14 +85,22 @@
                             break;
                     }
                 }
-                if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5)))
-                    array_push($result['heavyTank'], $heavyTank); 
+                if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5))){
                     if($heavyTank["Commander"] && $heavyTank["Gunner"] && 
-                    $heavyTank["Mechanic"]) $this->db->deleteTank($tankKey);
-                    
+                    $heavyTank["Mechanic"]){
+                        $this->db->deleteTank($tankKey);
+                        break;
+                    }
+                    array_push($result['heavyTank'], $heavyTank); 
+                }
+
                 else if(in_array($usersByTank[$tankKey][0]->person_id, array(6, 7))){
+                    if($middleTank["Gunner"] && $middleTank["Mechanic"]){
+                        $this->db->deleteTank($tankKey);
+                        break;
+                    }
                     array_push($result['middleTank'], $middleTank);
-                    if($middleTank["Gunner"] && $middleTank["Mechanic"]) $this->db->deleteTank($tankKey);
+
                 }                    
             }
             return $result;
@@ -124,20 +126,14 @@
                     case 1: 
                         $this->lobbyState['general']['available'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 3: 
-                        $this->lobbyState['heavyTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
+                    case 3 || 6: 
+                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 4: 
-                        $this->lobbyState['heavyTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
+                    case 4 || 7: 
+                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 5: 
                         $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;  
-                    case 6: 
-                        $this->lobbyState['middleTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;                   
-                    case 7: 
-                        $this->lobbyState['middleTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 9: 
                         $this->lobbyState['infantryRPG'] = $gamerRank->level >= $person->level ?  true : false;
@@ -231,7 +227,7 @@
             return array(false, 463);
         }
 
-        function getLobby($role, $userId, $oldHash){
+        function getLobby($userId, $oldHash){
             $hash = $this->db->getLobbyHash();       
             if ($hash->hashLobby !== $oldHash) {
                 $lobby = $this->db->getLobby();
@@ -240,7 +236,8 @@
                 $this->checkRoleOccupied($lobby);
                 $this->checkRoleAvailability($gamerRank, $persons);
                 $tanks = $this->checkTanks($userId);
-                return array("lobby" => $this->lobbyState,"tanks" => $tanks, "lobbyHash" => $hash->hashLobby);
+                $this->lobbyState['tanks'] = $tanks;
+                return array("lobby" => $this->lobbyState, "lobbyHash" => $hash->hashLobby);
             }
             return true;
         }
