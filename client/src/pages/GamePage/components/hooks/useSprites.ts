@@ -24,21 +24,25 @@ const getSpriteFromFrames = (frames: number[][]) => {
     }
 }
 
-function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number[], number[], number[], number[], number[], number[], number[], number[], number[], Function, Function, Function] {
+function useSprites( SPRITE_SIZE:number, SIZE:number): {img: HTMLImageElement, anim: Function[], static: number[][]} {
     const img = new Image();
     img.src = sprites;
 
-    const grass = [SPRITE_SIZE*5, SIZE*5, SIZE*0, SIZE*5]; 
-    const stone = [SPRITE_SIZE, SIZE * 4, SIZE * 2, SIZE];
+    const grass = [SPRITE_SIZE * 5, SIZE * 5, SIZE * 0, SIZE * 5]; 
+    const stone = [SPRITE_SIZE, SIZE * 3, SIZE * 2, SIZE];
+    const home = [SPRITE_SIZE * 3, SIZE * 0, SIZE * 0, SIZE * 3];
+    const wall = [SPRITE_SIZE, SIZE * 3, SIZE * 5, SIZE];
     const bullet = [SPRITE_SIZE, SIZE * 3, SIZE * 0, SIZE];
-    const home = [SPRITE_SIZE*4, SIZE * 0, SIZE * 3, SIZE*4];
 
-    const manRPG = [SPRITE_SIZE, SIZE * 4, SIZE * 3, SIZE];
-    const manAutomat = [SPRITE_SIZE, SIZE * 4, SIZE * 4, SIZE];
-    const manFlag = [SPRITE_SIZE, SIZE * 3, SIZE * 1, SIZE];
+    const manDead = [SPRITE_SIZE, SIZE * 4, SIZE * 0, SIZE];   
+    const manRPG = [SPRITE_SIZE - 1, SIZE * 4, SIZE * 1, SIZE - 1];   //баг
+    const manAutomat = [SPRITE_SIZE - 1, SIZE * 4, SIZE * 2, SIZE - 1];
+    const manFlag = [SPRITE_SIZE - 1, SIZE * 4, SIZE * 3, SIZE - 1]; 
 
-    const tank2 =   [SPRITE_SIZE*1.2, SIZE * 2, SIZE * 0, SIZE*1.2];
-    const tank3 =   [SPRITE_SIZE*1.3, SIZE * 0, SIZE * 0, SIZE*1.3];
+    const corpusTank2 = [SPRITE_SIZE * 2, SIZE * 0, SIZE * 6, SIZE * 2];
+    const corpusTank3 = [SPRITE_SIZE * 2, SIZE * 0, SIZE * 11, SIZE * 2];
+    const towerTank2 = [SPRITE_SIZE * 2, SIZE * 2, SIZE * 0, SIZE * 2];
+    const towerTank3 = [SPRITE_SIZE * 2, SIZE * 0, SIZE * 0, SIZE * 2];
     // [
     //     [SPRITE_SIZE, SIZE * 0, SIZE * 2, SIZE],
     //     [SPRITE_SIZE, SIZE * 1, SIZE * 2, SIZE],
@@ -59,7 +63,7 @@ function useSprites( SPRITE_SIZE:number, SIZE:number): [HTMLImageElement, number
         [SPRITE_SIZE, SIZE * 0, SIZE * 1, SIZE],
         [SPRITE_SIZE, SIZE * 1, SIZE * 1, SIZE],
     ]);
-    return [img, grass, home, stone, bullet, tank2, tank3, manAutomat, manRPG, manFlag, middleTank, heavyTank, boom];
+    return {img: img, anim: [middleTank, heavyTank, boom], static: [grass, home, wall, stone, bullet, corpusTank2, corpusTank3, manAutomat, manRPG, manFlag]};
 }
 
 export default useSprites;

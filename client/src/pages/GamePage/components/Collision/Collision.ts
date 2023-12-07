@@ -2,19 +2,22 @@ import { TPoint, TUnit, TWIN } from "../../../../modules/types/types"
 
 export interface ICollisionOptions {
     WIN: TWIN
-    blocksArray: TPoint[][]
-    circlesArray: TUnit[]
+    homes: TPoint[][]
+    walls: TPoint[][]
+    stones: TUnit[]
 }
 
 class Collision {
     WIN: TWIN
-    blocksArray: TPoint[][]
-    circlesArray: TUnit[]
+    homes: TPoint[][]
+    walls: TPoint[][]
+    stones: TUnit[]
     constructor (options: ICollisionOptions) {
-        const {WIN, blocksArray, circlesArray} = options
+        const {WIN, homes, walls, stones} = options
         this.WIN = WIN;
-        this.blocksArray = blocksArray;
-        this.circlesArray = circlesArray
+        this.homes = homes;
+        this.walls = walls;
+        this.stones = stones
     }
     
     collisionBlockUnit (block: TPoint[], unit: TUnit): boolean {
@@ -102,7 +105,7 @@ class Collision {
 
     checkAllBlocksUnit (unit: TUnit, deadTank: TUnit, collision: boolean, isTank?: boolean): boolean {
         let flagCollision = false
-        this.blocksArray.forEach((block) => {
+        this.homes.forEach((block) => {
             if ((block[0].x >= Math.floor(unit.x - 2) && block[2].x <= Math.ceil(unit.x + 2) && block[0].y <=  Math.ceil(unit.y)  && block[2].y >= Math.floor(unit.y)) || 
             (block[0].y >= Math.floor(unit.y - 2) && block[2].y <=  Math.ceil(unit.y + 2) && block[0].x <= Math.ceil(unit.x) && block[2].x >= Math.floor(unit.x))) {
                 flagCollision = this.collisionBlockUnit(block, unit) || flagCollision
@@ -110,7 +113,15 @@ class Collision {
             this.collisionBlockDeadUnit(block, deadTank)
         })
 
-        this.circlesArray.forEach((circle) => {
+        this.walls.forEach((block) => {
+            if ((block[0].x >= Math.floor(unit.x - 2) && block[2].x <= Math.ceil(unit.x + 2) && block[0].y <=  Math.ceil(unit.y)  && block[2].y >= Math.floor(unit.y)) || 
+            (block[0].y >= Math.floor(unit.y - 2) && block[2].y <=  Math.ceil(unit.y + 2) && block[0].x <= Math.ceil(unit.x) && block[2].x >= Math.floor(unit.x))) {
+                flagCollision = this.collisionBlockUnit(block, unit) || flagCollision
+            }
+            this.collisionBlockDeadUnit(block, deadTank)
+        })
+
+        this.stones.forEach((circle) => {
             flagCollision = this.collisionCircleUnit(circle, unit) || flagCollision
             this.collisionCircleDeadUnit(circle, deadTank)
         })
