@@ -26,7 +26,7 @@ const GameCanvas: React.FC = () => {
 
     const keyPressed: TKeyboard = {}
 
-    let unit: TUnit = {x: 5, y: 4, r:0.5}
+    let unit: TUnit = {x: 5, y: 6, r:0.5}
 
     const WIN = {
         left: -5 * prop + unit.x,
@@ -235,19 +235,18 @@ const GameCanvas: React.FC = () => {
 
            
             if (role === 'Tank2') {
-               unit = {x: 5, y: 4, r:0.54}
+               unit = {x: -0.5, y: 4, r:0.54}
                 moveSceneTank(keyPressed) 
                //  canvas.trace(vectorTank, angleOfMovement, 60, homes, stones)
                 canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
                 isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition, true)
             } 
             if (role === 'Tank3') {
-               unit = {x: 5, y: 4, r:0.61}
+               unit = {x: -0.5, y: 4, r:0.61}
                moveSceneTank(keyPressed) 
                // canvas.trace(vectorTank, angleOfMovement, 60, homes, stones)
                canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank3[0], tank3[1], tank3[2], tank3[3], -angleOfMovement)
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition, true)
-               //  canvas.circle(unit)
            } 
             if (role === 'RPG') {
                unit = {x: 5, y: 4, r:0.2}

@@ -52,8 +52,15 @@ export default class Canvas {
          keydown(event)
       );
       window.addEventListener("keyup", (event: KeyboardEvent) => keyup(event));
+
       window.addEventListener("mousemove", (event: MouseEvent) =>
          mousemove(event)
+      );
+
+      window.addEventListener("contextmenu", (event: Event) => {
+            event.preventDefault()
+         },
+         false
       );
 
       this.WIN = WIN;
@@ -177,82 +184,6 @@ export default class Canvas {
          this.contextTrace.fill();
          this.contextTrace.closePath();
    }
-
-   /*  drawHouse(house: HTMLImageElement, points: TPoint[]): void {
-      this.contextV.drawImage(
-         house,
-         this.xs(points[1].x),
-         this.ys(points[1].y),
-         this.xs(points[2].x) - this.xs(points[0].x),
-         this.ys(points[0].y) - this.ys(points[2].y + 0.1)
-      );
-   }
-
-   drawGrass(grass: HTMLImageElement, points: TPoint[]): void {
-      this.context.drawImage(
-         grass,
-         this.xs(points[1].x),
-         this.ys(points[1].y),
-         this.xs(points[2].x) - this.xs(points[0].x),
-         this.ys(points[0].y) - this.ys(points[2].y)
-      );
-   }
-
-   drawStone(stone: HTMLImageElement, circle: any, angle: number): void {
-      this.context.drawImage(
-         stone,
-         this.xs(circle.x - circle.r) - 7,
-         this.ys(circle.y + circle.r) - 5,
-         this.xs(circle.x + circle.r) - this.xs(circle.x - circle.r) + 8,
-         this.ys(circle.y - circle.r) - this.ys(circle.y + circle.r) + 7
-      );
-   }
-
-   rotateTank(tank: HTMLImageElement, tankProp: TPoint, angle: number): void {
-      this.context.save();
-      this.context.translate(this.notxs(0), this.notys(0));
-      this.context.rotate(-angle - Math.PI);
-      this.context.drawImage(
-         tank,
-         (-tankProp.x * this.canvas.width) / this.WIN.width,
-         (-tankProp.y * this.canvas.height) / this.WIN.height,
-         (2 * tankProp.x * this.canvas.width) / this.WIN.width,
-         (2 * tankProp.y * this.canvas.height) / this.WIN.height
-      );
-      this.context.restore();
-   }
-
-   rotateTower(
-      tower: HTMLImageElement,
-      towerProp: TPoint,
-      angle: number
-   ): void {
-      this.context.save();
-      this.context.translate(this.notxs(0), this.notys(0));
-      this.context.rotate(-angle + Math.PI);
-      this.context.drawImage(
-         tower,
-         (-1.5 * towerProp.x * this.canvas.width) / this.WIN.width,
-         (-towerProp.y * this.canvas.height) / this.WIN.height,
-         (2 * towerProp.x * this.canvas.width) / this.WIN.width,
-         (2 * towerProp.y * this.canvas.height) / this.WIN.height
-      );
-      this.context.restore();
-   }
-
-   rotateMan(man: HTMLImageElement, manProp: TPoint, angle: number): void {
-      this.context.save();
-      this.context.translate(this.notxs(0), this.notys(0));
-      this.context.rotate(-angle - Math.PI);
-      this.context.drawImage(
-         man,
-         (-1.8 * manProp.x * this.canvas.width) / this.WIN.width,
-         (-1.2 * manProp.y * this.canvas.height) / this.WIN.height,
-         (2.8 * manProp.x * this.canvas.width) / this.WIN.width,
-         (2.8 * manProp.y * this.canvas.height) / this.WIN.height
-      );
-      this.context.restore();
-   } */
 
    sprite(
       image: HTMLImageElement,

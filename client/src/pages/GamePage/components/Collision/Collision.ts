@@ -26,11 +26,12 @@ class Collision {
         let nearY = Math.max(block[0].y, Math.min(unit.y, block[2].y));
         const nearVector: TPoint = {x: nearX - unit.x, y: nearY - unit.y}
         let lengthVector = nearVector.x * nearVector.x + nearVector.y * nearVector.y
+        if (lengthVector === 0) lengthVector = 0.00001
         if (lengthVector < unit.r * unit.r) {
             lengthVector = Math.sqrt(lengthVector)
             let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
             let overlap = unit.r - lengthVector
-            if (overlap == unit.r) overlap = 0
+            if (overlap === unit.r) overlap = 0
             this.WIN.left -= overlap * direction.x
             this.WIN.bottom -= overlap * direction.y
             return collition = true
@@ -44,11 +45,12 @@ class Collision {
         let nearY = Math.max(block[0].y, Math.min(deadTank.y, block[2].y));
         const nearVector: TPoint = {x: nearX - deadTank.x, y: nearY - deadTank.y}
         let lengthVector = nearVector.x * nearVector.x + nearVector.y * nearVector.y
+        if (lengthVector === 0) lengthVector = 0.00001
         if (lengthVector < deadTank.r * deadTank.r) {
             lengthVector = Math.sqrt(lengthVector)
             let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
             let overlap = deadTank.r - lengthVector
-            if (overlap == deadTank.r) overlap = 0
+            if (overlap === deadTank.r) overlap = 0
             deadTank.x -= overlap * direction.x
             deadTank.y -= overlap * direction.y
             return collition = true
@@ -60,9 +62,10 @@ class Collision {
         let collition: boolean
         const nearVector: TPoint = {x: circle.x - unit.x, y: circle.y - unit.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
+        if (lengthVector === 0) lengthVector = 0.00001
         let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
         let overlap = unit.r + circle.r - lengthVector
-        if (overlap == unit.r) overlap = 0
+        if (overlap === unit.r) overlap = 0
         if (overlap > 0) {
             this.WIN.left -= overlap * direction.x
             this.WIN.bottom -= overlap * direction.y
@@ -75,9 +78,10 @@ class Collision {
         let collition: boolean
         const nearVector: TPoint = {x: circle.x - deadTank.x, y: circle.y - deadTank.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
+        if (lengthVector === 0) lengthVector = 0.00001
         let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
         let overlap = deadTank.r + circle.r - lengthVector
-        if (overlap == deadTank.r) overlap = 0
+        if (overlap === deadTank.r) overlap = 0
         if (overlap > 0) {
             deadTank.x -= overlap * direction.x
             deadTank.y -= overlap * direction.y
@@ -90,9 +94,10 @@ class Collision {
         let collition: boolean
         const nearVector: TPoint = {x: deadUnit.x - unit.x, y: deadUnit.y - unit.y}
         let lengthVector = Math.sqrt(nearVector.x * nearVector.x + nearVector.y * nearVector.y)
+        if (lengthVector === 0) lengthVector = 0.00001
         let direction = {x: nearVector.x/lengthVector, y: nearVector.y/lengthVector}
         let overlap = 0.5 * (unit.r + deadUnit.r - lengthVector)
-        if (overlap == unit.r) overlap = 0
+        if (overlap === unit.r) overlap = 0
         if (overlap > 0) {
             this.WIN.left -=  overlap * direction.x
             this.WIN.bottom -= overlap * direction.y
