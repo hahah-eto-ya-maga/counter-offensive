@@ -100,8 +100,12 @@ INSERT INTO gamers(user_id,experience) VALUES
 
 /* Значения по умолчанию в таблице game*/
 
-INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby) VALUES ("1", "1", "1", "1", "1");
+INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby, hashGamers, hashMobs, hashMap, hashBodies) VALUES ("1", "1", "1", "1", "1", "1", "1", "1", "1");
 
+hashGamers
+hashMobs
+hashMap
+hashBodies
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO ranks (id, name, experience) VALUES 

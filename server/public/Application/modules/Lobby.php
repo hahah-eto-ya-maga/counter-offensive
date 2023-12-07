@@ -108,14 +108,20 @@ require_once('BaseModule.php');
                     case 1: 
                         $this->lobbyState['general']['available'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 3 || 6: 
+                    case 3: 
                         $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 4 || 7: 
+                    case 4: 
                         $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 5: 
-                        $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['commander'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;  
+                    case 6: 
+                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
+                        break;                   
+                    case 7: 
+                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 9: 
                         $this->lobbyState['infantryRPG'] = $gamerRank->level >= $person->level ?  true : false;
@@ -210,7 +216,7 @@ require_once('BaseModule.php');
         }
 
         function getLobby($userId, $oldHash){
-            $hash = $this->db->getLobbyHash();       
+            $hash = $this->db->getHashes();       
             if ($hash->hashLobby !== $oldHash) {
                 $lobby = $this->db->getLobby();
                 $gamerRank = $this->db->getRankById($userId);
