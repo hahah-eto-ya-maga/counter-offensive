@@ -1,7 +1,7 @@
 // dev
 
 /* const PORT = 81;
-const DOMAIN = 'http://counter-nastup'; */
+const DOMAIN = 'http://counter-offen'; */
 
 //prod
 
@@ -19,6 +19,5 @@ export const MEDIATOR = {
       LOGIN: "LOGIN",
       LOGOUT: "LOGOUT",
       AUTH_ERROR: "AUTH_ERROR",
-      SWITCH_TANK_LOBBY: "SWITCH_TANK_LOBBY",
    },
 };

@@ -1,16 +1,9 @@
-import {
-   FunctionComponent,
-   createContext,
-   useContext,
-   useEffect,
-   useState,
-} from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import cn from "classnames";
-import { ILobbyState } from "../../modules/Server/interfaces";
+import { EGamerRole, ILobby } from "../../modules/Server/interfaces";
 import { Button, Logo } from "..";
-import { General } from "../Lobby";
-import { tank2, tank3 } from "../../assets/png";
+import { tank2, tank3, general } from "../../assets/png";
 
 import { MediatorContext, ServerContext } from "../../App";
 import { EHash } from "../../modules/Store/Store";
@@ -21,91 +14,96 @@ export enum ETank {
    middle,
 }
 
-export const lobbyContext = createContext<ILobbyState>(null!);
-
-export const withLayout = <T extends Record<string, unknown>>(
-   Component: FunctionComponent<T>
+export const withLayout = (
+   Component: FunctionComponent<{ lobby: ILobby | null }>
 ) => {
-   return (props: T): JSX.Element => {
-      const [lobby, setLobby] = useState<ILobbyState>(null!);
-      const [tankOpen, setTankOpen] = useState<ETank | null>(null);
+   return (): JSX.Element => {
+      const [lobby, setLobby] = useState<ILobby | null>(null);
 
       const mediator = useContext(MediatorContext);
       const server = useContext(ServerContext);
       const navigate = useNavigate();
       const location = useLocation();
 
-      const { SWITCH_TANK_LOBBY } = mediator.getTriggerTypes();
+      const { LOBBY_UPDATE } = mediator.getEventTypes();
+
+      const path = location.pathname.split("/")[1];
 
       useEffect(() => {
          const interval = setInterval(async () => {
             const res = await server.getLobby();
             if (res && res !== true) {
                server.STORE.setHash(EHash.lobbyHash, res.lobbyHash);
-               setLobby(res);
+               setLobby(res.lobby);
+               lobby && mediator.call(LOBBY_UPDATE, lobby);
             }
-         }, 200);
+         }, 100);
          return () => {
             server.STORE.setHash(EHash.lobbyHash, null);
             clearInterval(interval);
          };
       }, []);
 
-      useEffect(() => {
-         const savedTankOpen = location.state?.tank;
+      const onClickTankLobbyHandler = (switchTo: ETank): void => {
+         const replace: boolean =
+            path === "heavy_tanks" || path === "middle_tanks";
 
-         if (savedTankOpen) {
-            setTankOpen(savedTankOpen);
+         switch (switchTo) {
+            case ETank.heavy: {
+               return navigate("/heavy_tanks", { replace });
+            }
+            case ETank.middle: {
+               return navigate("/middle_tanks", { replace });
+            }
          }
-      }, [location.state]);
+      };
 
-      const onClickTankHandler = (switchTo: ETank): void => {
-         setTankOpen(switchTo);
-         mediator.get(SWITCH_TANK_LOBBY);
-         navigate("/tanks", {
-            state: {
-               tank: switchTo,
-            },
-            replace: tankOpen !== null,
-         });
+      const setGeneralHandler = async () => {
+         const res = await server.setGamerRole(EGamerRole.general);
       };
 
       return (
-         <lobbyContext.Provider value={lobby}>
-            <div className="lobby_wrapper">
-               <Logo />
-               <div className="lobby_block">
-                  <div className={cn("lobby_units_block", "lobby_main_units")}>
-                     <General />
-                     {
-                        <Button
-                           id="test_button_2tank"
-                           className={cn("units_item", {
-                              tank_selected: tankOpen === ETank.middle,
-                           })}
-                           appearance="image"
-                           onClick={() => onClickTankHandler(ETank.middle)}
-                        >
-                           Двухместный танк
-                           <img src={tank2} alt="Tank_2" />
-                        </Button>
-                     }
-                     <Button
-                        id="test_button_3tank"
-                        className={cn("units_item", {
-                           tank_selected: tankOpen === ETank.heavy,
-                        })}
-                        appearance="image"
-                        onClick={() => onClickTankHandler(ETank.heavy)}
-                     >
-                        Трёхместный танк
-                        <img src={tank3} alt="Tank_3" />
-                     </Button>
-                  </div>
-                  <Component {...props} />
+         <div className="lobby_wrapper">
+            <Logo />
+            <div className="lobby_block">
+               <div className={cn("lobby_units_block", "lobby_main_units")}>
+                  <Button
+                     id="test_button_general"
+                     className={cn("general units_item", {
+                        selected_role: lobby?.general.occupied,
+                     })}
+                     appearance="image"
+                     onClick={setGeneralHandler}
+                  >
+                     Генерал
+                     <img src={general} alt="General" />
+                  </Button>
+                  <Button
+                     id="test_button_2tank"
+                     className={cn("units_item", {
+                        tank_selected: path === "middle_tanks",
+                     })}
+                     appearance="image"
+                     onClick={() => onClickTankLobbyHandler(ETank.middle)}
+                  >
+                     Двухместный танк
+                     <img src={tank2} alt="Tank_2" />
+                  </Button>
+                  <Button
+                     id="test_button_3tank"
+                     className={cn("units_item", {
+                        tank_selected: path === "heavy_tanks",
+                     })}
+                     appearance="image"
+                     onClick={() => onClickTankLobbyHandler(ETank.heavy)}
+                  >
+                     Трёхместный танк
+                     <img src={tank3} alt="Tank_3" />
+                  </Button>
                </div>
+               <Component lobby={lobby} />
             </div>
-         </lobbyContext.Provider>
+         </div>
       );
    };
 };

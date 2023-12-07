@@ -1,13 +1,31 @@
 import { FC, useContext } from "react";
 import { ServerContext } from "../../App";
 import { Button } from "../UI";
-import { IUserInfo } from "../../modules/Server/interfaces";
+import { ERank, IUserInfo } from "../../modules/Server/interfaces";
 import "./Dossier.css";
 
 export const Dossier: FC = () => {
    const server = useContext(ServerContext);
    const { nickname, rank_name, gamer_exp, next_rang } = server.STORE
       .user as IUserInfo;
+
+   const rank = (rankName: ERank) => {
+      switch (rankName) {
+         case ERank.General: {
+            return "Генерал";
+         }
+         case ERank.Officer: {
+            return "Офицер";
+         }
+         case ERank.Private: {
+            return "Рядовой";
+         }
+         case ERank.Sergeant: {
+            return "Сержант";
+         }
+      }
+   };
+
    return (
       <div className="dossier">
          <div className="dossier_user">
@@ -16,7 +34,7 @@ export const Dossier: FC = () => {
             </div>
             <div className="dossier_info">
                <p className="user_name">{nickname}</p>
-               <p className="user_rang">{rank_name}</p>
+               <p className="user_rang">{rank(rank_name)}</p>
             </div>
             <Button
                id="test_button_showcaseOfAchievements"

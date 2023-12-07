@@ -38,6 +38,10 @@
    height: 80px;
 }
 
+.flag img {
+   width: 40%;
+}
+
 @media (max-width: 1500px) {
    .chat_block,
    .chat_btn {

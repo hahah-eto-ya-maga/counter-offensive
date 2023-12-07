@@ -12,4 +12,5 @@ export {
    RegistrationPage,
    ErrorPage,
 };
-export { LobbyInfo, TankLobby } from "./LobbyPage";
+
+export * from "./LobbyPage";

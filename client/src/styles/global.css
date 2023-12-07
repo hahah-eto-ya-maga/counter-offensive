@@ -2,6 +2,11 @@
    margin: 0;
 }
 
+a {
+   text-decoration: none;
+   color: inherit;
+}
+
 body {
    background: linear-gradient(
       180deg,
@@ -25,9 +30,7 @@ body {
    --dark-green: #a3d7b5;
    --light-green: #85ba65;
    --red: #f00;
-   --gray-hover: #ffffff;
 }
-
 
 .disabled {
    display: none;

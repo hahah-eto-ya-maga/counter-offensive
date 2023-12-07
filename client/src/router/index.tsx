@@ -5,13 +5,15 @@ import {
    LobbyInfo,
    LoginPage,
    RegistrationPage,
-   TankLobby,
+   HeavyTankLobby,
+   MiddleTankLobby,
+   HeavyTankDetail,
+   MiddleTankDetail,
 } from "../pages";
 
 export const publicRoutes: RouteProps[] = [
    {
       path: "/",
-      // element: <LobbyPage />,
       element: <LoginPage />,
    },
    {
@@ -42,8 +44,20 @@ export const privateRoutes: RouteProps[] = [
       element: <LobbyInfo />,
    },
    {
-      path: "/tanks",
-      element: <TankLobby />,
+      path: "/heavy_tanks",
+      element: <HeavyTankLobby />,
+   },
+   {
+      path: "/middle_tanks",
+      element: <MiddleTankLobby />,
+   },
+   {
+      path: "/heavy_tanks/:id",
+      element: <HeavyTankDetail />,
+   },
+   {
+      path: "/middle_tanks/:id",
+      element: <MiddleTankDetail />,
    },
    {
       path: "/game",

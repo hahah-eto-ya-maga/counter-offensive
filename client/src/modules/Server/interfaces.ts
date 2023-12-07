@@ -4,11 +4,6 @@ export interface IError {
    id?: string;
 }
 
-export interface IUserInfo {
-   gameCount: number;
-   scoreCount: number;
-}
-
 export interface IMessage {
    nickname: string;
    text: string;
@@ -20,13 +15,6 @@ export interface IMessage {
 export interface IMessages {
    chatHash: string;
    messages: IMessage[];
-}
-
-export enum ERank {
-   Private = "Private",
-   Sergeant = "Sergeant",
-   Officer = "Officer",
-   General = "General",
 }
 
 export interface IMiddleTank {
@@ -60,16 +48,28 @@ export interface ILobby {
       mechanic: boolean;
    };
 
+   tanks: {
+      heavyTank: IHeavyTank[];
+      middleTank: IMiddleTank[];
+   };
+
    infantryRPG: boolean;
 }
 
 export interface ILobbyState {
    lobby: ILobby;
-   tanks: {
-      heavyTank: IHeavyTank[];
-      middleTank: IMiddleTank[];
-   };
    lobbyHash: string;
+}
+
+export interface IUserInfo {
+   id: number;
+   login: string;
+   nickname: string;
+   token: string | null;
+   rank_name: ERank;
+   gamer_exp: number;
+   next_rang: number;
+   level: number;
 }
 
 export enum EGamerRole {
@@ -84,13 +84,9 @@ export enum EGamerRole {
    infantry = "infantry",
 }
 
-export interface IUserInfo {
-   id: number;
-   login: string;
-   nickname: string;
-   token: string | null;
-   rank_name: string;
-   gamer_exp: number;
-   next_rang: number;
-   level: number;
+export enum ERank {
+   Private = "Private",
+   Sergeant = "Sergeant",
+   Officer = "Officer",
+   General = "General",
 }

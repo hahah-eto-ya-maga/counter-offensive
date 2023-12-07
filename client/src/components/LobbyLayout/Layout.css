@@ -29,6 +29,7 @@
 }
 
 .units_item {
+   background-color: var(--gray);
    height: 200px;
    display: flex;
    justify-content: center;
@@ -37,10 +38,29 @@
    width: 100%;
 }
 
+.units_item:hover {
+   background-color: #fff;
+}
+
 .tank_selected {
    background-color: #b48686;
 }
 
 .tank_selected:hover {
-   background-color:#b48686;
+   background-color: #b48686;
+}
+
+.general.image img {
+   mix-blend-mode: normal;
+   width: 50%;
+}
+
+.selected_role {
+   transition: all 0;
+   pointer-events: none;
+   background-color: #989898;
+}
+
+.selected_role:hover {
+   background-color: #989898;
 }

@@ -2,13 +2,11 @@ import { FC, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import cn from "classnames";
 import { MediatorContext, ServerContext } from "../../../App";
-import { Button, Chat, FlagBearer, Dossier } from "../../../components";
-import { automat, chatIcon, RPG } from "../../../assets/png";
+import { EGamerRole, ILobby } from "../../../modules/Server/interfaces";
+import { Button, Chat, Dossier } from "../../../components";
+import { automat, chatIcon, RPG, flag } from "../../../assets/png";
 
-import {
-   lobbyContext,
-   withLayout,
-} from "../../../components/LobbyLayout/Layout";
+import { withLayout } from "../../../components/LobbyLayout/Layout";
 
 import "./LobbyInfo.css";
 
@@ -17,13 +15,30 @@ enum EOpen {
    info,
 }
 
-const Lobby: FC = () => {
+const LobbyInfo: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
    const [isOpen, setIsOpen] = useState<EOpen>(EOpen.info);
    const mediator = useContext(MediatorContext);
    const server = useContext(ServerContext);
-   const lobby = useContext(lobbyContext);
 
    const navigate = useNavigate();
+
+   const setRoleHandler = async (role: EGamerRole) => {
+      const res = server.setGamerRole(role);
+
+      // временный переход в игру
+      role === EGamerRole.infantry &&
+         navigate("/game", {
+            state: {
+               userRole: "Automat",
+            },
+         });
+      role === EGamerRole.infantryRPG &&
+         navigate("/game", {
+            state: {
+               userRole: "RPG",
+            },
+         });
+   };
 
    const logoutHandler = async () => {
       const { LOGOUT } = mediator.getTriggerTypes();
@@ -45,18 +60,22 @@ const Lobby: FC = () => {
    return (
       <>
          <div className={cn("lobby_units_block", "lobby_other_units")}>
-            <FlagBearer />
+            <Button
+               id="test_button_standartBearer"
+               className={cn("units_item", "flag", {
+                  selected_role: lobby?.bannerman.occupied,
+               })}
+               appearance="image"
+               onClick={() => setRoleHandler(EGamerRole.bannerman)}
+            >
+               Знаменосец
+               <img src={flag} alt="Flag" />
+            </Button>
             <Button
                id="test_button_infantrymanRPG"
                className="units_item"
                appearance="image"
-               onClick={() => {
-                  navigate("/game", {
-                     state: {
-                        userRole: "RPG",
-                     },
-                  });
-               }}
+               onClick={() => setRoleHandler(EGamerRole.infantryRPG)}
             >
                Пехотинец с гранотомётом
                <img src={RPG} alt="RPG" />
@@ -65,13 +84,7 @@ const Lobby: FC = () => {
                id="test_button_infantrymanGun"
                className="units_item"
                appearance="image"
-               onClick={() => {
-                  navigate("/game", {
-                     state: {
-                        userRole: "Automat",
-                     },
-                  });
-               }}
+               onClick={() => setRoleHandler(EGamerRole.infantry)}
             >
                Пехотинец-автоматчик
                <img src={automat} alt="Automat" />
@@ -80,7 +93,7 @@ const Lobby: FC = () => {
          <div className={cn("lobby_info")}>
             <button
                className="chat_block"
-               id="test-button-openCloseCchat"
+               id="test-button-openCloseChat"
                onClick={handleChat}
             >
                <img src={chatIcon} alt="chat_icon" />
@@ -93,8 +106,7 @@ const Lobby: FC = () => {
             ) : (
                <>
                   <div className="lobby_dossier_block">
-                     <Dossier
-                     />
+                     <Dossier />
                   </div>
                   <Button
                      id="test-button-goToMenu"
@@ -111,4 +123,4 @@ const Lobby: FC = () => {
    );
 };
 
-export const LobbyInfo = withLayout(Lobby);
+export default withLayout(LobbyInfo);
