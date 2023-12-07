@@ -1,4 +1,4 @@
-import { sprites } from "../../../../assets/pngs";
+import { sprites } from "../../../../assets/png";
 
 const getSpriteFromFrames = (frames: number[][]) => {
     let i = 0;

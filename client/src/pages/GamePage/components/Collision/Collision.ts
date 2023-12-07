@@ -1,4 +1,4 @@
-import { TPoint, TUnit, TWIN } from "../../../../modules/types/types"
+import { TPoint, TUnit, TWIN } from "../../types/types"
 
 export interface ICollisionOptions {
     WIN: TWIN

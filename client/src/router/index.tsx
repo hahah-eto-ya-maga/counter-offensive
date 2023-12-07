@@ -1,10 +1,10 @@
 import { RouteProps } from "react-router-dom";
 import {
-   ErrorPage,
-   GamePage,
-   LobbyPage,
-   LoginPage,
-   RegistrationPage,
+  ErrorPage,
+  GamePage,
+  LobbyPage,
+  LoginPage,
+  RegistrationPage,
 } from "../pages";
 
 export const publicRoutes: RouteProps[] = [
@@ -28,14 +28,6 @@ export const publicRoutes: RouteProps[] = [
       path: "*",
       Component: ErrorPage,
    },
-   {
-      path: "/lobby",
-      Component: LobbyPage,
-   },
-   {
-      path: "/game",
-      Component: GamePage,
-   },
 ];
 
 export const privateRoutes: RouteProps[] = [
@@ -50,5 +42,13 @@ export const privateRoutes: RouteProps[] = [
    {
       path: "/",
       Component: LobbyPage,
+   },
+   {
+      path: "/lobby",
+      Component: LobbyPage,
+   },
+   {
+      path: "/game",
+      Component: GamePage,
    },
 ];
