@@ -9,8 +9,10 @@ class Game extends BaseModule
 
     private function update() {
 
-        $timestamp = $this->db->getTimestamp();
-        $time = $this->db->getNowTime();
+        $time = $this->db->getTime();
+        if ($time->nowTime - $time->timestamp >= $time->timeout)
+            return true;
+        return false;
         // взять текущее время time()
         // взять $timestamp из БД
         // если time() - $timestamp >= $timeout (взять из БД)
@@ -22,7 +24,8 @@ class Game extends BaseModule
     }
 
     function getScene($userId, $hashPlayers) {
-        $this->update();
+        if ($this->update())
+            return true; 
         $result = array();
         $hashes = $this->db->getHashes();
         if ($hashes->hashU !== $hashPlayers) {
