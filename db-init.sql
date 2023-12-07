@@ -5,6 +5,11 @@ CREATE TABLE IF NOT EXISTS `game` (
   `chatHash` VARCHAR(100) NOT NULL DEFAULT "",
   `hashBullets` VARCHAR(100) NOT NULL DEFAULT "",
   `hashLobby` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashGamers` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashMobs` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashMap` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashBullets` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashObject` VARCHAR(100) NOT NULL DEFAULT "",
   PRIMARY KEY (`id`)
 );
 

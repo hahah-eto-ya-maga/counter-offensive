@@ -64,7 +64,6 @@ require_once('BaseModule.php');
             return array(false, 401);
         }
 
-
         function tokenVerification($token){
             $user = $this->db->getUserByToken($token);
             if($user != null && $user->token != 0 && $user->token != null){
