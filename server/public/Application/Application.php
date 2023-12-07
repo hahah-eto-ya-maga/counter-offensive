@@ -11,6 +11,7 @@ class Application
     private $user;
     private $chat;
     private $lobby;
+    private $game;
 
     public $dbStatus;
 
@@ -137,6 +138,23 @@ class Application
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
                 return $this->lobby->getLobby($user->id, $hash); 
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+
+    function getScene($params) {
+        $token = $params['token'] ?? false;
+        $hashMap = $params['hashMap'] ?? false;
+        $hashPlayers = $params['hashPlayers'] ?? false;
+        $hashMobs = $params['hashMobs'] ?? false;
+        $hashBullets = $params['hashBullets'] ?? false;
+        $hashBodies = $params['hashBodies'] ?? false;
+        if($token && $hashPlayers) {
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->game->getScene($user->id, $hashPlayers);
             }
             return array(false, 401);
         }  

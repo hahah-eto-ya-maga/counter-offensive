@@ -187,5 +187,20 @@ class DB {
         $query = "SELECT * FROM game WHERE id=1";
         return $this->queryHandler($query, [], true);
     }
+    
+    public function getPlayers() {
+        $query = "SELECT person_id, x, y, angle,  FROM gamers WHERE status=`alive`";
+        return $this->queryHandler($query, [], true);
+    }
+
+    public function getTime() {
+        $query = "SELECT timestamp, NOW()+ 0 as nowTime, timeout FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    public function updateTimestamp($timestamp) {
+        $query = "UPDATE game SET(timestamp) VALUES=$timestamp  WHERE id=1";
+        return $this->queryHandler($query, [$timestamp]);
+    }
 
 }

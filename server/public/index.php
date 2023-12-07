@@ -1,7 +1,7 @@
 <?php
     header("Access-Control-Allow-Origin: *");
     header('Content-Type: application/json; charset=utf-8');
-    date_default_timezone_set("Europe/Moscow");
+    date_default_timezone_set("UTC");
 
     require_once('Application/Answer.php');
     require_once('Application/Application.php');
@@ -24,6 +24,8 @@
                     // Lobby
                     case "setGamerRole": return $app->setGamerRole($params);
                     case "getLobby": return $app->getLobby($params);
+                    // Game
+                    case "getScene": return $app->getLobby($params);
                 } 
                 return array(false, 501);
             }
