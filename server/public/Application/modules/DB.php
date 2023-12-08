@@ -101,7 +101,7 @@ class DB {
     }
 
     function addGamer($userId){
-        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 1, 'lobby');";
+        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 0, 'lobby');";
         $this->queryHandler($query, [$userId]); 
     }
 
@@ -201,6 +201,11 @@ class DB {
     public function updateTimestamp($timestamp) {
         $query = "UPDATE game SET(timestamp) VALUES=$timestamp  WHERE id=1";
         return $this->queryHandler($query, [$timestamp]);
+    }
+
+    function getGamerStatus($userId) {
+        $query = "SELECT status FROM gamers WHERE id=?";
+        return $this->queryHandler($query, [$userId], true);
     }
 
 }
