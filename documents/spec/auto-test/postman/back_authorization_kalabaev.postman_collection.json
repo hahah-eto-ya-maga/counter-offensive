@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "61954adf-c969-4167-950f-1d37a39cf012",
+		"name": "back_authorization_kalabaev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31364886"
+	},
+	"item": [
+		{
+			"name": "registration",
+			"item": [
+				{
+					"name": "registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Успешная регистрация', () => {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"})\r",
+									"\r",
+									"pm.test('Получение логина', () => {\r",
+									"    const getUserByLogin = pm.response.json();\r",
+									"    pm.expect(getUserByLogin.result).to.eql('ok');\r",
+									"})\r",
+									"\r",
+									"pm.test('Получение токена', () => {\r",
+									"    const getUserByToken = pm.response.json();\r",
+									"    pm.expect(getUserByToken.result).to.eql('ok');\r",
+									"})\r",
+									"\r",
+									"pm.test('Получение ранга', () => {\r",
+									"    const getRankById = pm.response.json();\r",
+									"    pm.expect(getRankById.result).to.eql('ok');\r",
+									"})\r",
+									"\r",
+									"pm.test('Добавление пользователя', () => {\r",
+									"    const addGamer = pm.response.json();\r",
+									"    pm.expect(addGamer.result).to.eql('ok');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/?method=registration&login=vasya5&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "registration"
+								},
+								{
+									"key": "login",
+									"value": "vasya5"
+								},
+								{
+									"key": "nickname",
+									"value": "vasya4"
+								},
+								{
+									"key": "hash",
+									"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"item": [
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Соединение с сервером\", () => {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Успешное выполнение метода', () => {\r",
+									"    const okok = pm.response.json();\r",
+									"    pm.expect(okok.result).to.eql('ok');\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 400 (Указаны не все обязательные параметры)', () => {\r",
+									"    const error400 = pm.response.json();\r",
+									"    pm.expect(error400.error.code).to.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 401 (Неавторизованный запрос)', () => {\r",
+									"    const error401 = pm.response.json();\r",
+									"    pm.expect(error401.error.code).to.eql(401);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/?method=logout&token=5b77006ad6f619ec55a4e3b23c97a06ea5d1b3bcd6c174525978ebdf00899826",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "logout"
+								},
+								{
+									"key": "token",
+									"value": "5b77006ad6f619ec55a4e3b23c97a06ea5d1b3bcd6c174525978ebdf00899826"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Соединение с сервером\", () => {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Успешное выполнение метода', () => {\r",
+									"    const okok = pm.response.json();\r",
+									"    pm.expect(okok.result).to.eql('ok');\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 400 (Указаны не все обязательные параметры)', () => {\r",
+									"    const error400 = pm.response.json();\r",
+									"    pm.expect(error400.error.code).to.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 403 (Неверный логин или пароль)', () => {\r",
+									"    const error403 = pm.response.json();\r",
+									"    pm.expect(error403.error.code).to.eql(403);\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 461 (Пользователя не существует)', () => {\r",
+									"    const error461 = pm.response.json();\r",
+									"    pm.expect(error461.error.code).to.eql(461);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/?method=login&login=vasya11&hash=66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf&rnd=321",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "login"
+								},
+								{
+									"key": "login",
+									"value": "vasya11"
+								},
+								{
+									"key": "hash",
+									"value": "66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf"
+								},
+								{
+									"key": "rnd",
+									"value": "321"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "updatePassword",
+			"item": [
+				{
+					"name": "updatePassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Соединение с сервером\", () => {\r",
+									"    pm.expect(pm.response.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test('Успешное выполнение метода', () => {\r",
+									"    const okok = pm.response.json();\r",
+									"    pm.expect(okok.result).to.eql('ok');\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 400 (Указаны не все обязательные параметры)', () => {\r",
+									"    const error400 = pm.response.json();\r",
+									"    pm.expect(error400.error.code).to.eql(400);\r",
+									"})\r",
+									"\r",
+									"pm.test('Ошибка 401 (Неавторизованный запрос)', () => {\r",
+									"    const error401 = pm.response.json();\r",
+									"    pm.expect(error401.error.code).to.eql(401);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/?method=updatePassword&token=98605ccc66890097a6140c6834c8c57e5eaaba203375eebf96a9c85258fafff5&hash=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "updatePassword"
+								},
+								{
+									"key": "token",
+									"value": "98605ccc66890097a6140c6834c8c57e5eaaba203375eebf96a9c85258fafff5"
+								},
+								{
+									"key": "hash",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
