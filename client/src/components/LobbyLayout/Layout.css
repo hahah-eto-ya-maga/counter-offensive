@@ -30,7 +30,7 @@
 
 .units_item {
    background-color: var(--gray);
-   height: 200px;
+   height: 30%;
    display: flex;
    justify-content: center;
    flex-direction: column;

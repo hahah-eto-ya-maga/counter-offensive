@@ -18,7 +18,7 @@ export const AppRouter: FC = () => {
 
    useEffect(() => {
       errorHandler();
-      
+
       const { LOGIN, LOGOUT, AUTH_ERROR } = mediator.getTriggerTypes();
       mediator.set(LOGIN, (user: IUserInfo) => {
          server.STORE.user = user;
@@ -37,10 +37,12 @@ export const AppRouter: FC = () => {
       });
    }, []);
    return (
-      <Routes>
-         {routes.map((route) => {
-            return <Route key={route.path} {...route} />;
-         })}
-      </Routes>
+      <div className="app_wrapper">
+         <Routes>
+            {routes.map((route) => {
+               return <Route key={route.path} {...route} />;
+            })}
+         </Routes>
+      </div>
    );
 };

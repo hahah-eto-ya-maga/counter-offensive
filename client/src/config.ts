@@ -1,7 +1,7 @@
 // dev
 
 /* const PORT = 81;
-const DOMAIN = 'http://counter-offen'; */
+const DOMAIN = 'http://counter-offensive'; */
 
 //prod
 
@@ -19,5 +19,12 @@ export const MEDIATOR = {
       LOGIN: "LOGIN",
       LOGOUT: "LOGOUT",
       AUTH_ERROR: "AUTH_ERROR",
+      ROLE_ERROR: "ROLE_ERROR",
    },
+};
+
+export const requestDelay = {
+   chat: 300,
+   lobby: 150,
+   game: 200,
 };

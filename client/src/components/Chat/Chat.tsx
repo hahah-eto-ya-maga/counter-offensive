@@ -13,6 +13,7 @@ import cn from "classnames";
 
 import "./Chat.css";
 import { EHash } from "../../modules/Store/Store";
+import { requestDelay } from "../../config";
 
 interface IChatProps {
    chatType: "lobby" | "game";
@@ -32,7 +33,7 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
             setMessages(newMessages.messages.reverse());
             server.STORE.setHash(EHash.chatHash, newMessages.chatHash);
          }
-      }, 300);
+      }, requestDelay.chat);
       return () => {
          clearInterval(interval);
          server.STORE.setHash(EHash.chatHash, null);

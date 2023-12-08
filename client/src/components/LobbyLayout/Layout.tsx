@@ -8,6 +8,7 @@ import { tank2, tank3, general } from "../../assets/png";
 import { MediatorContext, ServerContext } from "../../App";
 import { EHash } from "../../modules/Store/Store";
 import "./Layout.css";
+import { requestDelay } from "../../config";
 
 export enum ETank {
    heavy,
@@ -37,7 +38,7 @@ export const withLayout = (
                setLobby(res.lobby);
                lobby && mediator.call(LOBBY_UPDATE, lobby);
             }
-         }, 100);
+         }, requestDelay.lobby);
          return () => {
             server.STORE.setHash(EHash.lobbyHash, null);
             clearInterval(interval);

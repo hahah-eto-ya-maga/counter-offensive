@@ -7,7 +7,7 @@ export const useErrorHandler = (
    navigate: NavigateFunction
 ) => {
    const { SERVER_ERROR } = mediator.getEventTypes();
-   const { WARNING, AUTH_ERROR } = mediator.getTriggerTypes();
+   const { WARNING, AUTH_ERROR, ROLE_ERROR } = mediator.getTriggerTypes();
    return () => {
       mediator.subscribe(SERVER_ERROR, (error: IError) => {
          switch (error.code) {
@@ -31,6 +31,9 @@ export const useErrorHandler = (
             }
             case 401: {
                return mediator.get(AUTH_ERROR);
+            }
+            case 234: {
+               return mediator.get(ROLE_ERROR, "Не дослужился, щенок!");
             }
             default: {
                return navigate("/error", { state: { error } });

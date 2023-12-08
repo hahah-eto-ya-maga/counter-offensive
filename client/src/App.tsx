@@ -2,7 +2,7 @@ import { FC, createContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Mediator, Server } from "./modules";
 import { HOST, MEDIATOR } from "./config";
-import { AppRouter } from "./components/AppRouter/AppRouter";
+import { Modal, AppRouter } from "./components";
 
 import "./styles/global.css";
 
@@ -17,6 +17,7 @@ const App: FC = () => {
       <BrowserRouter>
          <MediatorContext.Provider value={mediator}>
             <ServerContext.Provider value={server}>
+               <Modal />
                <AppRouter />
             </ServerContext.Provider>
          </MediatorContext.Provider>

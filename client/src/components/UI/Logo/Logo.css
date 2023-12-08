@@ -1,6 +1,7 @@
 .logo {
    margin: 0 140px;
-   height: 10vw;
+   height: 15vh;
+   width: 80%;
 }
 
 @media (max-width:1400px) {
