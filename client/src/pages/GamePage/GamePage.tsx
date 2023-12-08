@@ -10,7 +10,7 @@ const GamePage: React.FC = () => {
     return(
         <div className="game_page">
             <GameCanvas/>
-            <Chat chatType="game"/>
+            {/* <Chat chatType="game"/> */}
         </div>
        
     )    

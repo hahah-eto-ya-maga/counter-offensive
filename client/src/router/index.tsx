@@ -28,6 +28,14 @@ export const publicRoutes: RouteProps[] = [
       path: "*",
       Component: ErrorPage,
    },
+   {
+      path: "/lobby",
+      Component: LobbyPage,
+   },
+   {
+      path: "/game",
+      Component: GamePage,
+   },
 ];
 
 export const privateRoutes: RouteProps[] = [
@@ -42,13 +50,5 @@ export const privateRoutes: RouteProps[] = [
    {
       path: "/",
       Component: LobbyPage,
-   },
-   {
-      path: "/lobby",
-      Component: LobbyPage,
-   },
-   {
-      path: "/game",
-      Component: GamePage,
    },
 ];

@@ -1,4 +1,4 @@
-import { TPoint, TWIN, TUnit } from "../../types/types";
+import { TPoint, TWIN, TUnit, TRGBA } from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {
@@ -27,6 +27,7 @@ export default class Canvas {
    math: MathGame;
 
    areaVisible: TPoint[]
+   pixelScena: TRGBA[][]
 
    constructor(options: ICanvasOption) {
       const { WIN, id, height, width, callbacks } = options;
@@ -68,6 +69,7 @@ export default class Canvas {
       this.math = new MathGame({ WIN });
 
       this.areaVisible = []
+      this.pixelScena = []
    }
 
    xs(x: number): number {
@@ -173,18 +175,6 @@ export default class Canvas {
       }
   }
 
-   areaVis(points: TPoint[], color: string): void {
-         this.contextTrace.fillStyle = color;
-         this.contextTrace.beginPath();
-         this.contextTrace.moveTo(points[0].x, points[0].y);
-         for (let i = 1; i < points.length; i++) {
-            this.contextTrace.lineTo(points[i].x, points[i].y);
-         }
-         this.contextTrace.lineTo(points[0].x, points[0].y);
-         this.contextTrace.fill();
-         this.contextTrace.closePath();
-   }
-
    sprite(
       image: HTMLImageElement,
       dx: number,
@@ -281,6 +271,20 @@ export default class Canvas {
       this.contextV.drawImage(image, this.xs(dx), this.ys(dy));
    }
 
+   
+   areaVis(points: TPoint[], color: string): void {
+      this.contextTrace.fillStyle = color;
+      this.contextTrace.beginPath();
+      this.contextTrace.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length; i++) {
+         this.contextTrace.lineTo(points[i].x, points[i].y);
+      }
+      this.contextTrace.lineTo(points[0].x, points[0].y);
+      this.contextTrace.fill();
+      this.contextTrace.closePath();
+   }
+
+
    trace (
       vector: TPoint,
       angleOfMovement: number,
@@ -288,33 +292,51 @@ export default class Canvas {
       blocks: TPoint[][],
       stones: TUnit[]
    ): void {
-
+      const width = this.canvasTrace.width;
+      const height = this.canvasTrace.height;
       this.contextTrace.fillStyle = "#000f";
-      this.contextTrace.fillRect(0, 0, this.canvasTrace.width, this.canvasTrace.height);
+      this.contextTrace.fillRect(0, 0, width, height);
 
       blocks.forEach(block => this.polygon(block, 'red'))
       stones.forEach(stone => this.circle(stone, 'red'))
 
       this.areaVisible = []
 
-      this.areaVisible.push({x: this.notxs(0), y: this.notys(0)})
+      this.areaVisible.push({x: width / 2, y: height / 2})
 
       const oneDegree = Math.PI / 180;
-      for (let i = -angleVisible / 2; i <= angleVisible / 2; i += 1) {
+      console.time()
+      const imageData = this.contextTrace.getImageData(0, 0, width, height).data;
+      let k = 0
+      for(let i = 0; i <= width; i+=1) {
+         this.pixelScena[i] = []
+         for(let j = 0; j <= height; j+=1) {
+            this.pixelScena[i][j] = {r: 0, g: 0, b: 0, a: 255}
+            this.pixelScena[i][j].r = imageData[k]
+            this.pixelScena[i][j].g = imageData[k + 1]
+            this.pixelScena[i][j].b = imageData[k + 2]
+            this.pixelScena[i][j].a = imageData[k + 3]
+            k+=16
+         }
+      }
+      console.timeEnd()
+      for (let i = -angleVisible / 2; i <= angleVisible / 2; i ++) {
          vector.x = Math.cos(angleOfMovement + i * oneDegree);
          vector.y = Math.sin(angleOfMovement + i * oneDegree);
+        
          this.lineBrezen(vector);
+        
       }
+      
+      // this.contextTrace.clearRect(0,0,this.canvasTrace.width, this.canvasTrace.height)
+      // this.contextTrace.fillStyle = "#333f";
+      // this.contextTrace.fillRect(0, 0, this.canvasTrace.width, this.canvasTrace.height);
 
-      this.contextTrace.clearRect(0,0,this.canvasTrace.width, this.canvasTrace.height)
-      this.contextTrace.fillStyle = "#333f";
-      this.contextTrace.fillRect(0, 0, this.canvasTrace.width, this.canvasTrace.height);
-
-      this.contextTrace.globalCompositeOperation = 'destination-out'
+      // this.contextTrace.globalCompositeOperation = 'destination-out'
 
       this.areaVis(this.areaVisible, "white")
 
-      this.contextTrace.globalCompositeOperation = 'source-over'
+      // this.contextTrace.globalCompositeOperation = 'source-over'
 
    } 
 
@@ -323,8 +345,8 @@ export default class Canvas {
       let isObject = false;
       let isVisiable = true;
 
-      let x1 = this.notxs(0);
-      let y1 = this.notys(0);
+      let x1 = this.canvasTrace.width / 2;
+      let y1 = this.canvasTrace.height / 2;
       let x2 = this.notxs(vector.x);
       let y2 = this.notys(vector.y);
       const dx = Math.abs(x2 - x1);
@@ -336,20 +358,22 @@ export default class Canvas {
       let error = dx + dy;
       for (; n > 0; n--) {
          if (isVisiable) {
-            this.contextTrace.beginPath();
-            const pixel = this.contextTrace.getImageData(x1, y1, 1, 1);
-
-            if (isObject && pixel.data[0] !== 255 && pixel.data[0] === 0 ) {
-               isVisiable = false;
-               isObject = false;
-               this.areaVisible.push({x: x1, y: y1})
-               return
-            } else {
-               if (pixel.data[0] === 255 && pixel.data[1] === 0) {
-                  isObject = true;
+            if(x1 >= 0 && y1>=0) {
+               this.contextTrace.beginPath();
+               const pixel = this.pixelScena[x1][y1]
+               
+               if (isObject && pixel.r !== 255 && pixel.r === 0 ) {
+                  isVisiable = false;
+                  isObject = false;
+                  this.areaVisible.push({x: x1, y: y1})
+                  return
+               } else {
+                  if (pixel.r === 255 && pixel.g === 0) {
+                     isObject = true;
+                  }
                }
+               this.contextTrace.closePath();
             }
-            this.contextTrace.closePath();
          }
          
          err2 = 2 * error;
