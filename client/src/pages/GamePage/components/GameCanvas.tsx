@@ -57,15 +57,11 @@ const GameCanvas: React.FC = () => {
       bushes: []
     }
 
-    const homes: TPoint[][] = [[{x:4, y: 6.5}, {x:4, y: 8}, {x:7, y: 8}, {x:7, y: 6.5}],]  
-    const walls: TPoint[][] = [[{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],    //граница
-        [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}]]
-    const stones: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.5}, {x: 3, y: 6, r: 0.5}]
     const deadTank: TUnit = {x: 7.5, y: 3, r: 0.5}
     
     let isCollition: boolean = false
 
-    const collision = new Collision({WIN, homes, walls, stones})
+    const collision = new Collision({WIN, scena})
 
     let cursorPosition: TPoint = {x:0, y:0}
 
@@ -220,20 +216,20 @@ const GameCanvas: React.FC = () => {
 
             canvas.grid()
 
-            for(let i = walls[0][1].x; i < walls[2][3].x; i+=5) {
-               for(let j = walls[3][0].y; j > walls[1][2].y; j-=5) {
+            for(let i = scena.walls[0][1].x; i < scena.walls[2][3].x; i+=5) {
+               for(let j = scena.walls[3][0].y; j > scena.walls[1][2].y; j-=5) {
                   canvas.spriteMap(img, i, j, grass[0], grass[1], grass[2], grass[3])
                }
             }
-            homes.forEach(block => {
+            scena.homes.forEach(block => {
                canvas.spriteMap(img, block[1].x, block[1].y, home[0], home[1], home[2], home[3])
             })
 
-            stones.forEach(circle => {
+            scena.stones.forEach(circle => {
                canvas.spriteMap(img, circle.x - 0.5, circle.y + 0.5, stone[0], stone[1], stone[2], stone[3])
             })
 
-            walls.forEach(block => {
+            scena.walls.forEach(block => {
                for(let i = block[1].x; i < block[3].x; i++) {
                   for(let j = block[1].y; j > block[3].y; j--) {
                      canvas.spriteMap(img, i, j, wall[0], wall[1], wall[2], wall[3])
@@ -243,54 +239,56 @@ const GameCanvas: React.FC = () => {
            
             if (role === 'Tank2') {
                unit = {x: 5, y: 4, r:0.54}
-               
                canvas.drawSceneTrace(scena)
-               // canvas.trace(vectorTank, angleOfMovement, 60)
+               canvas.trace(angleOfMovement, 60)
 
                moveSceneTank(keyPressed)
-
                canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
 
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition, true)
             } 
             if (role === 'Tank3') {
                unit = {x: 5, y: 4, r:0.61}
+               canvas.drawSceneTrace(scena)
+               canvas.trace(angleOfMovement, 60)
+
                moveSceneTank(keyPressed) 
-               // canvas.trace(vectorTank, angleOfMovement, 60, homes, stones)
                canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank3[0], tank3[1], tank3[2], tank3[3], -angleOfMovement)
+
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition, true)
            } 
             if (role === 'RPG') {
                unit = {x: 5, y: 4, r:0.2}
-               moveSceneInfantry(keyPressed)
-
+               canvas.drawSceneTrace(scena)
                let toAngle = rotateGun()
-               // canvas.trace(vectorTank, toAngle, 60, homes, stones)
+               canvas.trace(toAngle, 120)
+
+               moveSceneInfantry(keyPressed)
                canvas.spriteDir(img, unit.x-0.5, unit.y + 0.5, manRPG[0], manRPG[1], manRPG[2], manRPG[3], - toAngle+ Math.PI/2)
         
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition)
-               
             }
             if (role === 'Automat') {
                unit = {x: 5, y: 4, r:0.2}
-               moveSceneInfantry(keyPressed)
-               
+               canvas.drawSceneTrace(scena)
                let toAngle = rotateGun()
-               // canvas.trace(vectorTank, toAngle, 60, homes, stones)
+               canvas.trace(toAngle, 120)
+
+               moveSceneInfantry(keyPressed)
                canvas.spriteDir(img, unit.x-0.5, unit.y + 0.5, manAutomat[0], manAutomat[1], manAutomat[2], manAutomat[3], - toAngle+ Math.PI/2)
         
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition)       
             }
             if (role === 'Flag') {
                unit = {x: 5, y: 4, r:0.2}
-               moveSceneInfantry(keyPressed)
-               
+               canvas.drawSceneTrace(scena)
                let toAngle = rotateGun()
-               // canvas.trace(vectorTank, toAngle, 60, homes, stones)
+               canvas.trace(toAngle, 120)
+
+               moveSceneInfantry(keyPressed)
                canvas.spriteDir(img, unit.x-0.5, unit.y + 0.5, manFlag[0], manFlag[1], manFlag[2], manFlag[3], - toAngle+ Math.PI/2)
         
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition)
-               
             }
  
             canvas.render()
@@ -303,7 +301,6 @@ const GameCanvas: React.FC = () => {
                20
             );
 
-          
         }
     }
 

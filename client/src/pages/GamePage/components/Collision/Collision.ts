@@ -1,23 +1,17 @@
-import { TPoint, TUnit, TWIN } from "../../types/types"
+import { TPoint, TScena, TUnit, TWIN } from "../../types/types"
 
 export interface ICollisionOptions {
     WIN: TWIN
-    homes: TPoint[][]
-    walls: TPoint[][]
-    stones: TUnit[]
+    scena: TScena
 }
 
 class Collision {
     WIN: TWIN
-    homes: TPoint[][]
-    walls: TPoint[][]
-    stones: TUnit[]
+    scena: TScena
     constructor (options: ICollisionOptions) {
-        const {WIN, homes, walls, stones} = options
+        const {WIN, scena} = options
         this.WIN = WIN;
-        this.homes = homes;
-        this.walls = walls;
-        this.stones = stones
+        this.scena = scena
     }
     
     collisionBlockUnit (block: TPoint[], unit: TUnit): boolean {
@@ -109,8 +103,9 @@ class Collision {
     }
 
     checkAllBlocksUnit (unit: TUnit, deadTank: TUnit, collision: boolean, isTank?: boolean): boolean {
+        const scena = this.scena
         let flagCollision = false
-        this.homes.forEach((block) => {
+        scena.homes.forEach((block) => {
             if ((block[0].x >= Math.floor(unit.x - 2) && block[2].x <= Math.ceil(unit.x + 2) && block[0].y <=  Math.ceil(unit.y)  && block[2].y >= Math.floor(unit.y)) || 
             (block[0].y >= Math.floor(unit.y - 2) && block[2].y <=  Math.ceil(unit.y + 2) && block[0].x <= Math.ceil(unit.x) && block[2].x >= Math.floor(unit.x))) {
                 flagCollision = this.collisionBlockUnit(block, unit) || flagCollision
@@ -118,7 +113,7 @@ class Collision {
             this.collisionBlockDeadUnit(block, deadTank)
         })
 
-        this.walls.forEach((block) => {
+        scena.walls.forEach((block) => {
             if ((block[0].x >= Math.floor(unit.x - 2) && block[2].x <= Math.ceil(unit.x + 2) && block[0].y <=  Math.ceil(unit.y)  && block[2].y >= Math.floor(unit.y)) || 
             (block[0].y >= Math.floor(unit.y - 2) && block[2].y <=  Math.ceil(unit.y + 2) && block[0].x <= Math.ceil(unit.x) && block[2].x >= Math.floor(unit.x))) {
                 flagCollision = this.collisionBlockUnit(block, unit) || flagCollision
@@ -126,7 +121,7 @@ class Collision {
             this.collisionBlockDeadUnit(block, deadTank)
         })
 
-        this.stones.forEach((circle) => {
+        scena.stones.forEach((circle) => {
             flagCollision = this.collisionCircleUnit(circle, unit) || flagCollision
             this.collisionCircleDeadUnit(circle, deadTank)
         })

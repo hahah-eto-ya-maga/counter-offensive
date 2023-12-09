@@ -304,16 +304,17 @@ export default class Canvas {
 
 
    trace (
-      vector: TPoint,
       angleOfMovement: number,
       angleVisible: number,
      
    ): void {
+     
       const pixelScena = this.contextMask.getImageData(0, 0, this.canvasMask.width, this.canvasMask.height)
-
+      
       this.areaVisible = []
       this.areaVisible.push({x: this.canvasTrace.width / 2, y: this.canvasTrace.height / 2})
-
+      
+      let vector: TPoint = {x: 0, y: 1}
       const oneDegree = Math.PI / 180;
       for (let i = -angleVisible / 2; i <= angleVisible / 2; i += 0.5) {
          vector.x = Math.cos(angleOfMovement + i * oneDegree);
