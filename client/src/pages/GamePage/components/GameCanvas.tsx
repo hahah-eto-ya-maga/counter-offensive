@@ -3,7 +3,7 @@ import Canvas from "./Canvas/Canvas";
 import MathGame from "./Math/MathGame";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {TKeyboard, TPoint, TUnit, TCheckBorder } from "../types/types";
+import {TKeyboard, TPoint, TUnit, TScena } from "../types/types";
 import useCanvas from "./hooks/useCanvas";
 import Collision from "./Collision/Collision";
 import useSprites from "./hooks/useSprites";
@@ -11,7 +11,7 @@ import "./GameCanvas.css"
 
 const GameCanvas: React.FC = () => {
 
-    
+
     const height = 2 * Math.round(window.innerHeight / 2);
     const width = 2 * Math.round(window.innerWidth / 2);
     const prop = width / height;
@@ -35,8 +35,8 @@ const GameCanvas: React.FC = () => {
         height: 10,
     };
 
-    const SPRITE_SIZE = width / WIN.width
-    const SIZE = height / WIN.height  
+    const SPRITE_SIZE = width / WIN.width 
+    const SIZE = 97
 
     const math = new MathGame({WIN})
     let angleOfMovement = Math.PI/2;
@@ -49,20 +49,18 @@ const GameCanvas: React.FC = () => {
     let speedInfantryNow = speedInfantry
 
 
-    const scena = {
+    const scena: TScena = {
       homes:  [[{x:4, y: 6.5}, {x:4, y: 8}, {x:7, y: 8}, {x:7, y: 6.5}],],
-      wallls: [[{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],    //граница
+      walls: [[{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:-1, y: -1}, {x:-1, y: 0}, {x:75, y: 0}, {x:75, y: -1}],    //граница
       [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}]],
-      stones: [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.5}, {x: 3.5, y: 6.5, r: 0.5}],
-      bushes: [],
-
-
+      stones: [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.5}, {x: 3, y: 6, r: 0.5}],
+      bushes: []
     }
 
     const homes: TPoint[][] = [[{x:4, y: 6.5}, {x:4, y: 8}, {x:7, y: 8}, {x:7, y: 6.5}],]  
     const walls: TPoint[][] = [[{x:-1, y: -1}, {x:-1, y: 61}, {x:0, y: 61}, {x:0, y: -1}], [{x:0, y: -1}, {x:0, y: 0}, {x:75, y: 0}, {x:75, y: -1}],    //граница
         [{x:75, y: -1}, {x:75, y: 61}, {x:76, y: 61}, {x:76, y: -1}], [{x:0, y: 60}, {x:0, y: 61}, {x:75, y: 61}, {x:75, y: 60}]]
-    const stones: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.5}, {x: 3.5, y: 6.5, r: 0.5}]
+    const stones: TUnit[] = [{x: 8, y: 6, r: 0.5}, {x: 9, y: 5, r: 0.5}, {x: 3, y: 6, r: 0.5}]
     const deadTank: TUnit = {x: 7.5, y: 3, r: 0.5}
     
     let isCollition: boolean = false
@@ -242,18 +240,21 @@ const GameCanvas: React.FC = () => {
                   }
                }
             })
-
-
            
             if (role === 'Tank2') {
-               unit = {x: -0.5, y: 4, r:0.54}
-                moveSceneTank(keyPressed) 
-               //  canvas.trace(vectorTank, angleOfMovement, 60, homes, stones)
-                canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
-                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition, true)
+               unit = {x: 5, y: 4, r:0.54}
+               
+               canvas.drawSceneTrace(scena)
+               // canvas.trace(vectorTank, angleOfMovement, 60)
+
+               moveSceneTank(keyPressed)
+
+               canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank2[0], tank2[1], tank2[2], tank2[3], -angleOfMovement)
+
+               isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition, true)
             } 
             if (role === 'Tank3') {
-               unit = {x: -0.5, y: 4, r:0.61}
+               unit = {x: 5, y: 4, r:0.61}
                moveSceneTank(keyPressed) 
                // canvas.trace(vectorTank, angleOfMovement, 60, homes, stones)
                canvas.spriteDir(img, unit.x - 1, unit.y + 1, tank3[0], tank3[1], tank3[2], tank3[3], -angleOfMovement)
@@ -291,9 +292,9 @@ const GameCanvas: React.FC = () => {
                isCollition = collision.checkAllBlocksUnit(unit, deadTank, isCollition)
                
             }
-            // canvas.trace(vectorTank, angleOfMovement, 60, homes, stones)
+ 
             canvas.render()
-           
+
             canvas.printText(
                `FPS: ${FPS}`,
                WIN.left + fpsGap,
@@ -301,6 +302,8 @@ const GameCanvas: React.FC = () => {
                "white",
                20
             );
+
+          
         }
     }
 

@@ -1,4 +1,4 @@
-import { TPoint, TWIN, TUnit, TRGBA } from "../../types/types";
+import { TPoint, TWIN, TUnit, TScena} from "../../types/types";
 import MathGame from "../Math/MathGame";
 
 export interface ICanvasOption {
@@ -10,7 +10,7 @@ export interface ICanvasOption {
       keydown: (event: KeyboardEvent) => void;
       keyup: (event: KeyboardEvent) => void;
       mousemove: (event: MouseEvent) => void;
-   };
+   }
 }
 
 export default class Canvas {
@@ -24,13 +24,14 @@ export default class Canvas {
    canvasTrace: HTMLCanvasElement;
    contextTrace: CanvasRenderingContext2D;
 
-   math: MathGame;
+   canvasMask: HTMLCanvasElement;
+   contextMask: CanvasRenderingContext2D;
 
+   math: MathGame;
    areaVisible: TPoint[]
-   pixelScena: TRGBA[][]
 
    constructor(options: ICanvasOption) {
-      const { WIN, id, height, width, callbacks } = options;
+      const { WIN, id, height, width, callbacks} = options;
 
       this.canvas = document.getElementById(id) as HTMLCanvasElement;
       this.context = this.canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -39,14 +40,20 @@ export default class Canvas {
       this.contextV = this.canvasV.getContext("2d") as CanvasRenderingContext2D;
 
       this.canvasTrace = document.createElement("canvas");
-      this.contextTrace = this.canvasTrace.getContext("2d") as CanvasRenderingContext2D;
+      this.contextTrace = this.canvasTrace.getContext("2d" , { willReadFrequently: true }) as CanvasRenderingContext2D;
+
+      this.canvasMask = document.createElement("canvas");
+      this.contextMask = this.canvasTrace.getContext("2d",  { willReadFrequently: true }) as CanvasRenderingContext2D;
 
       this.canvas.width = width;
       this.canvas.height = height;
       this.canvasV.width = width;
       this.canvasV.height = height;
+
       this.canvasTrace.width = width;
       this.canvasTrace.height = height;
+      this.canvasMask.width = width;
+      this.canvasMask.height = height;
 
       const { keydown, keyup, mousemove } = callbacks;
       window.addEventListener("keydown", (event: KeyboardEvent) =>
@@ -69,7 +76,6 @@ export default class Canvas {
       this.math = new MathGame({ WIN });
 
       this.areaVisible = []
-      this.pixelScena = []
    }
 
    xs(x: number): number {
@@ -272,8 +278,20 @@ export default class Canvas {
    }
 
    
-   areaVis(points: TPoint[], color: string): void {
-      this.contextTrace.fillStyle = color;
+   drawSceneTrace (scena: TScena) {
+      const width = this.canvasTrace.width;
+      const height = this.canvasTrace.height;
+      this.contextMask.beginPath()
+      this.contextMask.fillStyle = "#000f";
+      this.contextMask.fillRect(0, 0, width, height)
+      scena.homes.forEach(block => this.polygon(block, 'red'))
+      scena.walls.forEach(block => this.polygon(block, 'red'))
+      scena.stones.forEach(stone => this.circle(stone, 'red'))
+      this.contextMask.closePath();
+   }
+   
+   areaVis(points: TPoint[]): void {
+      this.contextTrace.fillStyle = "#00ff";
       this.contextTrace.beginPath();
       this.contextTrace.moveTo(points[0].x, points[0].y);
       for (let i = 1; i < points.length; i++) {
@@ -289,59 +307,35 @@ export default class Canvas {
       vector: TPoint,
       angleOfMovement: number,
       angleVisible: number,
-      blocks: TPoint[][],
-      stones: TUnit[]
+     
    ): void {
-      const width = this.canvasTrace.width;
-      const height = this.canvasTrace.height;
-      this.contextTrace.fillStyle = "#000f";
-      this.contextTrace.fillRect(0, 0, width, height);
-
-      blocks.forEach(block => this.polygon(block, 'red'))
-      stones.forEach(stone => this.circle(stone, 'red'))
+      const pixelScena = this.contextMask.getImageData(0, 0, this.canvasMask.width, this.canvasMask.height)
 
       this.areaVisible = []
-
-      this.areaVisible.push({x: width / 2, y: height / 2})
+      this.areaVisible.push({x: this.canvasTrace.width / 2, y: this.canvasTrace.height / 2})
 
       const oneDegree = Math.PI / 180;
-      console.time()
-      const imageData = this.contextTrace.getImageData(0, 0, width, height).data;
-      let k = 0
-      for(let i = 0; i <= width; i+=1) {
-         this.pixelScena[i] = []
-         for(let j = 0; j <= height; j+=1) {
-            this.pixelScena[i][j] = {r: 0, g: 0, b: 0, a: 255}
-            this.pixelScena[i][j].r = imageData[k]
-            this.pixelScena[i][j].g = imageData[k + 1]
-            this.pixelScena[i][j].b = imageData[k + 2]
-            this.pixelScena[i][j].a = imageData[k + 3]
-            k+=16
-         }
-      }
-      console.timeEnd()
-      for (let i = -angleVisible / 2; i <= angleVisible / 2; i ++) {
+      for (let i = -angleVisible / 2; i <= angleVisible / 2; i += 0.5) {
          vector.x = Math.cos(angleOfMovement + i * oneDegree);
          vector.y = Math.sin(angleOfMovement + i * oneDegree);
-        
-         this.lineBrezen(vector);
-        
+
+         this.lineBrezen(vector, pixelScena);
       }
-      
-      // this.contextTrace.clearRect(0,0,this.canvasTrace.width, this.canvasTrace.height)
-      // this.contextTrace.fillStyle = "#333f";
-      // this.contextTrace.fillRect(0, 0, this.canvasTrace.width, this.canvasTrace.height);
+     
+      this.contextTrace.clearRect(0,0,this.canvasTrace.width, this.canvasTrace.height)
+      this.contextTrace.fillStyle = "#333f";
+      this.contextTrace.fillRect(0, 0, this.canvasTrace.width, this.canvasTrace.height);
 
-      // this.contextTrace.globalCompositeOperation = 'destination-out'
+      this.contextTrace.globalCompositeOperation = 'destination-out'
 
-      this.areaVis(this.areaVisible, "white")
+      this.areaVis(this.areaVisible)
 
-      // this.contextTrace.globalCompositeOperation = 'source-over'
-
+      this.contextTrace.globalCompositeOperation = 'source-over'
    } 
 
+   lineBrezen(vector: TPoint, pixelScena: ImageData): void {
+      const w = pixelScena.width
 
-   lineBrezen(vector: TPoint): void {
       let isObject = false;
       let isVisiable = true;
 
@@ -358,24 +352,19 @@ export default class Canvas {
       let error = dx + dy;
       for (; n > 0; n--) {
          if (isVisiable) {
-            if(x1 >= 0 && y1>=0) {
-               this.contextTrace.beginPath();
-               const pixel = this.pixelScena[x1][y1]
-               
-               if (isObject && pixel.r !== 255 && pixel.r === 0 ) {
+               const pixelRed = pixelScena.data[y1 * (w * 4) + x1 * 4]
+              
+               if (isObject && pixelRed === 0 || x1 < 0 || y1 < 0 || x1 > this.canvasTrace.width || y1 > this.canvasTrace.height) {
                   isVisiable = false;
                   isObject = false;
-                  this.areaVisible.push({x: x1, y: y1})
+                  this.areaVisible.push({x: x1 - sx, y: y1 - sy})
                   return
-               } else {
-                  if (pixel.r === 255 && pixel.g === 0) {
-                     isObject = true;
-                  }
                }
-               this.contextTrace.closePath();
-            }
+               if (pixelRed === 255) {
+                     isObject = true;
+               }
          }
-         
+
          err2 = 2 * error;
          if (err2 > dy) {
             error += dy;
@@ -385,13 +374,11 @@ export default class Canvas {
             error += dx;
             y1 += sy;
          }
-         
-      }     
+      }    
       
-      if(!isObject && isVisiable) {
-         this.areaVisible.push({x: x1, y: y1})
+      if(isVisiable) {
+         this.areaVisible.push({x: x1 + sx, y: y1 + sy})
       }
-
    }
 
    clear(): void {
@@ -414,6 +401,7 @@ export default class Canvas {
    render(): void {
       this.context.drawImage(this.canvasV, 0, 0);
       this.context.drawImage(this.canvasTrace, 0, 0);      
+
    }
 
    

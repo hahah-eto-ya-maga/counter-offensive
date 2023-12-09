@@ -30,10 +30,11 @@ export type TUnit = TPoint & {
     r: number
 }
 
-export type TRGBA = {
-    r: number,
-    g: number,
-    b: number,
-    a: number
+export type TScena = {
+    homes: TPoint[][]
+    walls: TPoint[][]
+    stones: TUnit[]
+    bushes: TUnit[]
 }
+
 
