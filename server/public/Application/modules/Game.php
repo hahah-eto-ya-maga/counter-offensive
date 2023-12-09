@@ -3,27 +3,54 @@ require_once('BaseModule.php');
 
 class Game extends BaseModule 
 {
+
+    private $mobs;
+    private $game;
+
     function __construct($db) {
         parent::__construct($db);
+        
+    }
+
+    private function addMobs(){
+        $mobsCount = count($this->mobs);
+        if($mobsCount<=13){
+            for($i=$mobsCount; $i<16; $i++){
+                $this->db->addMobs(rand(8, 9));
+            }
+        }
+    }
+
+    private function moveMobs() {
+
+    }
+
+    private function updateScene(){
+        $this->gamers = $this->db->getGamers(); 
+        $this->mobs = $this->db->getMobs(); 
+        $this->addMobs();
     }
 
     private function update() {
 
         $time = $this->db->getTime();
         if ($time->nowTime - $time->timestamp >= $time->timeout)
-            return true;
-        return false;
+            $this->updateScene();
         // взять текущее время time()
         // взять $timestamp из БД
         // если time() - $timestamp >= $timeout (взять из БД)
         // то обновить сцену и $timestamp = time()
     }
 
-    function getPlayers() {
+    private function getPlayers() {
         return [];
     }
 
-    function getScene($userId, $hashPlayers) {
+    private function getMobs() {
+        return [];
+    }
+
+    function getScene($userId, $hashPlayers) { 
         if ($this->update())
             return true; 
         $result = array();
@@ -32,21 +59,9 @@ class Game extends BaseModule
             $result['players'] = $this->getPlayers();
             $result['hashPlayers'] = $hashes->hashPlayers;
         }
-        if ($hashes->hashPlayers !== $hashPlayers) {
-            $result['players'] = $this->getPlayers();
-            $result['hashPlayers'] = $hashes->hashPlayers;
-        }
-        if ($hashes->hashPlayers !== $hashPlayers) {
-            $result['players'] = $this->getPlayers();
-            $result['hashPlayers'] = $hashes->hashPlayers;
-        }
-        if ($hashes->hashPlayers !== $hashPlayers) {
-            $result['players'] = $this->getPlayers();
-            $result['hashPlayers'] = $hashes->hashPlayers;
-        }
-        if ($hashes->hashPlayers !== $hashPlayers) {
-            $result['players'] = $this->getPlayers();
-            $result['hashPlayers'] = $hashes->hashPlayers;
+        if ($hashes->hashMobs !== $hashPlayers) {
+            $result['mobs'] = $mobs;
+            $result['hashMobs'] = $hashes->hashMobs;
         }
         //...
         /*

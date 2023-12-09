@@ -188,9 +188,14 @@ class DB {
         return $this->queryHandler($query, [], true);
     }
     
-    public function getPlayers() {
-        $query = "SELECT person_id, x, y, angle,  FROM gamers WHERE status=`alive`";
-        return $this->queryHandler($query, [], true);
+    public function getGamers() {
+        $query = "SELECT person_id, x, y, angle  FROM gamers WHERE status=`alive`";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    public function getMobs() {
+        $query = "SELECT person_id, x, y, angle  FROM mobs;";
+        return $this->queryHandlerAll($query, []);
     }
 
     public function getTime() {
@@ -206,6 +211,11 @@ class DB {
     function getGamerStatus($userId) {
         $query = "SELECT status FROM gamers WHERE id=?";
         return $this->queryHandler($query, [$userId], true);
+    }
+
+    function addMobs($role) {
+        $query = "INSERT INTO mobs (person_id=?, hp, x, y, angle) VALUES (?, 100, 20, 20, 0);";
+        $this->queryHandler($query, [$role]);
     }
 
 }

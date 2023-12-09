@@ -151,7 +151,7 @@ class Application
         $hashMobs = $params['hashMobs'] ?? false;
         $hashBullets = $params['hashBullets'] ?? false;
         $hashBodies = $params['hashBodies'] ?? false;
-        if($token && $hashPlayers) {
+        if($token && $hashMobs) {
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
                 return $this->game->getScene($user->id, $hashPlayers);
