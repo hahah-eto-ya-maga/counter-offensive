@@ -5,6 +5,8 @@ class Game extends BaseModule
 {
 
     private $mobs;
+    private $gamers;
+
     private $game;
 
     function __construct($db) {
@@ -12,17 +14,66 @@ class Game extends BaseModule
         
     }
 
+    private function EasyAStar($grid, $start, $end) {
+        $queue = [[$start]];
+        $visited = [];
+        $rows = count($grid);
+        $cols = count($grid[0]);
+    
+        while (count($queue) > 0) {
+            $path = array_shift($queue);
+            $node = end($path);
+            list($x, $y) = $node;
+    
+            if ($x === $end[0] && $y === $end[1]) {
+                return $path;
+            }
+    
+            if (!isset($visited[$x][$y]) && $x >= 0 && $x < $rows && $y >= 0 && $y < $cols && $grid[$x][$y] === 0) {
+                $visited[$x][$y] = true;
+    
+                foreach ([
+                    [$x + 1, $y],
+                    [$x - 1, $y],
+                    [$x, $y + 1],
+                    [$x, $y - 1]
+                ] as list($newX, $newY)) {
+                    $newPath = $path;
+                    $newPath[] = [$newX, $newY];
+                    array_push($queue, $newPath);
+                }
+            }
+        }
+    
+        return [];
+    }
+
     private function addMobs(){
         $mobsCount = count($this->mobs);
         if($mobsCount<=13){
-            for($i=$mobsCount; $i<16; $i++){
+            for($i=$mobsCount; $i<2; $i++){
                 $this->db->addMobs(rand(8, 9));
             }
         }
     }
 
     private function moveMobs() {
+        foreach($this->mobs as $mob){
+            $mobX=$mob->x;
+            $mobY=$mob->y;
+            $minDistanceToGamer = 10000;
+            $targetGamer = null;
+            foreach($this->gamers as $gamer){
+                if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
+                    continue;
+                if(sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2)) < $minDistanceToGamer->dist)
+                    $targetGamer = $gamer;
+                }
+            // Нужно построить маршрут? Или только ближайшую клетку
 
+
+
+        }
     }
 
     private function updateScene(){
@@ -60,7 +111,7 @@ class Game extends BaseModule
             $result['hashPlayers'] = $hashes->hashPlayers;
         }
         if ($hashes->hashMobs !== $hashPlayers) {
-            $result['mobs'] = $mobs;
+            $result['mobs'] = $this->getPlayers();
             $result['hashMobs'] = $hashes->hashMobs;
         }
         //...
