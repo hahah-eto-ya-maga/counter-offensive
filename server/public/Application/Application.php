@@ -3,6 +3,7 @@ require_once("modules/DB.php");
 require_once("modules/User.php");
 require_once("modules/Chat.php");
 require_once("modules/Lobby.php");
+require_once("modules/Game.php");
 
 
 class Application
@@ -22,6 +23,7 @@ class Application
         $this->user = new User($db);
         $this->chat = new Chat($db);
         $this->lobby = new Lobby($db);
+        $this->game = new Game($db);
     }
 
 
@@ -151,10 +153,10 @@ class Application
         $hashMobs = $params['hashMobs'] ?? false;
         $hashBullets = $params['hashBullets'] ?? false;
         $hashBodies = $params['hashBodies'] ?? false;
-        if($token && $hashMobs) {
+        if($token && $hashMap && $hashBodies && $hashMobs && $hashPlayers && $hashBullets) {
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->game->getScene($user->id, $hashPlayers);
+                return $this->game->getScene($user->id, $hashPlayers, $hashMobs);
             }
             return array(false, 401);
         }  

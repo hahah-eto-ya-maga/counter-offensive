@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS `game` (
   `hashMobs` VARCHAR(100) NOT NULL DEFAULT '',
   `hashMap` VARCHAR(100) NOT NULL DEFAULT '',
   `hashBodies` VARCHAR(100) NOT NULL DEFAULT '',
-  `timestamp` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
-  `timeout` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
+  `timestamp` BIGINT NOT NULL DEFAULT 0,
+  `timeout` INT NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
 );
 
@@ -43,10 +43,9 @@ CREATE TABLE IF NOT EXISTS `gamers` (
 CREATE TABLE IF NOT EXISTS `mobs` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
   `person_id` MEDIUMINT NOT NULL DEFAULT -1,
-  `experience` INT NOT NULL DEFAULT 0,
   `hp` INT NOT NULL DEFAULT 0,
-  `x` FLOAT NULL DEFAULT NULL,
-  `y` FLOAT NULL DEFAULT NULL,
+  `x` MEDIUMINT NULL DEFAULT NULL,
+  `y` MEDIUMINT NULL DEFAULT NULL,
   `angle` FLOAT NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
@@ -117,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `tanks` (
   `angle` FLOAT NOT NULL DEFAULT 0,
   `speed` FLOAT NOT NULL DEFAULT 0,
   `tower_angle` FLOAT NOT NULL DEFAULT 0,
-  `commender_angle` FLOAT NOT NULL DEFAULT 0,
+  `commander_angle` FLOAT NOT NULL DEFAULT 0,
   `reload_timestamp` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
   PRIMARY KEY (`id`)
 );
@@ -149,8 +148,8 @@ INSERT INTO `gamers` (`user_id`, `experience`) VALUES
 
 /* Значения по умолчанию в таблице game*/
 
-INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`) 
-VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1');
+INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`, `timestamp`) 
+VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1',ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO `ranks` (`name`, `experience`) VALUES 
@@ -176,13 +175,13 @@ INSERT INTO `ranks` (`name`, `experience`) VALUES
 ('General', 17948);
 
 /* Добавление ролей в таблицу persons*/
-INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
-('general', 100, 'standartPerson.jpg', 1, 1, 1, 16),
-('bannerman', 100, 'standartPerson.jpg', 1, 1, 1, 1),
-('heavyTankGunner', 100, 'standartPerson.jpg', 1, 1, 1, 5),
-('heavyTankMeh', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
-('heavyTankCommander', 1000, 'standartPerson.jpg', 1, 1, 1, 12),
-('middleTankMeh', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
-('middleTankGunner', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
-('infantry', 100, 'standartPerson.jpg', 1, 1, 1, 1),
-('infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 5);
+INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
+('general', 100, 1, 1, 1, 16),
+('bannerman', 100, 1, 1, 1, 1),
+('heavyTankGunner', 1000, 1, 1, 1, 5),
+('heavyTankMeh', 1000, 1, 1, 1, 5),
+('heavyTankCommander', 1000, 1, 1, 1, 12),
+('middleTankMeh', 1000, 1, 1, 1, 5),
+('middleTankGunner', 1000, 1, 1, 1, 5),
+('infantry', 100, 1, 1, 1, 1),
+('infantryRPG', 100, 1, 1, 1, 5);

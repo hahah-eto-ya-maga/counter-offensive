@@ -30,7 +30,7 @@ class Game extends BaseModule
             $node = end($path);
             list($x, $y) = $node;
     
-            if ($path[0]) {
+            if ($x === $end[0] && $y === $end[1]) {
                 return $path;
             }
     
@@ -71,6 +71,8 @@ class Game extends BaseModule
     }
 
     private function moveMobs() {
+        if(!$this->gamers)
+            return 0;
         foreach($this->mobs as $mob){
             $mobX=$mob->x;
             $mobY=$mob->y;
@@ -82,10 +84,13 @@ class Game extends BaseModule
                 if(sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2)) < $minDistanceToGamer)
                     $targetGamer = $gamer;
                 }
-            $map = array_fill(0, 750, array_fill(0, 600, 0));
-            $path = $this->EasyAStar([$mobX, $mobY], $map, [$targetGamer->x, $targetGamer->y]);
+            $map = array_fill(0, 120, array_fill(0, 150, 0));
+            print_r([$mobX, $mobY]);
+            print_r([$targetGamer->x, $targetGamer->y]);
+            $path = $this->EasyAStar($map, [$mobX, $mobY], [$targetGamer->x, $targetGamer->y]);
+            print_r($path[0]);
             $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-            $this->db->moveMob($path[0][0], $path[0][1], $angle, $mob->id);
+            $this->db->moveMob($path[1][0], $path[1][1], $angle, $mob->id);
             $this->fire($targetGamer->x, $targetGamer->y);
         }
     }
@@ -100,7 +105,7 @@ class Game extends BaseModule
     private function update() {
 
         $time = $this->db->getTime();
-        if ($time->nowTime - $time->timestamp >= $time->timeout)
+        if ($time->timer - $time->timestamp >= $time->timeout)
             $this->updateScene();
         // взять текущее время time()
         // взять $timestamp из БД
@@ -108,7 +113,7 @@ class Game extends BaseModule
         // то обновить сцену и $timestamp = time()
     }
 
-    private function getPlayers() {
+    private function getGamers() {
         return [];
     }
 
@@ -116,15 +121,15 @@ class Game extends BaseModule
         return [];
     }
 
-    function getScene($userId, $hashPlayers) { 
-        if ($this->update())
+    function getScene($userId, $hashGamers, $hashMobs) { 
+        $this->update();
         $result = array();
         $hashes = $this->db->getHashes();
-        if ($hashes->hashU !== $hashPlayers) {
-            $result['players'] = $this->getPlayers();
-            $result['hashPlayers'] = $hashes->hashPlayers;
+        if ($hashes->hashGamers !== $hashGamers) {
+            $result['gamers'] = $this->getGamers();
+            $result['hashGamers'] = $hashes->hashGamers;
         }
-        if ($hashes->hashMobs !== $hashPlayers) {
+        if ($hashes->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
         }

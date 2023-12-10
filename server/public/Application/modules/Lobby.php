@@ -17,7 +17,31 @@ require_once('BaseModule.php');
                 );
         }
 
-        function checkTanks($userId)
+        private function addTank($tank, $is_middle=false){
+            foreach($tank as $tankMan){
+                switch($tankMan->person_id){
+                    case 3:
+                        $gunnerId = $tankMan->user_id; 
+                        break;
+                    case 4:
+                        $commanderId = $tankMan->user_id; 
+                        break;    
+                    case 5:
+                        $driverId = $tankMan->user_id; 
+                        break;
+                    case 6:
+                        $gunnerId = $tankMan->user_id; 
+                        break;
+                    case 7:
+                        $driverId = $tankMan->user_id; 
+                        break;
+                    }
+            }
+            if($is_middle) $this->db->addMiddleTank('m', $driverId, $gunnerId);
+            $this->db->addHeavyTank('h', $driverId, $gunnerId, $commanderId);
+        }
+
+        private function checkTanks($userId)
         {
             $tankmans = $this->db->getTankmans();
             $usersByTank = [];
@@ -27,11 +51,13 @@ require_once('BaseModule.php');
                     $usersByTank[$tankId] = [];
                 array_push($usersByTank[$tankId], $tankman);
             }
+            print_r(json_encode($usersByTank));
             $result['heavyTank'] = [];
             $result['middleTank'] = [];
             $tankKeys = array_keys($usersByTank);
             
             foreach($tankKeys as $tankKey){
+                print_r($tankKey);
                 $heavyTank = array(
                     "id" => $tankKey,
                     "Gunner" => false,
@@ -65,6 +91,7 @@ require_once('BaseModule.php');
                 if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5))){
                     if($heavyTank["Commander"] && $heavyTank["Gunner"] && 
                     $heavyTank["Mechanic"]){
+                        $this->addTank($usersByTank[$tankKey]);
                         $this->db->deleteTank($tankKey);
                         break;
                     }
@@ -73,6 +100,7 @@ require_once('BaseModule.php');
 
                 else if(in_array($usersByTank[$tankKey][0]->person_id, array(6, 7))){
                     if($middleTank["Gunner"] && $middleTank["Mechanic"]){
+                        $this->addTank($usersByTank[$tankKey], true);
                         $this->db->deleteTank($tankKey);
                         break;
                     }
