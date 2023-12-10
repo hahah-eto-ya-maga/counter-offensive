@@ -54,10 +54,8 @@ CREATE TABLE IF NOT EXISTS `persons` (
 
 CREATE TABLE IF NOT EXISTS `kills` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
-  `person_id` MEDIUMINT NOT NULL DEFAULT -1,
-  `x` FLOAT NOT NULL,
-  `y` FLOAT NOT NULL,
-  `angle` FLOAT NOT NULL DEFAULT 0,
+  `victim_id` MEDIUMINT NOT NULL DEFAULT -1,
+  `killer_id` MEDIUMINT NOT NULL DEFAULT -1,
   `killTime` DATETIME NOT NULL,
   PRIMARY KEY (`id`)
 );
@@ -165,7 +163,7 @@ INSERT INTO `ranks` (`name`, `experience`) VALUES
 ('General', 17948);
 
 /* Добавление ролей в таблицу persons*/
-INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
+INSERT INTO `persons` (`name`, `hp`, `image`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
 ('general', 100, 'standartPerson.jpg', 1, 1, 1, 16),
 ('bannerman', 100, 'standartPerson.jpg', 1, 1, 1, 1),
 ('heavyTankGunner', 100, 'standartPerson.jpg', 1, 1, 1, 5),
