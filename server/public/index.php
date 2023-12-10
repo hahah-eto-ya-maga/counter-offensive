@@ -25,7 +25,7 @@
                     case "setGamerRole": return $app->setGamerRole($params);
                     case "getLobby": return $app->getLobby($params);
                     // Game
-                    case "getScene": return $app->getLobby($params);
+                    
                 } 
                 return array(false, 501);
             }
