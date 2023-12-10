@@ -3,6 +3,7 @@ require_once("modules/DB.php");
 require_once("modules/User.php");
 require_once("modules/Chat.php");
 require_once("modules/Lobby.php");
+require_once("modules/Game.php");
 
 
 class Application
@@ -22,6 +23,8 @@ class Application
         $this->user = new User($db);
         $this->chat = new Chat($db);
         $this->lobby = new Lobby($db);
+        $this->game = new Game($db);
+
     }
 
 
@@ -158,6 +161,16 @@ class Application
             }
             return array(false, 401);
         }  
+        return array(false, 400);
+    }
+
+    function checkObjectsHp($params) {
+        $id = $params['id'] ?? false;
+        $damage = $params['damage'] ?? false;
+
+        if ($id && $damage) {
+            return $this->game->checkObjectHp($id, $damage);
+        }
         return array(false, 400);
     }
 

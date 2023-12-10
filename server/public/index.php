@@ -26,12 +26,16 @@
                     case "getLobby": return $app->getLobby($params);
                     // Game
                     case "getScene": return $app->getLobby($params);
+                    case "checkObjectHp": return $app->checkObjectsHp($params);
                 } 
                 return array(false, 501);
             }
             return array(false, 503);
         }
         return array(false, 405);
+
+        
     }
 
     echo json_encode(Answer::response(request($_GET)));
+

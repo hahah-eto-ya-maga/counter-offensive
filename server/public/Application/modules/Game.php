@@ -140,6 +140,28 @@ class Game extends BaseModule
         */
         return $result;
     }
+
+
+    function checkObjectHp($id, $damage) {
+        $currentHp = $this->db -> getObjectHp($id);
+        $newHp = $currentHp->hp - $damage;
+        
+        if ($newHp <= 0) {
+            $this->db ->deleteObject($id);
+            return true;
+        }
+        $this -> db ->updateObjectHp($id, $newHp);
+        return true;
+        
+        
+
+    }
+
+    function getObjects($id) {
+        $object = $this->db->getObjectById();
+    }
+
+    
 }
 
 

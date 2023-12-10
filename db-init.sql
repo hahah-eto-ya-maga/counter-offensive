@@ -122,6 +122,16 @@ CREATE TABLE IF NOT EXISTS `tanks` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `objects` (
+  `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(10) NOT NULL DEFAULT '',
+  `hp` INT NOT NULL DEFAULT 100,
+  `x` FLOAT NULL DEFAULT NULL,
+  `y` FLOAT NULL DEFAULT NULL,
+  `size` INT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+);
+
 /* Создание юзеров для тестирования*/
 -- У каждого пользователя пароль 12345678
 
@@ -186,3 +196,6 @@ INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpee
 ('middleTankGunner', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
 ('infantry', 100, 'standartPerson.jpg', 1, 1, 1, 1),
 ('infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 5);
+
+INSERT INTO `objects` (`id`, `type`, `hp`, `x`, `y`, `size`) VALUES
+(1, 1, 50, 1, 1, 1);
