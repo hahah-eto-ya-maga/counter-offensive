@@ -208,4 +208,14 @@ class DB {
         return $this->queryHandler($query, [$userId], true);
     }
 
+    function deleteDead(){
+        $query = "UPDATE `gamers` SET `person_id`= -1 WHERE  `status`= 'Dead'";
+        $this->queryHandler($query,[]);
+    }
+
+    function updateHashGamers($hash){
+        $query = "UPDATE `game` SET `hashGamers`= ? WHERE `id`=1";
+        $this->queryHandler($query, [$hash]);
+    }
+
 }

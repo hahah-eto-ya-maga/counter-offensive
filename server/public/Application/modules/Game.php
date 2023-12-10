@@ -60,6 +60,14 @@ class Game extends BaseModule
         */
         return $result;
     }
+
+    function deleteDead()
+    {
+        $this->db->deleteDead();
+        $hash = hash("sha256", $this->v4_UUID());
+        $this->db->updateHashGamers($hash);
+        return true;
+    }
 }
 
 
