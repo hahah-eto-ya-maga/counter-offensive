@@ -78,6 +78,18 @@ CREATE TABLE `tank_lobby` (
   PRIMARY KEY (`id`)
 ); 
 
+CREATE TABLE `bullets` (
+  `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
+  `user_id` MEDIUMINT NOT NULL DEFAULT 0,
+  `type` TINYINT NOT NULL Default 0,
+  `x1` MEDIUMINT NOT NULL DEFAULT 0,
+  `y1` MEDIUMINT NOT NULL DEFAULT 0,
+  `x2` MEDIUMINT NOT NULL DEFAULT 0,
+  `y2` MEDIUMINT NOT NULL DEFAULT 0,
+  `angle` FLOAT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+);
+
 /* Создание юзеров для тестирования*/
 
 INSERT INTO users(login, nickname, password) VALUES 
