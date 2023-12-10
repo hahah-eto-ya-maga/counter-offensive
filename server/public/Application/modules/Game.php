@@ -62,6 +62,14 @@ class Game extends BaseModule
         }
     }
 
+    private function calculateAngle($targetX, $targetY, $mobX, $mobY){
+        $deltaX = $targetX - $mobX;
+        $deltaY = $targetY - $mobY;
+
+        $angleRadians = atan($deltaY / $deltaX);
+        return rad2deg($angleRadians);
+    }
+
     private function moveMobs() {
         foreach($this->mobs as $mob){
             $mobX=$mob->x;
@@ -71,12 +79,13 @@ class Game extends BaseModule
             foreach($this->gamers as $gamer){
                 if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                     continue;
-                if(sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2)) < $minDistanceToGamer->dist)
+                if(sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2)) < $minDistanceToGamer)
                     $targetGamer = $gamer;
                 }
             $map = array_fill(0, 750, array_fill(0, 600, 0));
             $path = $this->EasyAStar([$mobX, $mobY], $map, [$targetGamer->x, $targetGamer->y]);
-            $this->db->moveMob($path[0][0], $path[0][1], $mob->id);
+            $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
+            $this->db->moveMob($path[0][0], $path[0][1], $angle, $mob->id);
             $this->fire($targetGamer->x, $targetGamer->y);
         }
     }
