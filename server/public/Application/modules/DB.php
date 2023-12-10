@@ -192,4 +192,19 @@ class DB {
         $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
         $this->queryHandler($query, [$tankId]);
     }
+
+    function getBullets(){
+        $query = "SELECT * FROM bullets";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function updateBullet($x1, $x2, $y1, $y2, $id){
+        $query = "UPDATE bullets SET x1 = ?, x2 = ?, y1 = ?, y2 = ? WHERE id = ?";
+        $this->queryHandler($query, [$x1, $x2, $y1, $y2, $id]);
+    }
+
+    function deleteBullet($id) {
+        $query = "DELETE FROM bullets WHERE id = ?";
+        $this->queryHandler($query, [$id]);
+    }
 }
