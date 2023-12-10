@@ -14,7 +14,12 @@ class Game extends BaseModule
         
     }
 
-    private function EasyAStar($grid, $start, $end) {
+    private function fire($x, $y){
+    }
+
+
+    //Вернет только первую клетку для моба
+    function EasyAStar($grid, $start, $end) {
         $queue = [[$start]];
         $visited = [];
         $rows = count($grid);
@@ -25,7 +30,7 @@ class Game extends BaseModule
             $node = end($path);
             list($x, $y) = $node;
     
-            if ($x === $end[0] && $y === $end[1]) {
+            if ($path[0]) {
                 return $path;
             }
     
@@ -69,10 +74,10 @@ class Game extends BaseModule
                 if(sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2)) < $minDistanceToGamer->dist)
                     $targetGamer = $gamer;
                 }
-            // Нужно построить маршрут? Или только ближайшую клетку
-
-
-
+            $map = array_fill(0, 750, array_fill(0, 600, 0));
+            $path = $this->EasyAStar([$mobX, $mobY], $map, [$targetGamer->x, $targetGamer->y]);
+            $this->db->moveMob($path[0][0], $path[0][1], $mob->id);
+            $this->fire($targetGamer->x, $targetGamer->y);
         }
     }
 
@@ -80,6 +85,7 @@ class Game extends BaseModule
         $this->gamers = $this->db->getGamers(); 
         $this->mobs = $this->db->getMobs(); 
         $this->addMobs();
+        $this->moveMobs();
     }
 
     private function update() {
@@ -103,7 +109,6 @@ class Game extends BaseModule
 
     function getScene($userId, $hashPlayers) { 
         if ($this->update())
-            return true; 
         $result = array();
         $hashes = $this->db->getHashes();
         if ($hashes->hashU !== $hashPlayers) {
@@ -111,7 +116,7 @@ class Game extends BaseModule
             $result['hashPlayers'] = $hashes->hashPlayers;
         }
         if ($hashes->hashMobs !== $hashPlayers) {
-            $result['mobs'] = $this->getPlayers();
+            $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
         }
         //...

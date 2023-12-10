@@ -218,4 +218,9 @@ class DB {
         $this->queryHandler($query, [$role]);
     }
 
+    function moveMob($mobX, $mobY, $mobId) {
+        $query = "UPDATE mobs SET(x, y) VALUES(?, ?)  WHERE id=?;";
+        $this->queryHandler($query, [$mobX, $mobY, $mobId]);
+    }
+
 }
