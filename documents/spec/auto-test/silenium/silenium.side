@@ -274,7 +274,7 @@
       "id": "dcede646-0da8-469a-b42e-28dd2fef384a",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=test_chatLobby",
+      "target": "id=test-button-openCloseCchat",
       "targets": [],
       "value": ""
     }, {
