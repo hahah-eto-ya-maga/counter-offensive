@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "058f29a5-6fcf-429d-964b-044eee831120",
+		"_postman_id": "fd81b676-fe80-491c-9492-b2e77d086717",
 		"name": "Andriianov Artemm",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30955074"
@@ -13,7 +13,7 @@
 					"name": "login",
 					"item": [
 						{
-							"name": "login",
+							"name": "loginSuccessEnterance",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -75,10 +75,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -117,7 +117,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError400(emptyLogin)",
+							"name": "loginEmptyLogin(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -155,10 +155,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login=",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}&rnd={{rnd}}&login=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -187,7 +187,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError400(emptyHash)",
+							"name": "loginEmptyHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -213,7 +213,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -224,10 +224,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash=&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login&hash=&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -256,7 +256,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError403",
+							"name": "loginWrongHash(Error403)",
 							"event": [
 								{
 									"listen": "test",
@@ -282,7 +282,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Forbidden', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Forbidden');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Forbidden\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -293,10 +293,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}1$$$%%%&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}1$$$%%%&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -325,7 +325,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError461",
+							"name": "loginWrongLogin(Error461)",
 							"event": [
 								{
 									"listen": "test",
@@ -351,7 +351,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is User not Exist', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('User not Exist');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"User not Exist\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -362,10 +362,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}1234$$%23",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}1234$$%23",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -394,7 +394,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError405",
+							"name": "loginNoMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -420,7 +420,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -431,10 +431,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=&hash={{hash}}&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -463,7 +463,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError501",
+							"name": "loginWrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -489,7 +489,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -500,10 +500,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login1&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login1&hash={{hash}}&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -590,10 +590,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{loginReg}}&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -610,7 +610,7 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
@@ -622,7 +622,108 @@
 							"response": []
 						},
 						{
-							"name": "registratonError400(emptyHash)",
+							"name": "registrationBigLetters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('testuserreg'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response rank_name is correct', ()=>{ \r",
+											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response gamer_exp is correct', ()=>{ \r",
+											"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response next_rang is correct', ()=>{ \r",
+											"    pm.expect(response.data.next_rang).to.eql(143); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response level is correct', ()=>{ \r",
+											"    pm.expect(response.data.level).to.eql(1); \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=registration&login=TEstingUse&hash=${pm.variables.get(\"hash1\")}&nickname=${pm.variables.get(\"nickname\")}`,\r",
+											"    method:`GET`,\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testinguse&nickname={{nickname}}&=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testinguse"
+										},
+										{
+											"key": "nickname",
+											"value": "{{nickname}}"
+										},
+										{
+											"key": null,
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registratonEmptyHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -648,7 +749,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -659,10 +760,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=&method=registration&login=testuserreg&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=&method=registration&login={{loginReg}}&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -679,7 +780,7 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
@@ -691,7 +792,7 @@
 							"response": []
 						},
 						{
-							"name": "registratonError400(emptyNickname)",
+							"name": "registratonEmptyNickname(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -717,7 +818,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -728,10 +829,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{loginReg}}&nickname=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -748,7 +849,7 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
@@ -760,7 +861,7 @@
 							"response": []
 						},
 						{
-							"name": "registratonError400(emptyLogin)",
+							"name": "registratonEmptyLogin(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -786,7 +887,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -797,10 +898,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -829,7 +930,7 @@
 							"response": []
 						},
 						{
-							"name": "registrationError413(wrongLogin)",
+							"name": "registrationWrongLogin(Error413)",
 							"event": [
 								{
 									"listen": "test",
@@ -854,7 +955,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Invalid login(nickname)');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -865,10 +966,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg1111111111111111111111111111111&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{loginReg}}111111111111111111111111111&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -885,7 +986,7 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg1111111111111111111111111111111"
+											"value": "{{loginReg}}111111111111111111111111111"
 										},
 										{
 											"key": "nickname",
@@ -897,7 +998,75 @@
 							"response": []
 						},
 						{
-							"name": "registrationError413(wrongNickname)",
+							"name": "registrationWrongLogin(Error413) Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 413', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(413);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=tes&nickname=testuserreg",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "tes"
+										},
+										{
+											"key": "nickname",
+											"value": "testuserreg"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationWrongNickname(Error413)",
 							"event": [
 								{
 									"listen": "test",
@@ -923,7 +1092,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Invalid login(nickname)');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -934,10 +1103,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=testuserreg111111111111111111111111",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{loginReg}}&nickname=testuserreg111111111111111111111111",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -954,11 +1123,80 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
 											"value": "testuserreg111111111111111111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationWrongNickname(Error413) Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 413', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(413);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=te",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testuserreg"
+										},
+										{
+											"key": "nickname",
+											"value": "te"
 										}
 									]
 								}
@@ -992,7 +1230,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Login Occupied', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Login Occupied');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Login Occupied\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1003,10 +1241,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{login}}&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{login}}&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1061,7 +1299,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1072,10 +1310,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=&login=testuserreg32&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=&login={{loginReg}}&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1092,7 +1330,7 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg32"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
@@ -1130,7 +1368,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1141,10 +1379,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration1&login=testuserreg&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration1&login={{loginReg}}&nickname=testuserreg",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1161,7 +1399,7 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
@@ -1184,14 +1422,15 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const { token } = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -1203,7 +1442,7 @@
 											"pm.test('check logout status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
-											" \r",
+											"\r",
 											"const response = pm.response.json(); \r",
 											" \r",
 											"pm.test('check response is JSON', ()=> { \r",
@@ -1226,10 +1465,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout&token={{token}}",
+									"raw": "http://{{url}}/api/?method=logout&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1287,10 +1526,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout&token=",
+									"raw": "http://{{url}}/api/?method=logout&token=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1348,10 +1587,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout&token={{token}}$$$%23%23%23",
+									"raw": "http://{{url}}/api/?method=logout&token={{token}}$$$%23%23%23",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1409,10 +1648,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
+									"raw": "http://{{url}}/api/?method=&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1441,7 +1680,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check logout status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -1459,7 +1698,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1470,10 +1709,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout1&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
+									"raw": "http://{{url}}/api/?method=logout1&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1502,9 +1741,27 @@
 							"name": "tokenVerification",
 							"event": [
 								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
 									"listen": "test",
 									"script": {
 										"exec": [
+											"\r",
 											"pm.test('check logout status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
@@ -1531,10 +1788,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification&token={{token}}",
+									"raw": "http://{{url}}/api/?method=tokenVerification&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1592,10 +1849,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification&token=",
+									"raw": "http://{{url}}/api/?method=tokenVerification&token=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1653,10 +1910,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification&token={{token}}123!",
+									"raw": "http://{{url}}/api/?method=tokenVerification&token={{token}}123!%23%23%23$$$",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1669,7 +1926,7 @@
 										},
 										{
 											"key": "token",
-											"value": "{{token}}123!"
+											"value": "{{token}}123!%23%23%23$$$"
 										}
 									]
 								}
@@ -1714,10 +1971,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1746,7 +2003,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check tokenVerification status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -1764,7 +2021,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1775,10 +2032,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification1&token={{token}}",
+									"raw": "http://{{url}}/api/?method=tokenVerification1&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1810,14 +2067,15 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const { token } = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -1842,7 +2100,12 @@
 											"\r",
 											"pm.test('check response data is Data', ()=>{ \r",
 											"    pm.expect(response.data).to.eql(true);\r",
-											"}); "
+											"}); \r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=updatePassword&token=${pm.variables.get(\"token\")}&hash=${pm.variables.get(\"hash1\")}`,\r",
+											"    method:`GET`,\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1852,10 +2115,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword&token={{token}}&hash=f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1872,7 +2135,7 @@
 										},
 										{
 											"key": "hash",
-											"value": "{{hash}}"
+											"value": "f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e"
 										}
 									]
 								}
@@ -1917,10 +2180,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token=&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword&token=&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1982,10 +2245,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}&hash=",
+									"raw": "http://{{url}}/api/?method=updatePassword&token={{token}}&hash=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2047,10 +2310,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}%23%23%23$$$&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword&token={{token}}%23%23%23$$$&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2112,10 +2375,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2148,7 +2411,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check updatePassword status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -2166,7 +2429,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2177,10 +2440,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword1&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword1&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2216,14 +2479,15 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const { token } = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -2258,10 +2522,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2323,10 +2587,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token=&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage&token=&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2388,10 +2652,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message=",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}&message=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2453,10 +2717,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}123432$$$%23&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}123432$$$%23&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2534,10 +2798,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}&message=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2599,10 +2863,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}&message={{message}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2635,7 +2899,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check sendMessage status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -2653,7 +2917,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2664,10 +2928,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage111&token={{token}}&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage111&token={{token}}&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2745,14 +3009,15 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const{token} = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -2762,10 +3027,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2827,10 +3092,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token=&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages&token=&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2892,10 +3157,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}&hash=",
+									"raw": "http://{{url}}/api/?method=getMessages&token={{token}}&hash=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2957,10 +3222,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}123%23%23%23$$$&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages&token={{token}}123%23%23%23$$$&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -3022,10 +3287,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -3058,7 +3323,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check getMessages status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -3076,9 +3341,8 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
-											"});\r",
-											""
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3088,10 +3352,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages11&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages11&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -3147,6 +3411,11 @@
 			"type": "string"
 		},
 		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
 			"key": "rnd",
 			"value": "",
 			"type": "string"
@@ -3168,6 +3437,176 @@
 		},
 		{
 			"key": "message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "code400",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "401",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "405",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "413",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "460",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "432",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "501",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Bad Request",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Unauthorized",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Forbidden",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Method Not Allowed",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Invalid login(nickname)",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Not Implemented",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Login Occupied",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Invalid Message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "User not Exist",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Insufficient level",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Level less current gamer",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "You taken this role",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Role taken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Place already occupied",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Incorrect tank number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Tank number have another type",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Role not implemented",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "234",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "235",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "236",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "237",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "238",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "239",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "240",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "463",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hash1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "loginReg",
 			"value": "",
 			"type": "string"
 		}
