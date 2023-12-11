@@ -9,9 +9,10 @@ class Game extends BaseModule
 
     private $game;
 
+    private $duration;
+
     function __construct($db) {
         parent::__construct($db);
-        
     }
 
     private function fire($x, $y){
@@ -70,6 +71,17 @@ class Game extends BaseModule
         return rad2deg($angleRadians);
     }
 
+    function calculateShiftPoint($x1, $y1, $x2, $y2, $distance) {
+        $dx = $x2 - $x1;
+        $dy = $y2 - $y1;
+    
+        $distanceBetweenPoints = sqrt($dx * $dx + $dy * $dy);
+    
+        $factor = $distance / $distanceBetweenPoints;
+    
+        return array($x1 + $dx * $factor, $y1 + $dy * $factor);
+    }
+
     private function moveMobs() {
         if(!$this->gamers)
             return 0;
@@ -78,19 +90,34 @@ class Game extends BaseModule
             $mobY=$mob->y;
             $minDistanceToGamer = 10000;
             $targetGamer = null;
-            foreach($this->gamers as $gamer){
-                if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
-                    continue;
-                if(sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2)) < $minDistanceToGamer)
-                    $targetGamer = $gamer;
+            $targetDistance = null;
+            // print($this->duration);
+            if($this->duration > 500){
+                foreach($this->gamers as $gamer){
+                    if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
+                        continue;
+                    $distance = sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2));
+                    if($distance < $minDistanceToGamer)
+                        $targetGamer = $gamer;
+                        $targetDistance = $distance; 
                 }
-            $map = array_fill(0, 120, array_fill(0, 150, 0));
-            print_r([$mobX, $mobY]);
-            print_r([$targetGamer->x, $targetGamer->y]);
-            $path = $this->EasyAStar($map, [$mobX, $mobY], [$targetGamer->x, $targetGamer->y]);
-            print_r($path[0]);
-            $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-            $this->db->moveMob($path[1][0], $path[1][1], $angle, $mob->id);
+                $map = array_fill(0, 120, array_fill(0, 150, 0));
+                if($targetDistance && $targetGamer && $targetDistance<50){
+                    $path = $this->EasyAStar($map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
+                    $this->db->setMobPath($mob->id, json_encode($path));
+                    $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
+                }
+                else continue;
+            }
+            else {
+                $path = json_decode($this->db->getMobPath($mob->id)->path);
+                $targetCoord = $path[count($path)-1];
+                $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
+            }
+            $distance = $mob->movementSpeed * ($this->duration / 1000);
+            $distance = $distance > 1 ? 1:$distance;
+            $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);
+            $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
             $this->fire($targetGamer->x, $targetGamer->y);
         }
     }
@@ -105,12 +132,9 @@ class Game extends BaseModule
     private function update() {
 
         $time = $this->db->getTime();
-        if ($time->timer - $time->timestamp >= $time->timeout)
+        $this->duration = $time->timer - $time->timestamp;
+        if ($this->duration >= $time->timeout)
             $this->updateScene();
-        // взять текущее время time()
-        // взять $timestamp из БД
-        // если time() - $timestamp >= $timeout (взять из БД)
-        // то обновить сцену и $timestamp = time()
     }
 
     private function getGamers() {
@@ -118,7 +142,7 @@ class Game extends BaseModule
     }
 
     private function getMobs() {
-        return [];
+        return $this->db->getAllMobs();
     }
 
     function getScene($userId, $hashGamers, $hashMobs) { 

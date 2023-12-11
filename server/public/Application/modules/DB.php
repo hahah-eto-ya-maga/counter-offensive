@@ -200,6 +200,11 @@ class DB {
         return $this->queryHandlerAll($query, []);
     }
 
+    public function getAllMobs() {
+        $query = "SELECT person_id, x, y,angle FROM mobs;";
+        return $this->queryHandlerAll($query, []);
+    }
+
     public function getTime() {
         $query = "SELECT timestamp, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) as timer, timeout FROM game WHERE id=1";
         return $this->queryHandler($query, [], true);
@@ -233,5 +238,20 @@ class DB {
     function addMiddleTank($type, $driverId, $gunnerId){
         $query = "INSERT INTO tanks (type, driver_id, gunner_id, x, y) VALUES (?, ?, ?, ?, 5, 5);";
         $this->queryHandler($query, [$type, $driverId, $gunnerId]);
+    }
+
+    function getMobPath($mobId){
+        $query = "SELECT path FROM mobs WHERE id=?";
+        return $this->queryHandler($query, [$mobId], true);
+    }
+
+    function setMobPath($mobId, $path){
+        $query = "UPDATE mobs SET path=? WHERE id=?";
+        $this->queryHandler($query, [$path, $mobId]);
+    }
+
+    function getMobById($mobId){
+        $query = "SELECT x, y, angle FROM mobs WHERE id=?";
+        return $this->queryHandler($query, [$mobId], true);
     }
 }
