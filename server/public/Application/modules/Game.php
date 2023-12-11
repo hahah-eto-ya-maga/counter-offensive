@@ -33,15 +33,11 @@ class Game
 
     
 
-    public function move($user_id,$x,$y)
+    public function move($user_id, $x, $y)
     {
-         $this->db->updateMove($user_id,$x,$y);
-       return true;
-    }
-
-    public function rotate($user_id,$angle)
-    {
-         $this->db->updateRotate($user_id,$angle);
+         $this->db->updateMove($user_id, $x, $y);
+         $hash = hash("sha256", $this->v4_UUID());
+         $this->db->updateHashGamers($hash);
        return true;
     }
     
