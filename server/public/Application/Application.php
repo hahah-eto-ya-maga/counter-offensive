@@ -163,4 +163,18 @@ class Application
         return array(false, 400);
     }
 
+    function fire($params){
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if($token && $x && $y && $angle){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->game->fire($user->id, $x, $y, $angle ); 
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
 }

@@ -255,17 +255,22 @@ class DB {
         return $this->queryHandler($query, [$mobId], true);
     }
 
+    function addBullet($user_id, $x, $y, $angle){
+        $query = "INSERT INTO bullets (user_id, type, x1, y1, x2, y2, angle) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $angle]);
+    }
+
     function getBullets(){
         $query = "SELECT * FROM bullets";
         return $this->queryHandlerAll($query, []);
     }
 
-    function updateBullet($x1, $x2, $y1, $y2, $id){
-        $query = "UPDATE bullets SET x1 = ?, x2 = ?, y1 = ?, y2 = ? WHERE id = ?";
+    function updateBullet($x1, $y1, $x2, $y2, $id){
+        $query = "UPDATE bullets SET x1 = ?, y1 = ?, x2 = ?, y2 = ? WHERE id = ?";
         $this->queryHandler($query, [$x1, $x2, $y1, $y2, $id]);
     }
 
-    function deleteBullet($id) {
+    function deleteBullet($id){
         $query = "DELETE FROM bullets WHERE id = ?";
         $this->queryHandler($query, [$id]);
     }

@@ -11,6 +11,8 @@ class Game extends BaseModule
 
     private $duration;
 
+    private $bullets;
+
     function __construct($db) {
         parent::__construct($db);
     }
@@ -115,15 +117,17 @@ class Game extends BaseModule
             $distance = $distance > 1 ? 1:$distance;
             $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);
             $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
-            $this->fire($targetGamer->x, $targetGamer->y);
+//            $this->fire($targetGamer->x, $targetGamer->y);
         }
     }
 
     private function updateScene(){
+        $this->bullets = $this->db->getBullets();
         $this->gamers = $this->db->getGamers(); 
         $this->mobs = $this->db->getMobs(); 
         $this->addMobs();
         $this->moveMobs();
+        $this->moveBullets();
     }
 
     private function update() {
@@ -142,18 +146,32 @@ class Game extends BaseModule
         return $this->db->getAllMobs();
     }
 
-    function fire($params){
+    function fire($user_id, $x, $y, $angle){
+        $this->db->addBullet($user_id, $x, $y, $angle);
+    }
 
+    private function moveBullets(){
+        if (!$this->bullets){
+            return 0;
+        }
+        foreach($this->bullets as $bullet){
+            $this->moveBullet($bullet->id, $bullet->x2, $bullet->y2, $bullet->angle);
+        }
     }
     
-    private function moveBullet($params) {
-        $x2 = $params['x2'] + 0.02*cos($params['angle']);
-        $y2 = $params['y2'] + 0.02*sin($params['angle']);
-        $this->db->updateBullet($params['x2'], $x2, $params['y2'], $y2, $params['id']);  
+    private function moveBullet($id, $x, $y, $angle) {
+        if ($x>=120 || $x<=0 || $y>=150 || $y<=0){
+            $this->db->deleteBullet($id);
+        } else {
+            $x2 = $x + 0.02*cos($angle);
+            $y2 = $y + 0.02*sin($angle);
+            $this->db->updateBullet($x, $y, $x2, $y2, $id);
+        }
+          
     }
 
-    private function shootReg($params) {
-        
+    private function shootReg($x0, $y0,$id_bul, $x1) {
+
     }
 
     function getScene($userId, $hashGamers, $hashMobs) { 
