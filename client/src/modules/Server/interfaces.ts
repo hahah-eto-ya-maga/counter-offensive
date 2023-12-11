@@ -28,32 +28,16 @@ export interface IHeavyTank extends IMiddleTank {
 }
 
 export interface ILobby {
-   general: {
-      occupied: boolean;
-      available: boolean;
-   };
+   general: boolean;
 
-   bannerman: {
-      occupied: boolean;
-   };
-
-   heavyTank: {
-      commander: boolean;
-      mechanic: boolean;
-      gunner: boolean;
-   };
-
-   middleTank: {
-      gunner: boolean;
-      mechanic: boolean;
-   };
+   bannerman: boolean;
 
    tanks: {
       heavyTank: IHeavyTank[];
       middleTank: IMiddleTank[];
    };
 
-   infantryRPG: boolean;
+   is_alive: boolean;
 }
 
 export interface ILobbyState {
@@ -70,6 +54,7 @@ export interface IUserInfo {
    gamer_exp: number;
    next_rang: number;
    level: number;
+   role: EGamerRole;
 }
 
 export enum EGamerRole {
@@ -89,4 +74,11 @@ export enum ERank {
    Sergeant = "Sergeant",
    Officer = "Officer",
    General = "General",
+}
+
+export enum EHash {
+   lobbyHash = "lobbyHash",
+   bulletHash = "bulletHash",
+   gameHash = "gameHash",
+   chatHash = "chatHash",
 }

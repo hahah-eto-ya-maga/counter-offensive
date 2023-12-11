@@ -29,6 +29,7 @@
 }
 
 .units_item {
+   transition: all 0;
    background-color: var(--gray);
    height: 30%;
    display: flex;

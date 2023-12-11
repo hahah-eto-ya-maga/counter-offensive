@@ -1,6 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "classnames";
+import { useSetRoleHandler } from "../../../../hooks/useSetRoleHandler";
 import { ServerContext } from "../../../../App";
 import { withLayout } from "../../../../components/LobbyLayout/Layout";
 import {
@@ -24,6 +25,7 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
    const server = useContext(ServerContext);
    const navigate = useNavigate();
    const params = useParams();
+   const setRoleHandler = useSetRoleHandler();
 
    useEffect(() => {
       const id = Number(params.id);
@@ -55,7 +57,6 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
 
    const setRole = async (role: EGamerRole) => {
       const res = await server.setGamerRole(role, tank.id);
-      res && navigate(`/heavy_tanks/${tank.id}`, { replace: true });
    };
 
    return (
@@ -67,7 +68,7 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
          </div>
          <div className={cn("tank_svg_wrapper", "heavy_tank")}>
             <div
-               onClick={() => setRole(EGamerRole.heavyTankMeh)}
+               onClick={() => setRoleHandler(EGamerRole.heavyTankMeh, tank.id)}
                className={cn("tank_driver", {
                   tank_unavailable_role: tank.Mechanic,
                })}
@@ -75,7 +76,9 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                МехВод
             </div>
             <div
-               onClick={() => setRole(EGamerRole.heavyTankGunner)}
+               onClick={() =>
+                  setRoleHandler(EGamerRole.heavyTankGunner, tank.id)
+               }
                className={cn("tank_gunner", {
                   tank_unavailable_role: tank.Gunner,
                })}
@@ -83,7 +86,9 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                Наводчик
             </div>
             <div
-               onClick={() => setRole(EGamerRole.heavyTankCommander)}
+               onClick={() =>
+                  setRoleHandler(EGamerRole.heavyTankCommander, tank.id)
+               }
                className={cn("tank_commander", {
                   tank_unavailable_role: tank.Commander,
                })}

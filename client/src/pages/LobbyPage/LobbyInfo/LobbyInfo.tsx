@@ -1,12 +1,11 @@
 import { FC, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import cn from "classnames";
+import { useSetRoleHandler } from "../../../hooks/useSetRoleHandler";
 import { MediatorContext, ServerContext } from "../../../App";
+import { withLayout } from "../../../components/LobbyLayout/Layout";
 import { EGamerRole, ILobby } from "../../../modules/Server/interfaces";
 import { Button, Chat, Dossier } from "../../../components";
 import { automat, chatIcon, RPG, flag } from "../../../assets/png";
-
-import { withLayout } from "../../../components/LobbyLayout/Layout";
 
 import "./LobbyInfo.css";
 
@@ -19,26 +18,7 @@ const LobbyInfo: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
    const [isOpen, setIsOpen] = useState<EOpen>(EOpen.info);
    const mediator = useContext(MediatorContext);
    const server = useContext(ServerContext);
-
-   const navigate = useNavigate();
-
-   const setRoleHandler = async (role: EGamerRole) => {
-      const res = server.setGamerRole(role);
-
-      // временный переход в игру
-      role === EGamerRole.infantry &&
-         navigate("/game", {
-            state: {
-               userRole: "Automat",
-            },
-         });
-      role === EGamerRole.infantryRPG &&
-         navigate("/game", {
-            state: {
-               userRole: "RPG",
-            },
-         });
-   };
+   const setRoleHandler = useSetRoleHandler();
 
    const logoutHandler = async () => {
       const { LOGOUT } = mediator.getTriggerTypes();
@@ -63,7 +43,7 @@ const LobbyInfo: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
             <Button
                id="test_button_standartBearer"
                className={cn("units_item", "flag", {
-                  selected_role: lobby?.bannerman.occupied,
+                  selected_role: !lobby?.bannerman,
                })}
                appearance="image"
                onClick={() => setRoleHandler(EGamerRole.bannerman)}

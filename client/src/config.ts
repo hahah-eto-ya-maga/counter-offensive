@@ -20,6 +20,7 @@ export const MEDIATOR = {
       LOGOUT: "LOGOUT",
       AUTH_ERROR: "AUTH_ERROR",
       ROLE_ERROR: "ROLE_ERROR",
+      THROW_TO_GAME: "THROW_TO_GAME",
    },
 };
 

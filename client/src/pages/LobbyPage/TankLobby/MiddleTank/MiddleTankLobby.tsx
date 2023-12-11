@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ILobby, IMiddleTank } from "../../../../modules/Server/interfaces";
 import cn from "classnames";
+import { ILobby, IMiddleTank } from "../../../../modules/Server/interfaces";
 import { withLayout } from "../../../../components/LobbyLayout/Layout";
+import { Button } from "../../../../components";
 
 import "../TankLobby.css";
-import { Button } from "../../../../components";
 
 const MiddleTankLobby: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
    const [tanks, setTanks] = useState<IMiddleTank[]>([]);

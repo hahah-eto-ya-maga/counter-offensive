@@ -1,6 +1,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import cn from "classnames";
+import { useSetRoleHandler } from "../../../../hooks/useSetRoleHandler";
 import { ServerContext } from "../../../../App";
 import { withLayout } from "../../../../components/LobbyLayout/Layout";
 import {
@@ -23,6 +24,7 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
    const server = useContext(ServerContext);
    const navigate = useNavigate();
    const params = useParams();
+   const setRoleHandler = useSetRoleHandler();
 
    useEffect(() => {
       const id = Number(params.id);
@@ -51,11 +53,6 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
       return `${occupiedPlacesCount}/${placesCount}`;
    };
 
-   const setRole = async (role: EGamerRole) => {
-      const res = await server.setGamerRole(role, tank.id);
-      res && navigate(`/middle_tanks/${tank.id}`, { replace: true });
-   };
-
    return (
       <div className="tank_details">
          <div className="tank_info">
@@ -65,7 +62,7 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
          </div>
          <div className={cn("tank_svg_wrapper", "middle_tank")}>
             <div
-               onClick={() => setRole(EGamerRole.middleTankMeh)}
+               onClick={() => setRoleHandler(EGamerRole.middleTankMeh, tank.id)}
                className={cn("tank_driver", {
                   tank_unavailable_role: tank.Mechanic,
                })}
@@ -73,14 +70,15 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                МехВод
             </div>
             <div
-               onClick={() => setRole(EGamerRole.middleTankGunner)}
+               onClick={() =>
+                  setRoleHandler(EGamerRole.middleTankGunner, tank.id)
+               }
                className={cn("tank_gunner", {
                   tank_unavailable_role: tank.Gunner,
                })}
             >
                Наводчик
             </div>
-
             <MiddleTank />
          </div>
          <img

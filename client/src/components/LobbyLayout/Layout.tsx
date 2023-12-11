@@ -1,14 +1,14 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import cn from "classnames";
-import { EGamerRole, ILobby } from "../../modules/Server/interfaces";
+import { MediatorContext, ServerContext } from "../../App";
+import { requestDelay } from "../../config";
+import { EGamerRole, EHash, ILobby } from "../../modules/Server/interfaces";
 import { Button, Logo } from "..";
 import { tank2, tank3, general } from "../../assets/png";
 
-import { MediatorContext, ServerContext } from "../../App";
-import { EHash } from "../../modules/Store/Store";
 import "./Layout.css";
-import { requestDelay } from "../../config";
+import { useSetRoleHandler } from "../../hooks/useSetRoleHandler";
 
 export enum ETank {
    heavy,
@@ -21,13 +21,13 @@ export const withLayout = (
    return (): JSX.Element => {
       const [lobby, setLobby] = useState<ILobby | null>(null);
 
-      const mediator = useContext(MediatorContext);
       const server = useContext(ServerContext);
+      const mediator = useContext(MediatorContext);
+      const setRoleHandler = useSetRoleHandler();
       const navigate = useNavigate();
       const location = useLocation();
 
-      const { LOBBY_UPDATE } = mediator.getEventTypes();
-
+      const { THROW_TO_GAME } = mediator.getTriggerTypes();
       const path = location.pathname.split("/")[1];
 
       useEffect(() => {
@@ -36,7 +36,7 @@ export const withLayout = (
             if (res && res !== true) {
                server.STORE.setHash(EHash.lobbyHash, res.lobbyHash);
                setLobby(res.lobby);
-               lobby && mediator.call(LOBBY_UPDATE, lobby);
+               res.lobby.is_alive && mediator.get(THROW_TO_GAME);
             }
          }, requestDelay.lobby);
          return () => {
@@ -59,10 +59,6 @@ export const withLayout = (
          }
       };
 
-      const setGeneralHandler = async () => {
-         const res = await server.setGamerRole(EGamerRole.general);
-      };
-
       return (
          <div className="lobby_wrapper">
             <Logo />
@@ -71,10 +67,10 @@ export const withLayout = (
                   <Button
                      id="test_button_general"
                      className={cn("general units_item", {
-                        selected_role: lobby?.general.occupied,
+                        selected_role: !lobby?.general,
                      })}
                      appearance="image"
-                     onClick={setGeneralHandler}
+                     onClick={() => setRoleHandler(EGamerRole.general)}
                   >
                      Генерал
                      <img src={general} alt="General" />

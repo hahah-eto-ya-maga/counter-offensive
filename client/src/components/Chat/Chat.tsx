@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ServerContext } from "../../App";
-import { ERank, IMessage } from "../../modules/Server/interfaces";
+import { requestDelay } from "../../config";
+import { EHash, ERank, IMessage } from "../../modules/Server/interfaces";
 import {
    firstRank,
    secondRank,
@@ -12,8 +13,6 @@ import {
 import cn from "classnames";
 
 import "./Chat.css";
-import { EHash } from "../../modules/Store/Store";
-import { requestDelay } from "../../config";
 
 interface IChatProps {
    chatType: "lobby" | "game";

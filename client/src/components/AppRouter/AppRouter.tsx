@@ -14,12 +14,13 @@ export const AppRouter: FC = () => {
       server.STORE.getToken() ? privateRoutes : publicRoutes
    );
    const navigate = useNavigate();
-   const errorHandler = useErrorHandler(mediator, navigate);
+   const errorHandler = useErrorHandler();
 
    useEffect(() => {
       errorHandler();
 
-      const { LOGIN, LOGOUT, AUTH_ERROR } = mediator.getTriggerTypes();
+      const { LOGIN, LOGOUT, AUTH_ERROR, THROW_TO_GAME } =
+         mediator.getTriggerTypes();
       mediator.set(LOGIN, (user: IUserInfo) => {
          server.STORE.user = user;
          setRoutes(server.STORE.getToken() ? privateRoutes : publicRoutes);
@@ -30,6 +31,10 @@ export const AppRouter: FC = () => {
          server.STORE.setToken(null);
          setRoutes(publicRoutes);
          navigate("/");
+      });
+
+      mediator.set(THROW_TO_GAME, () => {
+         navigate("/game");
       });
 
       mediator.set(AUTH_ERROR, () => {

@@ -1,13 +1,14 @@
 import { SHA256 } from "crypto-js";
 import Mediator from "../Mediator/Mediator";
+import Store from "../Store/Store";
 import {
    IUserInfo,
    IError,
    IMessages,
    EGamerRole,
    ILobbyState,
+   EHash,
 } from "./interfaces";
-import Store, { EHash } from "../Store/Store";
 
 export default class Server {
    mediator: Mediator;

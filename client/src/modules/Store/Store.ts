@@ -1,11 +1,4 @@
-import { IUserInfo } from "../Server/interfaces";
-
-export enum EHash {
-   lobbyHash = "lobbyHash",
-   bulletHash = "bulletHash",
-   gameHash = "gameHash",
-   chatHash = "chatHash",
-}
+import { EHash, IUserInfo } from "../Server/interfaces";
 
 interface IHash {
    lobbyHash: string | null;

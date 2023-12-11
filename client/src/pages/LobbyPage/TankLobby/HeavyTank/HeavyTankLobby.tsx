@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import cn from "classnames";
 import { IHeavyTank, ILobby } from "../../../../modules/Server/interfaces";
 import { withLayout } from "../../../../components/LobbyLayout/Layout";
+import { Button } from "../../../../components";
 
 import "../TankLobby.css";
-import { Button } from "../../../../components";
 
 const HeavyTankLobby: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
    const [tanks, setTanks] = useState<IHeavyTank[]>([]);
