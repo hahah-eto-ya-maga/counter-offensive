@@ -31,11 +31,9 @@ class Game
         );
     }
 
-    
-
-    public function move($user_id, $x, $y)
+    public function rotate($user_id, $angle)
     {
-         $this->db->updateMove($user_id, $x, $y);
+         $this->db->updateRotate($user_id, $angle);
          $hash = hash("sha256", $this->v4_UUID());
          $this->db->updateHashGamers($hash);
        return true;

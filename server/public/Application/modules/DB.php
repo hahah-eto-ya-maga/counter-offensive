@@ -193,9 +193,9 @@ class DB {
         $this->queryHandler($query, [$tankId]);
     }
 
-    function updateMove($user_id, $x, $y){
-        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE `gamers`.`user_id` = ?;";
-        $this->queryHandler($query, [$x, $y, $user_id],true);
+    function updateRotate($user_id, $angle){
+        $query= "UPDATE `gamers` SET `angle` = ? WHERE `gamers`.`user_id` = ?;";
+        $this->queryHandler($query, [$angle, $user_id],true);
     }
 
     public function updateHashGamers($hash){
