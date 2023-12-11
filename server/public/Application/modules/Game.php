@@ -7,9 +7,13 @@ class Game {
         $this->db = $db;
     }
 
+    function fire($params){
+
+    }
+    
     private function moveBullet($params) {
-        $x2 = $params['x2'] + cos($params['angle']);
-        $y2 = $params['y2'] + sin($params['angle']);
+        $x2 = $params['x2'] + 0.02*cos($params['angle']);
+        $y2 = $params['y2'] + 0.02*sin($params['angle']);
         $this->db->updateBullet($params['x2'], $x2, $params['y2'], $y2, $params['id']);  
     }
 
