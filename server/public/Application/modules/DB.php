@@ -75,7 +75,7 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
-    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
+    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добавлнение юзера в таблицу с проверкой на существование такого же логина
         $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, NOW(), NOW())"; // Запрос вставляет в базу данных полученные данные
         $this->queryHandler($query, [$login, $nickname, $hash, $token]); 
     }
@@ -90,11 +90,6 @@ class DB {
         $this->queryHandler($query, [$hash]);
     }
 
-    function getChatHash() {
-        $query = "SELECT chatHash FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
-
     function getMessages($userId){
         $query = "SELECT u.id AS userId, u.nickname AS nickname, m.text AS text, r.id AS level, r.name AS rank_name, m.sendTime AS sendTime
         FROM messages AS m 
@@ -106,7 +101,7 @@ class DB {
     }
 
     function addGamer($userId){
-        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 1, 'lobby');";
+        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 0, 'lobby');";
         $this->queryHandler($query, [$userId]); 
     }
 
@@ -171,11 +166,6 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
-    function getLobbyHash() {
-        $query = "SELECT hashLobby FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
-
     function getPersons() {
         $query = "SELECT p.id AS person_id, p.name AS name, p.level as level, r.experience AS exp 
         FROM persons p
@@ -192,4 +182,15 @@ class DB {
         $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
         $this->queryHandler($query, [$tankId]);
     }
+
+    function getHashes() {
+        $query = "SELECT * FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    function getGamerStatus($userId) {
+        $query = "SELECT status FROM gamers WHERE id=?";
+        return $this->queryHandler($query, [$userId], true);
+    }
+
 }

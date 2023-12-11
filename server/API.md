@@ -69,23 +69,13 @@ messages = {
 **Лобби**
 ```
 lobby = {
-    "general": {
-                "occupied": bool,
-                "available": bool 
-            },
-            "bannerman": {
-                "occupied": bool
-            },
-            "heavyTank": {
-                "commander": bool,
-                "mechanic": bool,
-                "gunner": bool
-            },
-            "middleTank": {
-                "gunner": bool,
-                "mechanic": bool
-            },
-            "infantryRPG": bool
+    "general": bool,
+    "bannerman": bool,
+    "commander": bool,
+    "mechanic": bool,
+    "gunner": bool,
+    "infantryRPG": bool
+    tanks: tanks
 }
 ```
 
@@ -139,7 +129,7 @@ tanks = {
 ```
 lobbyState = {
     lobby: lobby,
-    tanks: tanks,
+    is_alive: bool,
     lobbyHash:string
 }
 ```

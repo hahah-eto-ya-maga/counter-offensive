@@ -5,6 +5,10 @@ CREATE TABLE IF NOT EXISTS `game` (
   `chatHash` VARCHAR(100) NOT NULL DEFAULT "",
   `hashBullets` VARCHAR(100) NOT NULL DEFAULT "",
   `hashLobby` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashGamers` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashMobs` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashMap` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashBodies` VARCHAR(100) NOT NULL DEFAULT "",
   PRIMARY KEY (`id`)
 );
 
@@ -96,8 +100,7 @@ INSERT INTO gamers(user_id,experience) VALUES
 
 /* Значения по умолчанию в таблице game*/
 
-INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby) VALUES ("1", "1", "1", "1", "1");
-
+INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby, hashGamers, hashMobs, hashMap, hashBodies) VALUES ("1", "1", "1", "1", "1", "1", "1", "1", "1");
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO ranks (id, name, experience) VALUES 
