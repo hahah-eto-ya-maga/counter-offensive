@@ -11,11 +11,25 @@ class Game extends BaseModule
 
     private $duration;
 
+    private $map;
+
     function __construct($db) {
         parent::__construct($db);
+        $this->map = array_fill(0, 120, array_fill(0, 150, 0));
     }
 
+
+    // // метод заполнения карты объектами
+//     private function pullMap(){
+//         foreach($this->objects as $object){
+//             for($i)
+//             $this->map[$object->y][$object->x] = 1;
+//         }
+//     }
+
+
     private function fire($x, $y){
+
     }
 
 
@@ -82,6 +96,10 @@ class Game extends BaseModule
         return array($x1 + $dx * $factor, $y1 + $dy * $factor);
     }
 
+    function calculateDistance($x1, $x2, $y1, $y2){
+        return sqrt(pow(($x1 - $x2),2) + pow(($y1 - $y2),2));
+    }
+
     private function moveMobs() {
         if(!$this->gamers)
             return 0;
@@ -96,14 +114,13 @@ class Game extends BaseModule
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                         continue;
-                    $distance = sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2));
+                    $distance = $this->calculateDistance($gamer->x, $mobX, $gamer->y, $mobY);
                     if($distance < $minDistanceToGamer)
                         $targetGamer = $gamer;
                         $targetDistance = $distance; 
                 }
-                $map = array_fill(0, 120, array_fill(0, 150, 0));
-                if($targetDistance && $targetGamer && $targetDistance<50){
-                    $path = $this->EasyAStar($map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
+                if($targetDistance && $targetGamer && $targetDistance<30){
+                    $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                 }
@@ -116,7 +133,13 @@ class Game extends BaseModule
             }
             $distance = $mob->movementSpeed * ($this->duration / 1000);
             $distance = $distance > 1 ? 1:$distance;
-            $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);
+            $distanceToNextCell = $this->calculateDistance($mobX, $mobY, $path[1][0], $path[1][1]);
+            $newDistance = $distance - $distanceToNextCell;
+            if($newDistance>0)
+                $newCoords = $this->calculateShiftPoint($path[1][0], $path[1][1], $path[2][0], $path[2][1], $newDistance);    
+            else 
+                $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);    
+
             $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
             $this->fire($targetGamer->x, $targetGamer->y);
         }
@@ -134,6 +157,7 @@ class Game extends BaseModule
         $time = $this->db->getTime();
         $this->duration = $time->timer - $time->timestamp;
         if ($this->duration >= $time->timeout)
+            $this->db->updateTimestamp($time->timestamp);
             $this->updateScene();
     }
 
