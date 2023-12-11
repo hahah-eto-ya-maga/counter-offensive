@@ -1,52 +1,47 @@
 <?php
-    class Lobby{
+require_once('BaseModule.php');
 
-        protected $db;
+    class Lobby extends BaseModule{
 
         private $lobbyState;
 
         public function __construct($db){
-            $this->db = $db;
+            parent::__construct($db);
             $this->lobbyState = array(
-                "general" => array(
-                        "occupied" => false,
-                        "available" => false
-                    ),
-                "bannerman" => array(
-                        "occupied" => false,
-                    ),
-                "heavyTank" => array(
-                    "commander" => false,
-                    "mechanic" => false,
-                    "gunner" => false
-                    ),
-                "middleTank" => array(
-                    "gunner" => false,
-                    "mechanic" => false,
-                    ),
+                "general" => false,
+                "bannerman" => true, 
+                "commander" => false,
+                "mechanic" => false,
+                "gunner" => false,
                 "infantryRPG" => false
                 );
         }
 
-
-        function v4_UUID() {
-            return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-              // 32 bits for the time_low
-              mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-              // 16 bits for the time_mid
-              mt_rand(0, 0xffff),
-              // 16 bits for the time_hi,
-              mt_rand(0, 0x0fff) | 0x4000,
-        
-              // 8 bits and 16 bits for the clk_seq_hi_res,
-              // 8 bits for the clk_seq_low,
-              mt_rand(0, 0x3fff) | 0x8000,
-              // 48 bits for the node
-              mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
-            );
+        private function addTank($tank, $is_middle=false){
+            foreach($tank as $tankMan){
+                switch($tankMan->person_id){
+                    case 3:
+                        $gunnerId = $tankMan->user_id; 
+                        break;
+                    case 4:
+                        $commanderId = $tankMan->user_id; 
+                        break;    
+                    case 5:
+                        $driverId = $tankMan->user_id; 
+                        break;
+                    case 6:
+                        $gunnerId = $tankMan->user_id; 
+                        break;
+                    case 7:
+                        $driverId = $tankMan->user_id; 
+                        break;
+                    }
+            }
+            if($is_middle) $this->db->addMiddleTank('m', $driverId, $gunnerId);
+            $this->db->addHeavyTank('h', $driverId, $gunnerId, $commanderId);
         }
 
-        function checkTanks($userId)
+        private function checkTanks($userId)
         {
             $tankmans = $this->db->getTankmans();
             $usersByTank = [];
@@ -56,11 +51,13 @@
                     $usersByTank[$tankId] = [];
                 array_push($usersByTank[$tankId], $tankman);
             }
+            print_r(json_encode($usersByTank));
             $result['heavyTank'] = [];
             $result['middleTank'] = [];
             $tankKeys = array_keys($usersByTank);
             
             foreach($tankKeys as $tankKey){
+                print_r($tankKey);
                 $heavyTank = array(
                     "id" => $tankKey,
                     "Gunner" => false,
@@ -91,58 +88,67 @@
                             break;
                     }
                 }
-                if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5)))
-                    array_push($result['heavyTank'], $heavyTank); 
+                if(in_array($usersByTank[$tankKey][0]->person_id, array(3, 4, 5))){
                     if($heavyTank["Commander"] && $heavyTank["Gunner"] && 
-                    $heavyTank["Mechanic"]) $this->db->deleteTank($tankKey);
-                    
+                    $heavyTank["Mechanic"]){
+                        $this->addTank($usersByTank[$tankKey]);
+                        $this->db->deleteTank($tankKey);
+                        break;
+                    }
+                    array_push($result['heavyTank'], $heavyTank); 
+                }
+
                 else if(in_array($usersByTank[$tankKey][0]->person_id, array(6, 7))){
+                    if($middleTank["Gunner"] && $middleTank["Mechanic"]){
+                        $this->addTank($usersByTank[$tankKey], true);
+                        $this->db->deleteTank($tankKey);
+                        break;
+                    }
                     array_push($result['middleTank'], $middleTank);
-                    if($middleTank["Gunner"] && $middleTank["Mechanic"]) $this->db->deleteTank($tankKey);
+
                 }                    
             }
             return $result;
         }
 
-        function checkRoleOccupied($lobby){
-            foreach($lobby as $role) {
-                $personId = $role->person_id;
-                switch($personId){
-                    case 1: 
-                        $this->lobbyState['general']['occupied'] = true;
-                        break;
-                    case 2: 
-                        $this->lobbyState['bannerman']['occupied'] = true;
-                        break;
-                }
-            }
-        }
-
-        function checkRoleAvailability($gamerRank, $persons){
+        function checkRoleAvailability($userId){
+            $lobby = $this->db->getLobby();
+            $gamerRank = $this->db->getRankById($userId);
+            $persons = $this->db->getPersons();
             foreach($persons as $person) {
                 switch($person->person_id){
                     case 1: 
-                        $this->lobbyState['general']['available'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['general'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 3: 
-                        $this->lobbyState['heavyTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 4: 
-                        $this->lobbyState['heavyTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 5: 
-                        $this->lobbyState['heavyTank']['commander'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['commander'] = $gamerRank->level >= $person->level ?  true : false;
                         break;  
                     case 6: 
-                        $this->lobbyState['middleTank']['gunner'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
                         break;                   
                     case 7: 
-                        $this->lobbyState['middleTank']['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
+                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
                     case 9: 
                         $this->lobbyState['infantryRPG'] = $gamerRank->level >= $person->level ?  true : false;
                         break;    
                     }
+            }
+            foreach($lobby as $role) {
+                switch($role->person_id){
+                    case 1: 
+                        $this->lobbyState['general'] = false;
+                        break;
+                    case 2: 
+                        $this->lobbyState['bannerman'] = false;
+                        break;
+                }
             }
         }
 
@@ -231,20 +237,18 @@
             return array(false, 463);
         }
 
-        function getLobby($role, $userId, $oldHash){
-            $hash = $this->db->getLobbyHash();       
+        function getLobby($userId, $oldHash){
+            $hash = $this->db->getHashes();       
             if ($hash->hashLobby !== $oldHash) {
-                $lobby = $this->db->getLobby();
-                $gamerRank = $this->db->getRankById($userId);
-                $persons = $this->db->getPersons();
-                $this->checkRoleOccupied($lobby);
-                $this->checkRoleAvailability($gamerRank, $persons);
+                $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks($userId);
-                return array("lobby" => $this->lobbyState,"tanks" => $tanks, "lobbyHash" => $hash->hashLobby);
+                $this->lobbyState['tanks'] = $tanks;
+                $is_alive = $this->db->getGamerStatus($userId);
+                $this->lobbyState['is_alive'] = ($is_alive && $is_alive->status=="alive") ? true : false; 
+                return array("lobby" => $this->lobbyState, "lobbyHash" => $hash->hashLobby);
             }
             return true;
         }
-
         
     }
 

@@ -75,7 +75,7 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
-    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
+    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добавлнение юзера в таблицу с проверкой на существование такого же логина
         $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, NOW(), NOW())"; // Запрос вставляет в базу данных полученные данные
         $this->queryHandler($query, [$login, $nickname, $hash, $token]); 
     }
@@ -90,11 +90,6 @@ class DB {
         $this->queryHandler($query, [$hash]);
     }
 
-    function getChatHash() {
-        $query = "SELECT chatHash FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
-
     function getMessages($userId){
         $query = "SELECT u.id AS userId, u.nickname AS nickname, m.text AS text, r.id AS level, r.name AS rank_name, m.sendTime AS sendTime
         FROM messages AS m 
@@ -106,7 +101,7 @@ class DB {
     }
 
     function addGamer($userId){
-        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 1, 'lobby');";
+        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 0, 'lobby');";
         $this->queryHandler($query, [$userId]); 
     }
 
@@ -171,11 +166,6 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
-    function getLobbyHash() {
-        $query = "SELECT hashLobby FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
-
     function getPersons() {
         $query = "SELECT p.id AS person_id, p.name AS name, p.level as level, r.experience AS exp 
         FROM persons p
@@ -191,6 +181,78 @@ class DB {
     function deleteTank($tankId){
         $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
         $this->queryHandler($query, [$tankId]);
+    }
+
+    function getHashes() {
+        $query = "SELECT * FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+    
+    public function getGamers() {
+        $query = "SELECT person_id, x, y, angle  FROM gamers WHERE status='alive'";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    public function getMobs() {
+        $query = "SELECT m.id AS id, m.person_id AS personId, m.x AS x, m.y AS y, m.angle AS angle,
+        p.reloadSpeed AS reloadSpeed, p.rotateSpeed AS rotateSpeed, p.movementSpeed AS movementSpeed 
+        FROM mobs m JOIN persons p ON m.person_id=p.id;";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    public function getAllMobs() {
+        $query = "SELECT person_id, x, y,angle FROM mobs;";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    public function getTime() {
+        $query = "SELECT timestamp, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) as timer, timeout FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    public function updateTimestamp($timestamp) {
+        $query = "UPDATE game SET timestamp=$timestamp WHERE id=1";
+        return $this->queryHandler($query, [$timestamp]);
+    }
+
+    function getGamerStatus($userId) {
+        $query = "SELECT status FROM gamers WHERE id=?";
+        return $this->queryHandler($query, [$userId], true);
+    }
+
+    function addMobs($role) {
+        $query = "INSERT INTO mobs (person_id, hp, x, y, angle) VALUES (?, 100, 20, 20, 0);";
+        $this->queryHandler($query, [$role]);
+    }
+
+    function moveMob($mobX, $mobY, $angle, $mobId) {
+        $query = "UPDATE mobs SET x=?, y=?, angle=? WHERE id=?;";
+        $this->queryHandler($query, [$mobX, $mobY, $angle, $mobId]);
+    }
+
+    function addHeavyTank($type, $driverId, $gunnerId, $commanderId){
+        $query = "INSERT INTO tanks (type, driver_id, gunner_id, commander_id, x, y) VALUES (?, ?, ?, ?, 5, 5);";
+        $this->queryHandler($query, [$type, $driverId, $gunnerId, $commanderId]);
+    }
+
+    function addMiddleTank($type, $driverId, $gunnerId){
+        $query = "INSERT INTO tanks (type, driver_id, gunner_id, x, y) VALUES (?, ?, ?, ?, 5, 5);";
+        $this->queryHandler($query, [$type, $driverId, $gunnerId]);
+    }
+
+    function getMobPath($mobId){
+        $query = "SELECT path FROM mobs WHERE id=?";
+        return $this->queryHandler($query, [$mobId], true);
+    }
+
+    function setMobPath($mobId, $path){
+        $query = "UPDATE mobs SET path=? WHERE id=?";
+        $this->queryHandler($query, [$path, $mobId]);
+    }
+
+    function getMobById($mobId){
+        $query = "SELECT x, y, angle FROM mobs WHERE id=?";
+        return $this->queryHandler($query, [$mobId], true);
     }
 
     function getBullets(){
