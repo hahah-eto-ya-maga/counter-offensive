@@ -274,7 +274,7 @@
       "id": "dcede646-0da8-469a-b42e-28dd2fef384a",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=test-button-openCloseCchat",
+      "target": "id=test_chatLobby",
       "targets": [],
       "value": ""
     }, {
@@ -2174,7 +2174,7 @@
     }]
   }, {
     "id": "4052bbd3-424e-4bfc-9750-c8f063289058",
-    "name": "registration200SymbolsPassword",
+    "name": "registration20SymbolsPassword",
     "commands": [{
       "id": "241a9467-3d7a-4cda-a62a-0132b72a2f27",
       "comment": "Длина пароля 200",
@@ -2220,7 +2220,7 @@
         ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
         ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
       ],
-      "value": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+      "value": "qwerty1234567890 @#!"
     }, {
       "id": "69c36d3e-2635-48ad-8f17-a8ef3c0fde2a",
       "comment": "",
@@ -2330,7 +2330,7 @@
     }]
   }, {
     "id": "161f7663-cc6e-4b09-81ec-386379c02e34",
-    "name": "registration201SymbolsPassword",
+    "name": "registration21SymbolsPassword",
     "commands": [{
       "id": "aa22a1c4-df96-4eea-bff4-fd80dcbf32b4",
       "comment": "Длина пароля 201",
@@ -2376,7 +2376,7 @@
         ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
         ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
       ],
-      "value": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+      "value": "qwerty1234567890 @#%^"
     }, {
       "id": "e426fa23-49ac-457d-9ee0-a64280016dd0",
       "comment": "",
@@ -2486,7 +2486,7 @@
     }]
   }, {
     "id": "1002ab2a-5a0b-4cde-8cff-9ede168736ca",
-    "name": "registration199SymbolsPassword",
+    "name": "registration19SymbolsPassword",
     "commands": [{
       "id": "326a57a5-c8d5-4585-bd43-50eb2459aacb",
       "comment": "Длина пароля 199",
@@ -2532,7 +2532,7 @@
         ["xpath=//div[@id='column-left']/div/div/div[4]/div/div[2]/div/ul/a[2]/div", "xpath:idRelative"],
         ["xpath=//div[2]/div/ul/a[2]/div", "xpath:position"]
       ],
-      "value": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+      "value": "qwerty1234567890 @#"
     }, {
       "id": "887b4b31-b83b-4f31-aae5-311afcee3961",
       "comment": "",
