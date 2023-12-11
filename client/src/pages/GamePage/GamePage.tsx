@@ -5,6 +5,7 @@ import Canvas from "../../modules/Graph/Canvas/Canvas";
 import Collision from "../../modules/Graph/Collision/Collision";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
 import MathGame from "../../modules/Graph/Math/MathGame";
+import { EGamerRole } from "../../modules/Server/interfaces";
 import { Chat } from "../../components";
 import {
    TKeyboard,
@@ -16,7 +17,6 @@ import { manAutomat, corpusTank, towerTank } from "../../assets/svg";
 import { grass, house, stone } from "../../assets/png";
 
 import "./GamePage.css";
-import { EGamerRole } from "../../modules/Server/interfaces";
 
 const GamePage: React.FC = () => {
    const server = useContext(ServerContext);

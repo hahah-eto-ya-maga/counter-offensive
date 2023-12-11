@@ -10,6 +10,7 @@ export interface IMessage {
    level: number;
    rank_name: ERank;
    sendTime: string;
+   userId: number;
 }
 
 export interface IMessages {
