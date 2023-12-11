@@ -9,11 +9,7 @@ require_once('BaseModule.php');
             parent::__construct($db);
             $this->lobbyState = array(
                 "general" => false,
-                "bannerman" => true, 
-                "commander" => false,
-                "mechanic" => false,
-                "gunner" => false,
-                "infantryRPG" => false
+                "bannerman" => true
                 );
         }
 
@@ -98,15 +94,7 @@ require_once('BaseModule.php');
                     case 4: 
                         $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
                         break;
-                    case 5: 
-                        $this->lobbyState['commander'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;  
-                    case 6: 
-                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;                   
-                    case 7: 
-                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;
+
                     case 9: 
                         $this->lobbyState['infantryRPG'] = $gamerRank->level >= $person->level ?  true : false;
                         break;    
@@ -219,6 +207,11 @@ require_once('BaseModule.php');
                 $this->lobbyState['is_alive'] = ($is_alive && $is_alive->status=="alive") ? true : false; 
                 return array("lobby" => $this->lobbyState, "lobbyHash" => $hash->hashLobby);
             }
+            return true;
+        }
+
+        function suicide($userId){
+            $this->db->suicide($userId);  
             return true;
         }
         

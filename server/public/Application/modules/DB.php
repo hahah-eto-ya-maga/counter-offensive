@@ -193,4 +193,9 @@ class DB {
         return $this->queryHandler($query, [$userId], true);
     }
 
+    function suicide($userId) {
+        $query = "UPDATE gamers SET person_id=-1, status=lobby WHERE user_id = ?";
+        $this->queryHandler($query, [$userId]);
+    }
+
 }
