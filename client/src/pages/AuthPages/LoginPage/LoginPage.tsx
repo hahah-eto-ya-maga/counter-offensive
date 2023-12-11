@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Input, Alert, Logo } from "../../../components";
-import { IUserData } from "../userData.interface";
+import useLoginValidator from "./useLoginValidator";
 import { MediatorContext, ServerContext } from "../../../App";
+import { IUserData } from "../userData.interface";
+import { Button, Input, Alert, Logo } from "../../../components";
 
 import "../AuthPage.css";
-import useLoginValidator from "./useLoginValidator";
 
 const LoginPage: React.FC = () => {
    const [userData, setUserData] = useState<IUserData>({
@@ -67,7 +67,7 @@ const LoginPage: React.FC = () => {
                   <Button
                      appearance="primary"
                      className="auth_switch_page"
-                     id="test_login_go_reg_button"
+                     id="test_login_goToReg_button"
                   >
                      Получить повестку
                   </Button>
