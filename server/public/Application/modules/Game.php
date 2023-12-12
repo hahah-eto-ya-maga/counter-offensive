@@ -239,6 +239,36 @@ class Game extends BaseModule
         */
         return $result;
     }
+
+    function deleteDead()
+    {
+        $this->db->deleteDead();
+        $hash = hash("sha256", $this->v4_UUID());
+        $this->db->updateHashGamers($hash);
+        return true;
+    }
+    
+    function Kill()
+    {
+        $hash = hash("sha256", $this->v4_UUID());
+       
+        $this->db->putTankBodies();
+        $this->db->killTankGamers();
+        $this->db->deleteTankDead();
+
+        $this->db->killGamers();
+        $this->db->putGamersBodies();
+
+        $this->db->updateHashGamers($hash);
+
+        $this->db->putMobsBodies();
+        $this->db->deleteMobsDead();
+
+        $this->db->updateHashBodies($hash);
+
+        $this->db->updateHashMobs($hash);
+        return true;
+    }
 }
 
 

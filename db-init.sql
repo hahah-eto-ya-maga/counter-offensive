@@ -135,6 +135,14 @@ CREATE TABLE IF NOT EXISTS `tanks` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `bodies` (
+  `y` FLOAT NULL DEFAULT NULL,
+  `angle` FLOAT NULL DEFAULT NULL,
+  `bodyType` VARCHAR(32) NOT NULL DEFAULT "",
+  `isEnemy` BOOLEAN NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
+
 /* Создание юзеров для тестирования*/
 -- У каждого пользователя пароль 12345678
 

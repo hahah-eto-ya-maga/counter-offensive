@@ -294,4 +294,72 @@ class DB {
         $query = "UPDATE game SET hashLobby=? WHERE id=1";
         $this->queryHandler($query, array($hash));
     }
+
+    function killGamers(){
+        $query = "UPDATE `gamers` SET `status`= 'Dead' WHERE  `hp` <= 0";
+        $this->queryHandler($query,[]);
+    }
+
+    function deleteDead(){
+        $query = "UPDATE `gamers` SET `person_id`= -1 WHERE  `status`= 'Dead'";
+        $this->queryHandler($query,[]);
+    }
+
+    function updateHashGamers($hash) {
+        $query = "UPDATE `game` SET `hashGamers`= ? WHERE `id`=1";
+        $this->queryHandler($query, [$hash]);
+    }
+
+    function deleteMobsDead(){
+        $query = "DELETE FROM `mobs` WHERE  `hp` <= 0";
+        $this->queryHandler($query,[]);
+    }
+
+    function updateHashMobs($hash) {
+        $query = "UPDATE `game` SET `hashMobs`=? WHERE `id`=1";
+        $this->queryHandler($query, [$hash]);
+    }
+
+    function putGamersBodies(){
+        $query = "INSERT INTO bodies (x,y,angle,isEnemy, bodyType)
+        SELECT g.x, g.y, g.angle, 0, p.name
+        FROM gamers g
+        JOIN persons p ON g.person_id = p.id
+        WHERE g.status = 'dead' AND g.person_id IN (1, 2, 7, 8)";
+        $this->queryHandler($query,[]);
+    }
+
+    function putTankBodies(){
+        $query = "INSERT INTO bodies (x,y,angle,isEnemy, bodyType)
+        SELECT t.x, t.y, t.angle, 0, t.type
+        FROM tanks t
+        WHERE t.hp <= 0";
+        $this->queryHandler($query,[]);
+    }
+
+    function killTankGamers(){
+        $query = "UPDATE gamers SET hp = 0 WHERE user_id IN(SELECT driver_id FROM tanks WHERE hp <= 0)
+        OR user_id IN(SELECT gunner_id FROM tanks WHERE hp <= 0)
+        OR user_id IN(SELECT commander_id FROM tanks WHERE hp <= 0)";
+        $this->queryHandler($query,[]);
+    }
+
+    function deleteTankDead(){
+        $query = "DELETE FROM `tanks` WHERE  `hp` <= 0";
+        $this->queryHandler($query,[]);
+    }
+
+    function putMobsBodies(){
+        $query = "INSERT INTO bodies (x,y,angle,isEnemy, bodyType)
+        SELECT m.x, m.y, m.angle, 1, p.name
+        FROM mobs m
+        JOIN persons p ON m.person_id = p.id
+        WHERE m.hp <= 0";
+        $this->queryHandler($query,[]);
+    }
+
+    public function updateHashBodies($hash){
+        $query = "UPDATE game SET hashBodies=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
 }
