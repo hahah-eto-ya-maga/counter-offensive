@@ -9,7 +9,8 @@ class Game extends BaseModule
 
     private $game;
 
-    private $duration;
+    private $timer;
+    private $timeout;
 
     private $map;
 
@@ -77,12 +78,9 @@ class Game extends BaseModule
         }
     }
 
-    private function calculateAngle($targetX, $targetY, $mobX, $mobY){
-        $deltaX = $targetX - $mobX;
-        $deltaY = $targetY - $mobY;
-
-        $angleRadians = atan($deltaY / $deltaX);
-        return rad2deg($angleRadians);
+    function calculateAngle($x1, $y1, $x2, $y2)
+    {
+        return atan2($y1 - $y2, $x1 - $x2);
     }
 
     function calculateShiftPoint($x1, $y1, $x2, $y2, $distance) {
@@ -110,7 +108,7 @@ class Game extends BaseModule
             $targetGamer = null;
             $targetDistance = null;
             // print($this->duration);
-            if($this->duration > 500){
+            if($this->timer - $mob->path_update > 1000){
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                         continue;
@@ -120,6 +118,11 @@ class Game extends BaseModule
                         $targetDistance = $distance; 
                 }
                 if($targetDistance && $targetGamer && $targetDistance<30){
+                    if($targetDistance<2)
+                    {
+                        // $this->fire();
+                        continue;
+                    }
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
@@ -127,21 +130,26 @@ class Game extends BaseModule
                 else continue;
             }
             else {
+                print('qewqweqwe'."\n");
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
             }
-            $distance = $mob->movementSpeed * ($this->duration / 1000);
+            $distance = $mob->movementSpeed * ($this->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
-            $distanceToNextCell = $this->calculateDistance($mobX, $mobY, $path[1][0], $path[1][1]);
+            $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
             $newDistance = $distance - $distanceToNextCell;
-            if($newDistance>0)
+            // print_r($newDistance);
+            if($newDistance>0){
                 $newCoords = $this->calculateShiftPoint($path[1][0], $path[1][1], $path[2][0], $path[2][1], $newDistance);    
-            else 
+                
+            }
+            else{
                 $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);    
+            }
 
             $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
-            $this->fire($targetGamer->x, $targetGamer->y);
+            // $this->fire($targetGamer->x, $targetGamer->y);
         }
     }
 
@@ -155,9 +163,10 @@ class Game extends BaseModule
     private function update() {
 
         $time = $this->db->getTime();
-        $this->duration = $time->timer - $time->timestamp;
-        if ($this->duration >= $time->timeout)
-            $this->db->updateTimestamp($time->timestamp);
+        $this->timer = $time->timer;
+        $this->timeout = $time->timeout;
+        if ($time->timer - $time->timestamp >= $time->timeout)
+            $this->db->updateTimestamp($time->timer);
             $this->updateScene();
     }
 

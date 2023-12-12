@@ -194,7 +194,7 @@ class DB {
     }
 
     public function getMobs() {
-        $query = "SELECT m.id AS id, m.person_id AS personId, m.x AS x, m.y AS y, m.angle AS angle,
+        $query = "SELECT m.id AS id, m.path_update AS path_update, m.person_id AS personId, m.x AS x, m.y AS y, m.angle AS angle,
         p.reloadSpeed AS reloadSpeed, p.rotateSpeed AS rotateSpeed, p.movementSpeed AS movementSpeed 
         FROM mobs m JOIN persons p ON m.person_id=p.id;";
         return $this->queryHandlerAll($query, []);
@@ -211,7 +211,7 @@ class DB {
     }
 
     public function updateTimestamp($timestamp) {
-        $query = "UPDATE game SET timestamp=$timestamp WHERE id=1";
+        $query = "UPDATE game SET timestamp=? WHERE id=1";
         return $this->queryHandler($query, [$timestamp]);
     }
 
@@ -246,7 +246,7 @@ class DB {
     }
 
     function setMobPath($mobId, $path){
-        $query = "UPDATE mobs SET path=? WHERE id=?";
+        $query = "UPDATE mobs SET path=?, path_update=ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) WHERE id=?";
         $this->queryHandler($query, [$path, $mobId]);
     }
 
