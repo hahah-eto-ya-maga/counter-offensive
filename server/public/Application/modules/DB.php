@@ -198,4 +198,9 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
+    function tankExit($userId) {
+        $query = "DELETE FROM tank_lobby WHERE user_id = ?";
+        $this->queryHandler($query, [$userId]);
+    }
+
 }

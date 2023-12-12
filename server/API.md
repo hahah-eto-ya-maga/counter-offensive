@@ -71,11 +71,7 @@ messages = {
 lobby = {
     "general": bool,
     "bannerman": bool,
-    "commander": bool,
-    "mechanic": bool,
-    "gunner": bool,
-    "infantryRPG": bool
-    tanks: tanks
+    "tanks": tanks
 }
 ```
 
