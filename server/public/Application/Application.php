@@ -154,7 +154,7 @@ class Application
     function rotate($params){
         $token = $params['token'] ?? false;
         $angle = $params['angle'] ?? false;
-        if( $angle && $token){
+        if( ($angle !== false) && $token){
             if(is_float((float)$angle)){
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
