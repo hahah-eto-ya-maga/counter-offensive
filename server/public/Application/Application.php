@@ -156,8 +156,8 @@ class Application
         $token = $params['token'] ?? false;
         $x = $params['x'] ?? false;
         $y = $params['y'] ?? false;
-        if ($x && $y && $token) {
-            if (is_float((float)$x) && is_float((float)$y)) {
+        if ($x !== false && $y !== false && $token) {
+            if (is_numeric($x) && is_numeric($y)) {
                 $user = $this->user->getUser($token);
                 if ($user != null && $user->token != 0 && $user->token != null) {
                     return $this->game->move($user->id, $x, $y);
