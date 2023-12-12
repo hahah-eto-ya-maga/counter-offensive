@@ -26,6 +26,7 @@
                     case "getLobby": return $app->getLobby($params);
                     // Game
                     case "getScene": return $app->getScene($params);
+                    case "fire": return $app->fire($params);
                 } 
                 return array(false, 501);
             }

@@ -149,18 +149,32 @@ class Application
     function getScene($params) {
         $token = $params['token'] ?? false;
         $hashMap = $params['hashMap'] ?? false;
-        $hashPlayers = $params['hashPlayers'] ?? false;
+        $hashGamers = $params['hashPlayers'] ?? false;
         $hashMobs = $params['hashMobs'] ?? false;
         $hashBullets = $params['hashBullets'] ?? false;
         $hashBodies = $params['hashBodies'] ?? false;
-        if($token && $hashMap && $hashBodies && $hashMobs && $hashPlayers && $hashBullets) {
+        if($token && $hashMap && $hashBodies && $hashMobs && $hashGamers && $hashBullets) {
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->game->getScene($user->id, $hashPlayers, $hashMobs);
+                return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets);
             }
             return array(false, 401);
         }  
         return array(false, 400);
     }
 
+    function fire($params){
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if($token && $x && $y && $angle){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->game->fire($user->id, $x, $y, $angle); 
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
 }

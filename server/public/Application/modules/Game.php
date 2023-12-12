@@ -9,6 +9,9 @@ class Game extends BaseModule
 
     private $game;
 
+    private $duration;
+
+    private $bullets;
     private $timer;
     private $timeout;
 
@@ -27,11 +30,6 @@ class Game extends BaseModule
 //             $this->map[$object->y][$object->x] = 1;
 //         }
 //     }
-
-
-    private function fire($x, $y){
-
-    }
 
 
     //Вернет только первую клетку для моба
@@ -120,26 +118,26 @@ class Game extends BaseModule
                 if($targetDistance && $targetGamer && $targetDistance<30){
                     if($targetDistance<2)
                     {
-                        // $this->fire();
+                        // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
                         continue;
                     }
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
+                    // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
                 }
                 else continue;
             }
             else {
-                print('qewqweqwe'."\n");
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
+                // $this->fire(-1, $targetCoord[0], $targetCoord[0], $angle);            
             }
             $distance = $mob->movementSpeed * ($this->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
             $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
             $newDistance = $distance - $distanceToNextCell;
-            // print_r($newDistance);
             if($newDistance>0){
                 $newCoords = $this->calculateShiftPoint($path[1][0], $path[1][1], $path[2][0], $path[2][1], $newDistance);    
                 
@@ -149,15 +147,17 @@ class Game extends BaseModule
             }
 
             $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
-            // $this->fire($targetGamer->x, $targetGamer->y);
+            $this->db->updateMobsHash(hash("sha256", $this->v4_UUID()));
         }
     }
 
     private function updateScene(){
+        $this->bullets = $this->db->getBullets();
         $this->gamers = $this->db->getGamers(); 
         $this->mobs = $this->db->getMobs(); 
         $this->addMobs();
         $this->moveMobs();
+        $this->moveBullets();
     }
 
     private function update() {
@@ -171,14 +171,47 @@ class Game extends BaseModule
     }
 
     private function getGamers() {
-        return [];
+        return $this->db->getGamers();
     }
 
     private function getMobs() {
         return $this->db->getAllMobs();
     }
 
-    function getScene($userId, $hashGamers, $hashMobs) { 
+    private function getBullets() {
+        return $this->db->getBullets();
+    }
+
+    function fire($user_id, $x, $y, $angle){
+        $this->db->addBullet($user_id, $x, $y, round($angle,1));
+        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
+    }
+
+    private function moveBullets(){
+        if (!$this->bullets){
+            return 0;
+        }
+        foreach($this->bullets as $bullet){
+            $this->moveBullet($bullet->id, $bullet->x2, $bullet->y2, $bullet->angle);
+        }
+    }
+    
+    private function moveBullet($id, $x, $y, $angle) {
+        if ($x>=120 || $x<=0 || $y>=150 || $y<=0){
+            $this->db->deleteBullet($id);
+        } else {
+            $x2 = $x + 2*cos($angle);
+            $y2 = $y + 2*sin($angle);
+            $this->db->updateBullet($x, $y, $x2, $y2, $id);
+        }
+          
+    }
+
+    private function shootReg($x0, $y0,$id_bul, $x1) {
+
+    }
+
+    function getScene($userId, $hashGamers, $hashMobs, $hashBullets) { 
         $this->update();
         $result = array();
         $hashes = $this->db->getHashes();
@@ -189,6 +222,10 @@ class Game extends BaseModule
         if ($hashes->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
+        }
+        if ($hashes->hashBullets !== $hashBullets) {
+            $result['bullets'] = $this->getBullets();
+            $result['hashBullets'] = $hashes->hashBullets;
         }
         //...
         /*

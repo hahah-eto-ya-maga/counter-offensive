@@ -254,4 +254,44 @@ class DB {
         $query = "SELECT x, y, angle FROM mobs WHERE id=?";
         return $this->queryHandler($query, [$mobId], true);
     }
+
+    function addBullet($user_id, $x, $y, $angle){
+        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, angle) VALUES (?, ?, ?, ?, ?, ?)";
+        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $angle]);
+    }
+
+    function getBullets(){
+        $query = "SELECT * FROM bullets";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function updateBullet($x1, $y1, $x2, $y2, $bulletId){
+        $query = "UPDATE bullets SET x1 = ?, y1 = ?, x2 = ?, y2 = ? WHERE id = ?";
+        $this->queryHandler($query, [$x1, $x2, $y1, $y2, $bulletId]);
+    }
+
+    function deleteBullet($id){
+        $query = "DELETE FROM bullets WHERE id = ?";
+        $this->queryHandler($query, [$id]);
+    }
+
+    public function updateGamersHash($hash){
+        $query = "UPDATE game SET hashGamers=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
+
+    public function updateMobsHash($hash){
+        $query = "UPDATE game SET hashMobs=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
+
+    public function updateBulletsHash($hash){
+        $query = "UPDATE game SET hashBullets=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
+
+    public function updateBodiesHash($hash){
+        $query = "UPDATE game SET hashLobby=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
 }
