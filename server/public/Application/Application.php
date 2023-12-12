@@ -155,7 +155,7 @@ class Application
         $token = $params['token'] ?? false;
         $angle = $params['angle'] ?? false;
         if( ($angle !== false) && $token){
-            if(is_float((float)$angle)){
+            if(is_numeric($angle)){
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
                 return $this->game->rotate($user->id,$angle);
