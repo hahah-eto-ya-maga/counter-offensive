@@ -2239,6 +2239,75 @@
 							"response": []
 						},
 						{
+							"name": "wrongHash(Error?)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?hash=&method=registration&login={{loginReg}}&nickname={{nickReg}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": ""
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "{{loginReg}}"
+										},
+										{
+											"key": "nickname",
+											"value": "{{nickReg}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "noMethod(Error405)",
 							"event": [
 								{
@@ -4348,6 +4417,357 @@
 					]
 				},
 				{
+					"name": "getLobby",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token=&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHash(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get('Method Not Allowed'), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get('Method Not Allowed'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby1&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby1"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "setGamerRole",
 					"item": [
 						{
@@ -5835,357 +6255,6 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "getLobby",
-					"item": [
-						{
-							"name": "success",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "method",
-											"value": "getLobby"
-										},
-										{
-											"key": "token",
-											"value": "{{token}}"
-										},
-										{
-											"key": "hash",
-											"value": "{{hash}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "noToken(Error400)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check login status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}/api/?method=getLobby&token=&hash={{hash}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "method",
-											"value": "getLobby"
-										},
-										{
-											"key": "token",
-											"value": ""
-										},
-										{
-											"key": "hash",
-											"value": "{{hash}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "noHash(Error400)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check login status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash=",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "method",
-											"value": "getLobby"
-										},
-										{
-											"key": "token",
-											"value": "{{token}}"
-										},
-										{
-											"key": "hash",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "noMethod(Error405)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check tokenVerification status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 405', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(405);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is '+pm.variables.get('Method Not Allowed'), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get('Method Not Allowed'));\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "method",
-											"value": ""
-										},
-										{
-											"key": "token",
-											"value": "{{token}}"
-										},
-										{
-											"key": "hash",
-											"value": "{{hash}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "wrongMethod(Error501)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check login status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 501', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(501);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}/api/?method=getLobby1&token={{token}}&hash={{hash}}",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "method",
-											"value": "getLobby1"
-										},
-										{
-											"key": "token",
-											"value": "{{token}}"
-										},
-										{
-											"key": "hash",
-											"value": "{{hash}}"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
 				}
 			]
 		}
@@ -6423,6 +6492,46 @@
 		},
 		{
 			"key": "hashReg",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "testpuppy1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "testsergeant1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "testofficer1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "testgeneral1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashpuppy1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashsergeant1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashofficer1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashgeneral1",
 			"value": "",
 			"type": "string"
 		}
