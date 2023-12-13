@@ -19,3 +19,8 @@ export const MEDIATOR = {
       TOKEN_UPDATE: "TOKEN_UPDATE",
    },
 };
+
+export const MAP_SIZE = {
+   width: 75,
+   height: 60,
+};
