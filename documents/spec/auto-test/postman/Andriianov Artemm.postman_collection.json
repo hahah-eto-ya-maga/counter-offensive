@@ -143,7 +143,7 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
@@ -212,7 +212,7 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
@@ -281,7 +281,7 @@
 											"    pm.expect(response.error.code).to.eql(403);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Forbidden', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Forbidden\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Forbidden\"));\r",
 											"});"
 										],
@@ -350,7 +350,7 @@
 											"    pm.expect(response.error.code).to.eql(461);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is User not Exist', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"User not Exist\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"User not Exist\"));\r",
 											"});"
 										],
@@ -419,7 +419,7 @@
 											"    pm.expect(response.error.code).to.eql(405);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
@@ -488,7 +488,7 @@
 											"    pm.expect(response.error.code).to.eql(501);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
@@ -4434,7 +4434,18 @@
 											"    console.log(res.json())\r",
 											"    pm.environment.set(\"token\", token.token)\r",
 											"}\r",
-											");"
+											");\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=getLobby&token=${pm.variables.get(\"token\")}&hash=${pm.variables.get(\"hash\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  hashLobby = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"hashLobby\", hashLobby)\r",
+											"}\r",
+											");\r",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -4823,7 +4834,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{infantry}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -4843,7 +4854,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantry"
+													"value": "{{infantry}}"
 												},
 												{
 													"key": "tankId",
@@ -4905,7 +4916,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{infantryRPG}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -4925,7 +4936,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantryRPG"
+													"value": "{{infantryRPG}}"
 												}
 											]
 										}
@@ -4934,6 +4945,89 @@
 								},
 								{
 									"name": "Bannerman",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); \r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,\r",
+													"    method:`GET`,\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{bannerman}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{bannerman}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter(Error 234)",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -4956,23 +5050,28 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test('check login status', () =>{ \r",
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
 													"    pm.expect(pm.response.code).to.eql(200); \r",
 													"}); \r",
-													" \r",
-													"const response = pm.response.json(); \r",
 													" \r",
 													"pm.test('check response is JSON', ()=> { \r",
 													"    pm.expect(response).to.be.a('object') \r",
 													"}); \r",
 													" \r",
-													"pm.test('check response result is ok', ()=>{ \r",
-													"    pm.expect(response.result).to.eql('ok'); \r",
-													"}); \r",
-													" \r",
-													"pm.test('check data is true', ()=>{ \r",
-													"    pm.expect(response.data).to.eql(true); \r",
-													"}); "
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -4982,7 +5081,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankGunner}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -5002,7 +5101,7 @@
 												},
 												{
 													"key": "role",
-													"value": "bannerman"
+													"value": "{{middleTankGunner}}"
 												}
 											]
 										}
@@ -5010,50 +5109,412 @@
 									"response": []
 								},
 								{
-									"name": "doubleTankShooter",
+									"name": "doubleTankDriver(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankMeh}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankMeh}}"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "doubleTankDriver",
+									"name": "tripleTankShooter(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankGunner}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankGunner}}"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "tripleTankShooter",
+									"name": "tripleTankdriver(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankMeh}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankMeh}}"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "tripleTankdriver",
+									"name": "tripleTankCommander(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankCommander}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankCommander}}"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "tripleTankCommander",
+									"name": "general(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
-									},
-									"response": []
-								},
-								{
-									"name": "general",
-									"request": {
-										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{general}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{general}}"
+												}
+											]
+										}
 									},
 									"response": []
 								}
@@ -5070,7 +5531,7 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -5112,7 +5573,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{infantry}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -5132,7 +5593,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantry"
+													"value": "{{infantry}}"
 												},
 												{
 													"key": "tankId",
@@ -5152,7 +5613,7 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -5229,7 +5690,89 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); \r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,\r",
+													"    method:`GET`,\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "bannerman"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -5271,7 +5814,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankGunner}}&tankId=1",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -5291,7 +5834,11 @@
 												},
 												{
 													"key": "role",
-													"value": "bannerman"
+													"value": "{{middleTankGunner}}"
+												},
+												{
+													"key": "tankId",
+													"value": "1"
 												}
 											]
 										}
@@ -5299,50 +5846,413 @@
 									"response": []
 								},
 								{
-									"name": "doubleTankShooter",
-									"request": {
-										"method": "GET",
-										"header": []
-									},
-									"response": []
-								},
-								{
 									"name": "doubleTankDriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankMeh}}&tankId=1",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankMeh}}"
+												},
+												{
+													"key": "tankId",
+													"value": "1"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankGunner}}&tankId=2",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankGunner}}"
+												},
+												{
+													"key": "tankId",
+													"value": "2"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankdriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankMeh}}&tankId=2",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankMeh}}"
+												},
+												{
+													"key": "tankId",
+													"value": "2"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "tripleTankCommander",
+									"name": "tripleTankCommander(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankCommander}}&tankId=2",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankCommander}}"
+												},
+												{
+													"key": "tankId",
+													"value": "2"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
-									"name": "general",
+									"name": "general(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{general}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{general}}"
+												}
+											]
+										}
 									},
 									"response": []
 								}
@@ -5359,7 +6269,7 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -5441,7 +6351,7 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -5518,7 +6428,88 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); \r",
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,\r",
+													"    method:`GET`,\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "bannerman"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -5560,6 +6551,662 @@
 										"method": "GET",
 										"header": [],
 										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankGunner}}&tankId=3",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankGunner}}"
+												},
+												{
+													"key": "tankId",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankDriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankMeh}}&tankId=3",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankMeh}}"
+												},
+												{
+													"key": "tankId",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankGunner}}&tankId=4",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankGunner}}"
+												},
+												{
+													"key": "tankId",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankdriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankMeh}}&tankId=4",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankMeh}}"
+												},
+												{
+													"key": "tankId",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankCommander",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankCommander}}&tankId=4",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankCommander}}"
+												},
+												{
+													"key": "tankId",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "general(Error 234)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check updatePassword status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Insufficient level', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{general}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{general}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "general",
+							"item": [
+								{
+									"name": "infantryM16",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantry"
+												},
+												{
+													"key": "tankId",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "InfantryRPG",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantryRPG"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Bannerman",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); \r",
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,\r",
+													"    method:`GET`,\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
 											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
 											"protocol": "http",
 											"host": [
@@ -5589,56 +7236,494 @@
 								},
 								{
 									"name": "doubleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankGunner}}&tankId=5",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankGunner}}"
+												},
+												{
+													"key": "tankId",
+													"value": "5"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "doubleTankDriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankMeh}}&tankId=5",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankMeh}}"
+												},
+												{
+													"key": "tankId",
+													"value": "5"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankGunner}}&tankId=6",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankGunner}}"
+												},
+												{
+													"key": "tankId",
+													"value": "6"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankdriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankMeh}}&tankId=6",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankMeh}}"
+												},
+												{
+													"key": "tankId",
+													"value": "6"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankCommander",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankCommander}}&tankId=6",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankCommander}}"
+												},
+												{
+													"key": "tankId",
+													"value": "6"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "general",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); \r",
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,\r",
+													"    method:`GET`,\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{general}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{general}}"
+												}
+											]
+										}
 									},
 									"response": []
 								}
 							]
 						},
 						{
-							"name": "general",
+							"name": "error239",
 							"item": [
 								{
 									"name": "infantryM16",
@@ -5664,23 +7749,28 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test('check login status', () =>{ \r",
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
 													"    pm.expect(pm.response.code).to.eql(200); \r",
 													"}); \r",
-													" \r",
-													"const response = pm.response.json(); \r",
 													" \r",
 													"pm.test('check response is JSON', ()=> { \r",
 													"    pm.expect(response).to.be.a('object') \r",
 													"}); \r",
 													" \r",
-													"pm.test('check response result is ok', ()=>{ \r",
-													"    pm.expect(response.result).to.eql('ok'); \r",
-													"}); \r",
-													" \r",
-													"pm.test('check data is true', ()=>{ \r",
-													"    pm.expect(response.data).to.eql(true); \r",
-													"}); "
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -5690,7 +7780,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{infantry}}%23$",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -5710,7 +7800,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantry"
+													"value": "{{infantry}}#$"
 												},
 												{
 													"key": "tankId",
@@ -5746,23 +7836,28 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test('check login status', () =>{ \r",
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
 													"    pm.expect(pm.response.code).to.eql(200); \r",
 													"}); \r",
-													" \r",
-													"const response = pm.response.json(); \r",
 													" \r",
 													"pm.test('check response is JSON', ()=> { \r",
 													"    pm.expect(response).to.be.a('object') \r",
 													"}); \r",
 													" \r",
-													"pm.test('check response result is ok', ()=>{ \r",
-													"    pm.expect(response.result).to.eql('ok'); \r",
-													"}); \r",
-													" \r",
-													"pm.test('check data is true', ()=>{ \r",
-													"    pm.expect(response.data).to.eql(true); \r",
-													"}); "
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -5772,7 +7867,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{infantryRPG}}%23$",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -5792,7 +7887,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantryRPG"
+													"value": "{{infantryRPG}}#$"
 												}
 											]
 										}
@@ -5823,23 +7918,28 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test('check login status', () =>{ \r",
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
 													"    pm.expect(pm.response.code).to.eql(200); \r",
 													"}); \r",
-													" \r",
-													"const response = pm.response.json(); \r",
 													" \r",
 													"pm.test('check response is JSON', ()=> { \r",
 													"    pm.expect(response).to.be.a('object') \r",
 													"}); \r",
 													" \r",
-													"pm.test('check response result is ok', ()=>{ \r",
-													"    pm.expect(response.result).to.eql('ok'); \r",
-													"}); \r",
-													" \r",
-													"pm.test('check data is true', ()=>{ \r",
-													"    pm.expect(response.data).to.eql(true); \r",
-													"}); "
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
 												],
 												"type": "text/javascript"
 											}
@@ -5849,7 +7949,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{bannerman}}%23$",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -5869,7 +7969,7 @@
 												},
 												{
 													"key": "role",
-													"value": "bannerman"
+													"value": "{{bannerman}}#$"
 												}
 											]
 										}
@@ -5878,49 +7978,565 @@
 								},
 								{
 									"name": "doubleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankGunner}}%23$",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankGunner}}#$"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "doubleTankDriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{middleTankMeh}}%23$",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{middleTankMeh}}#$"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankShooter",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankGunner}}%23$",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankGunner}}#$"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankdriver",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankMeh}}%23$",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankMeh}}#$"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "tripleTankCommander",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{heavyTankCommander}}%23$",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{heavyTankCommander}}#$"
+												}
+											]
+										}
 									},
 									"response": []
 								},
 								{
 									"name": "general",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check logout status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 239', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(463);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+'Role not implemented', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Role not implemented'));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{general}}%23$",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{general}}#$"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "occupiedButon",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"    \r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    \r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");\r",
+													"\r",
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"bannerman\")}`,\r",
+													"    method:`GET`,\r",
+													"    function(err, res){\r",
+													"    const  token1  = res.json();\r",
+													"    console.log(token1)\r",
+													"    \r",
+													"}\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role={{bannerman}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "{{bannerman}}"
+												}
+											]
+										}
 									},
 									"response": []
 								}
@@ -6316,41 +8932,6 @@
 			"type": "string"
 		},
 		{
-			"key": "code400",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "401",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "405",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "413",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "460",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "432",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "501",
-			"value": "",
-			"type": "string"
-		},
-		{
 			"key": "Bad Request",
 			"value": "",
 			"type": "string"
@@ -6436,46 +9017,6 @@
 			"type": "string"
 		},
 		{
-			"key": "234",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "235",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "236",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "237",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "238",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "239",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "240",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "463",
-			"value": "",
-			"type": "string"
-		},
-		{
 			"key": "hash1",
 			"value": "",
 			"type": "string"
@@ -6532,6 +9073,56 @@
 		},
 		{
 			"key": "hashgeneral1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "infantry",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "infantryRPG",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "middleTankGunner",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "middleTankMeh",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "heavyTankCommander",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "heavyTankMeh",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "heavyTankGunner",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "bannerman",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "general",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashLobby",
 			"value": "",
 			"type": "string"
 		}
