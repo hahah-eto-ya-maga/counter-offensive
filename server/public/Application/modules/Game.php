@@ -197,14 +197,6 @@ class Game extends BaseModule
 
     /* Удаление мертвецов */
 
-    function deleteDead()
-    {
-        $this->db->deleteDead();
-        $hash = hash("sha256", $this->v4_UUID());
-        $this->db->updateHashGamers($hash);
-        return true;
-    }
-
     function checkDead(){
         foreach($this->gamers as $gamer){
             if($gamer->hp <= 0){      
