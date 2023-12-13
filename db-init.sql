@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `hashMobs` VARCHAR(100) NOT NULL DEFAULT '',
   `hashMap` VARCHAR(100) NOT NULL DEFAULT '',
   `hashBodies` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashTanks` VARCHAR(100) NOT NULL DEFAULT '',
   `timestamp` BIGINT NOT NULL DEFAULT 0,
   `timeout` INT NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
@@ -132,6 +133,17 @@ CREATE TABLE IF NOT EXISTS `tanks` (
   `tower_angle` FLOAT NOT NULL DEFAULT 0,
   `commander_angle` FLOAT NOT NULL DEFAULT 0,
   `reload_timestamp` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `bodies` (
+  `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
+  `x` FLOAT NULL DEFAULT NULL,
+  `y` FLOAT NULL DEFAULT NULL,
+  `angle` FLOAT NULL DEFAULT NULL,
+  `bodyType` CHAR(1) NOT NULL DEFAULT "", 
+  /*i - пешик, m-средний танк, h - тяжик, m - моб */
+  `isMob` BOOLEAN NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 );
 
