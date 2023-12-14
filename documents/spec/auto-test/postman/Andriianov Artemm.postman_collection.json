@@ -2549,8 +2549,8 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"pm.test('check code text is '+pm.variables.get('Bad Request'), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get('Bad Request'));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2610,8 +2610,8 @@
 											"    pm.expect(response.error.code).to.eql(401);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Unauthorized', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"pm.test('check code text is '+pm.variables.get('Unauthorized'), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get('Unauthorized'));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2671,8 +2671,8 @@
 											"    pm.expect(response.error.code).to.eql(405);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"pm.test('check code text is '+pm.variables.get('Method Not Allowed'), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get('Method Not Allowed'));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2732,7 +2732,7 @@
 											"    pm.expect(response.error.code).to.eql(501);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
@@ -2872,8 +2872,8 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2933,8 +2933,8 @@
 											"    pm.expect(response.error.code).to.eql(401);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Unauthorized', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2994,8 +2994,8 @@
 											"    pm.expect(response.error.code).to.eql(405);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3055,7 +3055,7 @@
 											"    pm.expect(response.error.code).to.eql(501);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
@@ -3203,8 +3203,8 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3268,8 +3268,8 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3333,8 +3333,8 @@
 											"    pm.expect(response.error.code).to.eql(401);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Unauthorized', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3398,8 +3398,8 @@
 											"    pm.expect(response.error.code).to.eql(405);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3463,7 +3463,7 @@
 											"    pm.expect(response.error.code).to.eql(501);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
