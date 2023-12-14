@@ -10,8 +10,8 @@ export default class Unit {
    diagonalSpeed: number;
 
    constructor() {
-      this.x = 0;
-      this.y = 60;
+      this.x = 2;
+      this.y = 2;
       this.r = 0.2;
       this.angle = 0;
       this.visiableAngle = 120;

@@ -86,7 +86,6 @@ export default class Canvas {
    }
 
    xs(x: number): number {
-      this.areaVisible = [];
       return ((x - this.WIN.left) / this.WIN.width) * this.canvas.width;
    }
 
@@ -391,8 +390,8 @@ export default class Canvas {
 
       let x1 = this.canvasTrace.width / 2;
       let y1 = this.canvasTrace.height / 2;
-      let x2 = this.notxs(vector.x);
-      let y2 = this.notys(vector.y);
+      const x2 = this.notxs(vector.x);
+      const y2 = this.notys(vector.y);
       const dx = Math.abs(x2 - x1);
       const sx = x1 < x2 ? 1 : -1;
       const dy = -Math.abs(y2 - y1);

@@ -258,7 +258,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const trace = (objects: ISceneObjects) => {
-      tracer?.trace();
+      tracer?.trace(unit);
    };
 
    function roundEnd() {}
