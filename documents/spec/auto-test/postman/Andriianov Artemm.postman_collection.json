@@ -565,7 +565,7 @@
 													"    pm.expect(response.error.code).to.eql(400);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Bad Request', ()=>{\r",
+													"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 													"});"
 												],
@@ -771,7 +771,7 @@
 													"    pm.expect(response.error.code).to.eql(413);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
 													"});"
 												],
@@ -1179,7 +1179,7 @@
 													"    pm.expect(response.error.code).to.eql(413);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
 													"});"
 												],
@@ -1248,7 +1248,7 @@
 													"    pm.expect(response.error.code).to.eql(460);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Login Occupied', ()=>{\r",
+													"pm.test('check code text is ' + pm.variables.get(\"Login Occupied\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Login Occupied\"));\r",
 													"});"
 												],
@@ -1322,7 +1322,7 @@
 													"    pm.expect(response.error.code).to.eql(400);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Bad Request', ()=>{\r",
+													"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 													"});"
 												],
@@ -1529,7 +1529,7 @@
 													"    pm.expect(response.error.code).to.eql(413);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
 													"});"
 												],
@@ -1743,7 +1743,7 @@
 									"response": []
 								},
 								{
-									"name": "15LettersLengthNickname(Error413)",
+									"name": "15LettersLengthNickname",
 									"event": [
 										{
 											"listen": "test",
@@ -1828,7 +1828,7 @@
 									"response": []
 								},
 								{
-									"name": "16LettersLengthNickname(Error413)",
+									"name": "16LettersLengthNickname",
 									"event": [
 										{
 											"listen": "test",
@@ -1938,7 +1938,7 @@
 													"    pm.expect(response.error.code).to.eql(413);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"pm.test('check code text is ' + pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
 													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
 													"});"
 												],
@@ -2195,7 +2195,7 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
@@ -2333,7 +2333,7 @@
 											"    pm.expect(response.error.code).to.eql(405);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"pm.test('check code text is ' +pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
@@ -2402,7 +2402,7 @@
 											"    pm.expect(response.error.code).to.eql(501);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is Not Implemented', ()=>{\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
