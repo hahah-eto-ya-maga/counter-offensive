@@ -9,9 +9,6 @@ interface ITraceMaskProps {
    canvas: Canvas;
    WIN: TWIN;
    cellSize: number;
-
-   //временно
-   id: string;
 }
 
 const DELTAWIN = 1;
@@ -25,18 +22,12 @@ export default class TraceMask {
    cellSize: number;
    pixelScene: ImageData;
 
-   canvas1: HTMLCanvasElement;
-   context: CanvasRenderingContext2D;
+   traceCanv: HTMLCanvasElement;
+   traceContext: CanvasRenderingContext2D;
 
-   constructor({ WIN, canvas, cellSize, id }: ITraceMaskProps) {
+   constructor({ WIN, canvas, cellSize }: ITraceMaskProps) {
       const width = MAP_SIZE.width * cellSize;
       const height = MAP_SIZE.height * cellSize;
-
-      this.mask = document.createElement("canvas");
-      this.maskContext = this.mask.getContext("2d") as CanvasRenderingContext2D;
-
-      this.mask.width = width;
-      this.mask.height = height;
 
       this.WIN = WIN;
       this.oldWIN = {
@@ -48,10 +39,18 @@ export default class TraceMask {
       this.canvas = canvas;
       this.cellSize = cellSize;
 
-      this.canvas1 = document.getElementById(id) as HTMLCanvasElement;
-      this.context = this.canvas1.getContext("2d") as CanvasRenderingContext2D;
-      this.canvas1.width = width;
-      this.canvas1.height = height;
+      this.mask = document.createElement("canvas");
+      this.maskContext = this.mask.getContext("2d") as CanvasRenderingContext2D;
+
+      this.mask.width = width;
+      this.mask.height = height;
+
+      this.traceCanv = document.createElement("canvas");
+      this.traceContext = this.traceCanv.getContext(
+         "2d"
+      ) as CanvasRenderingContext2D;
+      this.traceCanv.width = canvas.canvas.width;
+      this.traceCanv.height = canvas.canvas.height;
 
       setInterval(() => {}, 300);
 
@@ -158,41 +157,18 @@ export default class TraceMask {
       this.maskContext.closePath();
    }
 
-   trace(unit: Unit) {
-      const areaVisible: TPoint[] = [{ x: unit.x, y: unit.y }];
-
-      if (
-         this.WIN.left - this.oldWIN.left < 0 ||
-         this.WIN.bottom - this.oldWIN.bottom < 0 ||
-         this.oldWIN.bottom +
-            this.oldWIN.height -
-            (this.WIN.bottom + this.WIN.height) <
-            0 ||
-         this.oldWIN.left +
-            this.oldWIN.width -
-            (this.WIN.left + this.WIN.width) <
-            0
-      ) {
-         this.oldWIN.left = this.WIN.left - DELTAWIN;
-         this.oldWIN.bottom = this.WIN.bottom - DELTAWIN;
-         this.pixelScene = this.getImage();
-      }
-   }
-
-   lineBrezen(start: TPoint, end: TPoint, pixelscene: ImageData): TPoint {
+   lineBrezen(start: TPoint, vector: TPoint, pixelscene: ImageData): TPoint {
       const w = pixelscene.width;
 
       let isObject = false;
       let isVisiable = true;
 
-      let x1 = this.xs(start.x);
-      let y1 = this.ys(start.y);
-      const x2 = 1;
-      const y2 = 1;
-      const dx = Math.abs(x2 - x1);
-      const sx = x1 < x2 ? 1 : -1;
-      const dy = -Math.abs(y2 - y1);
-      const sy = y1 < y2 ? 1 : -1;
+      let x1 = Math.round(this.xs(start.x));
+      let y1 = Math.round(this.ys(start.y));
+      const dx = Math.abs(vector.x - x1);
+      const sx = x1 < vector.x ? 1 : -1;
+      const dy = -Math.abs(vector.y - y1);
+      const sy = y1 < vector.y ? 1 : -1;
       let n = dx > -dy ? 10 * dx : -10 * dy;
       let err2;
       let error = dx + dy;
@@ -204,8 +180,8 @@ export default class TraceMask {
                (isObject && pixelRed === 0) ||
                x1 < 0 ||
                y1 < 0 ||
-               x1 > this.mask.width ||
-               y1 > this.mask.height
+               x1 > this.traceCanv.width ||
+               y1 > this.traceCanv.height
             ) {
                isVisiable = false;
                isObject = false;
@@ -231,5 +207,61 @@ export default class TraceMask {
          return { x: x1 + sx, y: y1 + sy };
       }
       return { ...start };
+   }
+
+   drawTrace(area: TPoint[]) {
+      this.traceContext.fillStyle = "#333f";
+      this.traceContext.fillRect(
+         0,
+         0,
+         this.traceCanv.width,
+         this.traceCanv.height
+      );
+
+      this.traceContext.fillStyle = "#fff";
+      this.traceContext.beginPath();
+      this.traceContext.moveTo(area[0].x, area[0].y);
+      for (let i = 1; i < area.length; i++) {
+         this.traceContext.lineTo(area[i].x, area[i].y);
+      }
+      this.traceContext.lineTo(area[0].x, area[0].y);
+      this.traceContext.fill();
+      this.traceContext.closePath();
+
+      this.canvas.drawImage(this.traceCanv, 0, 0);
+   }
+
+   trace(unit: Unit) {
+      const areaVisible: TPoint[] = [{ x: unit.x, y: unit.y }];
+
+      if (
+         this.WIN.left - this.oldWIN.left < 0 ||
+         this.WIN.bottom - this.oldWIN.bottom < 0 ||
+         this.oldWIN.bottom +
+            this.oldWIN.height -
+            (this.WIN.bottom + this.WIN.height) <
+            0 ||
+         this.oldWIN.left +
+            this.oldWIN.width -
+            (this.WIN.left + this.WIN.width) <
+            0
+      ) {
+         this.oldWIN.left = this.WIN.left - DELTAWIN;
+         this.oldWIN.bottom = this.WIN.bottom - DELTAWIN;
+         this.pixelScene = this.getImage();
+      }
+
+      const oneDegree = Math.PI / 180;
+      const angle = unit.visiableAngle / 2;
+      for (let i = -angle; i <= angle; i += 0.5) {
+         const vector = {
+            x: Math.cos(unit.angle + i * oneDegree),
+            y: Math.sin(unit.angle + i * oneDegree),
+         };
+         areaVisible.push(
+            this.lineBrezen({ x: unit.x, y: unit.y }, vector, this.pixelScene)
+         );
+      }
+
    }
 }

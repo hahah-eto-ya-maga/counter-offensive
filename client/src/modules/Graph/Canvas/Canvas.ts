@@ -77,17 +77,6 @@ class Canvas {
       );
    }
 
-   notxs(x: number): number {
-      return ((x + this.WIN.width / 2) / this.WIN.width) * this.canvas.width;
-   }
-
-   notys(y: number): number {
-      return (
-         this.canvas.height -
-         ((y + this.WIN.height / 2) / this.WIN.height) * this.canvas.height
-      );
-   }
-
    point(x: number, y: number, color = "#c00000", size = 2): void {
       this.contextV.beginPath();
       this.contextV.arc(this.xs(x), this.ys(y), size, 0, 2 * Math.PI);
@@ -235,66 +224,8 @@ class Canvas {
       this.contextV.drawImage(image, this.xs(dx), this.ys(dy));
    }
 
-   lineBrezen(vector: TPoint, pixelscene: ImageData, pointD: TPoint): void {
-      const w = pixelscene.width;
-
-      let isObject = false;
-      let isVisiable = true;
-
-      let x1 = this.canvasV.width / 2;
-      let y1 = this.canvasV.height / 2;
-      let x2 = this.notxs(vector.x);
-      let y2 = this.notys(vector.y);
-      const dx = Math.abs(x2 - x1);
-      const sx = x1 < x2 ? 1 : -1;
-      const dy = -Math.abs(y2 - y1);
-      const sy = y1 < y2 ? 1 : -1;
-      let n = dx > -dy ? 10 * dx : -10 * dy;
-      let err2;
-      let error = dx + dy;
-      for (; n/10 > 0; n--) {
-         if (isVisiable) {
-            const pixelRed = pixelscene.data[y1 * (w * 4) + x1 * 4];
-
-            if (isObject && pixelRed === 0) {
-               isVisiable = false;
-               isObject = false;
-               this.areaVisible.push({ x: x1 - sx, y: y1 - sy });
-               return;
-            }
-            if (pixelRed === 255) {
-               isObject = true;
-            }
-         }
-
-         err2 = 2 * error;
-         if (err2 > dy) {
-            error += dy;
-            x1 += sx;
-         }
-         if (err2 < dx) {
-            error += dx;
-            y1 += sy;
-         }
-      }
-
-      if (isVisiable) {
-         this.areaVisible.push({ x: x1 + sx, y: y1 + sy });
-      }
-   }
-
-   drawScene(scene: ISceneObjects) {
-      this.contextTrace.beginPath();
-      this.contextTrace.fillStyle = "#000f";
-      this.contextTrace.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      scene.houses.forEach((block) => this.polygon(block, "red"));
-      scene.walls.forEach((block) => this.polygon(block, "red"));
-      scene.stones.forEach((stone) => this.circle(stone, "red"));
-      this.contextTrace.closePath();
-   }
-
    clear() {
-      this.contextV.fillStyle = "white";
+      this.contextV.fillStyle = "#333f";
       this.contextV.fillRect(0, 0, this.canvas.width, this.canvas.height);
    }
 
@@ -302,6 +233,10 @@ class Canvas {
       this.contextV.font = `${size}px serif`;
       this.contextV.fillStyle = color;
       this.contextV.fillText(text, this.xs(x), this.ys(y));
+   }
+
+   drawImage(image: CanvasImageSource, dx: number, dy: number) {
+      this.context.drawImage(image, dx, dy);
    }
 
    render() {

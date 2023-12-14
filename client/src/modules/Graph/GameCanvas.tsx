@@ -55,7 +55,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             mousemove: mouseMoveHandler,
          },
       });
-      tracer = new TraceMask({ WIN, canvas, cellSize: SPRITE_SIZE, id: "abc" });
+      tracer = new TraceMask({ WIN, canvas, cellSize: SPRITE_SIZE });
       return () => {
          canvas = null;
       };
@@ -218,8 +218,17 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       });
    };
 
+   const drawGrass = (walls: TPoint[][]) => {
+      for (let i = walls[0][1].x; i < walls[2][3].x; i += 5) {
+         for (let j = walls[3][0].y; j > walls[1][2].y; j -= 5) {
+            canvas?.spriteMap(img, i, j, ...grass);
+         }
+      }
+   };
+
    const drawObjects = (objects: ISceneObjects) => {
       const { houses, stones, walls } = objects;
+      drawGrass(walls);
       drawWalls(walls);
       drawHouses(houses);
       drawStones(stones);
@@ -247,12 +256,12 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    const updateUnit = () => {
       if (canvas) {
          unit.move(keyPressed);
-
-         const v1 = {
-            x: canvas.sx(mousePos.x) - unit.x,
-            y: canvas.sy(mousePos.y) - unit.y,
-         };
-         unit.rotate(Math.atan2(v1.x, v1.y));
+         unit.rotate(
+            Math.atan2(
+               canvas.sy(mousePos.y) - unit.y,
+               canvas.sx(mousePos.x) - unit.x
+            )
+         );
          updateWIN();
       }
    };
@@ -265,19 +274,19 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
    function render(FPS: number) {
       const fpsGap = 0.5;
+      const { objects } = game.getScene();
       if (canvas) {
          canvas.clear();
          updateUnit();
-
-         trace(game.getScene().objects);
-
-         drawObjects(game.getScene().objects);
+         
+         /* drawObjects(objects); */
+         trace(objects);
          canvas.spriteDir(
             img,
             unit.x - 0.5,
             unit.y + 0.5,
             ...manFlag,
-            unit.angle
+            Math.PI / 2 - unit.angle
          );
 
          isCollition = collision.checkAllBlocksUnit(
@@ -297,12 +306,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       }
    }
 
-   return (
-      <>
-         <canvas id={canvasId} />;
-         <canvas id="abc" />
-      </>
-   );
+   return <canvas id={canvasId} />;
 };
 
 export default GameCanvas;
