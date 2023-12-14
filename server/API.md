@@ -123,14 +123,82 @@ tanks = {
 ```
 
 
-
-
 **Состояние лобби**
 ```
 lobbyState = {
     lobby: lobby,
     is_alive: bool,
     lobbyHash:string
+}
+```
+
+**Игроки**
+```
+gamers = [
+    gamer,
+    ...,
+    ...,
+    gamer
+]
+```
+
+**Игрок**
+```
+gamer = {
+    person_id: integer,
+    x: float,
+    y: float,
+    angle: float
+} 
+```
+
+**Моб**
+```
+mob = {
+    person_id: integer,
+    x: float,
+    y: float,
+    angle: float
+} 
+```
+**Пуля**
+```
+gamer = {
+    user_id: integer,
+    x: float,
+    y: float,
+    x: float,
+    y: float,
+    angle: float
+} 
+```
+**Мобы**
+```
+mobs = [
+    mob,
+    ...,
+    ...,
+    mob
+]
+```
+**Пули**
+```
+bullets = [
+    bullet,
+    ...,
+    ...,
+    bullet
+]
+```
+**Сцена**
+```
+scene = {
+    gamers: gamers,
+    hashGamers: string,
+    mobs: mobs,
+    hashMobs: string,
+    bullets: bullets,
+    hashBullets: string
 }
 ```
 
@@ -359,6 +427,66 @@ Error(463) - Роль не реализована
 ### Значение если успех
 ```
 Correct=>lobbyState || true
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
+```
+
+## Метод изменения координат игрока
+### Адрес
+```method=move```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|x|string||
+|y|string||
+
+### Значение если успех
+```
+Correct=>true
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
+```
+
+## Метод изменения угла игрока
+### Адрес
+```method=rotate```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|x|string||
+|y|string||
+|angle|string||
+
+### Значение если успех
+```
+Correct=>scene
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
+```
+
+## Метод выстрела
+### Адрес
+```method=fire```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+|angle|string||
+
+### Значение если успех
+```
+Correct=>true
 ```
 ### Значение если ошибка
 ```

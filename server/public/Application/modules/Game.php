@@ -115,7 +115,7 @@ class Game extends BaseModule
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
+                    $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
                 }
                 else continue;
             }
@@ -198,6 +198,10 @@ class Game extends BaseModule
     /* Удаление мертвецов */
 
     function checkDead(){
+        $gamerDelete = false;
+        $mobsDelete = false;
+        $tankDelete = false;
+
         foreach($this->gamers as $gamer){
             if($gamer->hp <= 0){      
                 $this->db->killGamer($gamer->id);

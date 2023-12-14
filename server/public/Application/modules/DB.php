@@ -148,7 +148,7 @@ class DB {
     }
 
     function getFootGamers(){
-        $query = "SELECT * FROM gamers WHERE status='alive' AND person_id=8, 9";
+        $query = "SELECT * FROM gamers WHERE status='alive' AND person_id IN (8, 9)";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -272,7 +272,7 @@ class DB {
     }
 
     public function getMobs() {
-        $query = "SELECT m.id AS id, m.path_update AS path_update, m.person_id AS personId, m.x AS x, m.y AS y, m.angle AS angle,
+        $query = "SELECT m.id AS id, m.hp AS hp, m.path_update AS path_update, m.person_id AS personId, m.x AS x, m.y AS y, m.angle AS angle,
         p.reloadSpeed AS reloadSpeed, p.rotateSpeed AS rotateSpeed, p.movementSpeed AS movementSpeed 
         FROM mobs m JOIN persons p ON m.person_id=p.id;";
         return $this->queryHandlerAll($query, []);
