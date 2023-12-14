@@ -177,7 +177,7 @@ class Application
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
                 return $this->game->rotate($user->id,$angle);
-            }
+            } 
             return array(false, 401);
         }
         return array(false,422);
