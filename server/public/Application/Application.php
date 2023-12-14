@@ -32,14 +32,14 @@ class Application
         $login = $params['login'] ?? false;
         $password = $params['hash'] ?? false;
         $nickname = $params['nickname'] ?? false;
-        
-        if($login && $password && $nickname){
+
+        if ($login && $password && $nickname) {
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
             $pattern1 = strlen($nickname);
-            if(preg_match($pattern, $login) && $pattern1>2 && $pattern1<17){
+            if (preg_match($pattern, $login) && $pattern1 > 2 && $pattern1 < 17) {
                 return $this->user->registration($login, $nickname, $password);
             }
-            return array(false,413);    
+            return array(false, 413);
         }
         return array(false, 400);
     }
@@ -50,38 +50,41 @@ class Application
         $login = $params['login'] ?? false;
         $password = $params['hash'] ?? false;
         $rnd = $params['rnd'] ?? false;
-        
-        if($login && $password && $rnd){
+
+        if ($login && $password && $rnd) {
             return $this->user->login($login, $password, $rnd);
         }
         return array(false, 400);
     }
 
-    function logout($params){
+    function logout($params)
+    {
         $token = $params['token'] ?? false;
-        
-        if($token){
+
+        if ($token) {
             return $this->user->logout($token);
         }
         return array(false, 400);
     }
 
 
-    function tokenVerification($params){ 
+    function tokenVerification($params)
+    {
         $token = $params['token'] ?? false;
 
-        if($token){
+        if ($token) {
             return $this->user->tokenVerification($token);
         }
         return array(false, 400);
     }
 
 
-    function updatePassword($params){
+    function updatePassword($params)
+    {
         $token = $params['token'] ?? false;
         $hash = $params['hash'] ?? false;
- 
-        if($token && $hash){
+
+        if ($token && $hash) {
             return $this->user->updatePassword($token, $hash);
         }
         return array(false, 400);
@@ -105,10 +108,11 @@ class Application
         return array(false, 400);
     }
 
-    function getMessages($params) {
+    function getMessages($params)
+    {
         $token = $params['token'] ?? false;
         $hash = $params['hash'] ?? false;
-        if ($token && $hash) { 
+        if ($token && $hash) {
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
                 return $this->chat->getMessages($hash, $user->id);
@@ -118,25 +122,27 @@ class Application
         return array(false, 400);
     }
 
-    function setGamerRole($params){
+    function setGamerRole($params)
+    {
         $token = $params['token'] ?? false;
         $role = $params['role'] ?? false;
         $tankId = $params['tankId'] ?? false;
- 
-        if($role && $token){
+
+        if ($role && $token) {
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->lobby->setGamerRole($role, $user->id, $tankId); 
+                return $this->lobby->setGamerRole($role, $user->id, $tankId);
             }
             return array(false, 401);
-        }  
+        }
         return array(false, 400);
     }
 
-    function getLobby($params){
+    function getLobby($params)
+    {
         $token = $params['token'] ?? false;
         $hash = $params['hash'] ?? false;
-        if($token && $hash){
+        if ($token && $hash) {
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
                 return $this->lobby->getLobby($user->id, $hash); 
@@ -159,10 +165,25 @@ class Application
                 return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets);
             }
             return array(false, 401);
-        }  
+        }
         return array(false, 400);
     }
 
+    function rotate($params){
+        $token = $params['token'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if( $angle && $token){
+            if(is_float((float)$angle)){
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->rotate($user->id,$angle);
+            }
+            return array(false, 401);
+        }
+        return array(false,422);
+        }
+    return array(false, 400);
+    }
     function fire($params){
         $token = $params['token'] ?? false;
         $x = $params['x'] ?? false;

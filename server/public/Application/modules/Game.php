@@ -305,6 +305,15 @@ class Game extends BaseModule
         */
         return $result;
     }
+    
+    public function rotate($user_id, $angle)
+    {
+         $this->db->updateRotate($user_id, $angle);
+         $hash = hash("sha256", $this->v4_UUID());
+         $this->db->updateGamersHash($hash);
+       return true;
+    }
+
 }
 
 
@@ -352,3 +361,6 @@ class Game extends BaseModule
 
         // создать новых мобов Никита
         // если мобов меньше, чем надо - добавить новых
+
+    
+    

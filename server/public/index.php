@@ -24,9 +24,15 @@
                     // Lobby
                     case "setGamerRole": return $app->setGamerRole($params);
                     case "getLobby": return $app->getLobby($params);
+<<<<<<< HEAD
                     // Game
                     case "getScene": return $app->getScene($params);
                     case "fire": return $app->fire($params);
+=======
+                    //Game
+                    case 'rotate': return $app->rotate($params);
+                    
+>>>>>>> fd553171d7dfb4a366ea806ca0e8d7df732c9f32
                 } 
                 return array(false, 501);
             }

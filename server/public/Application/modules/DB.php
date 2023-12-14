@@ -12,11 +12,11 @@ class DB {
         $user = getenv('MYSQL_USER');
         $pass = getenv('MYSQL_PASSWORD');
         
-        // $host = '127.0.0.1';
-        // $port = 3306;
-        // $db = 'counter_offensive';
-        // $user = 'root';
-        // $pass = '';
+        //$host = '127.0.0.1';
+        //$port = 3306;
+        //$db = 'counter_offensive';
+        //$user = 'root';
+        //$pass = '';
 
         try {
             $this->link = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
@@ -368,4 +368,11 @@ class DB {
         $query = "INSERT INTO bodies (x, y, angle, bodytype) VALUES (?, ?, ?, ?)";
         $this->queryHandler($query, [$x, $y, $angle, $bodytype]);
     }
+
+    function updateRotate($user_id, $angle){
+        $query= "UPDATE `gamers` SET `angle` = ? WHERE `gamers`.`user_id` = ?;";
+        $this->queryHandler($query, [$angle, $user_id],true);
+    }
+
+    
 }

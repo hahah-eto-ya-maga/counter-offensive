@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "058f29a5-6fcf-429d-964b-044eee831120",
+		"_postman_id": "fd81b676-fe80-491c-9492-b2e77d086717",
 		"name": "Andriianov Artemm",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30955074"
@@ -13,17 +13,8 @@
 					"name": "login",
 					"item": [
 						{
-							"name": "login",
+							"name": "successEnterance",
 							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
 								{
 									"listen": "test",
 									"script": {
@@ -43,7 +34,7 @@
 											"}); \r",
 											" \r",
 											"pm.test('check response login is correct', ()=>{ \r",
-											"    pm.expect(response.data.login).to.eql('testuse'); \r",
+											"    pm.expect(response.data.login).to.eql(pm.variables.get(\"login\")); \r",
 											"}); \r",
 											" \r",
 											"pm.test('check response nickname is correct', ()=>{ \r",
@@ -69,16 +60,25 @@
 										],
 										"type": "text/javascript"
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -117,7 +117,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError400(emptyLogin)",
+							"name": "emptyLogin(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -144,7 +144,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -155,10 +155,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login=",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}&rnd={{rnd}}&login=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -187,7 +187,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError400(emptyHash)",
+							"name": "emptyHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -213,7 +213,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -224,10 +224,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash=&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login&hash=&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -256,7 +256,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError403",
+							"name": "wrongHash(Error403)",
 							"event": [
 								{
 									"listen": "test",
@@ -282,7 +282,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Forbidden', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Forbidden');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Forbidden\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -293,10 +293,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}1$$$%%%&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}1$$$%%%&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -325,7 +325,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError461",
+							"name": "wrongLogin(Error461)",
 							"event": [
 								{
 									"listen": "test",
@@ -351,7 +351,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is User not Exist', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('User not Exist');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"User not Exist\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -362,10 +362,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}1234$$%23",
+									"raw": "http://{{url}}/api/?method=login&hash={{hash}}&rnd={{rnd}}&login={{login}}1234$$%23",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -394,7 +394,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -420,7 +420,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -431,10 +431,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=&hash={{hash}}&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -463,7 +463,7 @@
 							"response": []
 						},
 						{
-							"name": "loginError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -489,7 +489,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -500,10 +500,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=login1&hash={{hash}}&rnd={{rnd}}&login={{login}}",
+									"raw": "http://{{url}}/api/?method=login1&hash={{hash}}&rnd={{rnd}}&login={{login}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -537,7 +537,1454 @@
 					"name": "registration",
 					"item": [
 						{
-							"name": "registration",
+							"name": "loginTest",
+							"item": [
+								{
+									"name": "emptyLogin(Error400)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 400', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(400);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Bad Request', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login=&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": ""
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "specSymbol(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 400', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}$%23&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}$#"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "space(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 400', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}} 13&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}} 13"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "5LettersLengthLogin(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 413', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login=testi&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "testi"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "6LettersLengthLogin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql('tester'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login=tester&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "tester"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "7LettersLengthLogin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql('testera'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login=testera&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "testera"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "14LettersLengthLogin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get('loginReg')+'111'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}111&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}111"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "15LettersLengthLogin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get('loginReg')+'1111'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}1111&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}1111"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "16LettersLengthLogin(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 413', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}11111&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}11111"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "loginOccupied(Error460)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 460', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(460);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Login Occupied', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Login Occupied\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{login}}&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{login}}"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "nicknameTest",
+							"item": [
+								{
+									"name": "emptyNickname(Error400)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 400', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(400);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Bad Request', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}65&nickname=",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}65"
+												},
+												{
+													"key": "nickname",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "specSymbol(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 413', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}97&nickname={{nickReg}}$%",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}97"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}$%"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "space(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 400', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is '+pm.variables.get(\"Invalid login(nickname)\"), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}09&nickname={{nickReg}} 1",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}09"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}} 1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "2LettersLengthNickname(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 413', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{login}}34&nickname=te",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{login}}34"
+												},
+												{
+													"key": "nickname",
+													"value": "te"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "3LettersLengthNickname(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get(\"loginReg\")+'3'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('hey'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}3&nickname=hey",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}3"
+												},
+												{
+													"key": "nickname",
+													"value": "hey"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "4LettersLengthNickname(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get(\"loginReg\")+'4'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('1111'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}4&nickname=1111",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}4"
+												},
+												{
+													"key": "nickname",
+													"value": "1111"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "15LettersLengthNickname(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get(\"loginReg\")+'156'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')+'1111'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}156&nickname={{nickReg}}1111",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}156"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}1111"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "16LettersLengthNickname(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get(\"loginReg\")+'16'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')+'11111'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}16&nickname={{nickReg}}11111",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}16"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}11111"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "17LettersLengthNickname(Error413)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"\r",
+													"pm.test('check response result is error', ()=>{\r",
+													"    pm.expect(response.result).to.eql('error');\r",
+													"});\r",
+													"\r",
+													"pm.test('check code error is 413', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(413);\r",
+													"});\r",
+													"\r",
+													"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid login(nickname)\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}764&nickname={{nickReg}}111111",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}764"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}111111"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "successEntrance",
 							"event": [
 								{
 									"listen": "test",
@@ -590,10 +2037,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}&nickname={{nickReg}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -602,7 +2049,7 @@
 									"query": [
 										{
 											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+											"value": "{{hashReg}}"
 										},
 										{
 											"key": "method",
@@ -610,11 +2057,11 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
-											"value": "testuserreg"
+											"value": "{{nickReg}}"
 										}
 									]
 								}
@@ -622,7 +2069,108 @@
 							"response": []
 						},
 						{
-							"name": "registratonError400(emptyHash)",
+							"name": "bigLetters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('check registration status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('testuserreg'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response rank_name is correct', ()=>{ \r",
+											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response gamer_exp is correct', ()=>{ \r",
+											"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response next_rang is correct', ()=>{ \r",
+											"    pm.expect(response.data.next_rang).to.eql(143); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response level is correct', ()=>{ \r",
+											"    pm.expect(response.data.level).to.eql(1); \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=registration&login=TEstingUse&hash=${pm.variables.get(\"hash1\")}&nickname=${pm.variables.get(\"nickname\")}`,\r",
+											"    method:`GET`,\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login=testinguse&nickname={{nickReg}}&=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "hash",
+											"value": "{{hashReg}}"
+										},
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "testinguse"
+										},
+										{
+											"key": "nickname",
+											"value": "{{nickReg}}"
+										},
+										{
+											"key": "",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "emptyHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -648,7 +2196,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -659,10 +2207,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=&method=registration&login=testuserreg&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash=&method=registration&login={{loginReg}}&nickname={{nickReg}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -679,11 +2227,11 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
-											"value": "testuserreg"
+											"value": "{{nickReg}}"
 										}
 									]
 								}
@@ -691,351 +2239,7 @@
 							"response": []
 						},
 						{
-							"name": "registratonError400(emptyNickname)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check registration status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=",
-									"protocol": "http",
-									"host": [
-										"counter-offensive"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
-										},
-										{
-											"key": "method",
-											"value": "registration"
-										},
-										{
-											"key": "login",
-											"value": "testuserreg"
-										},
-										{
-											"key": "nickname",
-											"value": ""
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "registratonError400(emptyLogin)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check registration status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=&nickname=testuserreg",
-									"protocol": "http",
-									"host": [
-										"counter-offensive"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
-										},
-										{
-											"key": "method",
-											"value": "registration"
-										},
-										{
-											"key": "login",
-											"value": ""
-										},
-										{
-											"key": "nickname",
-											"value": "testuserreg"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "registrationError413(wrongLogin)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check registration status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 413', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(413);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Invalid login(nickname)');\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg1111111111111111111111111111111&nickname=testuserreg",
-									"protocol": "http",
-									"host": [
-										"counter-offensive"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
-										},
-										{
-											"key": "method",
-											"value": "registration"
-										},
-										{
-											"key": "login",
-											"value": "testuserreg1111111111111111111111111111111"
-										},
-										{
-											"key": "nickname",
-											"value": "testuserreg"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "registrationError413(wrongNickname)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check registration status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 413', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(413);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Invalid login(nickname)', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Invalid login(nickname)');\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login=testuserreg&nickname=testuserreg111111111111111111111111",
-									"protocol": "http",
-									"host": [
-										"counter-offensive"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
-										},
-										{
-											"key": "method",
-											"value": "registration"
-										},
-										{
-											"key": "login",
-											"value": "testuserreg"
-										},
-										{
-											"key": "nickname",
-											"value": "testuserreg111111111111111111111111"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "registrationError460",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const response = pm.response.json();\r",
-											"\r",
-											"pm.test('check registration status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code error is 460', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(460);\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Login Occupied', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Login Occupied');\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration&login={{login}}&nickname=testuserreg",
-									"protocol": "http",
-									"host": [
-										"counter-offensive"
-									],
-									"path": [
-										"api",
-										""
-									],
-									"query": [
-										{
-											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
-										},
-										{
-											"key": "method",
-											"value": "registration"
-										},
-										{
-											"key": "login",
-											"value": "{{login}}"
-										},
-										{
-											"key": "nickname",
-											"value": "testuserreg"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "registrationError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -1061,7 +2265,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Method Not Allowed', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1072,10 +2276,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=&login=testuserreg32&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash={{hashReg}}&method=&login={{loginReg}}&nickname={{nickReg}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1084,7 +2288,7 @@
 									"query": [
 										{
 											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+											"value": "{{hashReg}}"
 										},
 										{
 											"key": "method",
@@ -1092,11 +2296,11 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg32"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
-											"value": "testuserreg"
+											"value": "{{nickReg}}"
 										}
 									]
 								}
@@ -1104,7 +2308,7 @@
 							"response": []
 						},
 						{
-							"name": "registrationError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -1130,7 +2334,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1141,10 +2345,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?hash=42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c&method=registration1&login=testuserreg&nickname=testuserreg",
+									"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration1&login={{loginReg}}&nickname={{nickReg}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1153,7 +2357,7 @@
 									"query": [
 										{
 											"key": "hash",
-											"value": "42780a663064da860f48a0d1b4e41f8f24651c0aad3c16ad9ec579f064be094c"
+											"value": "{{hashReg}}"
 										},
 										{
 											"key": "method",
@@ -1161,11 +2365,11 @@
 										},
 										{
 											"key": "login",
-											"value": "testuserreg"
+											"value": "{{loginReg}}"
 										},
 										{
 											"key": "nickname",
-											"value": "testuserreg"
+											"value": "{{nickReg}}"
 										}
 									]
 								}
@@ -1178,24 +2382,8 @@
 					"name": "logout",
 					"item": [
 						{
-							"name": "logout",
+							"name": "success",
 							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const { token } = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
-										],
-										"type": "text/javascript"
-									}
-								},
 								{
 									"listen": "test",
 									"script": {
@@ -1203,7 +2391,7 @@
 											"pm.test('check logout status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
-											" \r",
+											"\r",
 											"const response = pm.response.json(); \r",
 											" \r",
 											"pm.test('check response is JSON', ()=> { \r",
@@ -1220,16 +2408,33 @@
 										],
 										"type": "text/javascript"
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout&token={{token}}",
+									"raw": "http://{{url}}/api/?method=logout&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1250,7 +2455,7 @@
 							"response": []
 						},
 						{
-							"name": "logoutError400(emptyToken)",
+							"name": "emptyToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -1287,10 +2492,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout&token=",
+									"raw": "http://{{url}}/api/?method=logout&token=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1311,7 +2516,7 @@
 							"response": []
 						},
 						{
-							"name": "logoutError401",
+							"name": "wrongTokenError401",
 							"event": [
 								{
 									"listen": "test",
@@ -1348,10 +2553,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout&token={{token}}$$$%23%23%23",
+									"raw": "http://{{url}}/api/?method=logout&token={{token}}$$$%23%23%23",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1372,7 +2577,7 @@
 							"response": []
 						},
 						{
-							"name": "logoutError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -1409,10 +2614,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
+									"raw": "http://{{url}}/api/?method=&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1433,7 +2638,7 @@
 							"response": []
 						},
 						{
-							"name": "logoutError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -1441,7 +2646,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check logout status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -1459,7 +2664,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1470,10 +2675,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=logout1&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
+									"raw": "http://{{url}}/api/?method=logout1&token=f2eecbf23daf30eeec7e5989a111e3b424aa3c33afe71bc82381518d6869b31c",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1499,12 +2704,30 @@
 					"name": "tokenVerification",
 					"item": [
 						{
-							"name": "tokenVerification",
+							"name": "success",
 							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
 								{
 									"listen": "test",
 									"script": {
 										"exec": [
+											"\r",
 											"pm.test('check logout status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
@@ -1531,10 +2754,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification&token={{token}}",
+									"raw": "http://{{url}}/api/?method=tokenVerification&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1555,7 +2778,7 @@
 							"response": []
 						},
 						{
-							"name": "tokenVerificationError400(no token)",
+							"name": "noToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -1592,10 +2815,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification&token=",
+									"raw": "http://{{url}}/api/?method=tokenVerification&token=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1616,7 +2839,7 @@
 							"response": []
 						},
 						{
-							"name": "tokenVerificationError401",
+							"name": "wrongToken(Error401)",
 							"event": [
 								{
 									"listen": "test",
@@ -1653,10 +2876,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification&token={{token}}123!",
+									"raw": "http://{{url}}/api/?method=tokenVerification&token={{token}}123!%23%23%23$$$",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1669,7 +2892,7 @@
 										},
 										{
 											"key": "token",
-											"value": "{{token}}123!"
+											"value": "{{token}}123!%23%23%23$$$"
 										}
 									]
 								}
@@ -1677,7 +2900,7 @@
 							"response": []
 						},
 						{
-							"name": "tokenVerificationError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -1714,10 +2937,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1738,7 +2961,7 @@
 							"response": []
 						},
 						{
-							"name": "tokenVerificationError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -1746,7 +2969,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check tokenVerification status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -1764,7 +2987,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1775,10 +2998,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=tokenVerification1&token={{token}}",
+									"raw": "http://{{url}}/api/?method=tokenVerification1&token={{token}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1804,20 +3027,21 @@
 					"name": "updatePassword",
 					"item": [
 						{
-							"name": "updatePassword",
+							"name": "success",
 							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const { token } = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -1842,7 +3066,12 @@
 											"\r",
 											"pm.test('check response data is Data', ()=>{ \r",
 											"    pm.expect(response.data).to.eql(true);\r",
-											"}); "
+											"}); \r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=updatePassword&token=${pm.variables.get(\"token\")}&hash=${pm.variables.get(\"hash1\")}`,\r",
+											"    method:`GET`,\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1852,10 +3081,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword&token={{token}}&hash=f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1872,7 +3101,7 @@
 										},
 										{
 											"key": "hash",
-											"value": "{{hash}}"
+											"value": "f836c534387323b096f080676dfe75f8d486bb02aa76393f8fa12b6191b5434e"
 										}
 									]
 								}
@@ -1880,7 +3109,7 @@
 							"response": []
 						},
 						{
-							"name": "updatePasswordError400(emptyToken)",
+							"name": "emptyToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -1917,10 +3146,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token=&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword&token=&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -1945,7 +3174,7 @@
 							"response": []
 						},
 						{
-							"name": "updatePasswordError400(emptyHash)",
+							"name": "emptyHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -1982,10 +3211,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}&hash=",
+									"raw": "http://{{url}}/api/?method=updatePassword&token={{token}}&hash=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2010,7 +3239,7 @@
 							"response": []
 						},
 						{
-							"name": "updatePasswordError401",
+							"name": "wrongToken(Error401)",
 							"event": [
 								{
 									"listen": "test",
@@ -2047,10 +3276,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword&token={{token}}%23%23%23$$$&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword&token={{token}}%23%23%23$$$&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2075,7 +3304,7 @@
 							"response": []
 						},
 						{
-							"name": "updatePasswordError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -2112,10 +3341,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2140,7 +3369,7 @@
 							"response": []
 						},
 						{
-							"name": "updatePasswordError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -2148,7 +3377,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check updatePassword status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -2166,7 +3395,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2177,10 +3406,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=updatePassword1&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=updatePassword1&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2210,20 +3439,21 @@
 					"name": "sendMessage",
 					"item": [
 						{
-							"name": "sendMessage",
+							"name": "success",
 							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const { token } = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -2258,10 +3488,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2286,7 +3516,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageError400(emptyToken)",
+							"name": "emptyToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -2323,10 +3553,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token=&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage&token=&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2351,7 +3581,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageError400(emptyMessage)",
+							"name": "emptyMessage(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -2388,10 +3618,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message=",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}&message=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2416,7 +3646,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageError401",
+							"name": "wrongToken(Error401)",
 							"event": [
 								{
 									"listen": "test",
@@ -2453,10 +3683,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}123432$$$%23&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}123432$$$%23&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2481,7 +3711,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageError432",
+							"name": "wrongMessage(Error432)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2534,10 +3764,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage&token={{token}}&message=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+									"raw": "http://{{url}}/api/?method=sendMessage&token={{token}}&message=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2562,7 +3792,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -2599,10 +3829,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}&message={{message}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2627,7 +3857,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -2635,7 +3865,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check sendMessage status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -2653,7 +3883,7 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2664,10 +3894,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=sendMessage111&token={{token}}&message={{message}}",
+									"raw": "http://{{url}}/api/?method=sendMessage111&token={{token}}&message={{message}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2697,7 +3927,7 @@
 					"name": "getMessages",
 					"item": [
 						{
-							"name": "getMessages",
+							"name": "success",
 							"event": [
 								{
 									"listen": "test",
@@ -2745,14 +3975,15 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"// pm.sendRequest({\r",
-											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
-											"//     method:`GET`,\r",
-											"// }, function(err, res){\r",
-											"//     const{token} = res.json().data;\r",
-											"//     pm.environment.set(\"token\", token)\r",
-											"// }\r",
-											"// );"
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
 										],
 										"type": "text/javascript"
 									}
@@ -2762,10 +3993,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2790,7 +4021,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesError400(no token)",
+							"name": "noToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -2827,10 +4058,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token=&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages&token=&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2855,7 +4086,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesError400(no hash)",
+							"name": "noHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -2892,10 +4123,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}&hash=",
+									"raw": "http://{{url}}/api/?method=getMessages&token={{token}}&hash=",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2920,7 +4151,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesError401",
+							"name": "wrongToken(Error401)",
 							"event": [
 								{
 									"listen": "test",
@@ -2957,10 +4188,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages&token={{token}}123%23%23%23$$$&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages&token={{token}}123%23%23%23$$$&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -2985,7 +4216,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesError405",
+							"name": "noMethod(Error405)",
 							"event": [
 								{
 									"listen": "test",
@@ -3022,10 +4253,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -3050,7 +4281,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesError501",
+							"name": "wrongMethod(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -3058,7 +4289,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check getMessages status', () =>{ \r",
+											"pm.test('check login status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -3076,9 +4307,8 @@
 											"});\r",
 											"\r",
 											"pm.test('check code text is Not Implemented', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Not Implemented');\r",
-											"});\r",
-											""
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3088,10 +4318,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://counter-offensive/api/?method=getMessages11&token={{token}}&hash={{hash}}",
+									"raw": "http://{{url}}/api/?method=getMessages11&token={{token}}&hash={{hash}}",
 									"protocol": "http",
 									"host": [
-										"counter-offensive"
+										"{{url}}"
 									],
 									"path": [
 										"api",
@@ -3101,6 +4331,1846 @@
 										{
 											"key": "method",
 											"value": "getMessages11"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "setGamerRole",
+					"item": [
+						{
+							"name": "soldier",
+							"item": [
+								{
+									"name": "infantryM16",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantry"
+												},
+												{
+													"key": "tankId",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "InfantryRPG",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantryRPG"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Bannerman",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "bannerman"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankDriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankdriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankCommander",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "general",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "sergeant",
+							"item": [
+								{
+									"name": "infantryM16",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantry"
+												},
+												{
+													"key": "tankId",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "InfantryRPG",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantryRPG"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Bannerman",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "bannerman"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankDriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankdriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankCommander",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "general",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "officer",
+							"item": [
+								{
+									"name": "infantryM16",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantry"
+												},
+												{
+													"key": "tankId",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "InfantryRPG",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantryRPG"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Bannerman",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "bannerman"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankDriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankdriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankCommander",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "general",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "general",
+							"item": [
+								{
+									"name": "infantryM16",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantry",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantry"
+												},
+												{
+													"key": "tankId",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "InfantryRPG",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "infantryRPG"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Bannerman",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    method:`GET`,\r",
+													"}, function(err, res){\r",
+													"    const  token  = res.json().data;\r",
+													"    console.log(res.json())\r",
+													"    pm.environment.set(\"token\", token.token)\r",
+													"}\r",
+													");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check login status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check data is true', ()=>{ \r",
+													"    pm.expect(response.data).to.eql(true); \r",
+													"}); "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=bannerman",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "method",
+													"value": "setGamerRole"
+												},
+												{
+													"key": "token",
+													"value": "{{token}}"
+												},
+												{
+													"key": "role",
+													"value": "bannerman"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "doubleTankDriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankShooter",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankdriver",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "tripleTankCommander",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								},
+								{
+									"name": "general",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=setGamerRole&token=&role=bannerman",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "setGamerRole"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "role",
+											"value": "bannerman"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noRole(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=setGamerRole&token={{token}}&role=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "setGamerRole"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "role",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get('Method Not Allowed'), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get('Method Not Allowed'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=&token={{token}}&role=bannerman",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "role",
+											"value": "bannerman"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=setGamerRole1&token={{token}}&role=bannerman",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "setGamerRole1"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "role",
+											"value": "bannerman"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getLobby",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token=&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHash(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get('Method Not Allowed'), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get('Method Not Allowed'));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby1&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby1"
 										},
 										{
 											"key": "token",
@@ -3147,6 +6217,11 @@
 			"type": "string"
 		},
 		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
 			"key": "rnd",
 			"value": "",
 			"type": "string"
@@ -3168,6 +6243,186 @@
 		},
 		{
 			"key": "message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "code400",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "401",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "405",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "413",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "460",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "432",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "501",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Bad Request",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Unauthorized",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Forbidden",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Method Not Allowed",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Invalid login(nickname)",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Not Implemented",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Login Occupied",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Invalid Message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "User not Exist",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Insufficient level",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Level less current gamer",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "You taken this role",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Role taken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Place already occupied",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Incorrect tank number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Tank number have another type",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Role not implemented",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "234",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "235",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "236",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "237",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "238",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "239",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "240",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "463",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hash1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "loginReg",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "nickReg",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashReg",
 			"value": "",
 			"type": "string"
 		}
