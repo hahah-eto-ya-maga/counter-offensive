@@ -3610,8 +3610,8 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3675,8 +3675,8 @@
 											"    pm.expect(response.error.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3740,8 +3740,8 @@
 											"    pm.expect(response.error.code).to.eql(401);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"pm.test('check code text is Unauthorized', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Unauthorized');\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3786,15 +3786,14 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
+											"// pm.sendRequest({\r",
+											"//     url: `http://localhost/api/?method=login&login= ${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")})`,\r",
+											"//     method:`GET`,\r",
+											"// }, function(err, res){\r",
+											"//     const { token } = res.json().data;\r",
+											"//     pm.environment.set(\"token\", token)\r",
+											"// }\r",
+											"// );"
 										],
 										"type": "text/javascript"
 									}
@@ -3822,8 +3821,8 @@
 											"    pm.expect(response.error.code).to.eql(432);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Invalid Message\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid Message\"));\r",
+											"pm.test('check code text is Invalid Message', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Invalid Message');\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3887,8 +3886,8 @@
 											"    pm.expect(response.error.code).to.eql(405);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"pm.test('check code text is Method Not Allowed', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Method Not Allowed');\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -3952,7 +3951,7 @@
 											"    pm.expect(response.error.code).to.eql(501);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"pm.test('check code text is Not Implemented', ()=>{\r",
 											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
 											"});"
 										],
