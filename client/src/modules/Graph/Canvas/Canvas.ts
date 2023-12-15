@@ -247,9 +247,10 @@ class Canvas {
 export default Canvas;
  */
 
-import Unit from "../../../pages/GamePage/components/Game/Units/Unit";
 import { TPoint, TWIN } from "../../../pages/GamePage/types";
 import { ISceneObjects } from "../../Game/Game";
+
+
 
 export interface ICanvasOption {
    WIN: TWIN;
@@ -328,6 +329,7 @@ export default class Canvas {
 
       this.WIN = WIN;
 
+
       this.areaVisible = [];
    }
 
@@ -342,18 +344,6 @@ export default class Canvas {
       );
    }
 
-   sx(xs: number): number {
-      return (xs * this.WIN.width) / this.canvas.width + this.WIN.left;
-   }
-
-   sy(ys: number): number {
-      return (
-         (-ys * this.WIN.height) / this.canvas.height +
-         this.WIN.bottom +
-         this.WIN.height
-      );
-   }
-
    notxs(x: number): number {
       return ((x + this.WIN.width / 2) / this.WIN.width) * this.canvas.width;
    }
@@ -362,6 +352,17 @@ export default class Canvas {
       return (
          this.canvas.height -
          ((y + this.WIN.height / 2) / this.WIN.height) * this.canvas.height
+      );
+   }
+
+   pxToX(px: number): number {
+      return (px / this.canvas.width) * this.WIN.width - this.WIN.width / 2;
+   }
+
+   pxToY(px: number): number {
+      return (
+         ((this.canvas.height - px) / this.canvas.height) * this.WIN.height -
+         this.WIN.height / 2
       );
    }
 
@@ -420,6 +421,49 @@ export default class Canvas {
       this.contextTrace.fillStyle = color;
       this.contextTrace.fill();
       this.contextTrace.closePath();
+   }
+
+   grid() {
+      for (let i = 0; i <= this.WIN.left + this.WIN.width; i++) {
+         this.line(
+            i,
+            this.WIN.bottom,
+            i,
+            this.WIN.bottom + this.WIN.height,
+            0.3,
+            "#c1c1c1"
+         );
+      }
+      for (let i = 0; i >= this.WIN.left; i--) {
+         this.line(
+            i,
+            this.WIN.bottom,
+            i,
+            this.WIN.bottom + this.WIN.height,
+            0.3,
+            "#c1c1c1"
+         );
+      }
+      for (let i = 0; i <= this.WIN.bottom + this.WIN.height; i++) {
+         this.line(
+            this.WIN.left,
+            i,
+            this.WIN.left + this.WIN.width,
+            i,
+            0.3,
+            "#c1c1c1"
+         );
+      }
+      for (let i = 0; i >= this.WIN.bottom; i--) {
+         this.line(
+            this.WIN.left,
+            i,
+            this.WIN.left + this.WIN.width,
+            i,
+            0.3,
+            "#c1c1c1"
+         );
+      }
    }
 
    sprite(
@@ -542,7 +586,7 @@ export default class Canvas {
       this.contextTrace.closePath();
    }
 
-   trace(unit: Unit): void {
+   trace(angleOfMovement: number, angleVisible: number): void {
       const pixelscene = this.contextMask.getImageData(
          0,
          0,
@@ -550,24 +594,19 @@ export default class Canvas {
          this.canvasMask.height
       );
 
-      this.areaVisible = [{ x: this.xs(unit.x), y: this.ys(unit.y) }];
+      this.areaVisible = [];
+      this.areaVisible.push({
+         x: this.canvasTrace.width / 2,
+         y: this.canvasTrace.height / 2,
+      });
 
+      let vector: TPoint = { x: 0, y: 1 };
       const oneDegree = Math.PI / 180;
-      for (
-         let i = -unit.visiableAngle / 2;
-         i <= unit.visiableAngle / 2;
-         i += 0.5
-      ) {
-         const end = {
-            x:
-               unit.x +
-               Math.cos(unit.angle + i * oneDegree) * unit.visionDistance,
-            y:
-               unit.y +
-               Math.sin(unit.angle + i * oneDegree) * unit.visionDistance,
-         };
+      for (let i = -angleVisible / 2; i <= angleVisible / 2; i += 0.5) {
+         vector.x = Math.cos(angleOfMovement + i * oneDegree);
+         vector.y = Math.sin(angleOfMovement + i * oneDegree);
 
-         this.lineBrezen(end, unit, pixelscene);
+         this.lineBrezen(vector, pixelscene);
       }
 
       this.contextTrace.clearRect(
@@ -591,21 +630,21 @@ export default class Canvas {
       this.contextTrace.globalCompositeOperation = "source-over";
    }
 
-   lineBrezen(vector: TPoint, unit: Unit, pixelscene: ImageData): void {
+   lineBrezen(vector: TPoint, pixelscene: ImageData): void {
       const w = pixelscene.width;
 
       let isObject = false;
       let isVisiable = true;
 
-      let x1 = this.xs(unit.x);
-      let y1 = this.ys(unit.y);
-      const x2 = this.xs(vector.x);
-      const y2 = this.ys(vector.y);
+      let x1 = this.canvasTrace.width / 2;
+      let y1 = this.canvasTrace.height / 2;
+      const x2 = this.notxs(vector.x);
+      const y2 = this.notys(vector.y);
       const dx = Math.abs(x2 - x1);
       const sx = x1 < x2 ? 1 : -1;
       const dy = -Math.abs(y2 - y1);
       const sy = y1 < y2 ? 1 : -1;
-      let n = dx > -dy ? dx :  dy;
+      let n = dx > -dy ? 10 * dx : -10 * dy;
       let err2;
       let error = dx + dy;
       for (; n > 0; n--) {

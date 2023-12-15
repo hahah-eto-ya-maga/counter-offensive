@@ -242,33 +242,17 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const updateWIN = () => {
-      const halfW = WIN.width / 2;
-      const halfH = WIN.height / 2;
-      WIN.left = unit.x - halfW;
-      WIN.bottom = unit.y - halfH;
-      if (unit.y - halfH < -1) {
-         WIN.bottom = -1;
-      }
-      if (unit.y + halfH > MAP_SIZE.height + 1) {
-         WIN.bottom = MAP_SIZE.height - WIN.height + 1;
-      }
-      if (unit.x - halfW < -1) {
-         WIN.left = -1;
-      }
-      if (unit.x + halfW > MAP_SIZE.width + 1) {
-         WIN.left = MAP_SIZE.width - WIN.width + 1;
-      }
+      WIN.left = unit.x - WIN.width / 2;
+      WIN.bottom = unit.y - WIN.height / 2;
    };
 
    const updateUnit = () => {
       if (canvas) {
          unit.move(keyPressed);
          unit.rotate(
-            Math.atan2(
-               canvas.sy(mousePos.y) - unit.y,
-               canvas.sx(mousePos.x) - unit.x
-            )
+            Math.atan2(canvas.pxToY(mousePos.y), canvas.pxToX(mousePos.x))
          );
+
          updateWIN();
       }
    };
@@ -286,7 +270,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          canvas.clearRect();
          updateUnit();
          drawObjects(objects);
-         canvas.trace(unit);
+         canvas.trace(unit.angle, unit.visiableAngle);
          canvas.spriteDir(
             img,
             unit.x - 0.5,
@@ -313,11 +297,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       }
    }
 
-   return (
-      <>
-         <canvas id={canvasId} />
-      </>
-   );
+   return <canvas id={canvasId} />;
 };
 
 export default GameCanvas;

@@ -8,7 +8,6 @@ export default class Unit {
    visiableAngle: number;
    speed: number;
    diagonalSpeed: number;
-   visionDistance: number;
 
    constructor() {
       this.x = 2;
@@ -16,8 +15,8 @@ export default class Unit {
       this.r = 0.2;
       this.angle = 0;
       this.visiableAngle = 60;
-      this.visionDistance = 2;
-      this.speed = 0.01;
+    
+      this.speed = 0.05;
       this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
    }
 
