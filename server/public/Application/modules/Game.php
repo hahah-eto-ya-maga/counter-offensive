@@ -170,9 +170,8 @@ class Game extends BaseModule
           
     }
 
-    private function shootReg($x0, $y0,$id_bul, $x1) {
 
-    }
+
 
     function getScene($userId, $hashGamers, $hashMobs) { 
         $this->update();
