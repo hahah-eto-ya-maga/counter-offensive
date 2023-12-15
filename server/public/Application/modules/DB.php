@@ -12,11 +12,11 @@ class DB {
         $user = getenv('MYSQL_USER');
         $pass = getenv('MYSQL_PASSWORD');
         
-        // $host = '127.0.0.1';
-        // $port = 3306;
-        // $db = 'counter_offensive';
-        // $user = 'root';
-        // $pass = '';
+        //$host = '127.0.0.1';
+        //$port = 3306;
+        //$db = 'counter_offensive';
+        //$user = 'root';
+        //$pass = '';
 
         try {
             $this->link = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
@@ -191,5 +191,15 @@ class DB {
     function deleteTank($tankId){
         $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
         $this->queryHandler($query, [$tankId]);
+    }
+
+    function updateMove($user_id, $x, $y){
+        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE `gamers`.`user_id` = ?;";
+        $this->queryHandler($query, [$x, $y, $user_id],true);
+    }
+
+    public function updateHashGamers($hash){
+        $query = "UPDATE game SET hashGamers=? WHERE id=1";
+        $this->queryHandler($query, [$hash]);
     }
 }

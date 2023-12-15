@@ -6,7 +6,8 @@ class Answer{
         '403' => 'Forbidden',                       // Неверный логин или пароль
         '405' => 'Method Not Allowed',              // Метод не указан
         '411' => 'Length Required',                 // Длина превышает лимит
-        '413' => 'Invalid login(nickname)',         // Неверный формат логина 
+        '413' => 'Invalid login(nickname)',         // Неверный формат логина
+        '422' => 'Invalid parameter values',        // Невалидные значения параметров
         '501' => 'Not Implemented',                 // Метод не реализован на сервере
         '503' => 'DB Unavailable',                  // Не удалось подключиться к базе данных
         '460' => 'Login Occupied',                  // Логин занят
