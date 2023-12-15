@@ -211,7 +211,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          canvas?.spriteMap(img, block[1].x, block[1].y, ...home);
       });
    };
-
+   //как то преобразить вектор
    const drawStones = (stones: TPoint[]) => {
       stones.forEach((circle) => {
          canvas?.spriteMap(img, circle.x - 0.5, circle.y + 0.5, ...stone);
@@ -278,7 +278,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       if (canvas) {
          canvas.clear();
          updateUnit();
-         
+
          /* drawObjects(objects); */
          trace(objects);
          canvas.spriteDir(
@@ -306,7 +306,12 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       }
    }
 
-   return <canvas id={canvasId} />;
+   return (
+      <>
+         <canvas id={canvasId} />
+         <canvas id="abc" />
+      </>
+   );
 };
 
 export default GameCanvas;
