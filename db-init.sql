@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `hashMobs` VARCHAR(100) NOT NULL DEFAULT '',
   `hashMap` VARCHAR(100) NOT NULL DEFAULT '',
   `hashBodies` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashTanks` VARCHAR(100) NOT NULL DEFAULT '',
   `timestamp` BIGINT NOT NULL DEFAULT 0,
   `timeout` INT NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
@@ -44,10 +45,11 @@ CREATE TABLE IF NOT EXISTS `mobs` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
   `person_id` MEDIUMINT NOT NULL DEFAULT -1,
   `hp` INT NOT NULL DEFAULT 0,
-  `x` MEDIUMINT NULL DEFAULT NULL,
-  `y` MEDIUMINT NULL DEFAULT NULL,
+  `x` FLOAT NULL DEFAULT NULL,
+  `y` FLOAT NULL DEFAULT NULL,
   `angle` FLOAT NULL DEFAULT NULL,
   `path` JSON,
+  `path_update` BIGINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
@@ -134,6 +136,17 @@ CREATE TABLE IF NOT EXISTS `tanks` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `bodies` (
+  `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
+  `x` FLOAT NULL DEFAULT NULL,
+  `y` FLOAT NULL DEFAULT NULL,
+  `angle` FLOAT NULL DEFAULT NULL,
+  `bodyType` CHAR(1) NOT NULL DEFAULT "", 
+  /*i - пешик, m-средний танк, h - тяжик, m - моб */
+  `isMob` BOOLEAN NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+);
+
 /* Создание юзеров для тестирования*/
 -- У каждого пользователя пароль 12345678
 
@@ -196,5 +209,5 @@ INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpee
 ('heavyTankCommander', 1000, 1, 1, 1, 12),
 ('middleTankMeh', 1000, 1, 1, 1, 5),
 ('middleTankGunner', 1000, 1, 1, 1, 5),
-('infantry', 100, 1, 1, 1, 1),
-('infantryRPG', 100, 1, 1, 1, 5);
+('infantry', 100, 1, 0.2, 1, 1),
+('infantryRPG', 100, 1, 0.2, 1, 1);

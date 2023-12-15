@@ -27,6 +27,7 @@
                     // Game
                     case "getScene": return $app->getScene($params);
                     case "fire": return $app->fire($params);
+                    case 'rotate': return $app->rotate($params);
                 } 
                 return array(false, 501);
             }

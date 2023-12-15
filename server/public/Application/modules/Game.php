@@ -5,18 +5,43 @@ class Game extends BaseModule
 {
 
     private $mobs;
-    private $gamers;
-
+    private $gamers;    
+    private $tanks;
     private $game;
 
-    private $duration;
-
     private $bullets;
+    private $timer;
+    private $timeout;
+
+    private $map;
 
     function __construct($db) {
         parent::__construct($db);
+        $this->map = array_fill(0, 120, array_fill(0, 150, 0));
     }
 
+    /*Math*/
+    function calculateAngle($x1, $y1, $x2, $y2)
+    {
+        return atan2($y1 - $y2, $x1 - $x2);
+    }
+
+    function calculateShiftPoint($x1, $y1, $x2, $y2, $distance) {
+        $dx = $x2 - $x1;
+        $dy = $y2 - $y1;
+    
+        $distanceBetweenPoints = sqrt($dx * $dx + $dy * $dy);
+    
+        $factor = $distance / $distanceBetweenPoints;
+    
+        return array($x1 + $dx * $factor, $y1 + $dy * $factor);
+    }
+
+    function calculateDistance($x1, $x2, $y1, $y2){
+        return sqrt(pow(($x1 - $x2),2) + pow(($y1 - $y2),2));
+    }
+
+    /* Mobs */
 
     //Вернет только первую клетку для моба
     function EasyAStar($grid, $start, $end) {
@@ -62,25 +87,6 @@ class Game extends BaseModule
         }
     }
 
-    private function calculateAngle($targetX, $targetY, $mobX, $mobY){
-        $deltaX = $targetX - $mobX;
-        $deltaY = $targetY - $mobY;
-
-        $angleRadians = atan($deltaY / $deltaX);
-        return rad2deg($angleRadians);
-    }
-
-    function calculateShiftPoint($x1, $y1, $x2, $y2, $distance) {
-        $dx = $x2 - $x1;
-        $dy = $y2 - $y1;
-    
-        $distanceBetweenPoints = sqrt($dx * $dx + $dy * $dy);
-    
-        $factor = $distance / $distanceBetweenPoints;
-    
-        return array($x1 + $dx * $factor, $y1 + $dy * $factor);
-    }
-
     private function moveMobs() {
         if(!$this->gamers)
             return 0;
@@ -91,20 +97,25 @@ class Game extends BaseModule
             $targetGamer = null;
             $targetDistance = null;
             // print($this->duration);
-            if($this->duration > 500){
+            if($this->timer - $mob->path_update > 1000){
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                         continue;
-                    $distance = sqrt(pow(($gamer->x + $mobX),2) + pow(($gamer->y + $mobY),2));
+                    $distance = $this->calculateDistance($gamer->x, $mobX, $gamer->y, $mobY);
                     if($distance < $minDistanceToGamer)
                         $targetGamer = $gamer;
                         $targetDistance = $distance; 
                 }
-                $map = array_fill(0, 120, array_fill(0, 150, 0));
-                if($targetDistance && $targetGamer && $targetDistance<50){
-                    $path = $this->EasyAStar($map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
+                if($targetDistance && $targetGamer && $targetDistance<30){
+                    if($targetDistance<2)
+                    {
+                        // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
+                        continue;
+                    }
+                    $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
+                    $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
                 }
                 else continue;
             }
@@ -112,42 +123,30 @@ class Game extends BaseModule
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
+                // $this->fire(-1, $targetCoord[0], $targetCoord[0], $angle);            
             }
-            $distance = $mob->movementSpeed * ($this->duration / 1000);
+            $distance = $mob->movementSpeed * ($this->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
-            $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);
+            $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
+            $newDistance = $distance - $distanceToNextCell;
+            if($newDistance>0){
+                $newCoords = $this->calculateShiftPoint($path[1][0], $path[1][1], $path[2][0], $path[2][1], $newDistance);    
+                
+            }
+            else{
+                $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);    
+            }
+
             $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
-//            $this->fire($targetGamer->x, $targetGamer->y);
+            $this->db->updateMobsHash(hash("sha256", $this->v4_UUID()));
         }
     }
 
-    private function updateScene(){
-        $this->bullets = $this->db->getBullets();
-        $this->gamers = $this->db->getGamers(); 
-        $this->mobs = $this->db->getMobs(); 
-        $this->addMobs();
-        $this->moveMobs();
-        $this->moveBullets();
-    }
-
-    private function update() {
-
-        $time = $this->db->getTime();
-        $this->duration = $time->timer - $time->timestamp;
-        if ($this->duration >= $time->timeout)
-            $this->updateScene();
-    }
-
-    private function getGamers() {
-        return [];
-    }
-
-    private function getMobs() {
-        return $this->db->getAllMobs();
-    }
+    /* Пули */
 
     function fire($user_id, $x, $y, $angle){
-        $this->db->addBullet($user_id, $x, $y, $angle);
+        $this->db->addBullet($user_id, $x, $y, round($angle,1));
+        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
     }
 
     private function moveBullets(){
@@ -157,23 +156,132 @@ class Game extends BaseModule
         foreach($this->bullets as $bullet){
             $this->moveBullet($bullet->id, $bullet->x2, $bullet->y2, $bullet->angle);
         }
+        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
     }
     
     private function moveBullet($id, $x, $y, $angle) {
         if ($x>=120 || $x<=0 || $y>=150 || $y<=0){
             $this->db->deleteBullet($id);
         } else {
-            $x2 = $x + 0.02*cos($angle);
-            $y2 = $y + 0.02*sin($angle);
-            $this->db->updateBullet($x, $y, $x2, $y2, $id);
+            $x2 = $x + 2*cos($angle);
+            $y2 = $y + 2*sin($angle);
+            $this->db->updateBulletsHash($x, $y, $x2, $y2, $id);
         }
-          
     }
 
+    private function crossing($x0, $y0, $x1, $y1, $x2, $y2,){
 
+    }
 
+    private function shootRegs(){
+        if (!$this->bullets){
+            return 0;
+        }
+        if(!$this->gamers){
+            foreach($this->bullets as $bullet){
+                $this->shootReg($bullet->id, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2);
+            }
+        }
 
-    function getScene($userId, $hashGamers, $hashMobs) { 
+        
+    }
+    private function shootReg($id, $x1, $y1, $x2, $y2) {
+        foreach($this->gamers as $gamer){
+            $x0 = $gamer->x;
+            $y0 = $gamer->y;
+            if ($x0>$x1 && $x0<$x2 || $x0<$x1 && $x0>$x2){
+
+            }
+        }
+    }
+
+    /* Удаление мертвецов */
+
+    function checkDead(){
+        $gamerDelete = false;
+        $mobsDelete = false;
+        $tankDelete = false;
+
+        foreach($this->gamers as $gamer){
+            if($gamer->hp <= 0){      
+                $this->db->killGamer($gamer->id);
+                $this->db->setGamerBodies($gamer->x, $gamer->y, $gamer->angle);
+                $gamerDelete = true;
+            }
+        }
+        foreach($this->mobs as $mob){
+            if($mob->hp <= 0){ 
+                $this->db->killMob($mob->id);
+                $this->db->setMobBodies($gamer->x, $gamer->y, $gamer->angle);
+                $mobsDelete = true;
+            }
+        }
+        foreach($this->tanks as $tank){
+            if($tank->hp <= 0){
+                $this->db->killTank($tank->id);
+                if($tank->commander_id) {
+                    $this->db->killGamerInHeavyTank($tank->mechanic_id, $tank->gunner_id, $tank->commander_id);
+                    $this->db->setTankBodies($gamer->x, $gamer->y, $gamer->angle, 'h');
+                }
+                else { 
+                    $this->db->killGamerInHeavyTank($tank->mechanic_id, $tank->gunner_id); 
+                    $this->db->setTankBodies($gamer->x, $gamer->y, $gamer->angle, 'm');
+                }
+                $tankDelete = true;
+            }
+        }
+
+        if($gamerDelete) $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+        if($mobsDelete) $this->db->updateMobsHash(hash("sha256", $this->v4_UUID()));
+        if($tankDelete) $this->db->updateTanksHash(hash("sha256", $this->v4_UUID()));
+        
+    }
+
+    /* Получение данных */
+
+    private function getGamers() {
+        return $this->db->getGamers();
+    }
+
+    private function getMobs() {
+        return $this->db->getAllMobs();
+    }
+
+    private function getBullets() {
+        return $this->db->getBullets();
+    }
+
+    private function getTanks() {
+        return $this->db->getTanks();
+    }
+
+    // Обновление сцены
+
+    private function updateScene(){
+        $this->bullets = $this->db->getBullets();
+        $this->gamers = $this->db->getFootGamers(); 
+        $this->mobs = $this->db->getMobs(); 
+        $this->tanks = $this->db->getTanks();
+        // Мобы
+        $this->addMobs();
+        $this->moveMobs();
+        // Пули
+        $this->moveBullets();
+        //$this->shootRegs();
+        // Смерть сущности
+        $this->checkDead();
+    }
+
+    private function update() {
+        $time = $this->db->getTime();
+        $this->timer = $time->timer;
+        $this->timeout = $time->timeout;
+        if ($time->timer - $time->timestamp >= $time->timeout)
+            $this->db->updateTimestamp($time->timer);
+            $this->updateScene();
+    }
+
+    function getScene($userId, $hashGamers, $hashMobs, $hashBullets) { 
         $this->update();
         $result = array();
         $hashes = $this->db->getHashes();
@@ -184,6 +292,10 @@ class Game extends BaseModule
         if ($hashes->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
+        }
+        if ($hashes->hashBullets !== $hashBullets) {
+            $result['bullets'] = $this->getBullets();
+            $result['hashBullets'] = $hashes->hashBullets;
         }
         //...
         /*
@@ -197,6 +309,15 @@ class Game extends BaseModule
         */
         return $result;
     }
+    
+    public function rotate($user_id, $angle)
+    {
+         $this->db->updateRotate($user_id, $angle);
+         $hash = hash("sha256", $this->v4_UUID());
+         $this->db->updateGamersHash($hash);
+       return true;
+    }
+
 }
 
 
@@ -244,3 +365,6 @@ class Game extends BaseModule
 
         // создать новых мобов Никита
         // если мобов меньше, чем надо - добавить новых
+
+    
+    
