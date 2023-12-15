@@ -89,13 +89,17 @@ require_once('BaseModule.php');
             foreach($lobby as $role) {
                 switch($role->person_id){
                     case 1: 
-                        $this->lobbyState['general'] = false;
+                        if($role->experience < $gamerRank->gamer_exp) 
+                            $this->lobbyState['general'] = true;
+                        else
+                            $this->lobbyState['general'] = false;
                         break;
                     case 2: 
                         $this->lobbyState['bannerman'] = false;
                         break;
                 }
             }
+            
         }
 
         function setTankRole($userId, $roleId, $tankId){

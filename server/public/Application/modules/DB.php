@@ -122,7 +122,7 @@ class DB {
     }
     
     function getLobby(){
-        $query = "SELECT user_id, person_id FROM gamers WHERE person_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);";
+        $query = "SELECT user_id, person_id, experience FROM gamers WHERE person_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);";
         return $this->queryHandlerAll($query, []);
     }
 
