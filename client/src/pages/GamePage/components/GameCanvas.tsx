@@ -1,7 +1,7 @@
 import React from "react";
 import Canvas from "./Canvas/Canvas";
 import MathGame from "./Math/MathGame";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { TKeyboard, TPoint, TUnit, TScene } from "../types";
 import useCanvas from "./hooks/useCanvas";

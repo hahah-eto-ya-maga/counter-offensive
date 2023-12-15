@@ -3,12 +3,13 @@ import Game, { IGameScene, ISceneObjects } from "../Game/Game";
 import { MediatorContext, ServerContext } from "../../App";
 import useSprites from "../../pages/GamePage/components/hooks/useSprites";
 import Canvas from "./Canvas/Canvas";
-import useCanvas from "./Canvas/useCanvas";
+
 import { TPoint } from "../../pages/GamePage/types";
 import Unit from "../../pages/GamePage/components/Game/Units/Unit";
 import Collision from "../../pages/GamePage/components/Collision/Collision";
 import { MAP_SIZE } from "../../config";
-import TraceMask from "./TraceMask";
+import useCanvas from "./Canvas/useCanvas";
+/* import TraceMask from "./TraceMask"; */
 
 export interface IPressedKeys {
    Up: boolean;
@@ -39,7 +40,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       height: 10,
    };
 
-   let tracer: TraceMask | null = null;
+   /*    let tracer: TraceMask | null = null; */
    let canvas: Canvas | null = null;
    const createCanvas = useCanvas(render);
 
@@ -55,13 +56,13 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             mousemove: mouseMoveHandler,
          },
       });
-      tracer = new TraceMask({
+      /*       tracer = new TraceMask({
          WIN,
          canvas,
          width,
          height,
          cellSize:SPRITE_SIZE
-      });
+      }); */
       return () => {
          canvas = null;
       };
@@ -273,7 +274,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const trace = (objects: ISceneObjects) => {
-      tracer?.trace(unit, objects);
+      /*  tracer?.trace(unit, objects); */
    };
 
    function roundEnd() {}
@@ -282,10 +283,10 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       const fpsGap = 0.5;
       const { objects } = game.getScene();
       if (canvas) {
-         canvas.clear();
-         trace(objects);
-         drawObjects(objects);
+         canvas.clearRect();
          updateUnit();
+         drawObjects(objects);
+         canvas.trace(unit);
          canvas.spriteDir(
             img,
             unit.x - 0.5,
@@ -300,6 +301,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             isCollition
          );
 
+         canvas.render();
+
          canvas.printText(
             `FPS: ${FPS}`,
             WIN.left + fpsGap,
@@ -307,7 +310,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             "black",
             20
          );
-         canvas.render();
       }
    }
 

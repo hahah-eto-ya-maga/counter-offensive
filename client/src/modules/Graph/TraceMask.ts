@@ -1,4 +1,6 @@
-import internal from "stream";
+export {}
+/* 
+
 import { MAP_SIZE } from "../../config";
 import { TPoint, TWIN } from "../../pages/GamePage/types";
 import { ISceneObjects } from "../Game/Game";
@@ -12,29 +14,38 @@ interface ITraceMaskProps {
    width: number;
    cellSize: number;
 }
+const DELTAWIN = 1;
 
 export default class TraceMask {
    canvas: Canvas;
    WIN: TWIN;
+   oldWIN: TWIN;
    maskCanv: HTMLCanvasElement;
    maskContext: CanvasRenderingContext2D;
    cellSize: number;
-   pixcelScene: ImageData;
+   pixelScene: ImageData;
 
    constructor({ WIN, canvas, height, width, cellSize }: ITraceMaskProps) {
       this.WIN = WIN;
+      this.oldWIN = {
+         left: WIN.left + DELTAWIN,
+         bottom: WIN.bottom + DELTAWIN,
+         height: WIN.height - 2 * DELTAWIN,
+         width: WIN.width - 2 * DELTAWIN,
+      };
+
       this.canvas = canvas;
       this.cellSize = cellSize;
 
       this.maskCanv = document.createElement("canvas");
-      this.maskContext = this.maskCanv.getContext(
-         "2d"
-      ) as CanvasRenderingContext2D;
+      this.maskContext = this.maskCanv.getContext("2d", {
+         willReadFrequently: true,
+      }) as CanvasRenderingContext2D;
 
       this.maskCanv.width = width;
       this.maskCanv.height = height;
 
-      this.pixcelScene = this.getMaskImage();
+      this.pixelScene = this.getMaskImage();
    }
 
    polygon(points: TPoint[], color: string): void {
@@ -89,11 +100,12 @@ export default class TraceMask {
    }
 
    getMaskImage(): ImageData {
+      const delta = this.cellSize * DELTAWIN;
       return this.maskContext.getImageData(
-         this.cellSize,
-         this.cellSize,
-         this.maskCanv.width - 2 * this.cellSize,
-         this.maskCanv.height - 2 * this.cellSize
+         this.canvas.xs(this.oldWIN.left),
+         this.canvas.ys(this.oldWIN.bottom + this.oldWIN.height),
+         this.oldWIN.width * this.cellSize,
+         this.oldWIN.height * this.cellSize
       );
    }
 
@@ -165,6 +177,18 @@ export default class TraceMask {
 
    trace(unit: Unit, scene: ISceneObjects) {
       this.drawScene(scene);
+
+      if (
+         this.oldWIN.left - this.WIN.left < 0 ||
+         this.oldWIN.bottom - this.WIN.bottom < 0 ||
+         this.oldWIN.bottom - this.WIN.bottom > DELTAWIN ||
+         this.oldWIN.left - this.WIN.left > DELTAWIN
+      ) {
+         this.oldWIN.left = this.WIN.left + DELTAWIN;
+         this.oldWIN.bottom = this.WIN.bottom + DELTAWIN;
+         this.pixelScene = this.getMaskImage();
+      }
+
       const areaVisible: TPoint[] = [
          {
             x: this.canvas.xs(unit.x),
@@ -198,12 +222,15 @@ export default class TraceMask {
             end.x = 0;
          }
 
-         /* areaVisible.push(
+         areaVisible.push(
             this.lineBrezen({ x: unit.x, y: unit.y }, end, this.pixelScene)
-         ); */
+         );
       }
+      this.maskContext.globalCompositeOperation = "destination-out";
       this.drawTrace(areaVisible);
+      this.maskContext.globalCompositeOperation = "source-over";
 
       this.canvas.drawImage(this.maskCanv, 0, 0);
    }
 }
+ */ 
