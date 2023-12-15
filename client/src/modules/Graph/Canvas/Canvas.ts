@@ -236,7 +236,7 @@ class Canvas {
    }
 
    drawImage(image: CanvasImageSource, dx: number, dy: number) {
-      this.context.drawImage(image, dx, dy);
+      this.contextV.drawImage(image, dx, dy);
    }
 
    render() {

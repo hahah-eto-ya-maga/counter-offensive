@@ -55,7 +55,13 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             mousemove: mouseMoveHandler,
          },
       });
-      tracer = new TraceMask({ WIN, canvas, cellSize: SPRITE_SIZE });
+      tracer = new TraceMask({
+         WIN,
+         canvas,
+         width,
+         height,
+         cellSize:SPRITE_SIZE
+      });
       return () => {
          canvas = null;
       };
@@ -267,7 +273,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const trace = (objects: ISceneObjects) => {
-      tracer?.trace(unit);
+      tracer?.trace(unit, objects);
    };
 
    function roundEnd() {}
@@ -277,10 +283,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       const { objects } = game.getScene();
       if (canvas) {
          canvas.clear();
-         updateUnit();
-
-         /* drawObjects(objects); */
          trace(objects);
+         drawObjects(objects);
+         updateUnit();
          canvas.spriteDir(
             img,
             unit.x - 0.5,
@@ -309,7 +314,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    return (
       <>
          <canvas id={canvasId} />
-         <canvas id="abc" />
       </>
    );
 };

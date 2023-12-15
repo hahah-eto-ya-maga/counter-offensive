@@ -16,7 +16,7 @@ export default class Unit {
       this.r = 0.2;
       this.angle = 0;
       this.visiableAngle = 120;
-      this.visionDistance = 1;
+      this.visionDistance = 10;
       this.speed = 0.01;
       this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
    }
