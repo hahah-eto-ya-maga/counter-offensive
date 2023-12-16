@@ -3,12 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import cn from "classnames";
 import { MediatorContext, ServerContext } from "../../App";
 import { requestDelay } from "../../config";
+import { useSetRoleHandler } from "../../hooks/useSetRoleHandler";
 import { EGamerRole, EHash, ILobby } from "../../modules/Server/interfaces";
 import { Button, Logo } from "..";
 import { tank2, tank3, general } from "../../assets/png";
 
 import "./Layout.css";
-import { useSetRoleHandler } from "../../hooks/useSetRoleHandler";
 
 export enum ETank {
    heavy,
@@ -65,7 +65,7 @@ export const withLayout = (
             <div className="lobby_block">
                <div className={cn("lobby_units_block", "lobby_main_units")}>
                   <Button
-                     id="test_button_generalTankLobby"
+                     id="test_button_general"
                      className={cn("general units_item", {
                         selected_role: !lobby?.general,
                      })}
@@ -76,7 +76,7 @@ export const withLayout = (
                      <img src={general} alt="General" />
                   </Button>
                   <Button
-                     id="test_button_tank2"
+                     id="test_button_2tank"
                      className={cn("units_item", {
                         tank_selected: path === "middle_tanks",
                      })}
@@ -87,7 +87,7 @@ export const withLayout = (
                      <img src={tank2} alt="Tank_2" />
                   </Button>
                   <Button
-                     id="test_button_tank3"
+                     id="test_button_3tank"
                      className={cn("units_item", {
                         tank_selected: path === "heavy_tanks",
                      })}

@@ -94,7 +94,7 @@ export const Chat: React.FC<IChatProps> = ({ chatType }) => {
                   <span className="chat_text">Чат</span>
                </div>
             )}
-            <div className={cn("chat_messages", `chat_messages_${chatType}`)}>
+            <div id="test_chat_lobby_block" className={cn("chat_messages", `chat_messages_${chatType}`)}>
                {!messages || messages.length === 0 ? (
                   <div className="no_message">Пусто!</div>
                ) : (
