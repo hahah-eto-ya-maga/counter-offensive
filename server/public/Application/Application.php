@@ -36,6 +36,7 @@ class Application
         if ($login && $password && $nickname) {
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
             $pattern1 = strlen($nickname);
+            print_r($pattern1);
             if (preg_match($pattern, $login) && $pattern1 > 2 && $pattern1 < 17) {
                 return $this->user->registration($login, $nickname, $password);
             }
@@ -184,6 +185,7 @@ class Application
         }
     return array(false, 400);
     }
+
     function fire($params){
         $token = $params['token'] ?? false;
         $x = $params['x'] ?? false;
