@@ -28,18 +28,18 @@
       ],
       "value": ""
     }, {
+      "id": "96f0791d-3ce3-434e-8ad8-637bc5e9f87d",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "id=3tegg$$%$#%@#%@#%%@",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "9251b816-98b7-4434-b27e-3baa113dfbe9",
       "comment": "",
       "command": "verifyElementPresent",
       "target": "id=test_reg_pageName_button",
-      "targets": [
-        ["id=test_reg_submit_button", "id"],
-        ["css=#test_reg_submit_button", "css:finder"],
-        ["xpath=//button[@id='test_reg_submit_button']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
-        ["xpath=//div[3]/button", "xpath:position"],
-        ["xpath=//button[contains(.,'Попасть в списки военных')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "Повестка"
     }, {
       "id": "27cb21ac-de8f-456e-bff2-92689a45875d",
@@ -103,18 +103,18 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "9f534c1d-b313-49ef-8de3-9177a022bc02",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "id=3tegg$$%$#%@#%@#%%@",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "c52c82a3-9a7b-40ec-8422-ff1a869bd77f",
       "comment": "",
-      "command": "waitForElementPresent",
+      "command": "verifyElementPresent",
       "target": "id=test_login_goToReg_button",
-      "targets": [
-        ["id=test_login_goToReg_button", "id"],
-        ["css=#test_login_goToReg_button", "css:finder"],
-        ["xpath=//button[@id='test_login_goToReg_button']", "xpath:attributes"],
-        ["xpath=//div[@id='root']/div/div/div/div/button[2]", "xpath:idRelative"],
-        ["xpath=//button[2]", "xpath:position"],
-        ["xpath=//button[contains(.,'Получить повестку')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "Получить повестку"
     }, {
       "id": "cffdcad6-5bf1-4bbd-85b7-47fc0fa15e75",
@@ -214,6 +214,13 @@
         ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "50725d48-2a8c-4b81-9110-f25b9dc3ec8f",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "id=3tegg$$%$#%@#%@#%%@",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "fd5fa12d-f1c6-4112-a7f0-aefd53c09e79",
       "comment": "",
@@ -3178,7 +3185,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "13cbe725-6165-47fe-b031-ce41094ec15b",
       "comment": "",
@@ -3250,7 +3257,7 @@
       "command": "waitForElementNotPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "b4ae9e29-d5b7-474e-9a0b-3bf6f1518862",
       "comment": "",
@@ -3322,7 +3329,7 @@
       "command": "waitForElementNotPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "621954e7-be4d-4156-8f14-d96075b6ced2",
@@ -3387,7 +3394,7 @@
       "command": "waitForElementNotPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "4a7cb93a-91d1-4642-8f73-d8faf7bfe075",
@@ -3452,7 +3459,7 @@
       "command": "waitForElementNotPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "a0eabd72-10e2-408d-bda7-f531752c14eb",
@@ -3517,7 +3524,7 @@
       "command": "waitForElementNotPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "059ce3b5-13eb-4be4-aff7-bd3c2680fb0e",
       "comment": "",
@@ -3582,7 +3589,7 @@
       "command": "waitForElementNotPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "35b9cf74-64a9-4223-8b2e-714fb344664d",
       "comment": "Проверка на ворнинг",
@@ -3590,59 +3597,6 @@
       "target": "id=test_error_auth_userNotExist",
       "targets": [],
       "value": ""
-    }]
-  }, {
-    "id": "46e8021c-f41b-4981-9038-3ee2cc4bcae2",
-    "name": "menuScreenElementsCheck",
-    "commands": [{
-      "id": "74d852e1-792b-4916-ae7b-73ab93d23bb7",
-      "comment": "Проверка наличия элементов на экране меню",
-      "command": "open",
-      "target": "http://localhost:3000/",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "387d7031-b9eb-4403-9076-4d20b5ce1f4e",
-      "comment": "",
-      "command": "sendKeys",
-      "target": "id=test_login_log_input",
-      "targets": [],
-      "value": "testuse"
-    }, {
-      "id": "7c0a6bd8-ed33-47ac-ad98-0d3cd0508d99",
-      "comment": "",
-      "command": "sendKeys",
-      "target": "id=test_login_pass_input",
-      "targets": [],
-      "value": "12345678"
-    }, {
-      "id": "014be8f4-475d-4627-92e0-658a423309dd",
-      "comment": "",
-      "command": "click",
-      "target": "id=test_login_submit_button",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "0ea3ecef-720b-446d-902c-2db99815d2b2",
-      "comment": "",
-      "command": "click",
-      "target": "id=test-button-goToMenu",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "035d1528-403f-4e08-9eae-df19211ffae5",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_menu_goToLobby_button",
-      "targets": [],
-      "value": "Вернуться на службу"
-    }, {
-      "id": "535a2b9b-2e53-4679-ba21-ca6d6a867b85",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_menu_goToMain_button",
-      "targets": [],
-      "value": "Дембельнуться"
     }]
   }, {
     "id": "2655d16d-c5c3-4d52-9d0b-19b755cf3e13",
@@ -4309,19 +4263,47 @@
       ],
       "value": ""
     }, {
-      "id": "e8cfe380-d6c1-4bf9-9d97-8b6cd3d2329b",
+      "id": "fb5f824a-d984-403f-af15-e11f8897ba69",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "576a3b3d-d7b2-45ca-bf69-37d0a5c4408a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
+      "id": "99f62471-96b5-4bd3-ab35-dbf4ca443469",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_tankDriver2",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7bb339ef-d617-48bc-84c5-83f0c312d85c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "374655bc-6855-47f3-af8e-62f152eb1fb5",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "4ec52088-b8a1-4722-8c60-0547a6354dfd",
       "comment": "",
@@ -4428,12 +4410,33 @@
       ],
       "value": ""
     }, {
-      "id": "42911153-3f67-43b0-8833-e5c0c62520ad",
+      "id": "fa2f9856-3383-4c9c-928e-582ec1f482be",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "7cc45321-c512-4ee9-821c-221c391d323c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
+    }, {
+      "id": "dfe82b3b-3d1f-45a6-932c-db44f51711b6",
+      "comment": "",
+      "command": "click",
+      "target": "test_button_tankDriver3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "905b53a5-3802-4577-9dd5-c312ea402ce3",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "01e34b31-53eb-4034-9d19-6e53aa854c7f",
       "comment": "",
@@ -5725,15 +5728,29 @@
     }, {
       "id": "ffd15bb7-ad2a-4177-bb23-85fcbc00f94d",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "bd5d3335-0994-478b-980e-e6d63658e122",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_3tank",
       "targets": [],
       "value": ""
     }, {
       "id": "b9de3ea8-d8b1-4269-bf91-ea1de632aca3",
       "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "6e6bc6bb-f88f-41b9-b47e-9f465de523b6",
+      "comment": "",
       "command": "click",
-      "target": "id=test_button_3tank",
+      "target": "id=test_button_add_tank",
       "targets": [
         ["id=test_button_infantrymanGun", "id"],
         ["css=#test_button_infantrymanGun", "css:finder"],
@@ -5742,13 +5759,6 @@
         ["xpath=//button[6]", "xpath:position"],
         ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "5c15dc87-0637-4409-b2fe-6e341d931214",
-      "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
-      "targets": [],
       "value": ""
     }, {
       "id": "71010df6-0d4f-497c-9810-8f38e9257451",
@@ -5760,10 +5770,38 @@
     }, {
       "id": "3d64ecb8-886b-4699-b2c0-0e7450f2d14f",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "332e383c-29e2-4e26-a73c-ada17f9d08e2",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "8cc219b3-d4b0-44fc-bf4c-cf3b51ef8f50",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "df955862-e636-4e18-abb2-ab8669f56e9c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "88ef1304-3aec-4183-9cb8-a866ab6c6ffd",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "5270eb60-7c24-4911-8ae2-6a643040dc4b",
       "comment": "",
@@ -5851,10 +5889,10 @@
     }, {
       "id": "651af48d-cd18-4d82-b169-06101288c7d4",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "c7c41ff8-070b-4314-bef7-639f7f0bf45b",
       "comment": "",
@@ -5870,10 +5908,17 @@
       ],
       "value": ""
     }, {
-      "id": "ad331abc-43ce-4300-b50a-789fda3b53c6",
+      "id": "e7a5cbcb-edea-405a-9645-eeeeefa41e21",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "28f85bb8-8dab-4922-829c-772cca1ecc39",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
@@ -5886,10 +5931,38 @@
     }, {
       "id": "de02c150-44ea-4391-aa0f-ae7777e51966",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "952357ef-90eb-4bc3-9bca-49079c3a0819",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "d355ced1-7a40-4af7-9576-42e257aa6e7a",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "765da971-5fcf-4da3-85a5-70eb15f18af9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "818d6254-e796-4cbf-b210-233bebc2cdc3",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "16c344c3-b31b-4cd9-976a-2dc3d481bf58",
       "comment": "",
@@ -5996,19 +6069,40 @@
       ],
       "value": ""
     }, {
-      "id": "7f14b5b7-b5a2-479c-b46f-32b39227c013",
+      "id": "297009ab-39c4-4eee-a791-c39b3b127bf9",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "0613f3b8-97ea-46fe-aedc-2254f56f4e88",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
-      "id": "f8fb50ec-ebef-4ec1-a677-bc8358234192",
+      "id": "7f14b5b7-b5a2-479c-b46f-32b39227c013",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=canvas",
+      "command": "click",
+      "target": "id=test_button_tank_commander",
       "targets": [],
       "value": ""
+    }, {
+      "id": "a990d8d2-ad63-49e4-a7c2-dd4461c2f60e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f8fb50ec-ebef-4ec1-a677-bc8358234192",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "id=canvas",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "e56dcc26-c991-444e-b91a-8accf7d7b72f",
       "comment": "",
@@ -6096,10 +6190,10 @@
     }, {
       "id": "dccde2b0-7847-423d-924f-02efcfbfd4ad",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "a5397125-cb86-4d79-9eb1-e82cdc178cda",
       "comment": "",
@@ -6115,10 +6209,17 @@
       ],
       "value": ""
     }, {
-      "id": "961027be-dd1a-462b-a471-efdc9461f7e9",
+      "id": "2bec29bf-7260-4887-9679-5e944559e890",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "d94955e5-c38c-4252-8ed9-8ad36f3a3100",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
@@ -6131,10 +6232,38 @@
     }, {
       "id": "9e312f8d-9b1e-469f-b8fb-dc04686051f5",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "b18e1522-040b-49d3-a35c-8a657189f725",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "ffb0aecf-16d3-4ab3-a966-ff64e5a11751",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "4b3459c6-8494-4164-97a7-3b1873f504cf",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5c5489b1-4c0e-4055-b471-29eed2384ebc",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "fe36972d-03e5-48f4-81e4-4c938ad87318",
       "comment": "",
@@ -6222,10 +6351,10 @@
     }, {
       "id": "e7508c24-54e0-488f-9d7b-988c8624c9c3",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "0bb31473-8666-44f2-936b-98b0fdfe93e1",
       "comment": "",
@@ -6241,12 +6370,19 @@
       ],
       "value": ""
     }, {
+      "id": "6291c6e3-e185-4548-89e6-527ed1c090db",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "3000"
+    }, {
       "id": "a71134ab-94d5-4cdf-b2e8-5ecb6f50ea8d",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "8a0f03d0-1c82-4dd5-b530-4eeabe944ad2",
       "comment": "",
@@ -6334,10 +6470,10 @@
     }, {
       "id": "ca747a10-f4c0-4f06-8e65-adf653ca3880",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "06141427-2eb3-4a76-844f-1fec0127e876",
       "comment": "",
@@ -6355,10 +6491,38 @@
     }, {
       "id": "40822de7-df9e-4158-a3bb-c51f5ac44e25",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "4a0a2a90-24ce-4c6d-b08a-60f8a45f9b90",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "07b83e63-0135-4a50-9153-176b6e51a792",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "27d5420b-24c1-4686-89d5-aa6a7528b2b3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c871dd41-efb5-4743-8ad4-654cde71c1ac",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "5932f5a8-9037-4008-a006-df8d118c12b3",
       "comment": "",
@@ -6446,10 +6610,10 @@
     }, {
       "id": "aa2dba39-ee2a-45b8-bad1-8ab1bfa4629f",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "6b396d1f-ce18-4bb5-8800-823b716d9edc",
       "comment": "",
@@ -6467,10 +6631,38 @@
     }, {
       "id": "07d56444-60dd-4a6c-b9dc-8d348299537c",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "afe91d1d-60b0-4b51-9c98-9febd60f5a92",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "5f073733-574f-47d0-bcf2-47a6c0b6b7ac",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "530ed1b0-ab83-4b62-8793-8e80a9e56269",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "683b94b0-5f79-4ba3-862b-15fb6fd62987",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "0391ccb1-99a4-491b-aff6-1e77e3597844",
       "comment": "",
@@ -6558,10 +6750,10 @@
     }, {
       "id": "fa0845cf-8f69-4bee-bb5f-b3fb9788a857",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "7a644890-271c-4384-99e0-ba9cfd8b0ec0",
       "comment": "",
@@ -6579,10 +6771,38 @@
     }, {
       "id": "e0f812ba-f993-435c-b193-6040959796d2",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "a13157f9-186b-4549-9ce7-ad6cac1adbec",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "1db07aa2-2410-4d6a-a273-3a6a65701365",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "ff59244c-cd9c-4f58-94e7-d6e9fbd63fa0",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "20158d01-94ab-45a4-bd29-5df36ceb4a00",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "5ee8a03f-3303-432d-89ed-28f067b68764",
       "comment": "",
@@ -6670,10 +6890,10 @@
     }, {
       "id": "25a839c5-ed6b-4b7c-b095-29d3eb3be9df",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "8167c7aa-b1bf-436e-a5f8-ce201c3ae4ad",
       "comment": "",
@@ -6689,10 +6909,17 @@
       ],
       "value": ""
     }, {
-      "id": "f8001714-f2a2-41c8-9ea4-a5ad28600572",
+      "id": "59238a08-6d36-4cf4-8d88-f4a6c2d63e87",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "d6ff0000-321a-4867-bc98-7c9173d325b1",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
@@ -6705,10 +6932,38 @@
     }, {
       "id": "073a82a5-fce9-43b0-ad27-9bd63a079adc",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "a2f9f706-5456-41ee-891b-e86d47a05fee",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "5ead5b7c-af4f-48d6-942a-b392f99177cc",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "e20226ce-ba8d-49bb-914a-242d6b790e38",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "275eebb2-18a0-441e-8d83-ffcce8044b57",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "189992b0-6c7a-412c-a711-c4e97357adfc",
       "comment": "",
@@ -6796,10 +7051,10 @@
     }, {
       "id": "9169a22a-6bd1-4739-bf58-967d599bf64d",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "e56956b7-527f-42e9-8aa7-be0482ea2e48",
       "comment": "",
@@ -6815,10 +7070,17 @@
       ],
       "value": ""
     }, {
-      "id": "752fc691-5ce1-4119-ba6e-f491c64dbe5a",
+      "id": "251eb78b-70fa-41e1-b5c0-abb6d77357cf",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "92ee271d-9844-44cc-b1d0-0d3590da3425",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
@@ -6831,10 +7093,38 @@
     }, {
       "id": "b3afdf00-bf35-4781-bb66-fefa80ae0e91",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "b2749e1f-053c-40f8-9557-bb4a7e43d717",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "c1d76f2e-f560-427b-ba6e-55d9547f8b91",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "999c5d69-06d8-4abe-b74a-c5fd4840624d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "20737fff-c46a-4687-9963-c6ce529e66ec",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "e34dc8b9-0930-4f66-85da-edac6ad75208",
       "comment": "",
@@ -6925,7 +7215,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "91dfa81f-6550-41b4-80b9-e9793a240bfd",
       "comment": "",
@@ -6946,14 +7236,14 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "93887b3d-74ea-4b06-b035-2a562c4dd5ef",
       "comment": "",
       "command": "click",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": ""
     }, {
       "id": "213b878e-9896-4783-bf05-93ec496f2005",
       "comment": "",
@@ -6967,7 +7257,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "753f079a-7c4a-46d2-8e8b-da29f2ffdc46",
       "comment": "",
@@ -6981,7 +7271,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2600ed1b-1806-45f9-927a-a23008b441f6",
       "comment": "",
@@ -6995,7 +7285,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "7e7bd33f-f958-422c-b922-9e50a88a82dc",
       "comment": "",
@@ -7086,7 +7376,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "06b99788-d845-43f6-b731-63acd29fe7ff",
       "comment": "",
@@ -7107,14 +7397,14 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "1718c398-5300-42f5-b3c2-844567c09753",
       "comment": "",
       "command": "click",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": ""
     }, {
       "id": "1e394157-6d08-4d76-a81c-42f14c29d24a",
       "comment": "",
@@ -7128,7 +7418,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "98d93c48-3aa6-4a2e-9ca2-75af194ba23a",
       "comment": "",
@@ -7142,7 +7432,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "0242cf85-2abf-4bd9-a924-04473965d6aa",
       "comment": "",
@@ -7156,7 +7446,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "1cdcab6f-6940-45ce-8e41-644f85fcc7c2",
       "comment": "",
@@ -7247,7 +7537,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "f2d7e5bd-6482-436c-b528-b6e322ff67a9",
       "comment": "",
@@ -7268,14 +7558,14 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "ec83c6e3-b96a-408b-9f7e-8de5cde7d568",
       "comment": "",
       "command": "click",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": ""
     }, {
       "id": "1b79782e-c8fc-4b93-bf9a-f91a8c6e6d13",
       "comment": "",
@@ -7289,7 +7579,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "ff2fe478-3d82-43dc-a764-86a534d375e8",
       "comment": "",
@@ -7303,7 +7593,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "b15d4273-affa-403f-8373-d8af23f1277a",
       "comment": "",
@@ -7317,7 +7607,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "a7eca94a-2257-4a2b-a0c3-2fcdd82f32f2",
       "comment": "",
@@ -7408,7 +7698,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "dde50394-4c5b-473c-a6db-2772b228bf1e",
       "comment": "",
@@ -7429,7 +7719,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2684280e-c66b-4666-acf3-d21cfb2871af",
       "comment": "",
@@ -7443,7 +7733,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "5210bf8e-bd90-4d91-8489-cf507be91af6",
       "comment": "",
@@ -7457,7 +7747,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "71fac809-27bb-4ed1-b69e-ce9b706f5df3",
       "comment": "",
@@ -7548,7 +7838,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "50afadc8-9e84-4361-958c-77870630c2f5",
       "comment": "",
@@ -7569,7 +7859,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2ecc348c-87ff-448a-aed1-965b40baee61",
       "comment": "",
@@ -7583,7 +7873,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "6e3359db-9f2d-42e0-963f-6a27e4017924",
       "comment": "",
@@ -7597,7 +7887,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "af2b73df-3df8-4dfa-bdb9-80bd2732a877",
       "comment": "",
@@ -7688,7 +7978,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "aa00e3c5-7f81-4a55-8026-656366dbe32c",
       "comment": "",
@@ -7709,7 +7999,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "3202b007-1693-432f-aa19-308832b7d1e9",
       "comment": "",
@@ -7723,7 +8013,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "7bb686d5-f692-4e18-a476-99893d72be47",
       "comment": "",
@@ -7737,7 +8027,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "eb122325-0013-4ac2-a68c-36659dfac956",
       "comment": "",
@@ -7828,7 +8118,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "3b24061e-8025-4218-9ab3-e777847c9c36",
       "comment": "",
@@ -7849,7 +8139,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "722176d0-b361-4ee5-a318-3d90117673ad",
       "comment": "",
@@ -7863,7 +8153,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "c0314c9d-ede7-4170-9ad4-9ba295ab6760",
       "comment": "",
@@ -7877,7 +8167,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "cca44068-538f-48a1-80bb-d674a02aa1c3",
       "comment": "",
@@ -7968,7 +8258,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "71a92750-b3b9-4c00-a7b1-7ef341090707",
       "comment": "",
@@ -7989,7 +8279,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "e8d38eb2-91f3-4ae6-bc8d-c793f9c7a464",
       "comment": "",
@@ -8010,7 +8300,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "eb598b2a-21c8-4cec-be94-8696fdd084ae",
       "comment": "",
@@ -8024,7 +8314,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "474feee2-6d46-4b40-8d48-95e12f1e077c",
       "comment": "",
@@ -8038,7 +8328,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "bcb9fdab-58b4-475f-8dbd-a362290275b4",
       "comment": "",
@@ -8129,7 +8419,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "06eebd5d-c084-4d3a-b9d7-a5bab2f3c822",
       "comment": "",
@@ -8150,7 +8440,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "01114da4-d21d-4064-a1c8-7a4d76a48d76",
       "comment": "",
@@ -8185,7 +8475,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "1fee44ad-dcef-405d-9ba1-765177df57ef",
       "comment": "",
@@ -8199,7 +8489,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "948705f9-f5b1-4873-bf4f-78a2a7525fa3",
       "comment": "",
@@ -11055,7 +11345,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "15da2b50-1748-4323-9e73-45d8630da874",
       "comment": "",
@@ -11076,7 +11366,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "0481e876-a101-4a9f-bb23-e1b455b9fbb4",
       "comment": "",
@@ -11090,7 +11380,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "47536ecc-7878-4624-beb1-74ea25ebbb42",
       "comment": "",
@@ -11104,7 +11394,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "66440a89-e9fa-4ef5-be80-cae98c49b0b2",
@@ -11188,7 +11478,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "ed772cb6-eb79-4bdb-b64f-fbd32c281bf4",
       "comment": "",
@@ -11209,7 +11499,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "d7c8be69-abf3-41c5-a252-cdabd2306020",
       "comment": "",
@@ -11223,7 +11513,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "4fc4ef89-a09b-4cdb-b8c7-19d64ef2b6ad",
       "comment": "",
@@ -11237,7 +11527,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "31ec20e2-470d-4568-b9c5-79c88b12f19f",
@@ -11321,7 +11611,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "b8ac5162-1425-4d3d-811f-dad9b42ff212",
       "comment": "",
@@ -11342,7 +11632,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "efdf4b0d-3861-42de-b24c-ae37c468ea75",
       "comment": "",
@@ -11356,7 +11646,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "ec5ea92d-653b-4ccf-8b21-645a1c44f36f",
       "comment": "",
@@ -11370,7 +11660,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "739f0341-e97d-41c4-aa87-255330adf3b4",
@@ -11454,7 +11744,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "c5cccabd-c466-4a0d-96de-18c3642f6dc9",
       "comment": "",
@@ -11475,7 +11765,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "1d9ad64e-cf73-49bb-bf1a-61aecdd365a3",
       "comment": "",
@@ -11496,7 +11786,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "0bd66a0b-1bfc-44d9-89c0-32b781eed072",
       "comment": "",
@@ -11510,7 +11800,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "a4ef7852-43ac-456e-9a72-995614f9324d",
       "comment": "",
@@ -11524,7 +11814,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "b4cc9121-6da7-465b-9163-99e3f31d77ff",
@@ -11575,7 +11865,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "e18bccf8-a55e-4c0a-9b93-1d61d89e8315",
       "comment": "",
@@ -11640,7 +11930,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "7d759ce2-9dbc-4acc-ae38-d055df840c3b",
       "comment": "",
@@ -11654,7 +11944,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "213a2f32-7820-4186-a372-a07c2c0d05a7",
       "comment": "",
@@ -11668,7 +11958,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_cross",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "711fd90e-b6e2-47c8-a3e7-10f3727c3898",
       "comment": "",
@@ -11689,7 +11979,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "6eecb3a7-8169-40dd-8813-013ee555ceea",
       "comment": "",
@@ -11703,7 +11993,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "2f1dfc78-41a8-4654-ac57-357c39fa0a36",
@@ -11754,7 +12044,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "05cede39-8d77-4a32-8c10-4ad4babff9a2",
       "comment": "",
@@ -11768,7 +12058,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "c3f8fef1-5dd0-455d-b4cf-4c55513c0915",
       "comment": "",
@@ -11782,7 +12072,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_cross",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "1b9de923-8420-47ce-b22b-74e0be0fa0a2",
       "comment": "",
@@ -11803,7 +12093,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "346e4b5c-e48d-4298-a743-04741b5766cf",
       "comment": "",
@@ -11817,7 +12107,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "6de6fb7a-d30b-4494-bcc4-672e4d693ce2",
@@ -11901,7 +12191,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "52322287-274f-4e42-a66a-f42fb2a32c72",
       "comment": "",
@@ -11922,7 +12212,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "24fcbb49-9766-4a6b-b40a-715412b95c2d",
       "comment": "",
@@ -11943,7 +12233,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2429f8c4-3cc6-4c06-97e5-ebeda1dac2f9",
       "comment": "",
@@ -11957,7 +12247,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "bf69b591-6d41-4308-bcbd-cd0e83e0ec36",
       "comment": "",
@@ -11971,7 +12261,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "3c470c58-16c3-4363-b64e-850981f506fb",
@@ -12055,7 +12345,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "e1c3482c-ef90-4793-aa18-3efda6f456cc",
       "comment": "",
@@ -12076,7 +12366,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "6944cad0-2f66-436e-b5cf-d6522323ce0e",
       "comment": "",
@@ -12097,7 +12387,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "e2fa121e-44a0-45f8-b9a9-9d81d6a56c3a",
       "comment": "",
@@ -12111,7 +12401,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2baffb76-2031-4580-9f29-6534f1eed17b",
       "comment": "",
@@ -12125,7 +12415,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "35be5d16-4cee-4e30-a530-afcf197686c7",
@@ -12209,7 +12499,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "233ad584-20e8-40a4-827c-edafe79b93e4",
       "comment": "",
@@ -12230,7 +12520,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "81fd22b4-1d17-4eca-83e1-9f23bca2df20",
       "comment": "",
@@ -12251,7 +12541,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "e9b8485e-9215-41e3-afca-14cc272eb338",
       "comment": "",
@@ -12265,7 +12555,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2d6f3f5e-a806-4a61-a405-18120b9d6dbb",
       "comment": "",
@@ -12279,7 +12569,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }]
   }, {
     "id": "33e31afb-8628-441e-ac47-8c8d7f129af2",
@@ -12363,7 +12653,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "98b776de-93ea-4b43-b152-ed2251877976",
       "comment": "",
@@ -12384,7 +12674,7 @@
       "command": "waitForElementPresent",
       "target": "id=test_button_add_tank",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "f84277b5-21a8-4cd7-bd84-097293804542",
       "comment": "",
@@ -12405,7 +12695,7 @@
       "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "6aa9e499-b047-4267-950a-548bda9c94b3",
       "comment": "",
@@ -12419,7 +12709,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "55118c67-054b-42a4-b695-bd5d148ca3a2",
       "comment": "",
@@ -12433,7 +12723,315 @@
       "command": "waitForElementPresent",
       "target": "id=test_login_submit_button",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
+    }]
+  }, {
+    "id": "dabc9bea-b70b-427f-bbe9-83b3ae416db9",
+    "name": "goToGameByGeneralFromDiubleTankLobby(General)",
+    "commands": [{
+      "id": "138b8f5b-b525-4dcb-80b5-b15cc65672c0",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7f5f5eb9-68d0-4ad8-a595-5ef099bd42e1",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "56c8ae43-7d4b-4a9b-9618-b41e4e7fce9e",
+      "comment": "",
+      "command": "type",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "testgeneral1"
+    }, {
+      "id": "878aaf1a-2d61-4ccb-a7fe-aefe71cb3d87",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f7b8b254-a960-4d85-a012-54509118e76b",
+      "comment": "",
+      "command": "type",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "12345678"
+    }, {
+      "id": "a000ae02-07d8-4fb6-954d-7e4e6d2ebe44",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a7edb45-91fd-4d81-81f1-adc9640606f2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "b73b2985-e87d-4baa-877d-0dc268d30dc3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_2tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "02892b5b-509b-4355-bdb8-c584824d810b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffdc1ba5-9dc0-42b4-951d-f494778d5a25",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=canvas",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "a9421ba0-4bf6-417c-8ded-758c47cda8ce",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31705d60-8f54-4030-aad6-a2146f35b403",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "ca4ca502-7585-4b9f-879f-c8a5bbd5abb6",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e93e8996-b2f6-4317-b7ac-45d4173b9442",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "e09102b9-c486-4683-8017-a9369dccdc8f",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2c35cbd8-095a-483b-85c3-e1bd9d9c25f0",
+    "name": "goToGameByGeneralFromTripleTankLobby(General)",
+    "commands": [{
+      "id": "e22445b9-fd50-4070-955d-1ab7991d9bde",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ee63888-cec3-4ffa-95e4-2538323f51d5",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3619ff12-4d4e-4435-bbea-dcaba0dad77f",
+      "comment": "",
+      "command": "type",
+      "target": "id=test_login_log_input",
+      "targets": [
+        ["id=test_login_log_input", "id"],
+        ["css=#test_login_log_input", "css:finder"],
+        ["xpath=//input[@id='test_login_log_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div/div[2]/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "testgeneral1"
+    }, {
+      "id": "22a773ca-cb4b-40da-80bf-372d6b60b0c7",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "80515575-8c3d-4f35-80e8-7e753cd78e3d",
+      "comment": "",
+      "command": "type",
+      "target": "id=test_login_pass_input",
+      "targets": [
+        ["id=test_login_pass_input", "id"],
+        ["css=#test_login_pass_input", "css:finder"],
+        ["xpath=//input[@id='test_login_pass_input']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div/div[2]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/input", "xpath:position"]
+      ],
+      "value": "12345678"
+    }, {
+      "id": "8b44ba06-caaa-4689-9796-da064223c2f5",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_login_submit_button",
+      "targets": [
+        ["id=test_login_submit_button", "id"],
+        ["css=#test_login_submit_button", "css:finder"],
+        ["xpath=//button[@id='test_login_submit_button']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div/div[2]/form/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Пойти на Бахмут')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d4640ede-b4c9-41da-96c3-4a22667b58f2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "32c390f6-bd97-46d5-82a2-a12f2fd0b0b5",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_3tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "30a124a2-66d4-43cd-a02d-3701385dfcb3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_general",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f8d4442-771a-4c9a-b3df-156f09173cab",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=canvas",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "5609b1ea-5618-4be8-9981-a4782d0cacc4",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a45fabaf-0f96-4031-b83b-2d9b82206568",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "c314386f-f14a-4433-81dc-ae1bfc615e77",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4bd7c90c-e581-4a48-99f5-07e4b36eba47",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "c17e0155-1f23-4379-ab84-08ee4beff61b",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{
@@ -12442,7 +13040,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["7b4ffa56-ab5e-4ec3-8ad4-905510450a0e", "0909bfc4-5d75-4c78-843e-9e4932e5b26f", "980a5b5c-5193-47ff-9f7f-7e8dcf6e6f76", "964f6383-47c3-4a20-8b0e-ecb2fdf06b45", "0c53f668-2d0e-4013-9148-f04bfa0d17d6", "46e8021c-f41b-4981-9038-3ee2cc4bcae2"]
+    "tests": ["7b4ffa56-ab5e-4ec3-8ad4-905510450a0e", "0909bfc4-5d75-4c78-843e-9e4932e5b26f", "980a5b5c-5193-47ff-9f7f-7e8dcf6e6f76", "964f6383-47c3-4a20-8b0e-ecb2fdf06b45", "0c53f668-2d0e-4013-9148-f04bfa0d17d6"]
   }, {
     "id": "139aaba3-e515-4d7b-b5ce-7acb1ab74cf5",
     "name": "registrationCheck",
@@ -12484,7 +13082,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["1639b107-6e73-41f5-b1d5-60b315af5bb3", "18fbf476-b3b2-4d5c-8329-55907be04caf", "3ea1ff49-d7b7-40b6-b3fd-f56b19a9566c", "bef464ca-009e-4f74-b5e8-58be8d29fc9f", "9a348dec-d4f8-405c-8e01-e8d6308a4120", "5e1983b5-6ed5-4d62-980c-a9ed6be26eeb", "f041dff8-9772-4175-ad44-38532aae6cfd", "43563de0-e54f-481d-9f71-576fb1e106a6", "d1406db5-5761-492c-9ca3-5220f41ce472"]
+    "tests": ["1639b107-6e73-41f5-b1d5-60b315af5bb3", "18fbf476-b3b2-4d5c-8329-55907be04caf", "3ea1ff49-d7b7-40b6-b3fd-f56b19a9566c", "bef464ca-009e-4f74-b5e8-58be8d29fc9f", "9a348dec-d4f8-405c-8e01-e8d6308a4120", "5e1983b5-6ed5-4d62-980c-a9ed6be26eeb", "f041dff8-9772-4175-ad44-38532aae6cfd", "43563de0-e54f-481d-9f71-576fb1e106a6", "d1406db5-5761-492c-9ca3-5220f41ce472", "dabc9bea-b70b-427f-bbe9-83b3ae416db9", "2c35cbd8-095a-483b-85c3-e1bd9d9c25f0"]
   }, {
     "id": "bd307e3f-7e52-441c-922d-b2095a9d32dc",
     "name": "occupiedButton",
