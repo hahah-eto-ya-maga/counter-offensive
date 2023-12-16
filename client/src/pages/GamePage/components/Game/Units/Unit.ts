@@ -13,11 +13,11 @@ export default class Unit {
    constructor() {
       this.x = 2;
       this.y = 2;
-      this.r = 0.2;
+      this.r = 0.4;
       this.angle = 0;
       this.visiableAngle = 120;
       this.visionDistance = 10;
-      this.speed = 0.01;
+      this.speed = 0.1;
       this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
    }
 

@@ -146,12 +146,12 @@ class Collision {
       let flagCollision = false;
       scene.houses.forEach((block) => {
          if (
-            (block[0].x >= Math.floor(unit.x - 2) &&
-               block[2].x <= Math.ceil(unit.x + 2) &&
+            (block[0].x >= Math.floor(unit.x - 3) &&
+               block[2].x <= Math.ceil(unit.x + 3) &&
                block[0].y <= Math.ceil(unit.y) &&
                block[2].y >= Math.floor(unit.y)) ||
-            (block[0].y >= Math.floor(unit.y - 2) &&
-               block[2].y <= Math.ceil(unit.y + 2) &&
+            (block[0].y >= Math.floor(unit.y - 3) &&
+               block[2].y <= Math.ceil(unit.y + 3) &&
                block[0].x <= Math.ceil(unit.x) &&
                block[2].x >= Math.floor(unit.x))
          ) {
@@ -163,12 +163,12 @@ class Collision {
 
       scene.walls.forEach((block) => {
          if (
-            (block[0].x >= Math.floor(unit.x - 2) &&
-               block[2].x <= Math.ceil(unit.x + 2) &&
+            (block[0].x >= Math.floor(unit.x - 1) &&
+               block[2].x <= Math.ceil(unit.x + 1) &&
                block[0].y <= Math.ceil(unit.y) &&
                block[2].y >= Math.floor(unit.y)) ||
-            (block[0].y >= Math.floor(unit.y - 2) &&
-               block[2].y <= Math.ceil(unit.y + 2) &&
+            (block[0].y >= Math.floor(unit.y - 1) &&
+               block[2].y <= Math.ceil(unit.y + 1) &&
                block[0].x <= Math.ceil(unit.x) &&
                block[2].x >= Math.floor(unit.x))
          ) {

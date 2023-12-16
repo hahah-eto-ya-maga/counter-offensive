@@ -25,8 +25,8 @@ export const MEDIATOR = {
 };
 
 export const MAP_SIZE = {
-   width: 75,
-   height: 60,
+   width: 150,
+   height: 120,
 };
 export const requestDelay = {
    chat: 300,

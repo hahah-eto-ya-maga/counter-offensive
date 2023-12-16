@@ -4,7 +4,7 @@ import { MediatorContext, ServerContext } from "../../App";
 import useSprites from "../../pages/GamePage/components/hooks/useSprites";
 import Canvas from "./Canvas/Canvas";
 import useCanvas from "./Canvas/useCanvas";
-import { TPoint } from "../../pages/GamePage/types";
+import { TPoint, TUnit } from "../../pages/GamePage/types";
 import Unit from "../../pages/GamePage/components/Game/Units/Unit";
 import Collision from "../../pages/GamePage/components/Collision/Collision";
 import { MAP_SIZE } from "../../config";
@@ -33,10 +33,10 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    const width = window.innerWidth;
    const prop = width / height;
    const WIN = {
-      left: -1,
+      left: -1 ,
       bottom: -1,
-      width: 10 * prop,
-      height: 10,
+      width: 20 * prop,
+      height: 20,
    };
 
    let tracer: TraceMask | null = null;
@@ -68,7 +68,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    });
 
    const SPRITE_SIZE = width / WIN.width;
-   const SIZE = 97;
+   const SIZE = 50;
 
    const [
       img,
@@ -98,10 +98,10 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       objects: {
          houses: [
             [
-               { x: 4, y: 6.5 },
-               { x: 4, y: 8 },
-               { x: 7, y: 8 },
-               { x: 7, y: 6.5 },
+               { x: 8, y: 10 },
+               { x: 8, y: 13 },
+               { x: 14, y: 13 },
+               { x: 14, y: 10 },
             ],
          ],
          walls: [
@@ -131,11 +131,11 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             ],
          ],
          stones: [
-            { x: 8, y: 6, r: 0.5 },
-            { x: 9, y: 5, r: 0.5 },
-            { x: 3, y: 6, r: 0.5 },
+            { x: 16, y: 12, r: 1 },
+            { x: 18, y: 10, r: 1 },
+            { x: 6, y: 12, r: 1 },
          ],
-         deadTanks: [{ x: 7.5, y: 3, r: 0.5 }],
+         deadTanks: [{ x: 14, y: 6, r: 1 }],
       },
    };
 
@@ -202,6 +202,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       mousePos.y = e.offsetY;
    };
 
+
    const drawWalls = (walls: TPoint[][]) => {
       walls.forEach((block) => {
          for (let i = block[1].x; i < block[3].x; i++) {
@@ -218,10 +219,11 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       });
    };
    //как то преобразить вектор
-   const drawStones = (stones: TPoint[]) => {
+   const drawStones = (stones: TUnit[]) => {
       stones.forEach((circle) => {
-         canvas?.spriteMap(img, circle.x - 0.5, circle.y + 0.5, ...stone);
+         canvas?.spriteMap(img, circle.x - 1.1, circle.y + 1.1, ...stone);  
       });
+     
    };
 
    const drawGrass = (walls: TPoint[][]) => {
@@ -261,6 +263,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
    const updateUnit = () => {
       if (canvas) {
+         updateWIN();
          unit.move(keyPressed);
          unit.rotate(
             Math.atan2(
@@ -268,7 +271,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                canvas.sx(mousePos.x) - unit.x
             )
          );
-         updateWIN();
+        
       }
    };
 
@@ -285,15 +288,15 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          canvas.clear();
          trace(objects);
          drawObjects(objects);
-         updateUnit();
          canvas.spriteDir(
             img,
-            unit.x - 0.5,
-            unit.y + 0.5,
+            unit.x - 1,
+            unit.y + 1,
             ...manFlag,
             Math.PI / 2 - unit.angle
          );
-
+         updateUnit();
+      
          isCollition = collision.checkAllBlocksUnit(
             unit,
             game.getScene().objects.deadTanks[0],
