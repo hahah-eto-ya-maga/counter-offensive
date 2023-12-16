@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { ServerContext } from "../../App";
+import { useLocation, useNavigate } from "react-router-dom";
+import { MediatorContext, ServerContext } from "../../App";
 import Canvas from "../../modules/Graph/Canvas/Canvas";
 import Collision from "../../modules/Graph/Collision/Collision";
 import useCanvas from "../../modules/Graph/Canvas/useCanvas";
@@ -19,6 +19,7 @@ import { grass, house, stone } from "../../assets/png";
 import "./GamePage.css";
 
 const GamePage: React.FC = () => {
+   const navigate = useNavigate();
    const server = useContext(ServerContext);
    const height = window.innerHeight;
    const width = window.innerWidth;
@@ -34,15 +35,15 @@ const GamePage: React.FC = () => {
       case EGamerRole.heavyTankCommander:
       case EGamerRole.middleTankGunner:
       case EGamerRole.middleTankMeh: {
-        unit = "Tank";
-        break;
+         unit = "Tank";
+         break;
       }
-      case (EGamerRole.infantry): {
-        unit = 'Automat';
-      break;
+      case EGamerRole.infantry: {
+         unit = "Automat";
+         break;
       }
-      case (EGamerRole.infantryRPG) : {
-        unit = 'RPG';
+      case EGamerRole.infantryRPG: {
+         unit = "RPG";
       }
    }
 
@@ -318,8 +319,18 @@ const GamePage: React.FC = () => {
       }
    };
 
+   const leaveGameHandler = async () => {
+      const res = await server.suicide();
+      if (res) {
+         navigate("/", { replace: true });
+      }
+   };
+
    return (
       <div className="game_page">
+         <button id="test_leave_game_button" className="game_leave_button"  onClick={leaveGameHandler}>
+            Сбежать
+         </button>
          <canvas id="canvas" />
          <div className="game_chat_block">
             <Chat chatType="game" />

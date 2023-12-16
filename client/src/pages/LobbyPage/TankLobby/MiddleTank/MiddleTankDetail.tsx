@@ -62,6 +62,7 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
          </div>
          <div className={cn("tank_svg_wrapper", "middle_tank")}>
             <div
+               id={"test_button_tankDriver2"}
                onClick={() => setRoleHandler(EGamerRole.middleTankMeh, tank.id)}
                className={cn("tank_driver", {
                   tank_unavailable_role: tank.Mechanic,
@@ -70,6 +71,7 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                МехВод
             </div>
             <div
+               id={"test_button_shooter2"}
                onClick={() =>
                   setRoleHandler(EGamerRole.middleTankGunner, tank.id)
                }
@@ -82,6 +84,7 @@ const TankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
             <MiddleTank />
          </div>
          <img
+            id={"test_button_cross"}
             className="tank_lobby_close"
             src={CrossIcon}
             alt="Закрыть"

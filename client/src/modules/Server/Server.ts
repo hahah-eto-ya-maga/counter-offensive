@@ -102,4 +102,10 @@ export default class Server {
          hash: this.STORE.getHash(EHash.lobbyHash),
       });
    }
+
+   suicide(): Promise<true | null> {
+      return this.request("suicide", {
+         token: this.STORE.getToken(),
+      });
+   }
 }

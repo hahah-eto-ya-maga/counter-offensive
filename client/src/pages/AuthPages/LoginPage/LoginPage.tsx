@@ -63,6 +63,13 @@ const LoginPage: React.FC = () => {
                <Alert />
             </div>
             <div className="auth_footer">
+               <Button
+                  appearance="primary"
+                  className="login_submit_button"
+                  id="test_login_submit_button"
+               >
+                  Пойти на Бахмут
+               </Button>
                <Link to="/registration" tabIndex={-1}>
                   <Button
                      appearance="primary"
@@ -72,13 +79,6 @@ const LoginPage: React.FC = () => {
                      Получить повестку
                   </Button>
                </Link>
-               <Button
-                  appearance="primary"
-                  className="login_submit_button"
-                  id="test_login_submit_button"
-               >
-                  Пойти на Бахмут
-               </Button>
             </div>
          </form>
       </div>

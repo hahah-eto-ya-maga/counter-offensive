@@ -55,10 +55,6 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
       return `${occupiedPlacesCount}/${placesCount}`;
    };
 
-   const setRole = async (role: EGamerRole) => {
-      const res = await server.setGamerRole(role, tank.id);
-   };
-
    return (
       <div className="tank_details">
          <div className="tank_info">
@@ -68,6 +64,7 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
          </div>
          <div className={cn("tank_svg_wrapper", "heavy_tank")}>
             <div
+               id="test_button_tankDriver3"
                onClick={() => setRoleHandler(EGamerRole.heavyTankMeh, tank.id)}
                className={cn("tank_driver", {
                   tank_unavailable_role: tank.Mechanic,
@@ -76,6 +73,7 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                МехВод
             </div>
             <div
+               id="test_button_shooter3"
                onClick={() =>
                   setRoleHandler(EGamerRole.heavyTankGunner, tank.id)
                }
@@ -86,6 +84,7 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                Наводчик
             </div>
             <div
+               id="test_button_tank_commander"
                onClick={() =>
                   setRoleHandler(EGamerRole.heavyTankCommander, tank.id)
                }
@@ -98,6 +97,7 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
             <HeavyTank />
          </div>
          <img
+            id={"test_button_cross"}
             className="tank_lobby_close"
             src={CrossIcon}
             alt="Закрыть"

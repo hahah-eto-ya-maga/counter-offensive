@@ -3,8 +3,13 @@ import cn from "classnames";
 import { MediatorContext } from "../../App";
 import "./Modal.css";
 
+interface MoodalError {
+   id: string;
+   message: string;
+}
+
 export const Modal: FC = () => {
-   const [message, setMessage] = useState<string>("");
+   const [message, setMessage] = useState<MoodalError>({ message: "", id: "" });
 
    const mediator = useContext(MediatorContext);
    const { ROLE_ERROR } = mediator.getTriggerTypes();
@@ -12,28 +17,34 @@ export const Modal: FC = () => {
    useEffect(() => {
       let timeoutId: NodeJS.Timeout;
 
-      mediator.set(ROLE_ERROR, (message: string) => {
-         setMessage(message);
+      mediator.set(ROLE_ERROR, (newMessaage: MoodalError) => {
+         setMessage(newMessaage);
 
          clearTimeout(timeoutId);
 
          timeoutId = setTimeout(() => {
-            setMessage("");
+            clearMessage();
          }, 4000);
       });
 
       return () => {
-         clearTimeout(timeoutId);
+         clearMessage();
       };
    }, []);
+
+   const clearMessage = () => {
+      setMessage({ message: "", id: "" });
+   };
    return (
       <div
          className={cn("modal_window", {
-            disabled: !message,
+            disabled: !message.message,
          })}
-         onClick={() => setMessage("")}
+         onClick={clearMessage}
       >
-         <div className="modal_message">{message}</div>
+         <div className="modal_message" id={message.id}>
+            {message.message}
+         </div>
       </div>
    );
 };

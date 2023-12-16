@@ -73,6 +73,13 @@ const RegistrationPage: FC = () => {
                <Alert />
             </div>
             <div className="auth_footer">
+               <Button
+                  appearance="primary"
+                  className="reg_submit_button"
+                  id="test_reg_submit_button"
+               >
+                  Попасть в списки военных
+               </Button>
                <Link to="/authorization" tabIndex={-1}>
                   <Button
                      appearance="primary"
@@ -82,13 +89,6 @@ const RegistrationPage: FC = () => {
                      Уже служил
                   </Button>
                </Link>
-               <Button
-                  appearance="primary"
-                  className="reg_submit_button"
-                  id="test_reg_submit_button"
-               >
-                  Попасть в списки военных
-               </Button>
             </div>
          </form>
       </div>

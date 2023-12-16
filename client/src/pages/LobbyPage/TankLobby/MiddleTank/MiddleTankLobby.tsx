@@ -31,10 +31,18 @@ const MiddleTankLobby: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
       <div className="tank_lobby">
          <div className="tank_lobby_list">
             <div className="tank_lobby_btns">
-               <Button appearance="primary" onClick={addTankHandler}>
+               <Button
+                  appearance="primary"
+                  id="test_button_add_tank"
+                  onClick={addTankHandler}
+               >
                   Добавить танк
                </Button>
-               <Button appearance="primary" onClick={goBack}>
+               <Button
+                  appearance="primary"
+                  id="test_button_back_to_lobby"
+                  onClick={goBack}
+               >
                   Назад
                </Button>
             </div>

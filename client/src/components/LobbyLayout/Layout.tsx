@@ -65,7 +65,7 @@ export const withLayout = (
             <div className="lobby_block">
                <div className={cn("lobby_units_block", "lobby_main_units")}>
                   <Button
-                     id="test_button_general"
+                     id="test_button_generalTankLobby"
                      className={cn("general units_item", {
                         selected_role: !lobby?.general,
                      })}
@@ -76,7 +76,7 @@ export const withLayout = (
                      <img src={general} alt="General" />
                   </Button>
                   <Button
-                     id="test_button_2tank"
+                     id="test_button_tank2"
                      className={cn("units_item", {
                         tank_selected: path === "middle_tanks",
                      })}
@@ -87,7 +87,7 @@ export const withLayout = (
                      <img src={tank2} alt="Tank_2" />
                   </Button>
                   <Button
-                     id="test_button_3tank"
+                     id="test_button_tank3"
                      className={cn("units_item", {
                         tank_selected: path === "heavy_tanks",
                      })}

@@ -33,7 +33,16 @@ export const useErrorHandler = () => {
                return mediator.get(AUTH_ERROR);
             }
             case 234: {
-               return mediator.get(ROLE_ERROR, "Не дослужился, щенок!");
+               return mediator.get(ROLE_ERROR, {
+                  message: "Не дослужился, щенок!",
+                  id: "test_message_not_enought_level",
+               });
+            }
+            case 413: {
+               return mediator.get(WARNING, {
+                  message: "Неверный никнейм",
+                  id: "test_error_auth_invalid_nickname",
+               });
             }
             default: {
                return navigate("/error", { state: { error } });
