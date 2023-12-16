@@ -17,13 +17,19 @@ class Game extends BaseModule
 
     function __construct($db) {
         parent::__construct($db);
-        $this->map = array_fill(0, 120, array_fill(0, 150, 0));
+        $this->map = array_fill(0, 150, array_fill(0, 120, 0));
     }
 
     /*Math*/
     function calculateAngle($x1, $y1, $x2, $y2)
     {
         return atan2($y1 - $y2, $x1 - $x2);
+    }
+
+    function fire($user_id, $x, $y, $angle){
+        $this->db->addBullet($user_id, $x, $y, round($angle,2));
+        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
+        return true;
     }
 
     function calculateShiftPoint($x1, $y1, $x2, $y2, $distance) {
@@ -109,13 +115,13 @@ class Game extends BaseModule
                 if($targetDistance && $targetGamer && $targetDistance<30){
                     if($targetDistance<2)
                     {
-                        // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
+                        // $this->fire(-1, $mobX, $mobY, $angle);
                         continue;
                     }
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
+                    // $this->fire(-1, $mobX, $mobY, $angle);            
                 }
                 else continue;
             }
@@ -158,34 +164,55 @@ class Game extends BaseModule
         if ($x>=120 || $x<=0 || $y>=150 || $y<=0){
             $this->db->deleteBullet($id);
         } else {
+            $x3 = 2*cos($angle);
             $x2 = $x + 2*cos($angle);
             $y2 = $y + 2*sin($angle);
-            $this->db->updateBulletsHash($x, $y, $x2, $y2, $id);
+            $this->db->updateBullet($x, $y, $x2, $y2, $id);
         }
-    }
-
-    private function crossing($x0, $y0, $x1, $y1, $x2, $y2,){
-
     }
 
     private function shootRegs(){
-        if (!$this->bullets){
+        if (!$this->bullets || !$this->gamers){
             return 0;
         }
-        if(!$this->gamers){
-            foreach($this->bullets as $bullet){
-                $this->shootReg($bullet->id, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2);
-            }
+        foreach($this->bullets as $bullet){
+            $this->shootReg($bullet->id, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2);
         }
-
         
     }
     private function shootReg($id, $x1, $y1, $x2, $y2) {
         foreach($this->gamers as $gamer){
-            $x0 = $gamer->x;
-            $y0 = $gamer->y;
-            if ($x0>$x1 && $x0<$x2 || $x0<$x1 && $x0>$x2){
+            $A = $gamer->x - $x1;
+            $B = $gamer->y - $y1;
+            $C = $x2 - $x1;
+            $D = $y2 - $y1;
 
+            $dot = $A * $C + $B * $D;
+            $len_sq = $C * $C + $D * $D;
+            $param = -1;
+            if ($len_sq != 0) {
+                    $param = $dot / $len_sq;
+            }
+            $xx = $yy = 0;
+
+            if ($param < 0) {
+                $xx = $x1;
+                $yy = $y1;
+            } else if ($param > 1) {
+                $xx = $x2;
+                $yy = $y2;
+            } else {
+                $xx = $x1 + $param * $C;
+                $yy = $y1 + $param * $D;
+            }
+
+            $dx = $gamer->x - $xx;
+            $dy = $gamer->y - $yy;
+            print(sqrt($dx * $dx + $dy * $dy));
+            if (sqrt($dx * $dx + $dy * $dy)<=0.2){
+                // Сюда запихиваем метод по уменьшению у геймера $gamer->id
+                $this->db->deleteBullet($id);
+                print('Попал');
             }
         }
     }
@@ -261,8 +288,8 @@ class Game extends BaseModule
         $this->addMobs();
         $this->moveMobs();
         // Пули
+        $this->shootRegs();
         $this->moveBullets();
-        //$this->shootRegs();
         // Смерть сущности
         $this->checkDead();
     }
@@ -313,12 +340,6 @@ class Game extends BaseModule
         $this->db->updateRotate($user_id, $angle);
         $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
        return true;
-    }
-
-    function fire($user_id, $x, $y, $angle){
-        $this->db->addBullet($user_id, $x, $y, round($angle,1));
-        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
-        return true;
     }
 
     public function move($user_id, $x, $y)

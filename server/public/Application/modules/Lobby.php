@@ -38,7 +38,7 @@ require_once('BaseModule.php');
                     }
             }
             if($is_middle) $this->db->addMiddleTank('m', $driverId, $gunnerId);
-            $this->db->addHeavyTank('h', $driverId, $gunnerId, $commanderId);
+            else $this->db->addHeavyTank('h', $driverId, $gunnerId, $commanderId);
         }
 
         private function checkTanks($userId)

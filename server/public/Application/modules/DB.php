@@ -241,7 +241,7 @@ class DB {
     
     function updateBullet($x1, $y1, $x2, $y2, $bulletId){
         $query = "UPDATE bullets SET x1 = ?, y1 = ?, x2 = ?, y2 = ? WHERE id = ?";
-        $this->queryHandler($query, [$x1, $x2, $y1, $y2, $bulletId]);
+        $this->queryHandler($query, [$x1, $y1, $x2, $y2, $bulletId]);
     }
 
     function addBullet($user_id, $x, $y, $angle){
