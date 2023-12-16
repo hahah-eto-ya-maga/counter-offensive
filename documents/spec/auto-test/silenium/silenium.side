@@ -3677,10 +3677,10 @@
     }, {
       "id": "14d75f56-43f9-4bf3-83ce-5f5fe78d8892",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "622f30b7-d0b6-47a0-bc57-12a1abe9d777",
       "comment": "",
@@ -3698,10 +3698,38 @@
     }, {
       "id": "73abed74-d753-45ac-a871-e421c6bdab86",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "4b99886e-fd24-4e16-8db4-21168f221ee6",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "31b753e7-2515-4bc7-98d2-08ebcf767fe2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "0b032d2d-d4ae-4535-8e07-ec7fc79e6a52",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a384f5c4-bd4a-4e4f-9442-0c223af9f973",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "eea0ed78-7a32-493e-8c40-8dc3c144d0f1",
       "comment": "",
@@ -3789,10 +3817,10 @@
     }, {
       "id": "844c4f7e-24e2-433e-9833-f7ed70dbc989",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "3dabdc99-a6dc-49ba-a57f-b813635b453f",
       "comment": "",
@@ -3810,10 +3838,38 @@
     }, {
       "id": "c24e3914-64c6-42df-a9bd-d01437408040",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "317413ca-2800-4abd-80de-2307eba9aaaf",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "67b67802-7e6a-4b0c-8ad8-7d4448929a4a",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "7f1c2126-e041-4471-9643-c1d7b7eb4578",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "816b10db-c23a-4963-8ec0-4120f58c19da",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "0d4d3fbf-7d1b-4f39-9cbb-5d3056f915ac",
       "comment": "",
@@ -3901,10 +3957,10 @@
     }, {
       "id": "1cb33404-84b1-4d71-9e2d-5dbef701f24c",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "1b918136-e178-4cd1-b8d9-62397afd9444",
       "comment": "",
@@ -3922,10 +3978,38 @@
     }, {
       "id": "3f72db2b-c3c7-4ac0-a607-fa58ccc3b155",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "75adcf50-82d8-48b2-8abf-1ca2c2d699ad",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "65e017d9-6a38-46b6-8341-6531f054301e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f08bfd01-08f3-4285-a26a-c0c1ff2e5edf",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d756e162-51ba-48a9-9296-93bc699e1ea8",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "8ea232a2-fc48-4024-8db5-b7becf2f2a9a",
       "comment": "",
@@ -4016,7 +4100,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2e323b0f-8cdc-4778-97ae-23a16a2dfbe7",
       "comment": "",
@@ -4032,12 +4116,40 @@
       ],
       "value": ""
     }, {
+      "id": "82027b05-70d9-47fa-b6af-227b5ef0338b",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "06c615bd-25be-41c4-b057-7c895b6acb0b",
       "comment": "",
       "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
+    }, {
+      "id": "008dccd9-b363-413c-8abe-716a6813d591",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "0f28c39e-700f-42f5-93c8-e8ce7875596d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "07bdd58b-7534-48d0-9105-e3cbc6636a5b",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "67be7543-02ba-4db1-b611-49e24a7d59ba",
       "comment": "",
@@ -4144,12 +4256,33 @@
       ],
       "value": ""
     }, {
-      "id": "caa80c2c-c8d8-4fc5-ba4d-ad7cffcbd919",
+      "id": "8be3bf97-cbbe-494a-81d4-6bf8fe4e4fb6",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "2157054d-473a-4de4-920a-eeb8667adfdb",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
+    }, {
+      "id": "bf728148-a2a8-477b-ae6c-99efe5df1c74",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_shooter2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "99eeff41-ecc5-4f61-a4ca-a4e22abcbae1",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "cf95d28f-e2a8-4cb0-bde0-c48ca073f9b9",
       "comment": "",
@@ -4157,6 +4290,41 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "caa80c2c-c8d8-4fc5-ba4d-ad7cffcbd919",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02c95cda-684c-4d70-928b-cfa6b4f07d46",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "72e9927c-3382-4837-a18b-ce784f7037be",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "02f829ef-22f4-41a1-8571-6cf4b8784ef9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9977c673-2710-4e30-b177-de349d3b3292",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "f557bac7-4841-4daa-8c1d-4632dad38be2",
       "comment": "",
@@ -4305,6 +4473,41 @@
       "targets": [],
       "value": "10000"
     }, {
+      "id": "5f59f4d8-c5f3-4917-8de8-c4271b695280",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59a0e76d-844c-4958-9be3-0a160ee15944",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e85152d8-2abe-4960-b4f3-c25f3ae99428",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "4540a7b0-e8d7-47b2-b1e8-4cc33d070db2",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6ef7d2c4-f24f-44b0-a127-a88b5a72d6a0",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "4ec52088-b8a1-4722-8c60-0547a6354dfd",
       "comment": "",
       "command": "close",
@@ -4445,6 +4648,41 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "c93cb2a7-b61c-4f0b-aa4f-2ac72456ab5b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a2678f4-126d-43d2-9e27-b3ccebca252f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "005ea838-3240-4b36-a594-f47935867e63",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "26343a19-f991-4ac6-9165-8f18e87ce827",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c698ce44-e72a-4f15-8a2a-0c7b95fbb29e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "41dad04b-d655-4eed-8142-4e79908845f0",
       "comment": "",
       "command": "close",
@@ -4531,10 +4769,10 @@
     }, {
       "id": "d8a99b04-fb9e-429c-91c0-91113bc80eca",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "3b217a10-bc64-4686-96fe-c19d016ffd31",
       "comment": "",
@@ -4552,10 +4790,38 @@
     }, {
       "id": "0d2dca4e-8f81-4b26-ba8a-887850a40f27",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "2f0b5e4e-2e68-4e6d-8ccd-da5f4c92611d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "92489e16-a016-490e-98bb-52315587b477",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "661b6753-45eb-4f6d-979b-d8b0910dc41b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "260c9dc5-c06b-4c0a-a9e8-05c783ce5361",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "7075aa99-34e5-40af-85b0-547d909a7cd7",
       "comment": "",
@@ -4643,10 +4909,10 @@
     }, {
       "id": "bb3094f8-956f-4f77-8266-43b14c141c7a",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "a711f747-eeba-4f3b-a9bf-0bdc59df2ee6",
       "comment": "",
@@ -4664,10 +4930,38 @@
     }, {
       "id": "f823c6d5-db36-4ee6-923b-a78b824e91e0",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "61e9eb00-e76a-4f01-82e6-eeb1e9526777",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "00b9be48-6bd3-40dc-a61f-2129ce792a21",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "14b43c6e-7878-4f0a-b0f9-db4f18a7e12f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7e2153f7-0eff-4672-a215-6faa27f252be",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "d499b8da-ed4a-4b7f-9354-30c089f32bc7",
       "comment": "",
@@ -4755,10 +5049,10 @@
     }, {
       "id": "5fcb3dd6-a8ed-4907-aa29-dbfea48d6d30",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "d7938189-e156-44bf-827b-588c47a967d4",
       "comment": "",
@@ -4776,10 +5070,38 @@
     }, {
       "id": "31c0e7f5-3551-450b-882b-a766416fdca8",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "9016703c-83ec-4f3a-870d-47b90299b62c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "a271ba44-25c0-42be-820f-3fd77dce4eea",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "a76aec20-942c-4e22-90fe-f5d64f96e565",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2590331b-066e-4410-9f8a-78bb01d638c2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "228e7319-8db1-499b-9811-8460a462d7ed",
       "comment": "",
@@ -4867,10 +5189,10 @@
     }, {
       "id": "82e44918-3762-4651-ab75-596915e2b543",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "87843115-0f3e-42b7-af74-308318d1aead",
       "comment": "",
@@ -4886,11 +5208,25 @@
       ],
       "value": ""
     }, {
-      "id": "61c39354-6507-4015-8b0e-13c678ed663b",
+      "id": "41a3d6b1-a359-465d-95eb-7a148da4ae6b",
       "comment": "",
-      "command": "verify element  present",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "84f3da30-6057-4550-b225-d308c7dcb4df",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "352a1e6a-3f90-4e7c-9cf2-0c5926f408af",
@@ -4900,12 +5236,54 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "c1b72f04-3c62-4814-9e7f-fdadff236397",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "2b6a1214-e5b4-4cf3-8505-819770686dc6",
       "comment": "",
       "command": "verifyElementNotPresent",
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "616f5494-d687-4702-b75e-60b37d2ef49e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02c2a7e2-194e-4d2c-a208-fee7ec2a6065",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5c9064b1-e65e-4048-a507-1f272047f10f",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "c825978b-a4e5-4e0a-a3ea-d40bd8937264",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dcf2c742-fad2-4e6a-87b4-a49482b25d36",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "035b4ff8-0df0-4b75-a68c-dfed5e77e29d",
       "comment": "",
@@ -4993,10 +5371,10 @@
     }, {
       "id": "ffcc2305-faec-466e-8f92-d03dfeca9d9e",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "d6be5ddf-cc43-473e-b476-df1e13b68816",
       "comment": "",
@@ -5012,11 +5390,25 @@
       ],
       "value": ""
     }, {
-      "id": "53ec9783-f7fc-4289-b43f-12f4fc51cc72",
+      "id": "69182463-cd53-4741-b7d3-c292bcb08030",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "672435bf-1ca4-4f97-9797-aae758f94bc3",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "3209ad83-ea4c-44d4-8ba1-b6e853563900",
@@ -5028,10 +5420,38 @@
     }, {
       "id": "a35ae9d8-442e-44a2-acba-9a7728a9b7d4",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "d5252618-8481-48fe-88c5-de9197774be8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "869aae73-b834-4277-94df-2f7f9045a8f2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "fb4c9050-b748-47ce-99a5-0e4e9e667e0d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0f77b0d7-497c-45b9-8062-968b4d61b34c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "b61e567e-6fa3-476d-be4d-41c64ee95c41",
       "comment": "",
@@ -5119,10 +5539,10 @@
     }, {
       "id": "b6f0d4f7-d646-418a-a3a7-74e0838fe30a",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "9f62d444-d594-4e02-92d0-40862391b5e1",
       "comment": "",
@@ -5138,11 +5558,25 @@
       ],
       "value": ""
     }, {
-      "id": "24dc6b0a-1ff2-4f5e-9c59-59bca6cf0c04",
+      "id": "7f3e5ddd-8d4b-40ce-901a-8ea6edbe27ed",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "08985253-e57f-41e3-8f73-65f1a3936633",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "6afa30aa-e243-4f08-8f27-b97a86b0c328",
@@ -5158,6 +5592,34 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "3b33b176-f5eb-401d-a53e-3a240493a52a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ce61d05e-2a05-40c1-abae-ad213bca4c6e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "25e3f119-1041-4e15-b4a6-8f8b5f0bb53c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "87b35613-c256-424f-8c18-56253e93f86e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "fdb95b66-a12d-4d7c-80f2-42a9fb58bb9f",
       "comment": "",
@@ -5264,12 +5726,33 @@
       ],
       "value": ""
     }, {
+      "id": "06f7c799-330f-4329-a547-3be58000ce03",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "bd014058-621c-4916-beeb-1cf832680f56",
       "comment": "",
       "command": "verifyElementNotPresent",
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "9f0e207a-cc2c-4ed3-90bc-8ca21921ec2a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "08f6d13c-5ace-4e13-b3e6-00e782be3f7c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "c1a16602-0761-4cf7-ae68-65c13c21a598",
       "comment": "",
@@ -5357,10 +5840,10 @@
     }, {
       "id": "da79e5b6-8f79-41e2-8491-a2761fa929fb",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "adeb2b7a-df12-4fea-97bd-590c5bb2ed0c",
       "comment": "",
@@ -5376,11 +5859,25 @@
       ],
       "value": ""
     }, {
-      "id": "d454a159-b107-4687-a667-914192e37ed5",
+      "id": "6c46155a-54ac-4d23-9bb1-1197dd3ac4da",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "44c0f3a4-92ad-4470-84ef-16c952a59976",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "4a7a9cb9-28d2-445b-9305-456e3b895be9",
@@ -5392,10 +5889,38 @@
     }, {
       "id": "c5c26abe-518b-40b3-bd0f-43f7bfbd73ca",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "9e361d62-054d-4edc-933e-0f6c60be7995",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "1c5264c7-541d-4e87-91ca-674c452be3d6",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "2e60abc7-12ce-410b-927c-ff22ffdc9c44",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0c1f5836-322b-48cd-9a4d-c4e72ad74af4",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "b70048cb-33ae-4338-b8c6-a026d957293f",
       "comment": "",
@@ -5502,11 +6027,25 @@
       ],
       "value": ""
     }, {
-      "id": "c3c9557d-51e4-410d-969d-37f76f54f0b5",
+      "id": "bdf4c3aa-a3a8-4c1e-8042-5742abaaad0e",
       "comment": "",
-      "command": "verifyElementPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "8bb97a3d-55e7-4693-a3a3-70f1a83b716c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "5f250310-6885-4f53-84a8-40509950cf1b",
@@ -5522,6 +6061,34 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "5c674375-22c2-4290-bb52-7e1daf046999",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0bb2eea9-798e-4e07-b5b5-25c6cb14a59e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "8b73a7aa-26fb-4afb-9b0d-c51784bcc897",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0167c1ed-27b7-460c-9d9c-28902c911927",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "5cb4bd59-a240-4f15-971d-9c8cab78ff77",
       "comment": "",
@@ -5628,12 +6195,33 @@
       ],
       "value": ""
     }, {
-      "id": "b55b2a96-aa9c-444f-9d29-e958a0570b58",
+      "id": "1ab3884d-5ac3-456d-bce8-a05e702ea314",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f6048d09-f2ef-4d7c-86a0-7b951ab3c495",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
+    }, {
+      "id": "e1128e5f-34fc-4fb2-8577-113cdcea19a9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_shooter3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da02b5b9-4ba1-4a2d-a348-37c28f44ca31",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "aa5617bf-ac64-4d95-b74f-6993349fdad9",
       "comment": "",
@@ -5641,6 +6229,41 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "bb874130-1131-4f26-a252-ab731f8fd13a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5d9bb15c-e830-45ed-9b57-794c3ccc403e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8e23e251-70fc-45e8-8621-3eb6aaf55b9f",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "374346f6-42ab-48fc-84dc-00deb3135288",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e6615e3d-0acf-4411-8020-f4801e23ccc3",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "3e0f15a4-0ba0-440d-a350-06d66b516ecc",
       "comment": "",
@@ -6101,6 +6724,41 @@
       "comment": "",
       "command": "waitForElementNotPresent",
       "target": "id=canvas",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "569df189-0065-48a6-8943-76992f360cd8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "142b4c6b-d0cc-415d-8f08-dd42573949c4",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "edaf3524-96b6-484d-bd12-946f418faab2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "b9051174-9bad-49db-8062-1d75d6c9b820",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "089f044f-a2ca-49af-972c-a001934716ae",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
       "targets": [],
       "value": "10000"
     }, {
