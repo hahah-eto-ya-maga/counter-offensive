@@ -4263,19 +4263,47 @@
       ],
       "value": ""
     }, {
-      "id": "e8cfe380-d6c1-4bf9-9d97-8b6cd3d2329b",
+      "id": "fb5f824a-d984-403f-af15-e11f8897ba69",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "576a3b3d-d7b2-45ca-bf69-37d0a5c4408a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
+      "id": "99f62471-96b5-4bd3-ab35-dbf4ca443469",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_tankDriver2",
+      "targets": [
+        ["id=test_button_infantrymanGun", "id"],
+        ["css=#test_button_infantrymanGun", "css:finder"],
+        ["xpath=//button[@id='test_button_infantrymanGun']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/button[6]", "xpath:idRelative"],
+        ["xpath=//button[6]", "xpath:position"],
+        ["xpath=//button[contains(.,'Пехотинец-автоматчик')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7bb339ef-d617-48bc-84c5-83f0c312d85c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "374655bc-6855-47f3-af8e-62f152eb1fb5",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "4ec52088-b8a1-4722-8c60-0547a6354dfd",
       "comment": "",
@@ -4382,12 +4410,33 @@
       ],
       "value": ""
     }, {
-      "id": "42911153-3f67-43b0-8833-e5c0c62520ad",
+      "id": "fa2f9856-3383-4c9c-928e-582ec1f482be",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "7cc45321-c512-4ee9-821c-221c391d323c",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
+    }, {
+      "id": "dfe82b3b-3d1f-45a6-932c-db44f51711b6",
+      "comment": "",
+      "command": "click",
+      "target": "test_button_tankDriver3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "905b53a5-3802-4577-9dd5-c312ea402ce3",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "01e34b31-53eb-4034-9d19-6e53aa854c7f",
       "comment": "",
@@ -6020,19 +6069,40 @@
       ],
       "value": ""
     }, {
-      "id": "7f14b5b7-b5a2-479c-b46f-32b39227c013",
+      "id": "297009ab-39c4-4eee-a791-c39b3b127bf9",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "0613f3b8-97ea-46fe-aedc-2254f56f4e88",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
     }, {
-      "id": "f8fb50ec-ebef-4ec1-a677-bc8358234192",
+      "id": "7f14b5b7-b5a2-479c-b46f-32b39227c013",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=canvas",
+      "command": "click",
+      "target": "id=test_button_tank_commander",
       "targets": [],
       "value": ""
+    }, {
+      "id": "a990d8d2-ad63-49e4-a7c2-dd4461c2f60e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f8fb50ec-ebef-4ec1-a677-bc8358234192",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "id=canvas",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "e56dcc26-c991-444e-b91a-8accf7d7b72f",
       "comment": "",
