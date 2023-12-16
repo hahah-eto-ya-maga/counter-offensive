@@ -197,8 +197,10 @@ require_once('BaseModule.php');
                 $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks($userId);
                 $this->lobbyState['tanks'] = $tanks;
-                $is_alive = $this->db->getGamerStatus($userId);
-                $this->lobbyState['is_alive'] = ($is_alive && $is_alive->status=="alive") ? true : false; 
+                $status = $this->db->getGamerStatus($userId);
+                $role = $status->person_id ? $status->person_id:false;
+                $this->lobbyState['is_alive'] = ($status && $status->status=="alive") ? true : false;
+                $this->lobbyState['role'] = $status->person_id;
                 return array("lobby" => $this->lobbyState, "lobbyHash" => $hash->hashLobby);
             }
             return true;
