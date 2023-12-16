@@ -132,7 +132,7 @@ class DB {
     }
 
     function deleteRole($personId) {
-        $query = "UPDATE gamers SET person_id=-1 WHERE person_id = ?";
+        $query = "UPDATE gamers SET person_id=-1, status = 'lobby' WHERE person_id = ?";
         $this->queryHandler($query, [$personId]);
     }
 
@@ -194,7 +194,7 @@ class DB {
     }
 
     function suicide($userId) {
-        $query = "UPDATE gamers SET person_id=-1, status=lobby WHERE user_id = ?";
+        $query = "UPDATE gamers SET person_id=-1, status='lobby' WHERE user_id = ?";
         $this->queryHandler($query, [$userId]);
     }
 

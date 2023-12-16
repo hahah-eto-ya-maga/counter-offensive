@@ -8,7 +8,7 @@ require_once('BaseModule.php');
         public function __construct($db){
             parent::__construct($db);
             $this->lobbyState = array(
-                "general" => false,
+                "general" => true,
                 "bannerman" => true
                 );
         }
@@ -82,10 +82,6 @@ require_once('BaseModule.php');
         function checkRoleAvailability($userId){
             $lobby = $this->db->getLobby();
             $gamerRank = $this->db->getRankById($userId);
-            $persons = $this->db->getPersons();
-            foreach($persons as $person)
-                if($person->person_id == 1)
-                    $this->lobbyState['general'] = $gamerRank->level >= $person->level ?  true : false;
             foreach($lobby as $role) {
                 switch($role->person_id){
                     case 1: 
@@ -210,7 +206,7 @@ require_once('BaseModule.php');
 
         function suicide($userId){
             $this->db->suicide($userId);
-            $this->db->suicide($userId);  
+            $this->db->tankExit($userId);  
             return true;
         }
         
