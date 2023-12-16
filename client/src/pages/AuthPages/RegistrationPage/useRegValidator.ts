@@ -6,9 +6,9 @@ const useRegValidator = (mediator: Mediator, server: Server) => {
 
    const isPasswordValid = (pass: string) => {
       const passLength = pass.length;
-      if (passLength < 8 || passLength > 30) {
+      if (passLength < 8 || passLength > 20) {
          mediator.get(WARNING, {
-            message: "В пароле должно быть от 8 до 30 символов",
+            message: "В пароле должно быть от 8 до 20 символов",
             style: "warning",
             id: "test_warning_reg_password_length",
          });
