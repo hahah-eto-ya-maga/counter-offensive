@@ -37,6 +37,7 @@ const useSprites = (
    const stone: SpriteFrame = [SPRITE_SIZE * 2.3 - 1, SIZE * 6, SIZE * 4, SIZE * 2 - 1];
    const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
    const wall: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 10, SIZE];
+   const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 2, SIZE * 2];
    const bullet: SpriteFrame = [SPRITE_SIZE, SIZE * 3, SIZE * 0, SIZE];
 
    const manDead: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 8, SIZE * 0, SIZE * 2];
@@ -72,6 +73,7 @@ const useSprites = (
       heavyTank,
       grass,
       stone,
+      bush,
       home,
       wall,
       bullet,

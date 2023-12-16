@@ -77,6 +77,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       heavyTank,
       grass,
       stone,
+      bush,
       home,
       wall,
       bullet,
