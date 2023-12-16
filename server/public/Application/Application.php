@@ -36,7 +36,6 @@ class Application
         if ($login && $password && $nickname) {
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
             $pattern1 = strlen($nickname);
-            print_r($pattern1);
             if (preg_match($pattern, $login) && $pattern1 > 2 && $pattern1 < 17) {
                 return $this->user->registration($login, $nickname, $password);
             }
@@ -198,6 +197,24 @@ class Application
             }
             return array(false, 401);
         }  
+        return array(false, 400);
+    }
+
+    function move($params)
+    {
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        if ($x !== false && $y !== false && $token) {
+            if (is_numeric($x) && is_numeric($y)) {
+                $user = $this->user->getUser($token);
+                if ($user != null && $user->token != 0 && $user->token != null) {
+                    return $this->game->move($user->id, $x, $y);
+                }
+                return array(false, 401);
+            }
+            return array(false, 422);
+        }
         return array(false, 400);
     }
 }

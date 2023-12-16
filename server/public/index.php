@@ -28,6 +28,7 @@
                     case "getScene": return $app->getScene($params);
                     case "fire": return $app->fire($params);
                     case 'rotate': return $app->rotate($params);
+                    case 'move': return $app->move($params);
                 } 
                 return array(false, 501);
             }

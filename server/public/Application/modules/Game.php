@@ -115,7 +115,7 @@ class Game extends BaseModule
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
+                    // $this->fire(-1, $targetGamer->x, $targetGamer->y, $angle);            
                 }
                 else continue;
             }
@@ -143,11 +143,6 @@ class Game extends BaseModule
     }
 
     /* Пули */
-
-    function fire($user_id, $x, $y, $angle){
-        $this->db->addBullet($user_id, $x, $y, round($angle,1));
-        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
-    }
 
     private function moveBullets(){
         if (!$this->bullets){
@@ -287,6 +282,7 @@ class Game extends BaseModule
         $hashes = $this->db->getHashes();
         if ($hashes->hashGamers !== $hashGamers) {
             $result['gamers'] = $this->getGamers();
+            $result['tanks'] = $this->getTanks();
             $result['hashGamers'] = $hashes->hashGamers;
         }
         if ($hashes->hashMobs !== $hashMobs) {
@@ -297,6 +293,8 @@ class Game extends BaseModule
             $result['bullets'] = $this->getBullets();
             $result['hashBullets'] = $hashes->hashBullets;
         }
+
+        
         //...
         /*
         array(
@@ -312,12 +310,23 @@ class Game extends BaseModule
     
     public function rotate($user_id, $angle)
     {
-         $this->db->updateRotate($user_id, $angle);
-         $hash = hash("sha256", $this->v4_UUID());
-         $this->db->updateGamersHash($hash);
+        $this->db->updateRotate($user_id, $angle);
+        $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
        return true;
     }
 
+    function fire($user_id, $x, $y, $angle){
+        $this->db->addBullet($user_id, $x, $y, round($angle,1));
+        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
+        return true;
+    }
+
+    public function move($user_id, $x, $y)
+    {
+        $this->db->updateMove($user_id, $x, $y);
+        $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+       return true;
+    }
 }
 
 

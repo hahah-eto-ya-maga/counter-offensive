@@ -157,6 +157,11 @@ class DB {
         return $this->queryHandlerAll($query, []);
     }
     
+    function updateMove($user_id, $x, $y){
+        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE `gamers`.`user_id` = ?;";
+        $this->queryHandler($query, [$x, $y, $user_id],true);
+    }
+    
     /* Обновление хэша*/
 
     function getHashes() {
