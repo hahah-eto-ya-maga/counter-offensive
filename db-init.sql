@@ -1,10 +1,16 @@
 CREATE TABLE IF NOT EXISTS `game` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
-  `hashUnits` VARCHAR(100) NOT NULL DEFAULT "",
-  `hashScene` VARCHAR(100) NOT NULL DEFAULT "",
-  `chatHash` VARCHAR(100) NOT NULL DEFAULT "",
-  `hashBullets` VARCHAR(100) NOT NULL DEFAULT "",
-  `hashLobby` VARCHAR(100) NOT NULL DEFAULT "",
+  `hashUnits` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashScene` VARCHAR(100) NOT NULL DEFAULT '',
+  `chatHash` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashBullets` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashLobby` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashGamers` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashMobs` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashMap` VARCHAR(100) NOT NULL DEFAULT '',
+  `hashBodies` VARCHAR(100) NOT NULL DEFAULT '',
+  `timestamp` BIGINT NOT NULL DEFAULT 0,
+  `timeout` INT NOT NULL DEFAULT 100,
   PRIMARY KEY (`id`)
 );
 
@@ -96,8 +102,7 @@ INSERT INTO gamers(user_id,experience) VALUES
 
 /* Значения по умолчанию в таблице game*/
 
-INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby) VALUES ("1", "1", "1", "1", "1");
-
+INSERT INTO game(hashUnits, hashScene, chatHash, hashBullets, hashLobby, hashGamers, hashMobs, hashMap, hashBodies) VALUES ("1", "1", "1", "1", "1", "1", "1", "1", "1");
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO ranks (id, name, experience) VALUES 
@@ -132,4 +137,4 @@ INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpee
 (6, 'middleTankMeh', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
 (7, 'middleTankGunner', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
 (8, 'infantry', 100, 'standartPerson.jpg', 1, 1, 1, 1),
-(9, 'infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 5);
+(9, 'infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 1);

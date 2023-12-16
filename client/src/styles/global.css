@@ -1,43 +1,36 @@
 * {
-  margin: 0;
+   margin: 0;
+}
+
+a {
+   text-decoration: none;
+   color: inherit;
 }
 
 body {
-  background: linear-gradient(
-    180deg,
-    #268a30 0%,
-    #a0e0a682 48.96%,
-    rgba(1, 19, 3, 0.68) 100%
-  );
-  font-family: "Cranberry Cyr", sans-serif;
- /* ||||||||||||||||||||| */
-  /* overflow: hidden; */
- /* ||||||||||||||||||||| */
-  padding: 20px;
-
+   background: linear-gradient(
+      180deg,
+      #268a30 0%,
+      #a0e0a682 48.96%,
+      rgba(1, 19, 3, 0.68) 100%
+   );
+   font-family: "Cranberry Cyr", sans-serif;
+   background-attachment: fixed;
 }
 
 :root {
-  --black: #000000;
-  --primary-green: #92f663;
-  --primary-green-hover: #6ed340;
-  --green-yellow: #A0E0A685 ;
-  --salad: #cfd262;
-  --gray: #d9d9d9;
-  --yellow: #EBFF00;
-  --dark-green: #A3D7B5;
-  --light-green: #85ba65;
-  --red: #f00;
-  --gray-hover: #ffffff;
-}
-
-.app {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
+   --black: #000000;
+   --primary-green: #92f663;
+   --primary-green-hover: #6ed340;
+   --green-yellow: #ecee77;
+   --salad: #cfd262;
+   --gray: #d9d9d9;
+   --yellow: #ebff00;
+   --dark-green: #a3d7b5;
+   --light-green: #85ba65;
+   --red: #f00;
 }
 
 .disabled {
-  display: none;
+   display: none;
 }

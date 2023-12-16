@@ -12,11 +12,11 @@ class DB {
         $user = getenv('MYSQL_USER');
         $pass = getenv('MYSQL_PASSWORD');
         
-        // $host = '127.0.0.1';
-        // $port = 3306;
-        // $db = 'counter_offensive';
-        // $user = 'root';
-        // $pass = '';
+        //$host = '127.0.0.1';
+        //$port = 3306;
+        //$db = 'counter_offensive';
+        //$user = 'root';
+        //$pass = '';
 
         try {
             $this->link = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
@@ -75,7 +75,7 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
-    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добвалнение юзера в таблицу с проверкойй на существование такого же логина
+    function addUser($login, $nickname, $hash, $token) {  //vnntblck Добавлнение юзера в таблицу с проверкой на существование такого же логина
         $query = "INSERT INTO users (login, nickname, password, token, tokenLastUse, timeCreate) VALUES(?, ?, ?, ?, NOW(), NOW())"; // Запрос вставляет в базу данных полученные данные
         $this->queryHandler($query, [$login, $nickname, $hash, $token]); 
     }
@@ -90,11 +90,6 @@ class DB {
         $this->queryHandler($query, [$hash]);
     }
 
-    function getChatHash() {
-        $query = "SELECT chatHash FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
-
     function getMessages($userId){
         $query = "SELECT u.id AS userId, u.nickname AS nickname, m.text AS text, r.id AS level, r.name AS rank_name, m.sendTime AS sendTime
         FROM messages AS m 
@@ -106,7 +101,7 @@ class DB {
     }
 
     function addGamer($userId){
-        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 1, 'lobby');";
+        $query = "INSERT INTO `gamers` (`user_id`, `experience`, `status`) VALUES (?, 0, 'lobby');";
         $this->queryHandler($query, [$userId]); 
     }
 
@@ -127,7 +122,7 @@ class DB {
     }
     
     function getLobby(){
-        $query = "SELECT user_id, person_id FROM gamers WHERE person_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);";
+        $query = "SELECT user_id, person_id, experience FROM gamers WHERE person_id IN (1, 2, 3, 4, 5, 6, 7, 8, 9);";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -137,7 +132,7 @@ class DB {
     }
 
     function deleteRole($personId) {
-        $query = "UPDATE gamers SET person_id=-1 WHERE person_id = ?";
+        $query = "UPDATE gamers SET person_id=-1, status = 'lobby' WHERE person_id = ?";
         $this->queryHandler($query, [$personId]);
     }
 
@@ -171,11 +166,6 @@ class DB {
         $this->queryHandler($query, [$userId]);
     }
 
-    function getLobbyHash() {
-        $query = "SELECT hashLobby FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
-
     function getPersons() {
         $query = "SELECT p.id AS person_id, p.name AS name, p.level as level, r.experience AS exp 
         FROM persons p
@@ -191,5 +181,36 @@ class DB {
     function deleteTank($tankId){
         $query = "DELETE FROM tank_lobby WHERE tank_id = ?";
         $this->queryHandler($query, [$tankId]);
+    }
+
+    function getHashes() {
+        $query = "SELECT * FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    function getGamerStatus($userId) {
+        $query = "SELECT status FROM gamers WHERE id=?";
+        return $this->queryHandler($query, [$userId], true);
+    }
+
+    function suicide($userId) {
+        $query = "UPDATE gamers SET person_id=-1, status='lobby' WHERE user_id = ?";
+        $this->queryHandler($query, [$userId]);
+    }
+
+    function tankExit($userId) {
+        $query = "DELETE FROM tank_lobby WHERE user_id = ?";
+        $this->queryHandler($query, [$userId]);
+    }
+
+
+    function updateMove($user_id, $x, $y){
+        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE `gamers`.`user_id` = ?;";
+        $this->queryHandler($query, [$x, $y, $user_id],true);
+    }
+
+    public function updateHashGamers($hash){
+        $query = "UPDATE game SET hashGamers=? WHERE id=1";
+        $this->queryHandler($query, [$hash]);
     }
 }

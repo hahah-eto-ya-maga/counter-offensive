@@ -69,23 +69,9 @@ messages = {
 **Лобби**
 ```
 lobby = {
-    "general": {
-                "occupied": bool,
-                "available": bool 
-            },
-            "bannerman": {
-                "occupied": bool
-            },
-            "heavyTank": {
-                "commander": bool,
-                "mechanic": bool,
-                "gunner": bool
-            },
-            "middleTank": {
-                "gunner": bool,
-                "mechanic": bool
-            },
-            "infantryRPG": bool
+    "general": bool,
+    "bannerman": bool,
+    "tanks": tanks
 }
 ```
 
@@ -139,7 +125,7 @@ tanks = {
 ```
 lobbyState = {
     lobby: lobby,
-    tanks: tanks,
+    is_alive: bool,
     lobbyHash:string
 }
 ```
@@ -327,7 +313,7 @@ Error(401) - Пользователя не существует
 
 ---
 
-## Метод установик роли игрока
+## Метод установки роли игрока
 ### Адрес
 ```method=setGamerRole```
 ### Параметры
@@ -369,6 +355,24 @@ Error(463) - Роль не реализована
 ### Значение если успех
 ```
 Correct=>lobbyState || true
+```
+### Значение если ошибка
+```
+Error(400) - Указаны не все обязательные параметры
+Error(401) - Пользователя не существует
+```
+
+## Метод смерти
+### Адрес
+```method=suicide```
+### Параметры
+|Параметр|Тип|Комментарий|
+|-|-|-|
+|token|string|```sha256(uuid4)```|
+
+### Значение если успех
+```
+Correct=>true
 ```
 ### Значение если ошибка
 ```

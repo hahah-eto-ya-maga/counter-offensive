@@ -60,7 +60,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          canvas,
          width,
          height,
-         cellSize:SPRITE_SIZE
+         cellSize: SPRITE_SIZE,
       });
       return () => {
          canvas = null;
@@ -311,11 +311,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       }
    }
 
-   return (
-      <>
-         <canvas id={canvasId} />
-      </>
-   );
+   return <canvas id={canvasId} />;
 };
 
 export default GameCanvas;

@@ -1,54 +1,74 @@
-import { RouteProps } from "react-router-dom";
+import { Navigate, RouteProps } from "react-router-dom";
 import {
-  ErrorPage,
-  GamePage,
-  LobbyPage,
-  LoginPage,
-  RegistrationPage,
+   ErrorPage,
+   GamePage,
+   LobbyInfo,
+   LoginPage,
+   RegistrationPage,
+   HeavyTankLobby,
+   MiddleTankLobby,
+   HeavyTankDetail,
+   MiddleTankDetail,
 } from "../pages";
 
 export const publicRoutes: RouteProps[] = [
    {
       path: "/",
-      Component: LoginPage,
-   },
-   {
-      path: "/registration",
-      Component: RegistrationPage,
+      element: <LoginPage />,
    },
    {
       path: "/authorization",
-      Component: LoginPage,
+      element: <LoginPage />,
+   },
+   {
+      path: "/registration",
+      element: <RegistrationPage />,
    },
    {
       path: "/error",
-      Component: ErrorPage,
+      element: <ErrorPage />,
    },
    {
       path: "*",
-      Component: ErrorPage,
+      element: <Navigate to="/" replace />,
    },
 ];
 
 export const privateRoutes: RouteProps[] = [
    {
-      path: "*",
-      Component: ErrorPage,
-   },
-   {
-      path: "/error",
-      Component: ErrorPage,
-   },
-   {
       path: "/",
-      Component: LobbyPage,
+      element: <LobbyInfo />,
    },
    {
       path: "/lobby",
-      Component: LobbyPage,
+      element: <LobbyInfo />,
+   },
+   {
+      path: "/heavy_tanks",
+      element: <HeavyTankLobby />,
+   },
+   {
+      path: "/middle_tanks",
+      element: <MiddleTankLobby />,
+   },
+   {
+      path: "/heavy_tanks/:id",
+      element: <HeavyTankDetail />,
+   },
+   {
+      path: "/middle_tanks/:id",
+      element: <MiddleTankDetail />,
    },
    {
       path: "/game",
-      Component: GamePage,
+      element: <GamePage />,
+   },
+   {
+      path: "/error",
+      element: <ErrorPage />,
+   },
+   {
+      path: "*",
+      element: <Navigate to="/" replace />,
    },
 ];

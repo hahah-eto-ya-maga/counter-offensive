@@ -6,7 +6,8 @@ import React, {
    useState,
 } from "react";
 import { ServerContext } from "../../App";
-import { ERank, IMessage } from "../../modules/Server/types";
+import { requestDelay } from "../../config";
+import { EHash, ERank, IMessage } from "../../modules/Server/interfaces";
 import {
    firstRank,
    secondRank,
@@ -37,12 +38,12 @@ export const Chat = forwardRef<HTMLInputElement | null, IChatProps>(
             const newMessages = await server.getMessages();
             if (newMessages && newMessages !== true) {
                setMessages(newMessages.messages.reverse());
-               server.STORE.chatHash = newMessages.chatHash;
+               server.STORE.setHash(EHash.chatHash, newMessages.chatHash);
             }
-         }, 300);
+         }, requestDelay.chat);
          return () => {
             clearInterval(interval);
-            server.STORE.chatHash = null;
+            server.STORE.setHash(EHash.chatHash, null);
          };
       }, []);
 
