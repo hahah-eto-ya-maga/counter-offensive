@@ -19,7 +19,7 @@ export const AppRouter: FC = () => {
    useEffect(() => {
       errorHandler();
 
-      const { LOGIN, LOGOUT, AUTH_ERROR, THROW_TO_GAME, LEAVE_GAME } =
+      const { LOGIN, LOGOUT, AUTH_ERROR, THROW_TO_GAME } =
          mediator.getTriggerTypes();
       mediator.set(LOGIN, (user: IUserInfo) => {
          server.STORE.user = user;
