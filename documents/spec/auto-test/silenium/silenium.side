@@ -3677,10 +3677,10 @@
     }, {
       "id": "14d75f56-43f9-4bf3-83ce-5f5fe78d8892",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "622f30b7-d0b6-47a0-bc57-12a1abe9d777",
       "comment": "",
@@ -3698,10 +3698,38 @@
     }, {
       "id": "73abed74-d753-45ac-a871-e421c6bdab86",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "4b99886e-fd24-4e16-8db4-21168f221ee6",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "31b753e7-2515-4bc7-98d2-08ebcf767fe2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "0b032d2d-d4ae-4535-8e07-ec7fc79e6a52",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a384f5c4-bd4a-4e4f-9442-0c223af9f973",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "eea0ed78-7a32-493e-8c40-8dc3c144d0f1",
       "comment": "",
@@ -3789,10 +3817,10 @@
     }, {
       "id": "844c4f7e-24e2-433e-9833-f7ed70dbc989",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "3dabdc99-a6dc-49ba-a57f-b813635b453f",
       "comment": "",
@@ -3810,10 +3838,38 @@
     }, {
       "id": "c24e3914-64c6-42df-a9bd-d01437408040",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "317413ca-2800-4abd-80de-2307eba9aaaf",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "67b67802-7e6a-4b0c-8ad8-7d4448929a4a",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "7f1c2126-e041-4471-9643-c1d7b7eb4578",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "816b10db-c23a-4963-8ec0-4120f58c19da",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "0d4d3fbf-7d1b-4f39-9cbb-5d3056f915ac",
       "comment": "",
@@ -3901,10 +3957,10 @@
     }, {
       "id": "1cb33404-84b1-4d71-9e2d-5dbef701f24c",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "10000"
     }, {
       "id": "1b918136-e178-4cd1-b8d9-62397afd9444",
       "comment": "",
@@ -3922,10 +3978,38 @@
     }, {
       "id": "3f72db2b-c3c7-4ac0-a607-fa58ccc3b155",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=canvas",
       "targets": [],
+      "value": "10000"
+    }, {
+      "id": "75adcf50-82d8-48b2-8abf-1ca2c2d699ad",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_leave_game_button",
+      "targets": [],
       "value": ""
+    }, {
+      "id": "65e017d9-6a38-46b6-8341-6531f054301e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f08bfd01-08f3-4285-a26a-c0c1ff2e5edf",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d756e162-51ba-48a9-9296-93bc699e1ea8",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "8ea232a2-fc48-4024-8db5-b7becf2f2a9a",
       "comment": "",
@@ -4016,7 +4100,7 @@
       "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
     }, {
       "id": "2e323b0f-8cdc-4778-97ae-23a16a2dfbe7",
       "comment": "",
@@ -4032,12 +4116,40 @@
       ],
       "value": ""
     }, {
+      "id": "82027b05-70d9-47fa-b6af-227b5ef0338b",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "06c615bd-25be-41c4-b057-7c895b6acb0b",
       "comment": "",
       "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": "30000"
+      "value": "10000"
+    }, {
+      "id": "008dccd9-b363-413c-8abe-716a6813d591",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "0f28c39e-700f-42f5-93c8-e8ce7875596d",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "07bdd58b-7534-48d0-9105-e3cbc6636a5b",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "67be7543-02ba-4db1-b611-49e24a7d59ba",
       "comment": "",
@@ -4144,12 +4256,33 @@
       ],
       "value": ""
     }, {
-      "id": "caa80c2c-c8d8-4fc5-ba4d-ad7cffcbd919",
+      "id": "8be3bf97-cbbe-494a-81d4-6bf8fe4e4fb6",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "2157054d-473a-4de4-920a-eeb8667adfdb",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
+    }, {
+      "id": "bf728148-a2a8-477b-ae6c-99efe5df1c74",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_shooter2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "99eeff41-ecc5-4f61-a4ca-a4e22abcbae1",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "cf95d28f-e2a8-4cb0-bde0-c48ca073f9b9",
       "comment": "",
@@ -4157,6 +4290,41 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "caa80c2c-c8d8-4fc5-ba4d-ad7cffcbd919",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02c95cda-684c-4d70-928b-cfa6b4f07d46",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "72e9927c-3382-4837-a18b-ce784f7037be",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "02f829ef-22f4-41a1-8571-6cf4b8784ef9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9977c673-2710-4e30-b177-de349d3b3292",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "f557bac7-4841-4daa-8c1d-4632dad38be2",
       "comment": "",
@@ -4305,6 +4473,41 @@
       "targets": [],
       "value": "10000"
     }, {
+      "id": "5f59f4d8-c5f3-4917-8de8-c4271b695280",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59a0e76d-844c-4958-9be3-0a160ee15944",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e85152d8-2abe-4960-b4f3-c25f3ae99428",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "4540a7b0-e8d7-47b2-b1e8-4cc33d070db2",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6ef7d2c4-f24f-44b0-a127-a88b5a72d6a0",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
+    }, {
       "id": "4ec52088-b8a1-4722-8c60-0547a6354dfd",
       "comment": "",
       "command": "close",
@@ -4444,6 +4647,41 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "c93cb2a7-b61c-4f0b-aa4f-2ac72456ab5b",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a2678f4-126d-43d2-9e27-b3ccebca252f",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "005ea838-3240-4b36-a594-f47935867e63",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "26343a19-f991-4ac6-9165-8f18e87ce827",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c698ce44-e72a-4f15-8a2a-0c7b95fbb29e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "41dad04b-d655-4eed-8142-4e79908845f0",
       "comment": "",
@@ -5628,12 +5866,33 @@
       ],
       "value": ""
     }, {
-      "id": "b55b2a96-aa9c-444f-9d29-e958a0570b58",
+      "id": "1ab3884d-5ac3-456d-bce8-a05e702ea314",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "id=test_button_cross",
+      "command": "waitForElementPresent",
+      "target": "id=test_button_add_tank",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "f6048d09-f2ef-4d7c-86a0-7b951ab3c495",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_add_tank",
       "targets": [],
       "value": ""
+    }, {
+      "id": "e1128e5f-34fc-4fb2-8577-113cdcea19a9",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_shooter3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da02b5b9-4ba1-4a2d-a348-37c28f44ca31",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_message_not_enought_level",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "aa5617bf-ac64-4d95-b74f-6993349fdad9",
       "comment": "",
@@ -5641,6 +5900,41 @@
       "target": "id=canvas",
       "targets": [],
       "value": ""
+    }, {
+      "id": "bb874130-1131-4f26-a252-ab731f8fd13a",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5d9bb15c-e830-45ed-9b57-794c3ccc403e",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8e23e251-70fc-45e8-8621-3eb6aaf55b9f",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "374346f6-42ab-48fc-84dc-00deb3135288",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e6615e3d-0acf-4411-8020-f4801e23ccc3",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
+      "targets": [],
+      "value": "10000"
     }, {
       "id": "3e0f15a4-0ba0-440d-a350-06d66b516ecc",
       "comment": "",
@@ -6101,6 +6395,41 @@
       "comment": "",
       "command": "waitForElementNotPresent",
       "target": "id=canvas",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "569df189-0065-48a6-8943-76992f360cd8",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_cross",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "142b4c6b-d0cc-415d-8f08-dd42573949c4",
+      "comment": "",
+      "command": "click",
+      "target": "id=test_button_back_to_lobby",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "edaf3524-96b6-484d-bd12-946f418faab2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": "10000"
+    }, {
+      "id": "b9051174-9bad-49db-8062-1d75d6c9b820",
+      "comment": "",
+      "command": "click",
+      "target": "id=test-button-goToMenu",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "089f044f-a2ca-49af-972c-a001934716ae",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=test_login_submit_button",
       "targets": [],
       "value": "10000"
     }, {
