@@ -135,4 +135,4 @@ INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpee
 (6, 'middleTankMeh', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
 (7, 'middleTankGunner', 1000, 'standartPerson.jpg', 1, 1, 1, 5),
 (8, 'infantry', 100, 'standartPerson.jpg', 1, 1, 1, 1),
-(9, 'infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 5);
+(9, 'infantryRPG', 100, 'standartPerson.jpg', 1, 1, 1, 1);
