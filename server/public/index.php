@@ -26,6 +26,7 @@
                     case "getLobby": return $app->getLobby($params);
                     // Game
                     case "getScene": return $app->getLobby($params);
+                    case "endGame": return $app->endGameTest();
                 } 
                 return array(false, 501);
             }

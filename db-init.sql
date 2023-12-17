@@ -9,8 +9,16 @@ CREATE TABLE IF NOT EXISTS `game` (
   `hashMobs` VARCHAR(100) NOT NULL DEFAULT '',
   `hashMap` VARCHAR(100) NOT NULL DEFAULT '',
   `hashBodies` VARCHAR(100) NOT NULL DEFAULT '',
-  `timestamp` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
-  `timeout` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
+  `timestamp` BIGINT NOT NULL DEFAULT 0,
+  `timeout` INT NOT NULL DEFAULT 100,
+  `pBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
+  `mBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
+  `banner_timeout` INT NOT NULL DEFAULT 20,
+  `mobBase_x` FLOAT NULL DEFAULT NULL,
+  `mobBase_y` FLOAT NULL DEFAULT NULL,
+  `playersBase_x` FLOAT NULL DEFAULT NULL,
+  `playersBase_y` FLOAT NULL DEFAULT NULL,
+  `base_radius` FLOAT NULL DEFAULT 20,
   PRIMARY KEY (`id`)
 );
 
@@ -176,7 +184,7 @@ INSERT INTO `ranks` (`name`, `experience`) VALUES
 ('General', 17948);
 
 /* Добавление ролей в таблицу persons*/
-INSERT INTO `persons` (`id`, `name`, `hp`, `image`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
+INSERT INTO `persons` (`name`, `hp`, `image`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
 ('general', 100, 'standartPerson.jpg', 1, 1, 1, 16),
 ('bannerman', 100, 'standartPerson.jpg', 1, 1, 1, 1),
 ('heavyTankGunner', 100, 'standartPerson.jpg', 1, 1, 1, 5),

@@ -108,12 +108,70 @@ class Game extends BaseModule
         // то обновить сцену и $timestamp = time()
     }
 
+    private function calculateDistance($x1, $y1, $x2, $y2){
+        return sqrt(pow($x2 - $x1, 2) + pow($y2 - $y1, 2));
+    }
+
+    private function playerBannermanInZone(){
+        $playerXY = $this->db->getPerson(2);
+        $baseCoord = $this->db->getBaseXY();
+        $dist = $this->calculateDistance($playerXY->x, $playerXY->y, $baseCoord->mobBase_x, $baseCoord->mobBase_y);
+        if($dist <= $baseCoord->base_radius){
+            $time = $this->db->getTime();
+            print_r("да ");
+            if($time->pBanner_timestamp == 0){
+                $timestamp = $time->nowTime;
+                $this->db->updatePlayerBannermanTimestamp($timestamp); 
+            }
+            return true;
+        }
+        $this->db->updatePlayerBannermanTimestamp(0);
+        return false;
+        
+    }
+
+    private function MobBannermanInZone(){
+        $mobXY = $this->db->getMobPerson(2);
+        $baseCoord = $this->db->getBaseXY();
+        $dist = $this->calculateDistance($mobXY->x, $mobXY->y, $baseCoord->playersBase_x, $baseCoord->playersBase_y);
+        if($dist <= $baseCoord->base_radius){
+            $time = $this->db->getTime();
+            if($time->mBanner_timestamp == 0){
+                $timestamp = $time->nowTime;
+                $this->db->updateMobBannermanTimestamp($timestamp); 
+            }
+            return array(true, "status" => true);
+        }
+        $this->db->updateMobBannermanTimestamp(0);
+        return false;
+    }
+
     private function getPlayers() {
         return [];
     }
 
     private function getMobs() {
         return [];
+    }
+
+    function endGame(){
+        $mob = $this->MobBannermanInZone();
+        $player = $this->playerBannermanInZone();
+        $time = $this->db->getTime();
+        var_dump($time->nowTime - $time->pBanner_timestamp, "игроки");
+        var_dump($time->nowTime - $time->mBanner_timestamp, " мобы");
+
+        if($time->pBanner_timestamp != 0 && $time->nowTime - $time->pBanner_timestamp >= $time->banner_timeout){
+            
+            return["status" => "endGame", "winer" => "players"]; 
+        }
+
+        if($time->mBanner_timestamp != 0 && $time->nowTime - $time->mBanner_timestamp >= $time->banner_timeout){
+            
+            return["status" => "endGame", "winer" => "mobs"]; 
+        }
+
+        return["status" => "", "winer" => ""];
     }
 
     function getScene($userId, $hashPlayers) { 
