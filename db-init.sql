@@ -210,5 +210,5 @@ INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpee
 ('heavyTankCommander', 1000, 1, 1, 1, 12),
 ('middleTankMeh', 1000, 1, 1, 1, 5),
 ('middleTankGunner', 1000, 1, 1, 1, 5),
-('infantry', 100, 1, 0.2, 1, 1),
-('infantryRPG', 100, 1, 0.2, 1, 1);
+('infantry', 100, 18, 0.2, 1, 1),
+('infantryRPG', 100, 15, 0.2, 1, 1);
