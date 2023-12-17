@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `mobs` (
   `angle` FLOAT NULL DEFAULT NULL,
   `path` JSON,
   `path_update` BIGINT NOT NULL DEFAULT 0,
+  `reload_timestamp` BIGINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
@@ -132,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `tanks` (
   `speed` FLOAT NOT NULL DEFAULT 0,
   `tower_angle` FLOAT NOT NULL DEFAULT 0,
   `commander_angle` FLOAT NOT NULL DEFAULT 0,
-  `reload_timestamp` DATETIME NOT NULL DEFAULT '2000-10-01 00:00:00',
+  `reload_timestamp` BIGINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 

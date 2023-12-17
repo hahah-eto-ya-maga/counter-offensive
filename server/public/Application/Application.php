@@ -217,4 +217,15 @@ class Application
         }
         return array(false, 400);
     }
+    function suicide($params){
+        $token = $params['token'] ?? false;
+        if($token){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->suicide($user->id); 
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
 }

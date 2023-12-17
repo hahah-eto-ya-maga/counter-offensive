@@ -24,11 +24,12 @@
                     // Lobby
                     case "setGamerRole": return $app->setGamerRole($params);
                     case "getLobby": return $app->getLobby($params);
-                    // Game
+                    case "suicide": return $app->suicide($params);
+                    //Game
+                    case 'move': return $app->move($params);
                     case "getScene": return $app->getScene($params);
                     case "fire": return $app->fire($params);
                     case 'rotate': return $app->rotate($params);
-                    case 'move': return $app->move($params);
                 } 
                 return array(false, 501);
             }

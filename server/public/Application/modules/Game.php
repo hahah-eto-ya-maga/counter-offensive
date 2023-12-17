@@ -115,13 +115,19 @@ class Game extends BaseModule
                 if($targetDistance && $targetGamer && $targetDistance<30){
                     if($targetDistance<2)
                     {
-                        // $this->fire(-1, $mobX, $mobY, $angle);
+                        if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                            $this->fire(-1, $mobX, $mobY, $angle);
+                            $this->db->updateMobTimestamp($mob->id); 
+                        } 
                         continue;
                     }
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    // $this->fire(-1, $mobX, $mobY, $angle);            
+                    if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                        $this->fire(-1, $mobX, $mobY, $angle);            
+                        $this->db->updateMobTimestamp($mob->id); 
+                    }
                 }
                 else continue;
             }
@@ -129,7 +135,10 @@ class Game extends BaseModule
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
-                // $this->fire(-1, $targetCoord[0], $targetCoord[0], $angle);            
+                if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                    $this->fire(-1, $mobX, $mobY, $angle);     
+                    $this->db->updateMobTimestamp($mob->id); 
+                }
             }
             $distance = $mob->movementSpeed * ($this->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
@@ -208,11 +217,9 @@ class Game extends BaseModule
 
             $dx = $gamer->x - $xx;
             $dy = $gamer->y - $yy;
-            print(sqrt($dx * $dx + $dy * $dy));
             if (sqrt($dx * $dx + $dy * $dy)<=0.2){
                 // Сюда запихиваем метод по уменьшению у геймера $gamer->id
                 $this->db->deleteBullet($id);
-                print('Попал');
             }
         }
     }
@@ -270,11 +277,11 @@ class Game extends BaseModule
     }
 
     private function getBullets() {
-        return $this->db->getBullets();
+        return $this->db->getAllBullets();
     }
 
     private function getTanks() {
-        return $this->db->getTanks();
+        return $this->db->getAllTanks();
     }
 
     // Обновление сцены

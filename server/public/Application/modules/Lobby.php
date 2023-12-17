@@ -8,12 +8,8 @@ require_once('BaseModule.php');
         public function __construct($db){
             parent::__construct($db);
             $this->lobbyState = array(
-                "general" => false,
-                "bannerman" => true, 
-                "commander" => false,
-                "mechanic" => false,
-                "gunner" => false,
-                "infantryRPG" => false
+                "general" => true,
+                "bannerman" => true
                 );
         }
 
@@ -37,8 +33,8 @@ require_once('BaseModule.php');
                         break;
                     }
             }
-            if($is_middle) $this->db->addMiddleTank('m', $driverId, $gunnerId);
-            else $this->db->addHeavyTank('h', $driverId, $gunnerId, $commanderId);
+            if($is_middle) $this->db->addMiddleTank($driverId, $gunnerId);
+            else $this->db->addHeavyTank($driverId, $gunnerId, $commanderId);
         }
 
         private function checkTanks($userId)
@@ -51,13 +47,11 @@ require_once('BaseModule.php');
                     $usersByTank[$tankId] = [];
                 array_push($usersByTank[$tankId], $tankman);
             }
-            print_r(json_encode($usersByTank));
             $result['heavyTank'] = [];
             $result['middleTank'] = [];
             $tankKeys = array_keys($usersByTank);
             
             foreach($tankKeys as $tankKey){
-                print_r($tankKey);
                 $heavyTank = array(
                     "id" => $tankKey,
                     "Gunner" => false,
@@ -114,42 +108,20 @@ require_once('BaseModule.php');
         function checkRoleAvailability($userId){
             $lobby = $this->db->getLobby();
             $gamerRank = $this->db->getRankById($userId);
-            $persons = $this->db->getPersons();
-            foreach($persons as $person) {
-                switch($person->person_id){
-                    case 1: 
-                        $this->lobbyState['general'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;
-                    case 3: 
-                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;
-                    case 4: 
-                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;
-                    case 5: 
-                        $this->lobbyState['commander'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;  
-                    case 6: 
-                        $this->lobbyState['gunner'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;                   
-                    case 7: 
-                        $this->lobbyState['mechanic'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;
-                    case 9: 
-                        $this->lobbyState['infantryRPG'] = $gamerRank->level >= $person->level ?  true : false;
-                        break;    
-                    }
-            }
             foreach($lobby as $role) {
                 switch($role->person_id){
                     case 1: 
-                        $this->lobbyState['general'] = false;
+                        if($role->experience < $gamerRank->gamer_exp) 
+                            $this->lobbyState['general'] = true;
+                        else
+                            $this->lobbyState['general'] = false;
                         break;
                     case 2: 
                         $this->lobbyState['bannerman'] = false;
                         break;
                 }
             }
+            
         }
 
         function setTankRole($userId, $roleId, $tankId){
@@ -184,7 +156,7 @@ require_once('BaseModule.php');
             $nowPerson = $this->db->getPerson($roleId);
             $gamerRank = $this->db->getRankById($userId);
             $minPersonLevel = $this->db->getMinPersonLevelById($roleId);
-            if(!$nowPerson || in_array($roleId, array(3, 4, 5, 6, 7, 9))){
+            if(!$nowPerson || in_array($roleId, array(3, 4, 5, 6, 7))){
                 if(($gamerRank->level>=$minPersonLevel->level)){
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);    
@@ -225,9 +197,17 @@ require_once('BaseModule.php');
                 case 'heavyTankCommander': return $this->setRoleHandler(5, $userId, $tankId);                        
                 case 'middleTankMeh': return $this->setRoleHandler(6, $userId, $tankId);
                 case 'middleTankGunner': return $this->setRoleHandler(7, $userId, $tankId);
-                case 'infantryRPG': return $this->setRoleHandler(9, $userId, $tankId); 
+                case 'infantryRPG': 
+                {
+                    $this->db->deleteGamerInTank($userId);
+                    $this->db->setGamerRole($userId, 9);
+                    $hashLobby = hash('sha256', $this->v4_UUID());
+                    $this->db->updateLobbyHash($hashLobby);
+                    return true;
+                }
                 case 'infantry': 
-                    {
+                {
+                    $this->db->deleteGamerInTank($userId);
                     $this->db->setGamerRole($userId, 8);
                     $hashLobby = hash('sha256', $this->v4_UUID());
                     $this->db->updateLobbyHash($hashLobby);
@@ -243,10 +223,18 @@ require_once('BaseModule.php');
                 $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks($userId);
                 $this->lobbyState['tanks'] = $tanks;
-                $is_alive = $this->db->getGamerStatus($userId);
-                $this->lobbyState['is_alive'] = ($is_alive && $is_alive->status=="alive") ? true : false; 
+                $status = $this->db->getGamerStatus($userId);
+                $role = $status->person_id ? $status->person_id:false;
+                $this->lobbyState['is_alive'] = ($status && $status->status=="alive") ? true : false;
+                $this->lobbyState['role'] = $status->person_id;
                 return array("lobby" => $this->lobbyState, "lobbyHash" => $hash->hashLobby);
             }
+            return true;
+        }
+
+        function suicide($userId){
+            $this->db->suicide($userId);
+            $this->db->tankExit($userId);  
             return true;
         }
         
