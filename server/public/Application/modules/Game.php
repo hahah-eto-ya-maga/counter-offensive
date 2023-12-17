@@ -115,6 +115,7 @@ class Game extends BaseModule
                 if($targetDistance && $targetGamer && $targetDistance<30){
                     if($targetDistance<2)
                     {
+                        $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                         if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->fire(-1, $mobX, $mobY, $angle);
                             $this->db->updateMobTimestamp($mob->id); 
@@ -378,7 +379,6 @@ class Game extends BaseModule
     {
         $gamer = $this->db->getGamerById($userId);
         if(in_array($gamer->person_id, array(4, 6))){
-            print($x."  ".$y." ".$userId);
             $this->db->updateTankMove($userId, $x, $y);
         }
         else $this->db->updateMove($userId, $x, $y);
