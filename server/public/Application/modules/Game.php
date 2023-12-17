@@ -348,16 +348,31 @@ class Game extends BaseModule
         return $result;
     }
     
-    public function rotate($user_id, $angle)
+    public function rotate($userId, $angle, $towerAngle)
     {
-        $this->db->updateRotate($user_id, $angle);
+        $gamer = $this->db->getGamerById($userId);
+        if(in_array($gamer->person_id, array(3, 7))){
+            if (!$towerAngle) return array(false, 400);
+            $this->db->updateTowerRotate($userId, $angle);
+        }
+        if(in_array($gamer->person_id, array(4, 6))){
+            $this->db->updateTankRotate($userId, $angle);
+        }
+        if($gamer->person_id == 4){
+            $this->db->updateCommanderRotate($userId, $angle);
+        }
+        else $this->db->updateRotate($userId, $angle);
         $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
        return true;
     }
 
-    public function move($user_id, $x, $y)
+    public function move($userId, $x, $y)
     {
-        $this->db->updateMove($user_id, $x, $y);
+        $gamer = $this->db->getGamerById($userId);
+        if(in_array($gamer->person_id, array(4, 6))){
+            $this->db->updateTankMove($userId, $x, $y);
+        }
+        else $this->db->updateMove($userId, $x, $y);
         $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
        return true;
     }

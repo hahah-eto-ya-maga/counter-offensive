@@ -169,15 +169,35 @@ class DB {
     }
     
     function updateMove($user_id, $x, $y){
-        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE `gamers`.`user_id` = ?;";
+        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE user_id = ?;";
         $this->queryHandler($query, [$x, $y, $user_id],true);
     }
 
     function updateRotate($user_id, $angle){
-        $query= "UPDATE `gamers` SET `angle` = ? WHERE `gamers`.`user_id` = ?;";
+        $query= "UPDATE `gamers` SET `angle` = ? WHERE user_id = ?;";
         $this->queryHandler($query, [$angle, $user_id],true);
     }
-    
+
+    function updateTowerRotate($user_id, $angle){
+        $query= "UPDATE `tanks` SET `tower_angle` = ? WHERE gunner_id = ?;";
+        $this->queryHandler($query, [$angle, $user_id],true);
+    }
+
+    function updateTankRotate($user_id, $angle){
+        $query= "UPDATE `tanks` SET `angle` = ? WHERE driver_id = ?;";
+        $this->queryHandler($query, [$angle, $user_id],true);
+    }
+
+    function updateTankMove($user_id, $x, $y){
+        $query= "UPDATE `tanks` SET x=?, y=? WHERE driver_id = ?;";
+        $this->queryHandler($query, [$x, $y, $user_id],true);
+    }
+
+    function updateCommanderRotate($user_id, $angle){
+        $query= "UPDATE `tanks` SET `angle` = ? WHERE commander_id = ?;";
+        $this->queryHandler($query, [$angle, $user_id],true);
+    }
+
     /* Обновление хэша*/
 
     function getHashes() {
