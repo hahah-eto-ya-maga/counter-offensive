@@ -146,6 +146,8 @@ require_once('BaseModule.php');
             }
             else if($nowPerson->user_id != $userId){
                 if($roleId==1){
+                    if($gamerRank->level<$minPersonLevel->level)
+                        return array(false, 234);
                     if ($gamerRank->gamer_exp>$nowPerson->experience){
                         $this->db->deleteRole($roleId);
                         $this->db->deleteGamerInTank($userId);
