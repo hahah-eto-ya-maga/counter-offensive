@@ -173,15 +173,12 @@ class Application
         $token = $params['token'] ?? false;
         $angle = $params['angle'] ?? false;
         $towerAngle = $params['towerAngle'] ?? false;
-        if( $angle && $token){
-            if(is_float((float)$angle)){
+        if($token){
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
                 return $this->game->rotate($user->id,$angle, $towerAngle); 
             } 
             return array(false, 401);
-        }
-        return array(false,422);
         }
     return array(false, 400);
     }

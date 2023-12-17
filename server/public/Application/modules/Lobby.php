@@ -20,16 +20,16 @@ require_once('BaseModule.php');
                         $gunnerId = $tankMan->user_id; 
                         break;
                     case 4:
-                        $commanderId = $tankMan->user_id; 
+                        $driverId = $tankMan->user_id; 
                         break;    
                     case 5:
-                        $driverId = $tankMan->user_id; 
+                        $commanderId = $tankMan->user_id; 
                         break;
                     case 6:
-                        $gunnerId = $tankMan->user_id; 
+                        $driverId = $tankMan->user_id; 
                         break;
                     case 7:
-                        $driverId = $tankMan->user_id; 
+                        $gunnerId = $tankMan->user_id; 
                         break;
                     }
             }

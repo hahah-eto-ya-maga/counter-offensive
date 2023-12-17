@@ -501,8 +501,8 @@ Error(401) - Пользователя не существует
 |Параметр|Тип|Комментарий|
 |-|-|-|
 |token|string|```sha256(uuid4)```|
-|angle|string||
-|towerAngle|string||
+|angle|string|```Необязательный```|
+|towerAngle|string|```Необязательный```|
 
 ### Значение если успех
 ```
