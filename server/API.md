@@ -167,8 +167,6 @@ gamer = {
     user_id: integer,
     x: float,
     y: float,
-    x: float,
-    y: float,
     angle: float
 } 
 ```
@@ -194,6 +192,7 @@ bullets = [
 ```
 scene = {
     gamers: gamers,
+    tanks: tanks
     hashGamers: string,
     mobs: mobs,
     hashMobs: string,

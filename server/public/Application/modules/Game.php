@@ -312,14 +312,20 @@ class Game extends BaseModule
             $result['tanks'] = $this->getTanks();
             $result['hashGamers'] = $hashes->hashGamers;
         }
+        else {
+            $result['gamers'] = true;
+            $result['tanks'] = true;
+        }
         if ($hashes->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
         }
+        else $result['mobs'] = true;
         if ($hashes->hashBullets !== $hashBullets) {
             $result['bullets'] = $this->getBullets();
             $result['hashBullets'] = $hashes->hashBullets;
         }
+        else $result['bullets'] = true;
 
         
         //...
