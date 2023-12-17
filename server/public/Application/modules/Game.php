@@ -10,9 +10,13 @@ class Game extends BaseModule
     private $game;
 
     private $bullets;
-    private $timer;
-    private $timeout;
+    
+    private $time;
 
+    private $winer;
+
+    private $checkEnd;
+    
     private $map;
 
     function __construct($db) {
@@ -103,7 +107,7 @@ class Game extends BaseModule
             $targetGamer = null;
             $targetDistance = null;
             // print($this->duration);
-            if($this->timer - $mob->path_update > 1000){
+            if($this->time->timer - $mob->path_update > 1000){
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                         continue;
@@ -116,7 +120,7 @@ class Game extends BaseModule
                     if($targetDistance<2)
                     {
                         $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                        if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                        if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->fire(-1, $mobX, $mobY, $angle);
                             $this->db->updateMobTimestamp($mob->id); 
                         } 
@@ -125,7 +129,7 @@ class Game extends BaseModule
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                    if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                         $this->fire(-1, $mobX, $mobY, $angle);            
                         $this->db->updateMobTimestamp($mob->id); 
                     }
@@ -136,12 +140,12 @@ class Game extends BaseModule
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
-                if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                     $this->fire(-1, $mobX, $mobY, $angle);     
                     $this->db->updateMobTimestamp($mob->id); 
                 }
             }
-            $distance = $mob->movementSpeed * ($this->timeout / 1000);
+            $distance = $mob->movementSpeed * ($this->time->timer / 1000);
             $distance = $distance > 1 ? 1:$distance;
             $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
             $newDistance = $distance - $distanceToNextCell;
@@ -267,6 +271,46 @@ class Game extends BaseModule
         
     }
 
+    /* Конец игры */
+
+    private function mobBannermanInZone(){
+        $bannerman = $this->db->getMobBannerman();
+        $dist = $this->calculateDistance($bannerman->x, $bannerman->playersBaseX, $bannerman->y, $bannerman->playersBaseY);
+        if($dist <= $bannerman->baseRadius){
+            if($this->time->mBanner_timestamp == 0){
+                $this->db->updateMobBannermanTimestamp($this->time->timer); 
+            }
+            return true;
+        }
+        if ($this->time->mBanner_timestamp != 0) $this->db->updateMobBannermanTimestamp(0);
+        return false;
+    }
+
+    private function playerBannermanInZone(){
+        $bannerman = $this->db->getBannerman();
+        $dist = $this->calculateDistance($bannerman->x, $bannerman->mobBaseX, $bannerman->y, $bannerman->mobBaseY);
+        if($dist <= $bannerman->baseRadius){
+            if($this->time->pBanner_timestamp == 0){
+                $this->db->updatePlayerBannermanTimestamp($this->time->timer); 
+            }
+            return true;
+        }
+        if ($this->time->pBanner_timestamp != 0) $this->db->updatePlayerBannermanTimestamp(0);
+        return false;
+    }
+
+    function endGame(){
+        $mob = $this->mobBannermanInZone();
+        $player = $this->playerBannermanInZone();
+        if($mob || $player){
+            if($this->time->timer - $this->time->pBanner_timestamp >= $this->time->banner_timeout)
+                return 1; 
+            if($this->time->timer - $this->time->mBanner_timestamp >= $this->time->banner_timeout)
+                return 2;
+        }
+    }
+
+
     /* Получение данных */
 
     private function getGamers() {
@@ -298,19 +342,23 @@ class Game extends BaseModule
         // Пули
         $this->shootRegs();
         $this->moveBullets();
+        // Проверка знаменосца
+        $this->winer = $this->endGame();
         // Смерть сущности
         $this->checkDead();
     }
 
     private function update() {
-        $time = $this->db->getTime();
-        $this->timer = $time->timer;
-        $this->timeout = $time->timeout;
-        if ($time->timer - $time->timestamp >= $time->timeout)
-            $this->db->updateTimestamp($time->timer);
+        $this->time = $this->db->getTime();
+        if ($this->time->timer - $this->time->timestamp >= $this->time->timeout)
+            $this->db->updateTimestamp($this->time->timer);
             $this->updateScene();
+        // взять текущее время time()
+        // взять $timestamp из БД
+        // если time() - $timestamp >= $timeout (взять из БД)
+        // то обновить сцену и $timestamp = time()
     }
-
+    
     function getScene($userId, $hashGamers, $hashMobs, $hashBullets) { 
         $this->update();
         $result = array();
@@ -334,6 +382,14 @@ class Game extends BaseModule
             $result['hashBullets'] = $hashes->hashBullets;
         }
         else $result['bullets'] = true;
+        if($this->winer){
+            switch($this->winer){
+            case 1:
+                $result['winer'] = 'Gamers';
+            case 2:
+                $result['winer'] = "Mobs";
+            }
+        }
 
         
         //...

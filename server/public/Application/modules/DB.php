@@ -133,7 +133,7 @@ class DB {
     }
 
     public function getTime() {
-        $query = "SELECT timestamp, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) as timer, timeout FROM game WHERE id=1";
+        $query = "SELECT timestamp, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) as timer, timeout, banner_timeout, pBanner_timestamp, mBanner_timestamp FROM game WHERE id=1";
         return $this->queryHandler($query, [], true);
     }
 
@@ -425,6 +425,42 @@ class DB {
     public function setTankBodies($x, $y, $angle, $bodytype){
         $query = "INSERT INTO bodies (x, y, angle, bodytype) VALUES (?, ?, ?, ?)";
         $this->queryHandler($query, [$x, $y, $angle, $bodytype]);
+    }
+
+    /*Знаменосец*/
+
+    function getBannerman(){
+        $query = "SELECT ga.x AS x, ga.y AS y, g.mobBase_x AS mobBaseX, g.mobBase_y AS mobeBaseY,
+        g.playersBase_x AS playerBaseX, g.playersBase_y AS playersBaseY, g.base_radius AS baseRadius
+        FROM game g JOIN gamers ga ON ga.person_id=2 ";
+        return $this->queryHandler($query, [], true);
+    }
+
+    function getMobBannerman(){
+        $query = "SELECT m.x AS x, m.y AS y, g.mobBase_x AS mobBaseX, g.mobBase_y AS mobeBaseY,
+        g.playersBase_x AS playerBaseX, g.playersBase_y AS playersBaseY, g.base_radius AS baseRadius
+        FROM game g JOIN mobs m ON m.person_id=2 ";
+        return $this->queryHandler($query, [], true);
+    }
+
+    public function getBannermanTime() {
+        $query = "SELECT banner_timestamp, NOW()+ 0 as nowTime, banner_timeout FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
+    public function updatePlayerBannermanTimestamp($timestamp) {
+        $query = "UPDATE game SET pBanner_timestamp=? WHERE id=1";
+        return $this->queryHandler($query, [$timestamp]);
+    }
+
+    public function updateMobBannermanTimestamp($timestamp) {
+        $query = "UPDATE game SET mBanner_timestamp=? WHERE id=1";
+        return $this->queryHandler($query, [$timestamp]);
+    }
+
+    public function getMobPerson($personId){
+        $query = "SELECT * FROM mobs WHERE person_id=? ;";
+        return $this->queryHandler($query,[$personId], true);
     }
 
 }
