@@ -143,7 +143,7 @@ class DB {
     }
 
     function getAllBullets() {
-        $query = "SELECT type, x2, y2, angle FROM bullets";
+        $query = "SELECT type, x2 AS x, y2 AS y, angle FROM bullets";
         return $this->queryHandlerAll($query, []);
     }
 
