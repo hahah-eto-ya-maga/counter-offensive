@@ -155,7 +155,7 @@ class Application
     function getScene($params) {
         $token = $params['token'] ?? false;
         $hashMap = $params['hashMap'] ?? false;
-        $hashGamers = $params['hashPlayers'] ?? false;
+        $hashGamers = $params['hashGamers'] ?? false;
         $hashMobs = $params['hashMobs'] ?? false;
         $hashBullets = $params['hashBullets'] ?? false;
         $hashBodies = $params['hashBodies'] ?? false;
