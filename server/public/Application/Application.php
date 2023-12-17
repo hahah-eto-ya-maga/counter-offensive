@@ -172,13 +172,15 @@ class Application
     function rotate($params){
         $token = $params['token'] ?? false;
         $angle = $params['angle'] ?? false;
-        $towerAngle = $params['towerAngle'] ?? false;
-        if($token){
-            $user = $this->user->getUser($token);
-            if ($user != null && $user->token != 0 && $user->token != null) {
-                return $this->game->rotate($user->id,$angle, $towerAngle); 
-            } 
-            return array(false, 401);
+        if($token && $angle){
+            if (is_numeric($angle)) {
+                $user = $this->user->getUser($token);
+                if ($user != null && $user->token != 0 && $user->token != null) {
+                    return $this->game->rotate($user->id, $angle); 
+                } 
+                return array(false, 401);
+            }
+            return array(false, 422);
         }
     return array(false, 400);
     }
@@ -189,11 +191,14 @@ class Application
         $y = $params['y'] ?? false;
         $angle = $params['angle'] ?? false;
         if($token && $x && $y && $angle){
-            $user = $this->user->getUser($token);
-            if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->game->fire($user->id, $x, $y, $angle); 
+            if (is_numeric($angle) && is_numeric($x) && is_numeric($y)) {
+                $user = $this->user->getUser($token);
+                if (($user != null && $user->token != 0 && $user->token != null)) {
+                    return $this->game->fire($user->id, $x, $y, $angle); 
+                }
+                return array(false, 401);
             }
-            return array(false, 401);
+            return array(false, 422);
         }  
         return array(false, 400);
     }
