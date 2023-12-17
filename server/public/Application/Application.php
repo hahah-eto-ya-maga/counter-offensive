@@ -151,21 +151,19 @@ class Application
         return array(false, 400);
     }
 
-    function move($params)
-    {
+    function rotate($params){
         $token = $params['token'] ?? false;
-        $x = $params['x'] ?? false;
-        $y = $params['y'] ?? false;
-        if ($x !== false && $y !== false && $token) {
-            if (is_numeric($x) && is_numeric($y)) {
-                $user = $this->user->getUser($token);
-                if ($user != null && $user->token != 0 && $user->token != null) {
-                    return $this->game->move($user->id, $x, $y);
-                }
-                return array(false, 401);
+        $angle = $params['angle'] ?? false;
+        if( ($angle !== false) && $token){
+            if(is_numeric($angle)){
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->rotate($user->id,$angle);
             }
-            return array(false, 422);
+            return array(false, 401);
         }
-        return array(false, 400);
+        return array(false,422);
+        }
+    return array(false, 400);
     }
 }
