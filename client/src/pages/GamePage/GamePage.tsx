@@ -2,7 +2,7 @@ import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServerContext } from "../../App";
 import { Chat } from "../../components";
-import GameCanvas from "../../modules/Graph/GameCanvas";
+import GameCanvas from "./components/GameCanvas";
 import "./GamePage.css";
 
 const GamePage: React.FC = () => {

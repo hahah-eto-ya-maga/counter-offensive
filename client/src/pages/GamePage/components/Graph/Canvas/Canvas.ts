@@ -1,4 +1,4 @@
-import { TPoint, TWIN, TUnit } from "../../../pages/GamePage/types";
+import { TPoint, TWIN, TUnit } from "../../../types";
 import { ISceneObjects } from "../../Game/Game";
 
 export interface ICanvasOption {
@@ -50,6 +50,12 @@ class Canvas {
       window.addEventListener("keydown", keydown);
       window.addEventListener("keyup", keyup);
       window.addEventListener("mousemove", mousemove);
+
+      window.addEventListener("contextmenu", (event: Event) => {
+            event.preventDefault();
+         },
+         false
+      );
    }
    // переходи из Декартовой системы в Канвасную
    xs(x: number): number {

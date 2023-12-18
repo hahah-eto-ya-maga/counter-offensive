@@ -1,4 +1,4 @@
-import { IPressedKeys } from "../../../../../modules/Graph/GameCanvas";
+import { IPressedKeys } from "../../GameCanvas";
 
 export default class Unit {
    x: number;

@@ -1,4 +1,4 @@
-import Canvas, { ICanvasOption } from "../Canvas/Canvas";
+import Canvas, { ICanvasOption } from "../Graph/Canvas/Canvas";
 
 const useCanvas = (render = (FPS: number) => {}) => {
     let FPS = 0;

@@ -1,4 +1,4 @@
-import { TWIN, TPoint } from "../../types";
+import { TWIN, TPoint } from "../../../types";
 
 interface IMath {
   WIN: TWIN;

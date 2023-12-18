@@ -1,5 +1,5 @@
-import { ISceneObjects } from "../../../../modules/Game/Game";
-import { TPoint, TUnit,  } from "../../types";
+import { ISceneObjects } from "../Game";
+import { TPoint, TUnit,  } from "../../../types";
 
 export interface ICollisionOptions {
   

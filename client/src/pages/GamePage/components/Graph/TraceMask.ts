@@ -1,9 +1,9 @@
 import internal from "stream";
-import { MAP_SIZE } from "../../config";
-import { TPoint, TWIN } from "../../pages/GamePage/types";
+import { MAP_SIZE } from "../../../../config";
+import { TPoint, TWIN } from "../../types";
 import { ISceneObjects } from "../Game/Game";
 import Canvas from "./Canvas/Canvas";
-import Unit from "../../pages/GamePage/components/Game/Units/Unit";
+import Unit from "../Game/Units/Unit";
 
 interface ITraceMaskProps {
    canvas: Canvas;
