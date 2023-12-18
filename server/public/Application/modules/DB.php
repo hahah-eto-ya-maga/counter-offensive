@@ -337,7 +337,12 @@ class DB {
         return $this->queryHandlerAll($query, []);
     }
 
-    
+    function getTankByUserId($userId) {
+        $query = "SELECT x, y, angle, tower_angle, commander_angle FROM tanks
+        WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
+        return $this->queryHandler($query, [$userId, $userId, $userId], true);
+    }
+
     function getPerson($personId) {
         $query = "SELECT * FROM gamers WHERE person_id=? ;";
         return $this->queryHandler($query,[$personId], true);
@@ -426,5 +431,4 @@ class DB {
         $query = "INSERT INTO bodies (x, y, angle, bodytype) VALUES (?, ?, ?, ?)";
         $this->queryHandler($query, [$x, $y, $angle, $bodytype]);
     }
-
 }
