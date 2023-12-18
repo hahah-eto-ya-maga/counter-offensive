@@ -126,6 +126,7 @@ tanks = {
 lobbyState = {
     lobby: lobby,
     is_alive: bool,
+    role: integer,
     lobbyHash:string
 }
 ```

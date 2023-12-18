@@ -189,7 +189,7 @@ class DB {
     }
 
     function getGamerStatus($userId) {
-        $query = "SELECT status FROM gamers WHERE id=?";
+        $query = "SELECT status, person_id FROM gamers WHERE id=?";
         return $this->queryHandler($query, [$userId], true);
     }
 
