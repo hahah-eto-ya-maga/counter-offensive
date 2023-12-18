@@ -215,7 +215,7 @@ class DB {
     }
 
     function getTankByUserId($userId) {
-        $query = "SELECT x, y, angle, tower, angle FROM tanks
+        $query = "SELECT x, y, angle, tower_angle, commander_angle FROM tanks
         WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
         return $this->queryHandler($query, [$userId, $userId, $userId], true);
     }
