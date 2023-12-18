@@ -4,7 +4,6 @@ require_once("modules/User.php");
 require_once("modules/Chat.php");
 require_once("modules/Lobby.php");
 require_once("modules/Game.php");
-require_once("modules/Game.php");
 
 
 class Application
@@ -25,7 +24,7 @@ class Application
         $this->chat = new Chat($db);
         $this->lobby = new Lobby($db);
         $this->game = new Game($db);
-        $this->game = new Game($db);
+
     }
 
 
@@ -167,7 +166,7 @@ class Application
                 return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets);
             }
             return array(false, 401);
-        }
+        }  
         return array(false, 400);
     }
 

@@ -483,4 +483,28 @@ class DB {
         return $this->queryHandler($query,[$personId], true);
     }
 
+    function getObjectHp($id) {
+        $query = "SELECT hp FROM objects WHERE id=?";
+        return $this ->queryHandler($query, [$id], true);
+    }
+
+    function deleteObject($objectId) {
+        $query = "DELETE FROM objects WHERE id = ?";
+        $this ->queryHandler($query, [$objectId]);
+    }
+
+    function updateObjectHp($id, $newHp) {
+        $query = "UPDATE objects SET hp = ? WHERE id = ?";
+        $this->queryHandler($query, [$newHp, $id]);
+    }
+
+    function getObjectById($id) {
+        $query = "SELECT type, hp, x, y, size FROM objects WHERE id=?";
+        return $this -> queryHandler($query, [$id], true);
+    }
+
+    function addObject($type, $hp, $x, $y, $size) {
+        $query = "INSERT INTO objects (type, hp, x, y, size) VALUES(?, ?, ?, ?)"; 
+        $this->queryHandler($query, [$type, $hp, $x, $y, $size]);
+    }
 }
