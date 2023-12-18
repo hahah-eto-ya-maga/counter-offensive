@@ -10,9 +10,13 @@ class Game extends BaseModule
     private $game;
 
     private $bullets;
-    private $timer;
-    private $timeout;
+    
+    private $time;
 
+    private $winer;
+
+    private $checkEnd;
+    
     private $map;
 
     function __construct($db) {
@@ -103,7 +107,7 @@ class Game extends BaseModule
             $targetGamer = null;
             $targetDistance = null;
             // print($this->duration);
-            if($this->timer - $mob->path_update > 1000){
+            if($this->time->timer - $mob->path_update > 1000){
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                         continue;
@@ -116,7 +120,7 @@ class Game extends BaseModule
                     if($targetDistance<2)
                     {
                         $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                        if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                        if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->fire(-1, $mobX, $mobY, $angle);
                             $this->db->updateMobTimestamp($mob->id); 
                         } 
@@ -125,7 +129,7 @@ class Game extends BaseModule
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                    if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                         $this->fire(-1, $mobX, $mobY, $angle);            
                         $this->db->updateMobTimestamp($mob->id); 
                     }
@@ -136,18 +140,17 @@ class Game extends BaseModule
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
-                if ($this->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                     $this->fire(-1, $mobX, $mobY, $angle);     
                     $this->db->updateMobTimestamp($mob->id); 
                 }
             }
-            $distance = $mob->movementSpeed * ($this->timeout / 1000);
+            $distance = $mob->movementSpeed * ($this->time->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
             $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
             $newDistance = $distance - $distanceToNextCell;
             if($newDistance>0){
                 $newCoords = $this->calculateShiftPoint($path[1][0], $path[1][1], $path[2][0], $path[2][1], $newDistance);    
-                
             }
             else{
                 $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);    
@@ -174,7 +177,6 @@ class Game extends BaseModule
         if ($x>=120 || $x<=0 || $y>=150 || $y<=0){
             $this->db->deleteBullet($id);
         } else {
-            $x3 = 2*cos($angle);
             $x2 = $x + 2*cos($angle);
             $y2 = $y + 2*sin($angle);
             $this->db->updateBullet($x, $y, $x2, $y2, $id);
@@ -182,47 +184,91 @@ class Game extends BaseModule
     }
 
     private function shootRegs(){
-        if (!$this->bullets || !$this->gamers){
+        if (!$this->bullets){
             return 0;
         }
         foreach($this->bullets as $bullet){
-            $this->shootReg($bullet->id, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2);
+            $minRange = [-1,0,150,0];
+            $range = 0;
+            foreach($this->gamers as $gamer){
+                if($gamer->status == 'alive'){
+                    $range = $this->shootReg($gamer->x, $gamer->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+                    if($range && $range<$minRange[2]){
+                        $minRange[0] = 1;
+                        $minRange[1] = $gamer->id;
+                        $minRange[2] = $range;
+                        $minRange[3] = $gamer->hp - 20;
+                        print("Попали в человека");
+                    }
+                }
+                
+            }
+            foreach($this->tanks as $tank){
+                $range = $this->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.5);
+                if($range && $range<$minRange[2]){
+                    $minRange[0] = 2;
+                    $minRange[1] = $tank->id;
+                    $minRange[2] = $range;
+                    $minRange[3] = $tank->hp - 20;
+                    print("Попали в танк");
+                }
+            }
+            foreach($this->mobs as $mob){
+                $range = $this->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+                if($range && $range<$minRange[2]){
+                    $minRange[0] = 2;
+                    $minRange[1] = $mob->id;
+                    $minRange[2] = $range;
+                    $minRange[3] = $mob->hp - 20;
+                    print("Попали в моба");
+                }
+            }
+
+            switch($minRange[0]){
+                case -1: return 0;
+                case 1: $this->db->lowerHpGamer($minRange[1], $minRange[3]);
+                case 2: $this->db->lowerHpTank($minRange[1], $minRange[3]);
+                case 3: $this->db->lowerHpMob($minRange[1], $minRange[3]);
+            } 
+            $this->db->deleteBullet($bullet->id);
         }
         
+        
     }
-    private function shootReg($id, $x1, $y1, $x2, $y2) {
-        foreach($this->gamers as $gamer){
-            $A = $gamer->x - $x1;
-            $B = $gamer->y - $y1;
-            $C = $x2 - $x1;
-            $D = $y2 - $y1;
+    private function shootReg($x, $y, $x1, $y1, $x2, $y2, $area) {
+        
+        $A = $x - $x1;
+        $B = $y - $y1;
+        $C = $x2 - $x1;
+        $D = $y2 - $y1;
 
-            $dot = $A * $C + $B * $D;
-            $len_sq = $C * $C + $D * $D;
-            $param = -1;
-            if ($len_sq != 0) {
-                    $param = $dot / $len_sq;
-            }
-            $xx = $yy = 0;
-
-            if ($param < 0) {
-                $xx = $x1;
-                $yy = $y1;
-            } else if ($param > 1) {
-                $xx = $x2;
-                $yy = $y2;
-            } else {
-                $xx = $x1 + $param * $C;
-                $yy = $y1 + $param * $D;
-            }
-
-            $dx = $gamer->x - $xx;
-            $dy = $gamer->y - $yy;
-            if (sqrt($dx * $dx + $dy * $dy)<=0.2){
-                // Сюда запихиваем метод по уменьшению у геймера $gamer->id
-                $this->db->deleteBullet($id);
-            }
+        $dot = $A * $C + $B * $D;
+        $len_sq = $C * $C + $D * $D;
+        $param = -1;
+        if ($len_sq != 0) {
+                $param = $dot / $len_sq;
         }
+        $xx = $yy = 0;
+
+        if ($param < 0) {
+            $xx = $x1;
+            $yy = $y1;
+        } else if ($param > 1) {
+            $xx = $x2;
+            $yy = $y2;
+        } else {
+            $xx = $x1 + $param * $C;
+            $yy = $y1 + $param * $D;
+        }
+
+        $dx = $x - $xx;
+        $dy = $y - $yy;
+        $sqrt = sqrt($dx * $dx + $dy * $dy);
+        if ($sqrt<=$area){
+            return ($A*$A+$B*$B);
+        }
+        return false;
+        
     }
 
     /* Удаление мертвецов */
@@ -267,6 +313,70 @@ class Game extends BaseModule
         
     }
 
+    /* Конец игры */
+
+    private function mobBannermanInZone(){
+        $bannerman = $this->db->getMobBannerman();
+        if (!$bannerman){
+            if ($this->time->mBanner_timestamp != 0) $this->db->updateMobBannermanTimestamp(0);
+            $this->time->mBanner_timestamp = 0;
+            return false;
+        }
+        $dist = $this->calculateDistance($bannerman->x, $bannerman->playersBaseX, $bannerman->y, $bannerman->playersBaseY);
+        if($dist <= $bannerman->baseRadius){
+            if($this->time->mBanner_timestamp == 0){
+                $this->db->updateMobBannermanTimestamp($this->time->timer); 
+                $this->time->mBanner_timestamp = $this->time->timer;
+            }
+            return true;
+        }
+        if ($this->time->mBanner_timestamp != 0){
+            $this->db->updateMobBannermanTimestamp(0);
+            $this->time->mBanner_timestamp = 0;
+        }
+        return false;
+    }
+
+    private function playerBannermanInZone(){
+        $bannerman = $this->db->getBannerman();
+        if (!$bannerman){
+            if ($this->time->pBanner_timestamp != 0){
+                $this->db->updatePlayerBannermanTimestamp(0);
+                $this->time->pBanner_timestamp = 0;
+            }
+            return false;
+        }
+        $dist = $this->calculateDistance($bannerman->x, $bannerman->mobBaseX, $bannerman->y, $bannerman->mobBaseY);
+        if($dist <= $bannerman->baseRadius){
+            if($this->time->pBanner_timestamp == 0){
+                $this->db->updatePlayerBannermanTimestamp($this->time->timer); 
+                $this->time->pBanner_timestamp == $this->time->timer;
+            }
+            return true;
+        }
+        if ($this->time->pBanner_timestamp != 0){
+            $this->db->updatePlayerBannermanTimestamp(0);
+            $this->time->pBanner_timestamp = 0;
+        }
+        return false;
+    }
+
+    function endGame(){
+        $mob = $this->mobBannermanInZone();
+        $player = $this->playerBannermanInZone();
+        if($player){
+            if($this->time->timer - $this->time->pBanner_timestamp >= $this->time->banner_timeout)
+                return 'g';
+            else return false;
+        } 
+        if($mob){
+            if($this->time->timer - $this->time->mBanner_timestamp >= $this->time->banner_timeout)
+                return 'm';
+            else return false;
+        }
+    }
+
+
     /* Получение данных */
 
     private function getGamers() {
@@ -298,19 +408,23 @@ class Game extends BaseModule
         // Пули
         $this->shootRegs();
         $this->moveBullets();
+        // Проверка знаменосца
+        $this->winer = $this->endGame();
         // Смерть сущности
         $this->checkDead();
     }
 
     private function update() {
-        $time = $this->db->getTime();
-        $this->timer = $time->timer;
-        $this->timeout = $time->timeout;
-        if ($time->timer - $time->timestamp >= $time->timeout)
-            $this->db->updateTimestamp($time->timer);
+        $this->time = $this->db->getTime();
+        if ($this->time->timer - $this->time->timestamp >= $this->time->timeout)
+            $this->db->updateTimestamp($this->time->timer);
             $this->updateScene();
+        // взять текущее время time()
+        // взять $timestamp из БД
+        // если time() - $timestamp >= $timeout (взять из БД)
+        // то обновить сцену и $timestamp = time()
     }
-
+    
     function getScene($userId, $hashGamers, $hashMobs, $hashBullets) { 
         $this->update();
         $result = array();
@@ -334,6 +448,10 @@ class Game extends BaseModule
             $result['hashBullets'] = $hashes->hashBullets;
         }
         else $result['bullets'] = true;
+        if($this->winer){
+            if ($this->winer =='g') $result['winer'] = 'gamers';
+            if ($this->winer =='m') $result['winer'] = 'mobs';
+        }
 
         
         //...

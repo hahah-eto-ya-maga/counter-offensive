@@ -4,6 +4,7 @@ require_once("modules/User.php");
 require_once("modules/Chat.php");
 require_once("modules/Lobby.php");
 require_once("modules/Game.php");
+require_once("modules/Game.php");
 
 
 class Application
@@ -23,6 +24,7 @@ class Application
         $this->user = new User($db);
         $this->chat = new Chat($db);
         $this->lobby = new Lobby($db);
+        $this->game = new Game($db);
         $this->game = new Game($db);
     }
 
@@ -151,7 +153,7 @@ class Application
         }  
         return array(false, 400);
     }
-
+    
     function getScene($params) {
         $token = $params['token'] ?? false;
         $hashMap = $params['hashMap'] ?? false;
@@ -220,6 +222,7 @@ class Application
         }
         return array(false, 400);
     }
+    
     function suicide($params){
         $token = $params['token'] ?? false;
         if($token){

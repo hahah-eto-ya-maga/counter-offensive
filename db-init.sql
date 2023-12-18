@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS `game` (
   `hashTanks` VARCHAR(100) NOT NULL DEFAULT '',
   `timestamp` BIGINT NOT NULL DEFAULT 0,
   `timeout` INT NOT NULL DEFAULT 100,
+  `pBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
+  `mBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
+  `banner_timeout` INT NOT NULL DEFAULT 5000,
+  `mobBase_x` FLOAT NULL DEFAULT NULL,
+  `mobBase_y` FLOAT NULL DEFAULT NULL,
+  `playersBase_x` FLOAT NULL DEFAULT NULL,
+  `playersBase_y` FLOAT NULL DEFAULT NULL,
+  `base_radius` FLOAT NULL DEFAULT 20,
   PRIMARY KEY (`id`)
 );
 
@@ -175,8 +183,8 @@ INSERT INTO `gamers` (`user_id`, `experience`) VALUES
 
 /* Значения по умолчанию в таблице game*/
 
-INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`, `timestamp`) 
-VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1',ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));
+INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`, `timestamp`, `mobBase_x`, `mobBase_y`, `playerBase_x`, `playerBase_y`) 
+VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1',ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000), '30', '30', '3', '3');
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO `ranks` (`name`, `experience`) VALUES 
