@@ -38,12 +38,12 @@ export const Chat = forwardRef<HTMLInputElement | null, IChatProps>(
             const newMessages = await server.getMessages();
             if (newMessages && newMessages !== true) {
                setMessages(newMessages.messages.reverse());
-               server.STORE.setHash(EHash.chatHash, newMessages.chatHash);
+               server.STORE.setHash(EHash.chat, newMessages.chatHash);
             }
          }, requestDelay.chat);
          return () => {
             clearInterval(interval);
-            server.STORE.setHash(EHash.chatHash, null);
+            server.STORE.setHash(EHash.chat, null);
          };
       }, []);
 

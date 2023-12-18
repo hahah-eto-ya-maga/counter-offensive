@@ -34,13 +34,13 @@ export const withLayout = (
          const interval = setInterval(async () => {
             const res = await server.getLobby();
             if (res && res !== true) {
-               server.STORE.setHash(EHash.lobbyHash, res.lobbyHash);
+               server.STORE.setHash(EHash.lobby, res.lobbyHash);
                setLobby(res.lobby);
                res.lobby.is_alive && mediator.get(THROW_TO_GAME);
             }
          }, requestDelay.lobby);
          return () => {
-            server.STORE.setHash(EHash.lobbyHash, null);
+            server.STORE.setHash(EHash.lobby, null);
             clearInterval(interval);
          };
       }, []);

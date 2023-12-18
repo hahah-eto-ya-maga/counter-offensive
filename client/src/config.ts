@@ -33,3 +33,52 @@ export const requestDelay = {
    lobby: 150,
    game: 200,
 };
+
+// Карта статических объектов
+
+const objectConf = {
+   stoneR: 0.5,
+};
+
+export const staticObjects = {
+   houses: [
+      [
+         { x: 4, y: 6.5 },
+         { x: 4, y: 8 },
+         { x: 7, y: 8 },
+         { x: 7, y: 6.5 },
+      ],
+   ],
+   walls: [
+      [
+         { x: -1, y: -1 },
+         { x: -1, y: MAP_SIZE.height + 1 },
+         { x: 0, y: MAP_SIZE.height + 1 },
+         { x: 0, y: -1 },
+      ],
+      [
+         { x: -1, y: -1 },
+         { x: -1, y: 0 },
+         { x: MAP_SIZE.width, y: 0 },
+         { x: MAP_SIZE.width, y: -1 },
+      ],
+      [
+         { x: MAP_SIZE.width, y: -1 },
+         { x: MAP_SIZE.width, y: MAP_SIZE.height + 1 },
+         { x: MAP_SIZE.width + 1, y: MAP_SIZE.height + 1 },
+         { x: MAP_SIZE.width + 1, y: -1 },
+      ],
+      [
+         { x: 0, y: MAP_SIZE.height },
+         { x: 0, y: MAP_SIZE.height + 1 },
+         { x: MAP_SIZE.width, y: MAP_SIZE.height + 1 },
+         { x: MAP_SIZE.width, y: MAP_SIZE.height },
+      ],
+   ],
+
+   stones: [
+      { x: 8, y: 6, r: objectConf.stoneR },
+      { x: 9, y: 5, r: objectConf.stoneR },
+      { x: 3, y: 6, r: objectConf.stoneR },
+   ],
+};
