@@ -41,16 +41,11 @@
 
 .image {
   justify-self: center;
-  background-color: var(--gray);
   font-size: 2vw;
   display: block;
   margin-left: auto;
   margin-right: auto;
   border: 3px solid #000;
-}
-
-.image:hover {
-  background-color: var(--gray-hover);
 }
 
 .image img {
