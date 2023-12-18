@@ -210,7 +210,8 @@ require_once('BaseModule.php');
 
         function suicide($userId){
             $this->db->suicide($userId);
-            $this->db->tankExit($userId);  
+            $this->db->tankExit($userId);
+            $this->db->updateLobbyHash(hash('sha256', $this->v4_UUID()));
             return true;
         }
         
