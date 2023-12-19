@@ -8,6 +8,8 @@ class Game extends BaseModule
     private $gamers;    
     private $tanks;
     private $game;
+    private $objects;
+
 
     private $bullets;
     
@@ -31,7 +33,8 @@ class Game extends BaseModule
     }
 
     function fire($user_id, $x, $y, $angle){
-        $this->db->addBullet($user_id, $x, $y, round($angle,2));
+        $currentAngle = round($angle,2);
+        $this->db->addBullet($user_id, $x+0.25*cos($currentAngle), $y+0.25*sin($currentAngle), $currentAngle);
         $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
         return true;
     }
@@ -130,6 +133,7 @@ class Game extends BaseModule
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                     if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                        print_r($angle." ".round($angle, 2));
                         $this->fire(-1, $mobX, $mobY, $angle);            
                         $this->db->updateMobTimestamp($mob->id); 
                     }
@@ -141,6 +145,7 @@ class Game extends BaseModule
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
                 if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                    print_r($angle." ".round($angle, 2));
                     $this->fire(-1, $mobX, $mobY, $angle);     
                     $this->db->updateMobTimestamp($mob->id); 
                 }
@@ -198,37 +203,57 @@ class Game extends BaseModule
                         $minRange[1] = $gamer->id;
                         $minRange[2] = $range;
                         $minRange[3] = $gamer->hp - 20;
-                        print("Попали в человека");
                     }
                 }
                 
             }
             foreach($this->tanks as $tank){
-                $range = $this->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.5);
+                $range = $this->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
                 if($range && $range<$minRange[2]){
                     $minRange[0] = 2;
                     $minRange[1] = $tank->id;
                     $minRange[2] = $range;
                     $minRange[3] = $tank->hp - 20;
-                    print("Попали в танк");
                 }
             }
             foreach($this->mobs as $mob){
                 $range = $this->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
                 if($range && $range<$minRange[2]){
-                    $minRange[0] = 2;
+                    $minRange[0] = 3;
                     $minRange[1] = $mob->id;
                     $minRange[2] = $range;
                     $minRange[3] = $mob->hp - 20;
-                    print("Попали в моба");
+                }
+            }
+            
+            foreach($this->objects as $object){
+                $range = $this->shootReg($object->x, $object->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
+                if($range && $range<$minRange[2]){
+                    $minRange[0] = 4;
+                    $minRange[1] = $object->id;
+                    $minRange[2] = $range;
+                    $minRange[3] = $object->hp - 20;
                 }
             }
 
             switch($minRange[0]){
                 case -1: return 0;
-                case 1: $this->db->lowerHpGamer($minRange[1], $minRange[3]);
-                case 2: $this->db->lowerHpTank($minRange[1], $minRange[3]);
-                case 3: $this->db->lowerHpMob($minRange[1], $minRange[3]);
+                case 1: 
+                    print_r('Попали в игрока'.$minRange[1]);
+                    $this->db->lowerHpGamer($minRange[1], $minRange[3]);
+                    break;
+                case 2: 
+                    print_r('Попали в танк'.$minRange[1]);
+                    $this->db->lowerHpTank($minRange[1], $minRange[3]);
+                    break;
+                case 3: 
+                    print_r('Попали в моба'.$minRange[1]);
+                    $this->db->lowerHpMob($minRange[1], $minRange[3]);
+                    break;
+                case 4: 
+                    print_r('Попали в объект');
+                    $this->damageObjectHp($minRange[1], $minRange[3]);
+                    break;
             } 
             $this->db->deleteBullet($bullet->id);
         }
@@ -376,23 +401,40 @@ class Game extends BaseModule
         }
     }
 
+    /* Объекты */
+
+    function damageObjectHp($objId, $currentHp) {     
+        print("\n".$objId." ".$currentHp."\n");
+        if ($currentHp <= 0) {
+            $this->db->deleteObject($objId);
+        }
+        else $this->db->updateObjectHp($objId, $currentHp);
+    }
 
     /* Получение данных */
-
+    
     private function getGamers() {
         return $this->db->getGamers();
     }
-
+    
     private function getMobs() {
         return $this->db->getAllMobs();
     }
-
+    
     private function getBullets() {
         return $this->db->getAllBullets();
     }
 
+    private function getObjects() {
+        return $this->db->getObjects();
+    }
+
     private function getTanks() {
         return $this->db->getAllTanks();
+    }
+
+    private function getBodies() {
+        return $this->db->getBodies();
     }
 
     // Обновление сцены
@@ -402,12 +444,13 @@ class Game extends BaseModule
         $this->gamers = $this->db->getFootGamers(); 
         $this->mobs = $this->db->getMobs(); 
         $this->tanks = $this->db->getTanks();
+        $this->objects = $this->db->getObjects();
         // Мобы
         $this->addMobs();
         $this->moveMobs();
         // Пули
-        $this->shootRegs();
         $this->moveBullets();
+        $this->shootRegs();
         // Проверка знаменосца
         $this->winer = $this->endGame();
         // Смерть сущности
@@ -425,10 +468,11 @@ class Game extends BaseModule
         // то обновить сцену и $timestamp = time()
     }
     
-    function getScene($userId, $hashGamers, $hashMobs, $hashBullets) { 
+    function getScene($userId, $hashGamers, $hashMobs, $hashBullets, $hashMap, $hashBodies) { 
         $this->update();
         $result = array();
         $hashes = $this->db->getHashes();
+        
         if ($hashes->hashGamers !== $hashGamers) {
             $result['gamers'] = $this->getGamers();
             $result['tanks'] = $this->getTanks();
@@ -438,16 +482,30 @@ class Game extends BaseModule
             $result['gamers'] = true;
             $result['tanks'] = true;
         }
+        
         if ($hashes->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
         }
         else $result['mobs'] = true;
+        
         if ($hashes->hashBullets !== $hashBullets) {
             $result['bullets'] = $this->getBullets();
             $result['hashBullets'] = $hashes->hashBullets;
         }
         else $result['bullets'] = true;
+
+        if ($hashes->hashMap !== $hashMap) {
+            $result['map'] = $this->getObjects();
+            $result['hashMap'] = $hashes->hashMap;
+        }
+        else $result['map'] = true;
+
+        if ($hashes->hashBodies !== $hashBodies) {
+            $result['bodies'] = $this->getBodies();
+            $result['hashBodies'] = $hashes->hashBodies;
+        }
+        else $result['hashBodies'] = true;
         if($this->winer){
             if ($this->winer =='g') $result['winer'] = 'gamers';
             if ($this->winer =='m') $result['winer'] = 'mobs';
@@ -498,76 +556,5 @@ class Game extends BaseModule
         else $this->db->updateMove($userId, $x, $y);
         $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
        return true;
-    }
-
-
-    function checkObjectHp($id, $damage) {
-        $currentHp = $this->db -> getObjectHp($id);
-        $newHp = $currentHp->hp - $damage;
-        
-        if ($newHp <= 0) {
-            $this->db ->deleteObject($id);
-            return true;
-        }
-        $this -> db ->updateObjectHp($id, $newHp);
-        return true;
-        
-        
-
-    }
-
-    function getObjects($id) {
-        $object = $this->db->getObjectById();
-    }
-
-    
+    } 
 }
-
-
-// получить все данные из базоньки
-        // юзеров
-        // мобов
-        // пули
-        // объекты
-        // позиция базы
-
-        // посчитать конец игры  Миша
-        // в game сделать поле, в котором буквально считать время, проведённое знаменосцем на точке базы
-        // если игра закончилась, в getScene возвращать флаг endGame = true
-
-        // юзеров, которые умерли, удалить из базоньки Артур
-
-        // раздавить блоки, которые оказались под танками Ваня
-
-        // передвинуть пули   Костя
-        // переместить вообще все пули, имеющиеся в сцене
-        // для каждой пули хранить: её автора, её текущие координаты, вектор движения, тип пули, старые координаты
-
-        // посчитать коллизии пуль Костя
-        // попадание пули всчитывается по отрезку её текущих координат и старых координат
-        // все элементы сцены или кружочки, или + прямоугольники
-        // учитывать, куда или в кого пуля попала первой
-
-        // разрушить блоки, если надо Ваня
-        // уменьшить ХП блока, если он < 0 - разрушить его
-
-        // убить юзеров и мобов, если они умерли Артур
-        // юзеру выставляется флаг, что он умер
-        // моб удаляется с карты (вместо него положить трупик?)
-
-        // переместить мобов Никита
-        // найти ближайшего игрока, которого может убить моб (РПГ или автоматик)
-        // повернуться к игроку и сделать шаг к нему
-        // с помощью easystar найти путь до ближайшего игрока с учётом препятствий
-
-        // выстрелить мобами по игрокам Никита
-        // Вариант 1. Стрелять по игроку всегда
-        // Вариант 1.5 НЕ стрелять, если между игроком и мобом есть свои
-        // Вариант 2. Стрелять по игроку, учитывая его направление движения и скорость (с упреждением)
-        // Вариант 3. Учитывать препятствия до игрока
-
-        // создать новых мобов Никита
-        // если мобов меньше, чем надо - добавить новых
-
-    
-    

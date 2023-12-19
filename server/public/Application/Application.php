@@ -163,7 +163,7 @@ class Application
         if($token && $hashMap && $hashBodies && $hashMobs && $hashGamers && $hashBullets) {
             $user = $this->user->getUser($token);
             if (($user != null && $user->token != 0 && $user->token != null)) {
-                return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets);
+                return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets, $hashMap, $hashBodies);
             }
             return array(false, 401);
         }  

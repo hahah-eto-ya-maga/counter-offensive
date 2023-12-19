@@ -152,27 +152,19 @@ CREATE TABLE IF NOT EXISTS `bodies` (
   `angle` FLOAT NULL DEFAULT NULL,
   `bodyType` CHAR(1) NOT NULL DEFAULT "", 
   /*i - пешик, m-средний танк, h - тяжик, m - моб */
-  `isMob` BOOLEAN NOT NULL DEFAULT 1,
+  `isMob` BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `objects` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
-  `type` VARCHAR(10) NOT NULL DEFAULT '',
+  `type` CHAR(1) NOT NULL DEFAULT 'b',
   `hp` INT NOT NULL DEFAULT 100,
   `x` FLOAT NULL DEFAULT NULL,
   `y` FLOAT NULL DEFAULT NULL,
-  `size` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `objects` (
-  `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
-  `type` VARCHAR(10) NOT NULL DEFAULT '',
-  `hp` INT NOT NULL DEFAULT 100,
-  `x` FLOAT NULL DEFAULT NULL,
-  `y` FLOAT NULL DEFAULT NULL,
-  `size` INT NOT NULL DEFAULT 0,
+  `sizeX` TINYINT NOT NULL DEFAULT 0,
+  `sizeY` TINYINT NOT NULL DEFAULT 0,
+  `status` CHAR(1) NOT NULL DEFAULT 'a',
   PRIMARY KEY (`id`)
 );
 
@@ -203,8 +195,8 @@ INSERT INTO `gamers` (`user_id`, `experience`) VALUES
 
 /* Значения по умолчанию в таблице game*/
 
-INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`, `timestamp`, `mobBase_x`, `mobBase_y`, `playerBase_x`, `playerBase_y`) 
-VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1',ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000), '30', '30', '3', '3');
+INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`, `timestamp`, `mobBase_x`, `mobBase_y`, `playersBase_x`, `playersBase_y`) 
+VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000), '30', '30', '3', '3');
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO `ranks` (`name`, `experience`) VALUES 
@@ -241,5 +233,14 @@ INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpee
 ('infantry', 100, 18, 0.2, 1, 1),
 ('infantryRPG', 100, 15, 0.2, 1, 1);
 
-INSERT INTO `objects` (`id`, `type`, `hp`, `x`, `y`, `size`) VALUES
-(1, 1, 50, 1, 1, 1);
+INSERT INTO `objects` (`type`, `hp`, `x`, `y`, `sizeX`, `sizeY`) VALUES
+('b', 100, 1, 1, 1, 1),
+('b', 100, 5, 6, 1, 1),
+('b', 100, 9, 30, 1, 1),
+('b', 100, 2, 15, 1, 1),
+('b', 100, 10, 20, 1, 1),
+('b', 100, 23, 4, 1, 1),
+('b', 100, 3, 24, 1, 1),
+('b', 100, 4, 17, 1, 1),
+('b', 100, 15, 27, 1, 1);
+
