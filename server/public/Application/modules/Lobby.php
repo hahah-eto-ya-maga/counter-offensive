@@ -197,10 +197,13 @@ require_once('BaseModule.php');
             $gamer = $this->db->getGamerById($userId);
             if($gamer->person_id != -1){
                 if(in_array($gamer->person_id, array(3, 4, 5, 6, 7))){
-                    $tank = $this->db->getTankByUserId();
-                    return array("personId" => $gamer->person_id, "x"=>$tank->x, "y"=>$tank->y,
-                    "angle"=>$tank->angle, "towerAngle"=>$tank->tower_angle,
-                    "commanderAngle"=>$tank->ocmamnder_angle);
+                    $tank = $this->db->getTankByUserId($userId);
+                    if($tank){
+                        return array("personId" => $gamer->person_id, "x"=>$tank->x, "y"=>$tank->y,
+                        "angle"=>$tank->angle, "towerAngle"=>$tank->tower_angle,
+                        "commanderAngle"=>$tank->commander_angle);
+                    }
+                    else return false;
                 }
                 return array("personId"=>$gamer->person_id, "x"=>$gamer->x,
                 "y"=>$gamer->y, "angle"=>$gamer->angle);
