@@ -41,8 +41,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
   const WIN = {
     left: -1,
     bottom: -1,
-    width: 10 * prop,
-    height: 10,
+    width: 15 * prop,
+    height: 15,
   };
 
   let tracer: TraceMask | null = null;
@@ -140,6 +140,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
   };
 
   const keyUpHandler = (e: KeyboardEvent) => {
+
     if (inputRef.current !== document.activeElement) {
       if (e.code === "ArrowUp" || e.code === "KeyW") {
         keyPressed.Up = false;
@@ -181,7 +182,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
   const drawStones = (stones: TPoint[]) => {
     stones.forEach((circle) => {
-      canvas?.spriteMap(img, circle.x - 0.5, circle.y + 0.5, ...stone);
+      canvas?.spriteMap(img, circle.x - 1, circle.y + 1, ...stone);
     });
   };
 
@@ -221,13 +222,13 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
   const drawGamers = (gamers: IGamer[]) => {
     gamers.forEach((gamer) => {
-      canvas?.circle({ ...gamer, r: 0.5 }, "#333");
+      canvas?.circle({ ...gamer, r: 1 }, "#333");
     });
   };
 
   const drawBodies = (bodies: TPoint[]) => {
     bodies.forEach((body) => {
-      canvas?.circle({ ...body, r: 0.5 }, "beige");
+      canvas?.circle({ ...body, r: 1 }, "beige");
     });
   };
 
@@ -286,8 +287,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       updateUnit();
       canvas.spriteDir(
         img,
-        unit.x - 0.5,
-        unit.y + 0.5,
+        unit.x - 1,
+        unit.y + 1,
         ...manFlag,
         Math.PI / 2 - unit.angle
       );

@@ -26,7 +26,7 @@ const GamePage: React.FC = () => {
       </button>
       <GameCanvas inputRef={chatInputRef} />
       <div className="game_chat_block">
-        <Chat chatType="game" />
+        <Chat chatType="game" ref={chatInputRef} />
       </div>
     </div>
   );
