@@ -250,8 +250,41 @@ require_once('BaseModule.php');
         }
 
         function suicide($userId){
-            $this->db->suicide($userId);
-            $this->db->tankExit($userId);
+            $gamer = $this->db->getGamerById($userId);
+            $tank=$this->db->getTankByUserId($userId);
+            if($tank){
+                switch($gamer->person_id){
+                    case 3:
+                        $this->db->suicide($tank->commander_id);
+                        $this->db->suicide($userId);
+                        $this->db->suicide($tank->driver_id);
+                        $this->db->endTankGame($tank->id);
+                        break;
+                    case 4:
+                        $this->db->suicide($tank->commander_id);
+                        $this->db->suicide($tank->gunner_id);
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break;            
+                    case 5:
+                        $this->db->suicide($tank->driver_id);
+                        $this->db->suicide($tank->gunner_id);                        
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break;            
+                    case 6:
+                        $this->db->suicide($tank->gunner_id);
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break; 
+                    case 7:
+                        $this->db->suicide($tank->driver_id);
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break; 
+                }
+            }
+            else $this->db->suicide($userId);
             $this->db->updateLobbyHash(hash('sha256', $this->v4_UUID()));
             return true;
         }
