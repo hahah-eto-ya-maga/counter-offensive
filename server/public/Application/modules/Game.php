@@ -499,7 +499,7 @@ class Game extends BaseModule
             $result['bodies'] = $this->getBodies();
             $result['hashBodies'] = $hashes->hashBodies;
         }
-        else $result['hashBodies'] = true;
+        else $result['bodies'] = true;
         if($this->winer){
             if ($this->winer =='g') $result['winer'] = 'gamers';
             if ($this->winer =='m') $result['winer'] = 'mobs';
