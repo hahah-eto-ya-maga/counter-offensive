@@ -158,6 +158,19 @@ mob = {
     angle: float
 } 
 ```
+
+**Танк**
+```
+panzer = {
+    type: char,
+    x: float,
+    y: float,
+    angle: float,
+    tower_angle: float,
+    commander_angle: float
+} 
+```
+
 **Пуля**
 ```
 bullet = {
@@ -175,6 +188,18 @@ mobs = [
     ...,
     mob
 ]
+
+** Танки **
+```
+panzers = [
+    panzer,
+    ...,
+    ...,
+    panzer
+]
+```
+
+
 ```
 **Пули**
 ```
@@ -189,11 +214,13 @@ bullets = [
 ```
 scene = {
     gamers: gamers||true,
-    tanks: tanks||true
+    tanks: panzers||true
     hashGamers: string,
     mobs: mobs||true,
     hashMobs: string,
     bullets: bullets||true,
+    hashBullets: string,
+    bodies: bodies||true,
     hashBullets: string
 }
 ```

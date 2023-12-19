@@ -420,7 +420,7 @@ class DB {
     }
 
     public function getGamers() {
-        $query = "SELECT person_id, x, y, angle  FROM gamers WHERE status='alive'";
+        $query = "SELECT person_id, x, y, angle  FROM gamers WHERE person_id IN (1, 2, 8, 9) AND status='alive'";
         return $this->queryHandlerAll($query, []);
     }
 
