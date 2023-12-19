@@ -97,6 +97,7 @@ class Game extends BaseModule
             for($i=$mobsCount; $i<2; $i++){
                 $this->db->addMobs(rand(8, 9));
             }
+            $this->db->updateMobsHash(hash("sha256", $this->v4_UUID()));
         }
     }
 
@@ -109,7 +110,6 @@ class Game extends BaseModule
             $minDistanceToGamer = 10000;
             $targetGamer = null;
             $targetDistance = null;
-            // print($this->duration);
             if($this->time->timer - $mob->path_update > 1000){
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
@@ -133,7 +133,6 @@ class Game extends BaseModule
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                     if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
-                        print_r($angle." ".round($angle, 2));
                         $this->fire(-1, $mobX, $mobY, $angle);            
                         $this->db->updateMobTimestamp($mob->id); 
                     }
@@ -145,7 +144,6 @@ class Game extends BaseModule
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
                 if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
-                    print_r($angle." ".round($angle, 2));
                     $this->fire(-1, $mobX, $mobY, $angle);     
                     $this->db->updateMobTimestamp($mob->id); 
                 }
@@ -161,8 +159,8 @@ class Game extends BaseModule
                 $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);    
             }
 
-            $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
-            $this->db->updateMobsHash(hash("sha256", $this->v4_UUID()));
+        $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
+        $this->db->updateMobsHash(hash("sha256", $this->v4_UUID()));
         }
     }
 
@@ -239,19 +237,15 @@ class Game extends BaseModule
             switch($minRange[0]){
                 case -1: return 0;
                 case 1: 
-                    print_r('Попали в игрока'.$minRange[1]);
                     $this->db->lowerHpGamer($minRange[1], $minRange[3]);
                     break;
                 case 2: 
-                    print_r('Попали в танк'.$minRange[1]);
                     $this->db->lowerHpTank($minRange[1], $minRange[3]);
                     break;
                 case 3: 
-                    print_r('Попали в моба'.$minRange[1]);
                     $this->db->lowerHpMob($minRange[1], $minRange[3]);
                     break;
                 case 4: 
-                    print_r('Попали в объект');
                     $this->damageObjectHp($minRange[1], $minRange[3]);
                     break;
             } 
@@ -404,11 +398,11 @@ class Game extends BaseModule
     /* Объекты */
 
     function damageObjectHp($objId, $currentHp) {     
-        print("\n".$objId." ".$currentHp."\n");
         if ($currentHp <= 0) {
             $this->db->deleteObject($objId);
         }
         else $this->db->updateObjectHp($objId, $currentHp);
+        $this->db->updateMapHash(hash("sha256", $this->v4_UUID()));
     }
 
     /* Получение данных */

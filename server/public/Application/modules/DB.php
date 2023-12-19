@@ -225,6 +225,11 @@ class DB {
         $this->queryHandler($query, array($hash));
     }
 
+    public function updateMapHash($hash){
+        $query = "UPDATE game SET hashMap=? WHERE id=1";
+        $this->queryHandler($query, array($hash));
+    }
+
     public function updateTanksHash($hash){
         $query = "UPDATE game SET hashTanks=? WHERE id=1";
         $this->queryHandler($query, array($hash));
