@@ -213,4 +213,10 @@ class DB {
         $query = "UPDATE game SET hashGamers=? WHERE id=1";
         $this->queryHandler($query, [$hash]);
     }
+
+    function getTankByUserId($userId) {
+        $query = "SELECT x, y, angle, tower_angle, commander_angle FROM tanks
+        WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
+        return $this->queryHandler($query, [$userId, $userId, $userId], true);
+    }
 }
