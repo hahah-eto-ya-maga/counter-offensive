@@ -36,7 +36,7 @@ class Application
 
         if ($login && $password && $nickname) {
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
-            $pattern1 = strlen($nickname);
+            $pattern1 = mb_strlen($nickname, 'utf-8');
             if (preg_match($pattern, $login) && $pattern1 > 2 && $pattern1 < 17) {
                 return $this->user->registration($login, $nickname, $password);
             }
