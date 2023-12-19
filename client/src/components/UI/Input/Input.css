@@ -3,7 +3,7 @@
   align-items: center;
   position: relative;
   width: 700px;
-  height: 90px;
+  height: 85px;
   background-color: var(--green-yellow);
   margin-bottom: 15px;
   border-radius: 50px;
@@ -45,8 +45,8 @@ input::-ms-clear {
 }
 
 .eye > svg {
-  aspect-ratio: 1/1;
   height: 85px;
+  width: 85px;
 }
 
 @media (max-width:750px) {
@@ -70,6 +70,7 @@ input::-ms-clear {
 
   .eye > svg {
     height: 70px;
+    width: 70px;
   }
 }
 
@@ -92,11 +93,6 @@ input::-ms-clear {
 
   .eye > svg {
     height: 55px;
+    width: 55px;
   }
 }
-/* .input_wrapper {
-  display: flex;
-  width: 40vw;
-  border: 5px solid var(--black);
-  border-left: none;
-} */

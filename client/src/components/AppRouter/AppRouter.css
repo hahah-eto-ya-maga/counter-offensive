@@ -1,13 +1,5 @@
-.router_block {
-    display: flex;
-    box-sizing: content-box;
-    padding: 40px;
-    height: 85vh;
-}
-
-@media (max-width:400px) {
-    .router_block{
-        padding: 10px;
-        height: 95vh;
-    }
+.app_wrapper {
+   padding: 20px;
+   box-sizing: border-box;
+   height: 100vh;
 }

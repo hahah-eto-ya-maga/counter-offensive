@@ -1,29 +1,26 @@
-import { FC, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../components";
-import { ServerContext } from "../../App";
+import { IError } from "../../modules/Server/interfaces";
 import "./ErrorPage.css";
 
 const ErrorPage: FC = () => {
-   const server = useContext(ServerContext);
    const navigate = useNavigate();
-   const { error } = server;
+   const { state }: { state: { error: IError } | null } = useLocation();
+   const error = state?.error ?? { code: 404, text: "Page Not Found" };
 
    return (
       <div className="error-page-wrapper">
          <div className="error-code-block">
             <div className="error-code">
-               <span id="test-error-code">
-                  Error № {error ? error.code : 404}
-               </span>
+               <span id="test-error-code">Error № {error.code}</span>
             </div>
             <div>
                <Button
                   appearance="primary"
                   id="test-error-back-button"
                   onClick={() => {
-                     server.error = null;
-                     navigate(-1);
+                     navigate("/", { replace: true });
                   }}
                >
                   Назад
@@ -31,9 +28,7 @@ const ErrorPage: FC = () => {
             </div>
          </div>
          <div className="error-text">
-            <span id="test-error-text">
-               {error ? error.text : "Page Not Found"}
-            </span>
+            <span id="test-error-text">{error.text}</span>
          </div>
       </div>
    );

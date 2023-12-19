@@ -1,7 +1,7 @@
 // dev
 
 /* const PORT = 81;
-const DOMAIN = 'http://counter-nastup'; */
+const DOMAIN = 'http://counter-offensive'; */
 
 //prod
 
@@ -16,6 +16,20 @@ export const MEDIATOR = {
    },
    TRIGGERS: {
       WARNING: "WARNING",
-      TOKEN_UPDATE: "TOKEN_UPDATE",
+      LOGIN: "LOGIN",
+      LOGOUT: "LOGOUT",
+      AUTH_ERROR: "AUTH_ERROR",
+      ROLE_ERROR: "ROLE_ERROR",
+      THROW_TO_GAME: "THROW_TO_GAME",
    },
+};
+
+export const MAP_SIZE = {
+   width: 150,
+   height: 120,
+};
+export const requestDelay = {
+   chat: 300,
+   lobby: 150,
+   game: 200,
 };

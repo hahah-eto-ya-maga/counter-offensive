@@ -1,54 +1,74 @@
-import { RouteProps } from "react-router-dom";
+import { Navigate, RouteProps } from "react-router-dom";
 import {
-  ErrorPage,
-  GamePage,
-  LobbyPage,
-  LoginPage,
-  RegistrationPage,
+   ErrorPage,
+   GamePage,
+   LobbyInfo,
+   LoginPage,
+   RegistrationPage,
+   HeavyTankLobby,
+   MiddleTankLobby,
+   HeavyTankDetail,
+   MiddleTankDetail,
 } from "../pages";
 
 export const publicRoutes: RouteProps[] = [
-  {
-    path: "/",
-    Component: LoginPage,
-  },
-  {
-    path: "/registration",
-    Component: RegistrationPage,
-  },
-  {
-    path: "/authorization",
-    Component: LoginPage,
-  },
-  {
-    path: "/error",
-    Component: ErrorPage,
-  },
-  {
-    path: "*",
-    Component: ErrorPage,
-  },
+   {
+      path: "/",
+      element: <LoginPage />,
+   },
+   {
+      path: "/authorization",
+      element: <LoginPage />,
+   },
+   {
+      path: "/registration",
+      element: <RegistrationPage />,
+   },
+   {
+      path: "/error",
+      element: <ErrorPage />,
+   },
+   {
+      path: "*",
+      element: <Navigate to="/" replace />,
+   },
 ];
 
 export const privateRoutes: RouteProps[] = [
-  {
-    path: "*",
-    Component: ErrorPage,
-  },
-  {
-    path: "/error",
-    Component: ErrorPage,
-  },
-  {
-    path: "/",
-    Component: LobbyPage,
-  },
-  {
-    path: "/lobby",
-    Component: LobbyPage,
-  },
-  {
-    path: "/game",
-    Component: GamePage,
-  },
+   {
+      path: "/",
+      element: <LobbyInfo />,
+   },
+   {
+      path: "/lobby",
+      element: <LobbyInfo />,
+   },
+   {
+      path: "/heavy_tanks",
+      element: <HeavyTankLobby />,
+   },
+   {
+      path: "/middle_tanks",
+      element: <MiddleTankLobby />,
+   },
+   {
+      path: "/heavy_tanks/:id",
+      element: <HeavyTankDetail />,
+   },
+   {
+      path: "/middle_tanks/:id",
+      element: <MiddleTankDetail />,
+   },
+   {
+      path: "/game",
+      element: <GamePage />,
+   },
+   {
+      path: "/error",
+      element: <ErrorPage />,
+   },
+   {
+      path: "*",
+      element: <Navigate to="/" replace />,
+   },
 ];
