@@ -5,6 +5,7 @@ require_once("modules/Chat.php");
 require_once("modules/Lobby.php");
 require_once("modules/Game.php");
 
+
 class Application
 {
 
@@ -23,6 +24,7 @@ class Application
         $this->chat = new Chat($db);
         $this->lobby = new Lobby($db);
         $this->game = new Game($db);
+
     }
 
 
@@ -147,7 +149,58 @@ class Application
                 return $this->lobby->getLobby($user->id, $hash); 
             }
             return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+    
+    function getScene($params) {
+        $token = $params['token'] ?? false;
+        $hashMap = $params['hashMap'] ?? false;
+        $hashGamers = $params['hashGamers'] ?? false;
+        $hashMobs = $params['hashMobs'] ?? false;
+        $hashBullets = $params['hashBullets'] ?? false;
+        $hashBodies = $params['hashBodies'] ?? false;
+        if($token && $hashMap && $hashBodies && $hashMobs && $hashGamers && $hashBullets) {
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets, $hashMap, $hashBodies);
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
+
+    function rotate($params){
+        $token = $params['token'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if($token && $angle){
+            if (is_numeric($angle)) {
+                $user = $this->user->getUser($token);
+                if ($user != null && $user->token != 0 && $user->token != null) {
+                    return $this->game->rotate($user->id, $angle); 
+                } 
+                return array(false, 401);
+            }
+            return array(false, 422);
         }
+    return array(false, 400);
+    }
+
+    function fire($params){
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if($token && $x && $y && $angle){
+            if (is_numeric($angle) && is_numeric($x) && is_numeric($y)) {
+                $user = $this->user->getUser($token);
+                if (($user != null && $user->token != 0 && $user->token != null)) {
+                    return $this->game->fire($user->id, $x, $y, $angle); 
+                }
+                return array(false, 401);
+            }
+            return array(false, 422);
+        }  
         return array(false, 400);
     }
 
@@ -156,7 +209,7 @@ class Application
         $token = $params['token'] ?? false;
         $x = $params['x'] ?? false;
         $y = $params['y'] ?? false;
-        if ($x !== false && $y !== false && $token) {
+        if ($x && $y && $token) {
             if (is_numeric($x) && is_numeric($y)) {
                 $user = $this->user->getUser($token);
                 if ($user != null && $user->token != 0 && $user->token != null) {
@@ -168,6 +221,7 @@ class Application
         }
         return array(false, 400);
     }
+    
     function suicide($params){
         $token = $params['token'] ?? false;
         if($token){

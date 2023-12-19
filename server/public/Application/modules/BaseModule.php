@@ -7,6 +7,9 @@ class BaseModule
     function __construct($db)
     {
         $this->db = $db;
+
+        
+
     }
 
     protected function v4_UUID()
