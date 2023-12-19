@@ -241,7 +241,7 @@ class DB {
     }
 
     public function updateBodiesHash($hash){
-        $query = "UPDATE game SET hashLobby=? WHERE id=1";
+        $query = "UPDATE game SET hashBodies=? WHERE id=1";
         $this->queryHandler($query, array($hash));
     }
 
