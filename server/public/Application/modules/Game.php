@@ -301,6 +301,7 @@ class Game extends BaseModule
             if($gamer->hp <= 0){      
                 $this->db->killGamer($gamer->id);
                 $this->db->setGamerBodies($gamer->x, $gamer->y, $gamer->angle);
+                $this->db->updateBodiesHash(hash("sha256", $this->v4_UUID()));
                 $gamerDelete = true;
             }
         }
@@ -308,6 +309,7 @@ class Game extends BaseModule
             if($mob->hp <= 0){ 
                 $this->db->killMob($mob->id);
                 $this->db->setMobBodies($gamer->x, $gamer->y, $gamer->angle);
+                $this->db->updateBodiesHash(hash("sha256", $this->v4_UUID()));
                 $mobsDelete = true;
             }
         }
@@ -317,10 +319,12 @@ class Game extends BaseModule
                 if($tank->commander_id) {
                     $this->db->killGamerInHeavyTank($tank->mechanic_id, $tank->gunner_id, $tank->commander_id);
                     $this->db->setTankBodies($gamer->x, $gamer->y, $gamer->angle, 'h');
+                    $this->db->updateBodiesHash(hash("sha256", $this->v4_UUID()));
                 }
                 else { 
                     $this->db->killGamerInHeavyTank($tank->mechanic_id, $tank->gunner_id); 
                     $this->db->setTankBodies($gamer->x, $gamer->y, $gamer->angle, 'm');
+                    $this->db->updateBodiesHash(hash("sha256", $this->v4_UUID()));
                 }
                 $tankDelete = true;
             }
