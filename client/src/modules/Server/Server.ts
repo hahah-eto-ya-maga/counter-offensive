@@ -29,7 +29,8 @@ export default class Server {
             .join("&");
          const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();
-
+         
+         
          if (answer.result === "ok") {
             return answer.data;
          }

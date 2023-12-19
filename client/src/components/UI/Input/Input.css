@@ -3,7 +3,7 @@
   align-items: center;
   position: relative;
   width: 700px;
-  height: 85px;
+  height: 80px;
   background-color: var(--green-yellow);
   margin-bottom: 15px;
   border-radius: 50px;
@@ -49,7 +49,14 @@ input::-ms-clear {
   width: 85px;
 }
 
-@media (max-width:750px) {
+@media (max-width:1400px) {
+  .input_wrapper {
+    width: 600px;
+     height: 70px;
+  }
+}
+
+@media (max-width:760px) {
   .input_wrapper {
     width: 500px;
     height: 65px;
