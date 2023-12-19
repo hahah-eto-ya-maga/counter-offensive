@@ -158,6 +158,39 @@ mob = {
     angle: float
 } 
 ```
+
+**Танк**
+```
+panzer = {
+    type: char,
+    x: float,
+    y: float,
+    angle: float,
+    tower_angle: float,
+    commander_angle: float
+} 
+```
+
+**Тело**
+```
+bodie = {
+    bodytype: char,
+    x: float,
+    y: float,
+    angle: float
+} 
+```
+
+**Карта**
+```
+map = {
+    x: float,
+    y: float,
+    sizeX: float
+    sizeY: float
+} 
+```
+
 **Пуля**
 ```
 bullet = {
@@ -175,6 +208,16 @@ mobs = [
     ...,
     mob
 ]
+
+** Танки **
+```
+panzers = [
+    panzer,
+    ...,
+    ...,
+    panzer
+]
+```
 ```
 **Пули**
 ```
@@ -185,16 +228,40 @@ bullets = [
     bullet
 ]
 ```
+**Тела**
+```
+bodies = [
+    bodie,
+    ...,
+    ...,
+    bodie
+]
+```
+**Карта**
+```
+maps = [
+    map,
+    ...,
+    ...,
+    map
+]
+```
+
+
 **Сцена**
 ```
 scene = {
     gamers: gamers||true,
-    tanks: tanks||true
+    tanks: panzers||true
     hashGamers: string,
     mobs: mobs||true,
     hashMobs: string,
     bullets: bullets||true,
-    hashBullets: string
+    hashBullets: string,
+    bodies: bodies||true,
+    hashBodies: string
+    map: maps||true,
+    hashMap: string
 }
 ```
 

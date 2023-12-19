@@ -2,9 +2,18 @@ export interface IError {
   code: number;
   text: string;
   id?: string;
+  code: number;
+  text: string;
+  id?: string;
 }
 
 export interface IMessage {
+  nickname: string;
+  text: string;
+  level: number;
+  rank_name: ERank;
+  sendTime: string;
+  userId: number;
   nickname: string;
   text: string;
   level: number;
@@ -16,9 +25,14 @@ export interface IMessage {
 export interface IMessages {
   chatHash: string;
   messages: IMessage[];
+  chatHash: string;
+  messages: IMessage[];
 }
 
 export interface IMiddleTank {
+  id: number;
+  Mechanic: boolean;
+  Gunner: boolean;
   id: number;
   Mechanic: boolean;
   Gunner: boolean;
@@ -26,6 +40,14 @@ export interface IMiddleTank {
 
 export interface IHeavyTank extends IMiddleTank {
   Commander: boolean;
+  Commander: boolean;
+}
+
+interface IUnitBase {
+  person_id: number;
+  x: number;
+  y: number;
+  angle: number;
 }
 
 export interface ILobby {
@@ -41,9 +63,20 @@ export interface ILobby {
 export interface ILobbyState {
   lobby: ILobby;
   lobbyHash: string;
+  lobby: ILobby;
+  lobbyHash: string;
 }
 
 export interface IUserInfo {
+  id: number;
+  login: string;
+  nickname: string;
+  token: string | null;
+  rank_name: ERank;
+  gamer_exp: number;
+  next_rang: number;
+  level: number;
+  role: EGamerRole;
   id: number;
   login: string;
   nickname: string;
@@ -95,9 +128,22 @@ export enum EGamerRole {
   middleTankGunner = "middleTankGunner",
   infantryRPG = "infantryRPG",
   infantry = "infantry",
+  general = "general",
+  bannerman = "bannerman",
+  heavyTankGunner = "heavyTankGunner",
+  heavyTankMeh = "heavyTankMeh",
+  heavyTankCommander = "heavyTankCommander",
+  middleTankMeh = "middleTankMeh",
+  middleTankGunner = "middleTankGunner",
+  infantryRPG = "infantryRPG",
+  infantry = "infantry",
 }
 
 export enum ERank {
+  Private = "Private",
+  Sergeant = "Sergeant",
+  Officer = "Officer",
+  General = "General",
   Private = "Private",
   Sergeant = "Sergeant",
   Officer = "Officer",

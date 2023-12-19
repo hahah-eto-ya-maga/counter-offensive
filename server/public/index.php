@@ -36,6 +36,9 @@
             return array(false, 503);
         }
         return array(false, 405);
+
+        
     }
 
     echo json_encode(Answer::response(request($_GET)));
+

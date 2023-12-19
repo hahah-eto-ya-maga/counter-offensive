@@ -1,11 +1,12 @@
 import { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import useRegValidator from "./useRegValidator";
 import { MediatorContext, ServerContext } from "../../../App";
-import { Alert, Button, Input, Logo } from "../../../components";
+import useRegValidator from "./useRegValidator";
 import { IUserData } from "../userData.interface";
+import {  Button, Input, Logo } from "../../../components";
 
 import "../AuthPage.css";
+import { Alert } from "../Alert/Alert";
 
 const RegistrationPage: FC = () => {
    const [userData, setUserData] = useState<IUserData>({

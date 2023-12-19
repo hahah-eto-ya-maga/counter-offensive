@@ -219,24 +219,40 @@ require_once('BaseModule.php');
             return array(false, 463);
         }
 
+        private function getGamer($userId){
+            $gamer = $this->db->getGamerById($userId);
+            if($gamer->person_id != -1){
+                if(in_array($gamer->person_id, array(3, 4, 5, 6, 7))){
+                    $tank = $this->db->getTankByUserId($userId);
+                    if($tank){
+                        return array("personId" => $gamer->person_id, "x"=>$tank->x, "y"=>$tank->y,
+                        "angle"=>$tank->angle, "towerAngle"=>$tank->tower_angle,
+                        "commanderAngle"=>$tank->commander_angle);
+                    }
+                    else return false;
+                }
+                return array("personId"=>$gamer->person_id, "x"=>$gamer->x,
+                "y"=>$gamer->y, "angle"=>$gamer->angle);
+            }
+            else return false;
+        }   
+
         function getLobby($userId, $oldHash){
             $hash = $this->db->getHashes();       
             if ($hash->hashLobby !== $oldHash) {
                 $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks($userId);
                 $this->lobbyState['tanks'] = $tanks;
-                $status = $this->db->getGamerStatus($userId);
-                $role = $status->person_id ? $status->person_id:false;
-                $this->lobbyState['is_alive'] = ($status && $status->status=="alive") ? true : false;
-                $this->lobbyState['role'] = $status->person_id;
-                return array("lobby" => $this->lobbyState, "lobbyHash" => $hash->hashLobby);
+                $this->lobbyState['is_alive'] = $this->getGamer($userId);
+                return array("lobby" => $this->lobbyState,"lobbyHash" => $hash->hashLobby);
             }
             return true;
         }
 
         function suicide($userId){
             $this->db->suicide($userId);
-            $this->db->tankExit($userId);  
+            $this->db->tankExit($userId);
+            $this->db->updateLobbyHash(hash('sha256', $this->v4_UUID()));
             return true;
         }
         
