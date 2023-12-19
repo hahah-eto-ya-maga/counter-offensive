@@ -83,9 +83,9 @@
 
 @media (max-width:1400px)  {
    .auth_title {
-      margin-bottom: 20px;
-      font-size: 55px;
-      padding: 10px 30px;
+      margin-bottom: 15px;
+      font-size: 50px;
+      padding: 5px 30px;
    }
 
    .auth_footer button {
@@ -94,7 +94,7 @@
    }
 
    .errors_div div {
-      font-size: 45px;
+      font-size: 40px;
    }
 }
 
