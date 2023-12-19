@@ -444,7 +444,6 @@ class DB {
     }
 
     function endTankGame($tankId){
-        print_r($tankId);
         $query = "DELETE FROM tanks WHERE id = ?";
         $this->queryHandler($query, [$tankId]);
     }
