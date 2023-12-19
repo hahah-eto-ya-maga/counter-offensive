@@ -171,6 +171,26 @@ panzer = {
 } 
 ```
 
+**Тело**
+```
+bodie = {
+    bodytype: char,
+    x: float,
+    y: float,
+    angle: float
+} 
+```
+
+**Карта**
+```
+map = {
+    x: float,
+    y: float,
+    sizeX: float
+    sizeY: float
+} 
+```
+
 **Пуля**
 ```
 bullet = {
@@ -198,8 +218,6 @@ panzers = [
     panzer
 ]
 ```
-
-
 ```
 **Пули**
 ```
@@ -210,6 +228,26 @@ bullets = [
     bullet
 ]
 ```
+**Тела**
+```
+bodies = [
+    bodie,
+    ...,
+    ...,
+    bodie
+]
+```
+**Карта**
+```
+maps = [
+    map,
+    ...,
+    ...,
+    map
+]
+```
+
+
 **Сцена**
 ```
 scene = {
@@ -221,7 +259,9 @@ scene = {
     bullets: bullets||true,
     hashBullets: string,
     bodies: bodies||true,
-    hashBullets: string
+    hashBodies: string
+    map: maps||true,
+    hashMap: string
 }
 ```
 

@@ -442,7 +442,7 @@ class Game extends BaseModule
         $this->gamers = $this->db->getFootGamers(); 
         $this->mobs = $this->db->getMobs(); 
         $this->tanks = $this->db->getTanks();
-        $this->objects = $this->db->getObjects();
+        $this->objects = $this->db->getAllObjects();
         // Мобы
         $this->addMobs();
         $this->moveMobs();

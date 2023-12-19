@@ -500,6 +500,11 @@ class DB {
     /* Объекты */
 
     function getObjects() {
+        $query = "SELECT x, y, sizeX, sizeY FROM objects WHERE status='a'";
+        return $this->queryHandlerAll($query, []);
+    }
+
+    function getAllObjects() {
         $query = "SELECT id, hp, x, y, sizeX, sizeY FROM objects WHERE status='a'";
         return $this->queryHandlerAll($query, []);
     }
