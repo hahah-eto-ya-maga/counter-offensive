@@ -30,4 +30,10 @@ export type TUnit = TPoint & {
     r: number
 }
 
+export type TScene = {
+    homes: TPoint[][]
+    walls: TPoint[][]
+    stones: TUnit[]
+}
+
 
