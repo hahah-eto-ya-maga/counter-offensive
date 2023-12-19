@@ -4,7 +4,8 @@ import { useSetRoleHandler } from "../../../hooks/useSetRoleHandler";
 import { MediatorContext, ServerContext } from "../../../App";
 import { withLayout } from "../../../components/LobbyLayout/Layout";
 import { EGamerRole, ILobby } from "../../../modules/Server/interfaces";
-import { Button, Chat, Dossier } from "../../../components";
+import { Button, Chat } from "../../../components";
+import { Dossier } from "./Dossier/Dossier";
 import { automat, chatIcon, RPG, flag } from "../../../assets/png";
 
 import "./LobbyInfo.css";

@@ -44,6 +44,12 @@ export const useErrorHandler = () => {
             id: "test_message_not_enought_level",
           });
         }
+        case 235: {
+          return mediator.get(ROLE_ERROR, {
+            message: "Не мешай отцу играть!",
+            id: "test_message_level_less_than_current_general",
+          });
+        }
         case 237: {
           return mediator.get(ROLE_ERROR, {
             message: "Занято!",
