@@ -118,7 +118,7 @@
    font-size: 48px;
    font-family: Neucha, "Times New Roman", Times, serif;
 }
-@media (max-width:1400px) {
+@media (max-width:1500px) {
    .chat_messages {
       max-height: 350px;
    }
