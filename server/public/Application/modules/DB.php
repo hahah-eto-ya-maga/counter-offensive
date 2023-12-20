@@ -272,6 +272,10 @@ class DB {
         $this->queryHandler($query,[$mechId, $gunnerId]);
     }
 
+    function endUserGame($userId) {
+        $query = "DELETE FROM tanks WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
+        $this->queryHandler($query, [$userId, $userId, $userId]);
+    }
 
     /* Пули */
 
@@ -362,7 +366,7 @@ class DB {
     }
 
     function getTankByUserId($userId) {
-        $query = "SELECT x, y, angle, tower_angle, commander_angle FROM tanks
+        $query = "SELECT id, x, y, angle, tower_angle, commander_angle, commander_id, driver_id, gunner_id FROM tanks
         WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
         return $this->queryHandler($query, [$userId, $userId, $userId], true);
     }
@@ -437,6 +441,11 @@ class DB {
     function tankExit($userId) {
         $query = "DELETE FROM tank_lobby WHERE user_id = ?";
         $this->queryHandler($query, [$userId]);
+    }
+
+    function endTankGame($tankId){
+        $query = "DELETE FROM tanks WHERE id = ?";
+        $this->queryHandler($query, [$tankId]);
     }
 
     /* Трупы */
