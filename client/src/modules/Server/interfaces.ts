@@ -1,123 +1,137 @@
 export interface IError {
-  code: number;
-  text: string;
-  id?: string;
+   code: number;
+   text: string;
+   id?: string;
 }
 
 export interface IMessage {
-
-  nickname: string;
-  text: string;
-  level: number;
-  rank_name: ERank;
-  sendTime: string;
-  userId: number;
+   nickname: string;
+   text: string;
+   level: number;
+   rank_name: ERank;
+   sendTime: string;
+   userId: number;
 }
 
 export interface IMessages {
-  chatHash: string;
-  messages: IMessage[];
+   chatHash: string;
+   messages: IMessage[];
 }
 
 export interface IMiddleTank {
-  id: number;
-  Mechanic: boolean;
-  Gunner: boolean;
+   id: number;
+   Mechanic: boolean;
+   Gunner: boolean;
 }
 
 export interface IHeavyTank extends IMiddleTank {
-  Commander: boolean;
-}
-
-interface IUnitBase {
-  person_id: number;
-  x: number;
-  y: number;
-  angle: number;
+   Commander: boolean;
 }
 
 export interface ILobby {
-  general: boolean;
-  bannerman: boolean;
-  tanks: {
-    heavyTank: IHeavyTank[];
-    middleTank: IMiddleTank[];
-  };
-  is_alive: boolean;
+   general: boolean;
+   bannerman: boolean;
+   tanks: {
+      heavyTank: IHeavyTank[];
+      middleTank: IMiddleTank[];
+   };
+   is_alive: false | IUserUnit;
 }
 
 export interface ILobbyState {
-  lobby: ILobby;
-  lobbyHash: string;
+   lobby: ILobby;
+   lobbyHash: string;
 }
 
 export interface IUserInfo {
-  id: number;
-  login: string;
-  nickname: string;
-  token: string | null;
-  rank_name: ERank;
-  gamer_exp: number;
-  next_rang: number;
-  level: number;
-  role: EGamerRole;
+   id: number;
+   login: string;
+   nickname: string;
+   token: string | null;
+   rank_name: ERank;
+   gamer_exp: number;
+   next_rang: number;
+   level: number;
+   unit: IUserUnit;
 }
 
 interface IPoint {
-  x: number;
-  y: number;
+   x: number;
+   y: number;
+   angle: number;
+}
+
+export interface IUserUnit extends IPoint {
+   personid: EGamerRole;
 }
 
 export interface IBullet extends IPoint {
-  type: number;
+   type: 0 | 1;
+}
+
+export interface IBody extends IPoint {
+   type: number;
 }
 
 export interface IMob extends IPoint {
-  person_id: number;
-  angle: number;
+   person_id: EGamerRole.infantry | EGamerRole.infantryRPG;
 }
 
-export interface IGamer extends IMob {
-  role: EGamerRole;
+export interface IGamer extends IPoint {
+   person_id:
+      | EGamerRole.general
+      | EGamerRole.bannerman
+      | EGamerRole.infantry
+      | EGamerRole.infantryRPG;
 }
 
-export interface ITank extends IPoint {}
+export interface ITank extends IPoint {
+   type: ETank;
+   tower_angle: number;
+}
 
 export interface IScene {
-  tanks: ITank[] | true;
-  gamers: IGamer[] | true;
-  mobs: IMob[] | true;
-  bullets: IBullet[] | true;
-  hashGamers: string;
-  hashMobs: string;
-  hashBullets: string;
+   tanks: ITank[] | true;
+   gamers: IGamer[] | true;
+   mobs: IMob[] | true;
+   bullets: IBullet[] | true;
+   bodies: IBody[] | true;
+   hashBodies: string;
+   hashGamers: string;
+   hashMobs: string;
+   hashBullets: string;
 }
 
 export enum EGamerRole {
-  general = "general",
-  bannerman = "bannerman",
-  heavyTankGunner = "heavyTankGunner",
-  heavyTankMeh = "heavyTankMeh",
-  heavyTankCommander = "heavyTankCommander",
-  middleTankMeh = "middleTankMeh",
-  middleTankGunner = "middleTankGunner",
-  infantryRPG = "infantryRPG",
-  infantry = "infantry",
+   general = 1,
+   bannerman,
+   heavyTankGunner,
+   heavyTankMeh,
+   heavyTankCommander,
+   middleTankMeh,
+   middleTankGunner,
+   infantry,
+   infantryRPG,
 }
 
 export enum ERank {
-  Private = "Private",
-  Sergeant = "Sergeant",
-  Officer = "Officer",
-  General = "General",
+   Private = "Private",
+   Sergeant = "Sergeant",
+   Officer = "Officer",
+   General = "General",
 }
 
 export enum EHash {
-  lobby = "lobby",
-  bullets = "bullets",
-  gamers = "gamers",
-  mobs = "mobs",
-  chat = "chat",
-  map = "map",
-  bodies = "bodies",
+   lobby = "lobby",
+   bullets = "bullets",
+   gamers = "gamers",
+   mobs = "mobs",
+   chat = "chat",
+   map = "map",
+   bodies = "bodies",
+}
+
+export enum ETank {
+   middle,
+   heavy,
 }

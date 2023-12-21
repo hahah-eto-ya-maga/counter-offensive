@@ -1,34 +1,34 @@
+import { IUserUnit } from "../../../../../modules/Server/interfaces";
 import { IPressedKeys } from "../../GameCanvas";
 
 export default class Unit {
    x: number;
    y: number;
-   r: number;
    angle: number;
    visiableAngle: number;
    speed: number;
    diagonalSpeed: number;
    visionDistance: number;
 
-   constructor() {
-      this.x = 2;
-      this.y = 2;
-      this.r = 0.4;
-      this.angle = 0;
+   constructor(x = 5, y = 5, angle = 0) {
+      this.x = x;
+      this.y = y;
+      this.angle = angle;
       this.visiableAngle = 120;
       this.visionDistance = 10;
       this.speed = 0.1;
       this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
    }
 
-   move(keyPressed: IPressedKeys) {
+   move(keyPressed: IPressedKeys, time: number) {
       const speed =
-         (keyPressed.Up && keyPressed.Left) ||
+         time *
+         ((keyPressed.Up && keyPressed.Left) ||
          (keyPressed.Up && keyPressed.Right) ||
          (keyPressed.Down && keyPressed.Right) ||
          (keyPressed.Down && keyPressed.Left)
             ? this.diagonalSpeed
-            : this.speed;
+            : this.speed);
 
       if (keyPressed.Up) {
          this.y += speed;
@@ -49,6 +49,4 @@ export default class Unit {
    }
 
    shoot() {}
-
-   die() {}
 }

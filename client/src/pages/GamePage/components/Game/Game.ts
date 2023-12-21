@@ -1,8 +1,14 @@
-import { requestDelay, staticObjects } from '../../../../config';
-import { Mediator, Server } from '../../../../modules';
-import { EHash, IBullet, IGamer, IMob } from '../../../../modules/Server/interfaces';
-import { TPoint } from '../../types';
-
+import { requestDelay, staticObjects } from "../../../../config";
+import { Mediator, Server } from "../../../../modules";
+import {
+   EHash,
+   IBody,
+   IBullet,
+   IGamer,
+   IMob,
+   ITank,
+} from "../../../../modules/Server/interfaces";
+import { TPoint } from "../../types";
 
 export interface ISceneObjects {
    houses: TPoint[][];
@@ -11,11 +17,11 @@ export interface ISceneObjects {
 }
 
 export interface IGameScene {
-   tanks: TPoint[];
+   tanks: ITank[];
    bullets: IBullet[];
    mobs: IMob[];
    gamers: IGamer[];
-   bodies:TPoint[];
+   bodies: IBody[];
    objects: ISceneObjects;
 }
 
@@ -46,7 +52,6 @@ export default class Game {
          bodies: [],
          objects: staticObjects,
       };
-
       this.interval = setInterval(async () => {
          const res = await server.getScene();
          if (res) {
@@ -54,8 +59,10 @@ export default class Game {
                bullets,
                gamers,
                mobs,
+               bodies,
                tanks,
                hashBullets,
+               hashBodies,
                hashGamers,
                hashMobs,
             } = res;
@@ -70,6 +77,14 @@ export default class Game {
             if (bullets !== true) {
                this.scene.bullets = bullets;
                this.server.STORE.setHash(EHash.bullets, hashBullets);
+            }
+            if (bodies !== true) {
+               this.scene.bodies = bodies;
+               server.STORE.setHash(EHash.bodies, hashBodies);
+            }
+            if (tanks !== true) {
+               this.scene.tanks = tanks;
+               server.STORE.setHash(EHash.gamers, hashGamers);
             }
          }
       }, requestDelay.game);
