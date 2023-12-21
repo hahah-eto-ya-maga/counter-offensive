@@ -34,14 +34,16 @@ const useSprites = (
    img.src = sprites;
 
    const grass: SpriteFrame = [SPRITE_SIZE * 10, SIZE * 10, SIZE * 0, SIZE * 10];
-   const stone: SpriteFrame = [SPRITE_SIZE * 2.3 - 1, SIZE * 6, SIZE * 4, SIZE * 2 - 1];
+   const stone: SpriteFrame = [SPRITE_SIZE * 2.2 - 1, SIZE * 6, SIZE * 4, SIZE * 2 - 1];
    const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
    const wall: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 10, SIZE];
    const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 2, SIZE * 2];
-   const bullet: SpriteFrame = [SPRITE_SIZE, SIZE * 3, SIZE * 0, SIZE];
+
+   const bulletAutomat: SpriteFrame = [SPRITE_SIZE, SIZE * 8, SIZE * 8, SIZE];
+   const bulletRPG: SpriteFrame = [SPRITE_SIZE, SIZE * 8, SIZE * 10, SIZE];
 
    const manDead: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 8, SIZE * 0, SIZE * 2];
-   const manRPG: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 2, SIZE * 2 - 1]; //баг
+   const manRPG: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 2, SIZE * 2 - 1]; 
    const manAutomat: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 4, SIZE * 2 - 1 ];
    const manFlag: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 6, SIZE * 2 - 1];
 
@@ -76,7 +78,8 @@ const useSprites = (
       bush,
       home,
       wall,
-      bullet,
+      bulletAutomat,
+      bulletRPG,
       manDead,
       manRPG,
       manAutomat,
