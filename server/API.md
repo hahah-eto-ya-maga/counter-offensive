@@ -162,18 +162,17 @@ mob = {
 **Танк**
 ```
 panzer = {
-    type: char,
+    type: integer,
     x: float,
     y: float,
     angle: float,
-    tower_angle: float,
-    commander_angle: float
+    tower_angle: float
 } 
 ```
 
 **Тело**
 ```
-bodie = {
+body = {
     bodytype: char,
     x: float,
     y: float,
@@ -195,8 +194,8 @@ map = {
 ```
 bullet = {
     type: integer,
-    x2: float,
-    y2: float,
+    x: float,
+    y: float,
     angle: float
 } 
 ```
@@ -208,8 +207,9 @@ mobs = [
     ...,
     mob
 ]
+```
 
-** Танки **
+**Танки**
 ```
 panzers = [
     panzer,
@@ -218,7 +218,7 @@ panzers = [
     panzer
 ]
 ```
-```
+
 **Пули**
 ```
 bullets = [
@@ -231,10 +231,10 @@ bullets = [
 **Тела**
 ```
 bodies = [
-    bodie,
+    body,
     ...,
     ...,
-    bodie
+    body
 ]
 ```
 **Карта**
@@ -460,7 +460,7 @@ Error(401) - Пользователя не существует
 |Параметр|Тип|Комментарий|
 |-|-|-|
 |token|string|```sha256(uuid4)```|
-|role|string|```Роль которую хочет занять игрок```|
+|role|integer|```Роль которую хочет занять игрок```|
 |tankId|integer|```Номер танка который хочет занять игрок(необязательный параметр)```|
 
 ### Значение если успех
