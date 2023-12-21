@@ -194,8 +194,8 @@ map = {
 ```
 bullet = {
     type: integer,
-    x2: float,
-    y2: float,
+    x: float,
+    y: float,
     angle: float
 } 
 ```
