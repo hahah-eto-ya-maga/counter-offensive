@@ -72,6 +72,10 @@
   font-size: 30px;
 }
 
+.exp_progress_full {
+  border-radius: 7px;
+}
+
 
 @media (max-width: 1700px) {
   .user_name {
