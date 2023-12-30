@@ -143,7 +143,7 @@ class DB {
     }
 
     function getAllBullets() {
-        $query = "SELECT type, x2 AS x, y2 AS y, angle FROM bullets";
+        $query = "SELECT type, x2 AS x, y2 AS y, dx, dy FROM bullets";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -289,9 +289,9 @@ class DB {
         $this->queryHandler($query, [$x1, $y1, $x2, $y2, $bulletId]);
     }
 
-    function addBullet($user_id, $x, $y, $angle){
-        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, angle) VALUES (?, ?, ?, ?, ?, ?)";
-        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $angle]);
+    function addBullet($user_id, $x, $y,  $dx, $dy){
+        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, dx,dy) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $dx, $dy]);
     }
 
     /* Уменьшение жизней*/
