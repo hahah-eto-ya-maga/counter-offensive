@@ -8,7 +8,7 @@ class Game extends BaseModule
     private $hashFlagBullets; // Флаг изменения состояния пуль
     private $hashFlagBodies; // Флаг изменения состояния тел
     private $hashFlagMobs; // Флаг изменения состояния мобов
-    private $hashFlagMap;
+    private $hashFlagMap; // Флаг изменения состояния карты
 
 
     private $mobs;
@@ -16,20 +16,15 @@ class Game extends BaseModule
     private $tanks;
     private $game;
     private $objects;
-
-
     private $bullets;
-    
-    private $time;
-
     private $winer;
-
     private $checkEnd;
     
     private $map;
 
     function __construct($db) {
         parent::__construct($db);
+        // Заполнение карты
         $this->map = array_fill(0, 150, array_fill(0, 120, 0));
     }
 
@@ -101,7 +96,7 @@ class Game extends BaseModule
     private function addMobs(){
         $mobsCount = count($this->mobs);
         if($mobsCount<=13){
-            for($i=$mobsCount; $i<2; $i++){
+            for($i=$mobsCount; $i<13; $i++){
                 $this->db->addMobs(rand(8, 9));
             }
             $this->hashFlagMobs = true;
@@ -124,7 +119,7 @@ class Game extends BaseModule
             $minDistanceToGamer = 10000;
             $targetGamer = null;
             $targetDistance = null;
-            if($this->time->timer - $mob->path_update > 1000){
+            if($this->game->timer - $mob->path_update > 1000){
                 foreach($this->gamers as $gamer){
                     if(in_array($gamer->person_id, array(3, 4, 5, 6, 7)))
                         continue;
@@ -137,7 +132,7 @@ class Game extends BaseModule
                     if($targetDistance<2)
                     {
                         $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                        if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                        if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->mobFire($mobX, $mobY, $angle);
                             $this->db->updateMobTimestamp($mob->id); 
                         } 
@@ -146,7 +141,7 @@ class Game extends BaseModule
                     $path = $this->EasyAStar($this->map, [ceil($mobX), ceil($mobY)], [ceil($targetGamer->x), ceil($targetGamer->y)]);
                     $this->db->setMobPath($mob->id, json_encode($path));
                     $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
-                    if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                    if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                         $this->mobFire($mobX, $mobY, $angle);     
                         $this->db->updateMobTimestamp($mob->id); 
                     }
@@ -157,12 +152,12 @@ class Game extends BaseModule
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
                 $targetCoord = $path[count($path)-1];
                 $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
-                if ($this->time->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                     $this->mobFire($mobX, $mobY, $angle);     
                     $this->db->updateMobTimestamp($mob->id); 
                 }
             }
-            $distance = $mob->movementSpeed * ($this->time->timeout / 1000);
+            $distance = $mob->movementSpeed * ($this->game->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
             $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
             $newDistance = $distance - $distanceToNextCell;
@@ -342,21 +337,21 @@ class Game extends BaseModule
     private function mobBannermanInZone(){
         $bannerman = $this->db->getMobBannerman();
         if (!$bannerman){
-            if ($this->time->mBanner_timestamp != 0) $this->db->updateMobBannermanTimestamp(0);
-            $this->time->mBanner_timestamp = 0;
+            if ($this->game->mBanner_timestamp != 0) $this->db->updateMobBannermanTimestamp(0);
+            $this->game->mBanner_timestamp = 0;
             return false;
         }
         $dist = $this->calculateDistance($bannerman->x, $bannerman->playersBaseX, $bannerman->y, $bannerman->playersBaseY);
         if($dist <= $bannerman->baseRadius){
-            if($this->time->mBanner_timestamp == 0){
-                $this->db->updateMobBannermanTimestamp($this->time->timer); 
-                $this->time->mBanner_timestamp = $this->time->timer;
+            if($this->game->mBanner_timestamp == 0){
+                $this->db->updateMobBannermanTimestamp($this->game->timer); 
+                $this->game->mBanner_timestamp = $this->game->timer;
             }
             return true;
         }
-        if ($this->time->mBanner_timestamp != 0){
+        if ($this->game->mBanner_timestamp != 0){
             $this->db->updateMobBannermanTimestamp(0);
-            $this->time->mBanner_timestamp = 0;
+            $this->game->mBanner_timestamp = 0;
         }
         return false;
     }
@@ -364,23 +359,23 @@ class Game extends BaseModule
     private function playerBannermanInZone(){
         $bannerman = $this->db->getBannerman();
         if (!$bannerman){
-            if ($this->time->pBanner_timestamp != 0){
+            if ($this->game->pBanner_timestamp != 0){
                 $this->db->updatePlayerBannermanTimestamp(0);
-                $this->time->pBanner_timestamp = 0;
+                $this->game->pBanner_timestamp = 0;
             }
             return false;
         }
         $dist = $this->calculateDistance($bannerman->x, $bannerman->mobBaseX, $bannerman->y, $bannerman->mobBaseY);
         if($dist <= $bannerman->baseRadius){
-            if($this->time->pBanner_timestamp == 0){
-                $this->db->updatePlayerBannermanTimestamp($this->time->timer); 
-                $this->time->pBanner_timestamp == $this->time->timer;
+            if($this->game->pBanner_timestamp == 0){
+                $this->db->updatePlayerBannermanTimestamp($this->game->timer); 
+                $this->game->pBanner_timestamp == $this->game->timer;
             }
             return true;
         }
-        if ($this->time->pBanner_timestamp != 0){
+        if ($this->game->pBanner_timestamp != 0){
             $this->db->updatePlayerBannermanTimestamp(0);
-            $this->time->pBanner_timestamp = 0;
+            $this->game->pBanner_timestamp = 0;
         }
         return false;
     }
@@ -389,12 +384,12 @@ class Game extends BaseModule
         $mob = $this->mobBannermanInZone();
         $player = $this->playerBannermanInZone();
         if($player){
-            if($this->time->timer - $this->time->pBanner_timestamp >= $this->time->banner_timeout)
+            if($this->game->timer - $this->game->pBanner_timestamp >= $this->game->banner_timeout)
                 return 'g';
             else return false;
         } 
         if($mob){
-            if($this->time->timer - $this->time->mBanner_timestamp >= $this->time->banner_timeout)
+            if($this->game->timer - $this->game->mBanner_timestamp >= $this->game->banner_timeout)
                 return 'm';
             else return false;
         }
@@ -467,7 +462,7 @@ class Game extends BaseModule
         $this->objects = $this->db->getAllObjects();
         // Мобы
         $this->addMobs();
-        $this->moveMobs();
+        // $this->moveMobs();
         // Пули
         $this->moveBullets();
         $this->shootRegs();
@@ -480,21 +475,22 @@ class Game extends BaseModule
     }
 
     private function update() {
-        $this->time = $this->db->getTime();
-        if ($this->time->timer - $this->time->timestamp >= $this->time->timeout)
-            $this->db->updateTimestamp($this->time->timer);
+        if ($this->game->timer - $this->game->timestamp >= $this->game->timeout)
+            $this->db->updateTimestamp($this->game->timer);
             $this->updateScene();
     }
     
     function getScene($userId, $hashGamers, $hashMobs, $hashBullets, $hashMap, $hashBodies) { 
-        $this->update();
-        $result = array();
-        $hashes = $this->db->getHashes();
         $gamer = $this->db->getGamerById($userId);
 
         if(in_array($gamer->status, array("dead", "lobby"))){
             return array("status" => "dead");
         }
+
+        $this->game = $this->db->getGame();
+        
+        $this->update();
+        $result = array();
 
         if(in_array($gamer->person_id, array(1, 2, 8, 9))){
             $result['gamer'] = array(
@@ -514,30 +510,30 @@ class Game extends BaseModule
             );
         }
         
-        if ($hashes->hashGamers !== $hashGamers) {
+        if ($this->game->hashGamers !== $hashGamers) {
             $result['gamers'] = $this->getGamers();
             $result['tanks'] = $this->getTanks();
-            $result['hashGamers'] = $hashes->hashGamers;
+            $result['hashGamers'] = $this->game->hashGamers;
         }
         
-        if ($hashes->hashMobs !== $hashMobs) {
+        if ($this->game->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
-            $result['hashMobs'] = $hashes->hashMobs;
+            $result['hashMobs'] = $this->game->hashMobs;
         }
         
-        if ($hashes->hashBullets !== $hashBullets) {
+        if ($this->game->hashBullets !== $hashBullets) {
             $result['bullets'] = $this->getBullets();
-            $result['hashBullets'] = $hashes->hashBullets;
+            $result['hashBullets'] = $this->game->hashBullets;
         }
 
-        if ($hashes->hashMap !== $hashMap) {
+        if ($this->game->hashMap !== $hashMap) {
             $result['map'] = $this->getObjects();
-            $result['hashMap'] = $hashes->hashMap;
+            $result['hashMap'] = $this->game->hashMap;
         }
 
-        if ($hashes->hashBodies !== $hashBodies) {
+        if ($this->game->hashBodies !== $hashBodies) {
             $result['bodies'] = $this->getBodies();
-            $result['hashBodies'] = $hashes->hashBodies;
+            $result['hashBodies'] = $this->game->hashBodies;
         }
 
         if($this->winer){
