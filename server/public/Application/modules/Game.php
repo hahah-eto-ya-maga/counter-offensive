@@ -304,18 +304,12 @@ class Game extends BaseModule
     /* Удаление мертвецов */
 
     private function checkDead(){
-        // $gamerDelete = false;
-        // $mobsDelete = false;
-        // $tankDelete = false;
-
         foreach($this->gamers as $gamer){
             if($gamer->hp <= 0){      
                 $this->db->killGamer($gamer->id);
                 $this->db->setGamerBodies($gamer->x, $gamer->y, $gamer->angle, $gamer->person_id);
                 $this->hashFlagBodies = true;
                 $this->hashFlagGamers = true;
-                // $this->db->updateBodiesHash(hash("sha256", $this->v4_UUID()));
-                // $gamerDelete = true;
             }
         }
         foreach($this->mobs as $mob){
@@ -324,8 +318,6 @@ class Game extends BaseModule
                 $this->db->setMobBodies($mob->x, $mob->y, $mob->angle, $mob->personId);
                 $this->hashFlagBodies = true;
                 $this->hashFlagMobs = true;
-                // $this->db->updateBodiesHash(hash("sha256", $this->v4_UUID()));
-                // $mobsDelete = true;
             }
         }
         foreach($this->tanks as $tank){
@@ -416,7 +408,6 @@ class Game extends BaseModule
         }
         else $this->db->updateObjectHp($objId, $currentHp);
         $this->hashFlagMap = true;
-        // $this->db->updateMapHash(hash("sha256", $this->v4_UUID()));
     }
 
     /* Обновление хешей */
@@ -484,9 +475,7 @@ class Game extends BaseModule
         $this->winer = $this->endGame();
         // Смерть сущности
         $this->checkDead();
-
-        //Обновление хещей
-
+        // Обновление хещей
         $this->hashUpdate();
     }
 
@@ -495,54 +484,67 @@ class Game extends BaseModule
         if ($this->time->timer - $this->time->timestamp >= $this->time->timeout)
             $this->db->updateTimestamp($this->time->timer);
             $this->updateScene();
-        // взять текущее время time()
-        // взять $timestamp из БД
-        // если time() - $timestamp >= $timeout (взять из БД)
-        // то обновить сцену и $timestamp = time()
     }
     
     function getScene($userId, $hashGamers, $hashMobs, $hashBullets, $hashMap, $hashBodies) { 
         $this->update();
         $result = array();
         $hashes = $this->db->getHashes();
+        $gamer = $this->db->getGamerById($userId);
+
+        if(in_array($gamer->status, array("dead", "lobby"))){
+            return array("status" => "dead");
+        }
+
+        if(in_array($gamer->person_id, array(1, 2, 8, 9))){
+            $result['gamer'] = array(
+                'person_id' => $gamer->person_id,
+                'x' => $gamer->x,
+                'y' => $gamer->y,
+                'angle' => $gamer->angle
+            );
+        } else {
+            $tank = $this->db->getTankByUserId($userId);
+            $result['gamer'] = array(
+                'person_id' => $gamer->person_id,
+                'x' => $tank->x,
+                'y' => $tank->y,
+                'angle' => $tank->angle,
+                'tower_angle' => $tank->tower_angle
+            );
+        }
         
         if ($hashes->hashGamers !== $hashGamers) {
             $result['gamers'] = $this->getGamers();
             $result['tanks'] = $this->getTanks();
             $result['hashGamers'] = $hashes->hashGamers;
         }
-        else {
-            $result['gamers'] = true;
-            $result['tanks'] = true;
-        }
         
         if ($hashes->hashMobs !== $hashMobs) {
             $result['mobs'] = $this->getMobs();
             $result['hashMobs'] = $hashes->hashMobs;
         }
-        else $result['mobs'] = true;
         
         if ($hashes->hashBullets !== $hashBullets) {
             $result['bullets'] = $this->getBullets();
             $result['hashBullets'] = $hashes->hashBullets;
         }
-        else $result['bullets'] = true;
 
         if ($hashes->hashMap !== $hashMap) {
             $result['map'] = $this->getObjects();
             $result['hashMap'] = $hashes->hashMap;
         }
-        else $result['map'] = true;
 
         if ($hashes->hashBodies !== $hashBodies) {
             $result['bodies'] = $this->getBodies();
             $result['hashBodies'] = $hashes->hashBodies;
         }
-        else $result['bodies'] = true;
+
         if($this->winer){
             if ($this->winer =='g') $result['winer'] = 'gamers';
             if ($this->winer =='m') $result['winer'] = 'mobs';
         }
+
         return $result;
     }
     

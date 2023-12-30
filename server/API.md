@@ -28,24 +28,24 @@ Error = {
 **Пользователь**
 ```
 User = {
-    id:integer
+    id:number
     login:string, 
     nickname:string,
     token:string,
     rank_name:string,
-    gamer_exp:integer,
-    next_rang:integer,
-    level:integer
+    gamer_exp:number,
+    next_rang:number,
+    level:number
 }
 ```
 
 **Сообщение**
 ```
 message = {
-    userId:integer,
+    userId:number,
     nickname:string,
     text:string,
-    level:integer,
+    level:number,
     rank_name:string,
     sendTime:string,
 }
@@ -78,7 +78,7 @@ lobby = {
 **Тяжелый танк**
 ```
 heavyTank = {
-    "id": integer,
+    "id": number,
     "Gunner": bool,
     "Mechanic": bool,
     "Commander": bool
@@ -88,7 +88,7 @@ heavyTank = {
 **Средний танк**
 ```
 middleTank = {
-    "id": integer,
+    "id": number,
     "Gunner": bool,
     "Mechanic": bool
 }
@@ -124,7 +124,7 @@ tanks = {
 lobbyState = {
     lobby: lobby,
     is_alive: bool,
-    role: integer,
+    role: number,
     lobbyHash:string
 }
 ```
@@ -142,61 +142,61 @@ gamers = [
 **Игрок**
 ```
 gamer = {
-    person_id: integer,
-    x: float,
-    y: float,
-    angle: float
+    person_id: number,
+    x: number,
+    y: number,
+    angle: number
 } 
 ```
 
 **Моб**
 ```
 mob = {
-    person_id: integer,
-    x: float,
-    y: float,
-    angle: float
+    person_id: number,
+    x: number,
+    y: number,
+    angle: number
 } 
 ```
 
 **Танк**
 ```
 panzer = {
-    type: integer,
-    x: float,
-    y: float,
-    angle: float,
-    tower_angle: float
+    type: number,
+    x: number,
+    y: number,
+    angle: number,
+    tower_angle: number
 } 
 ```
 
 **Тело**
 ```
 body = {
-    bodytype: char,
-    x: float,
-    y: float,
-    angle: float
+    bodytype: number,
+    x: number,
+    y: number,
+    angle: number
 } 
 ```
 
 **Карта**
 ```
 map = {
-    x: float,
-    y: float,
-    sizeX: float
-    sizeY: float
+    x: number,
+    y: number,
+    sizeX: number
+    sizeY: number
 } 
 ```
 
 **Пуля**
 ```
 bullet = {
-    type: integer,
-    x: float,
-    y: float,
-    angle: float
+    type: number,
+    x: number,
+    y: number,
+    angle: number
 } 
 ```
 **Мобы**
@@ -247,20 +247,20 @@ maps = [
 ]
 ```
 
-
 **Сцена**
 ```
 scene = {
-    gamers: gamers||true,
-    tanks: panzers||true
+    gamer: gamer || tank
+    gamers: gamers,
+    tanks: panzers
     hashGamers: string,
-    mobs: mobs||true,
+    mobs: mobs,
     hashMobs: string,
-    bullets: bullets||true,
+    bullets: bullets,
     hashBullets: string,
-    bodies: bodies||true,
+    bodies: bodies,
     hashBodies: string
-    map: maps||true,
+    map: maps,
     hashMap: string
 }
 ```
@@ -460,8 +460,8 @@ Error(401) - Пользователя не существует
 |Параметр|Тип|Комментарий|
 |-|-|-|
 |token|string|```sha256(uuid4)```|
-|role|integer|```Роль которую хочет занять игрок```|
-|tankId|integer|```Номер танка который хочет занять игрок(необязательный параметр)```|
+|role|number|```Роль которую хочет занять игрок```|
+|tankId|number|```Номер танка который хочет занять игрок(необязательный параметр)```|
 
 ### Значение если успех
 ```
