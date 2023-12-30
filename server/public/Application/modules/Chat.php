@@ -20,7 +20,7 @@ class Chat extends BaseModule
 
     public function getMessages($oldHash, $userId)
     {
-        $hash = $this->db->getHashes();
+        $hash = $this->db->getGame();
         if ($hash->chatHash !== $oldHash) {
             $messages = $this->db->getMessages($userId);
             return array("messages" => $messages, "chatHash" => $hash->chatHash);

@@ -225,7 +225,7 @@ require_once('BaseModule.php');
         }   
 
         function getLobby($userId, $oldHash){
-            $hash = $this->db->getHashes();       
+            $hash = $this->db->getGame();       
             if ($hash->hashLobby !== $oldHash) {
                 $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks($userId);

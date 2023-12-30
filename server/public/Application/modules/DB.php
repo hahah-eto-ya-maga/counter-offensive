@@ -6,17 +6,17 @@ class DB {
 
     function __construct() {
 
-        $host = getenv('MYSQL_HOST');
-        $port = (int)getenv('MYSQL_PORT');
-        $db = getenv('MYSQL_DATABASE');
-        $user = getenv('MYSQL_USER');
-        $pass = getenv('MYSQL_PASSWORD');
+        // $host = getenv('MYSQL_HOST');
+        // $port = (int)getenv('MYSQL_PORT');
+        // $db = getenv('MYSQL_DATABASE');
+        // $user = getenv('MYSQL_USER');
+        // $pass = getenv('MYSQL_PASSWORD');
         
-        // $host = '127.0.0.1';
-        // $port = 3306;
-        // $db = 'counter_offensive';
-        // $user = 'root';
-        // $pass = '';
+        $host = '127.0.0.1';
+        $port = 3306;
+        $db = 'counter_offensive';
+        $user = 'root';
+        $pass = '';
 
         try {
             $this->link = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
