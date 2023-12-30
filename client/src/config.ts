@@ -31,8 +31,8 @@ export const MAP_SIZE = {
 export const requestDelay = {
    chat: 300,
    lobby: 150,
-   game: 2000,
-   gamerUpdate: 10000,
+   game: 200,
+   gamerUpdate: 150,
 };
 
 export const entitiesConfig = {

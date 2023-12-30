@@ -32,7 +32,7 @@ export default class Server {
          const answer = await res.json();
 
          if (answer.result === "ok") {
-            return answer.data;
+            return answer.data as T;
          }
          this.mediator.call<IError>(SERVER_ERROR, answer.error);
          return null;
@@ -127,17 +127,15 @@ export default class Server {
       });
    }
 
-   moveUnit(x: number, y: number): Promise<true | null> {
-      return this.request("move", {
+   unitMotion(
+      x: number | null,
+      y: number | null,
+      angle: number
+   ): Promise<true | null> {
+      return this.request("motion", {
          token: this.STORE.getToken(),
          x,
          y,
-      });
-   }
-
-   rotateUnit(angle: number): Promise<true | null> {
-      return this.request("rotate", {
-         token: this.STORE.getToken(),
          angle,
       });
    }

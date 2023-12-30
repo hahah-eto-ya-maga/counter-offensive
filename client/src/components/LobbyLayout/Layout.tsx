@@ -22,7 +22,7 @@ export const withLayout = (
       const [lobby, setLobby] = useState<ILobby>({
          bannerman: true,
          general: true,
-         is_alive: false,
+         is_alive: null,
          tanks: {
             heavyTank: [],
             middleTank: [],

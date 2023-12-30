@@ -18,6 +18,8 @@ import Collision from "./Game/Collision/Collision";
 import Canvas from "./Graph/Canvas/Canvas";
 import Unit from "./Game/Units/Unit";
 import TraceMask from "./Graph/TraceMask";
+import Tower from "./Game/Units/Tower";
+import Corpus from "./Game/Units/Corpus";
 
 export interface IPressedKeys {
    Up: boolean;
@@ -39,8 +41,20 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
    let unit: Unit = new Unit();
    if (server.STORE.user) {
-      const { x, y, angle } = server.STORE.user.unit;
-      unit = new Unit(x, y, angle);
+      switch (server.STORE.user.unit.personid) {
+         case EGamerRole.heavyTankGunner:
+         case EGamerRole.middleTankGunner: {
+            unit = new Tower();
+            break;
+         }
+         case EGamerRole.heavyTankMeh:
+         case EGamerRole.middleTankMeh: {
+            unit = new Corpus();
+            break;
+         }
+         case EGamerRole.heavyTankCommander: {
+         }
+      }
    }
 
    const updateUnitInterval = setInterval(() => {
@@ -53,10 +67,10 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             userUnit !== EGamerRole.heavyTankGunner &&
             userUnit !== EGamerRole.heavyTankCommander
          ) {
-            server.moveUnit(x, y);
+            server.unitMotion(x, y, angle);
+         } else {
+            server.unitMotion(null, null, angle);
          }
-         server.rotateUnit(angle);
-
          if (keyPressed.Space) {
             makeShot();
          }
@@ -139,7 +153,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    });
 
    let isCollition: boolean = false;
-   const collision = new Collision({ scene: game.getScene().objects });
+   const collision = new Collision({ scene: game.getScene().map });
 
    const keyPressed: IPressedKeys = {
       Down: false,
@@ -313,8 +327,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          );
          canvas?.spriteDir(
             img,
-            tank.x-3,
-            tank.y+3,
+            tank.x - 3,
+            tank.y + 3,
             ...tower,
             Math.PI / 2 - tank.tower_angle
          );
@@ -366,7 +380,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const drawScene = (scene: IGameScene) => {
-      const { bodies, bullets, gamers, mobs, objects, tanks } = scene;
+      const { bodies, bullets, gamers, mobs, map: objects, tanks } = scene;
       drawObjects(objects);
       drawBodies(bodies);
       drawBullets(bullets);
@@ -397,21 +411,21 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const updateEntity = (scene: IGameScene, time: number) => {
-      scene.bullets.forEach((bullet) => {
+        /* scene.bullets.forEach((bullet) => {
          bullet.x += Math.cos(bullet.angle) * entitiesConfig.bulletSpeed * time;
          bullet.y += Math.sin(bullet.angle) * entitiesConfig.bulletSpeed * time;
-      });
+      }); */
 
       // Не работает при долгих ответах с бека + нужен флаг идёт/ не идёт
 
       /* scene.mobs.forEach((mob) => {
          mob.x += Math.cos(mob.angle) * entitiesConfig.mobSpeed * time;
          mob.y += Math.sin(mob.angle) * entitiesConfig.mobSpeed * time;
-      });
+      }); */
 
       // Решить со скоростю
-      scene.gamers.forEach((gamer) => {
-         gamer.x += Math.cos(gamer.angle) * entitiesConfig.gamerSpeed * time;
+      /* scene.gamers.forEach((gamer) => {
+          gamer.x += Math.cos(gamer.angle) * entitiesConfig.gamerSpeed * time;
          gamer.y += Math.sin(gamer.angle) * entitiesConfig.gamerSpeed * time;
       }); */
    };

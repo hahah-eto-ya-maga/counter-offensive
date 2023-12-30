@@ -35,7 +35,7 @@ export interface ILobby {
       heavyTank: IHeavyTank[];
       middleTank: IMiddleTank[];
    };
-   is_alive: false | IUserUnit;
+   is_alive: IUserUnit | null;
 }
 
 export interface ILobbyState {
@@ -91,11 +91,11 @@ export interface ITank extends IPoint {
 }
 
 export interface IScene {
-   tanks: ITank[] | true;
-   gamers: IGamer[] | true;
-   mobs: IMob[] | true;
-   bullets: IBullet[] | true;
-   bodies: IBody[] | true;
+   tanks: ITank[] | null ;
+   gamers: IGamer[] | null;
+   mobs: IMob[] | null;
+   bullets: IBullet[] | null;
+   bodies: IBody[] | null;
    hashBodies: string;
    hashGamers: string;
    hashMobs: string;

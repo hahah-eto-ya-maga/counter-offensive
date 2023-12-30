@@ -22,7 +22,7 @@ export interface IGameScene {
    mobs: IMob[];
    gamers: IGamer[];
    bodies: IBody[];
-   objects: ISceneObjects;
+   map: ISceneObjects;
 }
 
 interface IGame {
@@ -50,10 +50,11 @@ export default class Game {
          gamers: [],
          tanks: [],
          bodies: [],
-         objects: staticObjects,
+         map: staticObjects,
       };
       this.interval = setInterval(async () => {
          const res = await server.getScene();
+
          if (res) {
             const {
                bullets,
@@ -66,23 +67,23 @@ export default class Game {
                hashGamers,
                hashMobs,
             } = res;
-            if (gamers !== true) {
+            if (gamers) {
                this.scene.gamers = gamers;
                this.server.STORE.setHash(EHash.gamers, hashGamers);
             }
-            if (mobs !== true) {
+            if (mobs) {
                this.scene.mobs = mobs;
                this.server.STORE.setHash(EHash.mobs, hashMobs);
             }
-            if (bullets !== true) {
+            if (bullets) {
                this.scene.bullets = bullets;
                this.server.STORE.setHash(EHash.bullets, hashBullets);
             }
-            if (bodies !== true) {
+            if (bodies) {
                this.scene.bodies = bodies;
                server.STORE.setHash(EHash.bodies, hashBodies);
             }
-            if (tanks !== true) {
+            if (tanks) {
                this.scene.tanks = tanks;
                server.STORE.setHash(EHash.gamers, hashGamers);
             }

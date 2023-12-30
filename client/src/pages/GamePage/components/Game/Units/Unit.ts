@@ -47,6 +47,4 @@ export default class Unit {
    rotate(angle: number) {
       this.angle = angle;
    }
-
-   shoot() {}
 }
