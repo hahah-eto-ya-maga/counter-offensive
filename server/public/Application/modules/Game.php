@@ -96,7 +96,7 @@ class Game extends BaseModule
     private function addMobs(){
         $mobsCount = count($this->mobs);
         if($mobsCount<=13){
-            for($i=$mobsCount; $i<13; $i++){
+            for($i=$mobsCount; $i<2; $i++){
                 $this->db->addMobs(rand(8, 9));
             }
             $this->hashFlagMobs = true;
@@ -462,7 +462,7 @@ class Game extends BaseModule
         $this->objects = $this->db->getAllObjects();
         // Мобы
         $this->addMobs();
-        // $this->moveMobs();
+        $this->moveMobs();
         // Пули
         $this->moveBullets();
         $this->shootRegs();
@@ -544,36 +544,34 @@ class Game extends BaseModule
         return $result;
     }
     
-    public function rotate($userId, $angle)
+    public function motion($userId, $x, $y, $angle)
     {
         $gamer = $this->db->getGamerById($userId);
         if(in_array($gamer->person_id, array(3, 7))){
-            $this->db->updateTowerRotate($userId, $angle);
-            $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+            if (is_numeric($angle)) {
+                $this->db->updateTowerRotate($userId, $angle);
+                $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+            } else return array(false, 422);
         }
-        if(in_array($gamer->person_id, array(4, 6))){
-            $this->db->updateTankRotate($userId, $angle);
-            $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+        elseif(in_array($gamer->person_id, array(4, 6))){
+            if (is_numeric($x) && is_numeric($y) && is_numeric($angle)) {
+                $this->db->updateTankMotion($userId, $x, $y, $angle);
+                $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+            } else return array(false, 422);
         }
-        if($gamer->person_id == 5){
-            $this->db->updateCommanderRotate($userId, $angle);
-            $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+        elseif($gamer->person_id == 5){
+            if (is_numeric($angle)) {
+                $this->db->updateCommanderRotate($userId, $angle);
+                $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+            } else return array(false, 422);
         }
         else {
-            $this->db->updateRotate($userId, $angle);
-            $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+            if (is_numeric($x) && is_numeric($y) && is_numeric($angle)) {
+                $this->db->updateMotion($userId, $x, $y, $angle);
+                $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
+            } else return array(false, 422);
         }
-       return true;
+        return true;
     }
 
-    public function move($userId, $x, $y)
-    {
-        $gamer = $this->db->getGamerById($userId);
-        if(in_array($gamer->person_id, array(4, 6))){
-            $this->db->updateTankMove($userId, $x, $y);
-        }
-        else $this->db->updateMove($userId, $x, $y);
-        $this->db->updateGamersHash(hash("sha256", $this->v4_UUID()));
-       return true;
-    } 
 }

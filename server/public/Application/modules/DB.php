@@ -173,33 +173,23 @@ class DB {
         return $this->queryHandlerAll($query, []);
     }
     
-    function updateMove($user_id, $x, $y){
-        $query= "UPDATE `gamers` SET `x` = ?,`y` = ? WHERE user_id = ?;";
-        $this->queryHandler($query, [$x, $y, $user_id],true);
-    }
-
-    function updateRotate($user_id, $angle){
-        $query= "UPDATE `gamers` SET `angle` = ? WHERE user_id = ?;";
-        $this->queryHandler($query, [$angle, $user_id],true);
+    function updateMotion($user_id, $x, $y, $angle){
+        $query= "UPDATE gamers SET x=?, y=?, angle=? WHERE user_id=?;";
+        $this->queryHandler($query, [$x, $y, $angle, $user_id],true);
     }
 
     function updateTowerRotate($user_id, $angle){
-        $query= "UPDATE `tanks` SET `tower_angle` = ? WHERE gunner_id = ?;";
+        $query= "UPDATE tanks SET tower_angle=? WHERE gunner_id=?;";
         $this->queryHandler($query, [$angle, $user_id],true);
     }
 
-    function updateTankRotate($user_id, $angle){
-        $query= "UPDATE `tanks` SET `angle` = ? WHERE driver_id = ?;";
-        $this->queryHandler($query, [$angle, $user_id],true);
-    }
-
-    function updateTankMove($user_id, $x, $y){
-        $query= "UPDATE `tanks` SET x=?, y=? WHERE driver_id = ?;";
-        $this->queryHandler($query, [$x, $y, $user_id],true);
+    function updateTankMotion($user_id, $x, $y, $angle){
+        $query= "UPDATE tanks SET x=?, y=?, angle=? WHERE driver_id=?;";
+        $this->queryHandler($query, [$x, $y, $angle, $user_id],true);
     }
 
     function updateCommanderRotate($user_id, $angle){
-        $query= "UPDATE `tanks` SET `angle` = ? WHERE commander_id = ?;";
+        $query= "UPDATE tanks SET commander_angle=? WHERE commander_id=?;";
         $this->queryHandler($query, [$angle, $user_id],true);
     }
 

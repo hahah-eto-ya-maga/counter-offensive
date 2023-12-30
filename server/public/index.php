@@ -26,10 +26,9 @@
                     case "getLobby": return $app->getLobby($params);
                     case "suicide": return $app->suicide($params);
                     //Game
-                    case 'move': return $app->move($params);
+                    case 'motion': return $app->motion($params);
                     case "getScene": return $app->getScene($params);
                     case "fire": return $app->fire($params);
-                    case 'rotate': return $app->rotate($params);
                 } 
                 return array(false, 501);
             }
