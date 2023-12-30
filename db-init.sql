@@ -124,7 +124,8 @@ CREATE TABLE IF NOT EXISTS`bullets` (
   `y1` FLOAT NOT NULL DEFAULT 0,
   `x2` FLOAT NOT NULL DEFAULT 0,
   `y2` FLOAT NOT NULL DEFAULT 0,
-  `angle` FLOAT NOT NULL DEFAULT 0,
+  `dx` FLOAT NOT NULL DEFAULT 0,
+  `dy` FLOAT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ); 
 
@@ -151,7 +152,6 @@ CREATE TABLE IF NOT EXISTS `bodies` (
   `y` FLOAT NULL DEFAULT NULL,
   `angle` FLOAT NULL DEFAULT NULL,
   `type` MEDIUMINT NOT NULL DEFAULT -1, 
-  /*i - пешик, m-средний танк, h - тяжик, m - моб */
   `isMob` BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );

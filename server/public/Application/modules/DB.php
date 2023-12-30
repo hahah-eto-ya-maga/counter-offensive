@@ -12,11 +12,11 @@ class DB {
         $user = getenv('MYSQL_USER');
         $pass = getenv('MYSQL_PASSWORD');
         
-        //$host = '127.0.0.1';
-        //$port = 3306;
-        //$db = 'counter_offensive';
-        //$user = 'root';
-        //$pass = '';
+        // $host = '127.0.0.1';
+        // $port = 3306;
+        // $db = 'counter_offensive';
+        // $user = 'root';
+        // $pass = '';
 
         try {
             $this->link = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
@@ -132,6 +132,11 @@ class DB {
         return $this->queryHandler($query, [$timestamp]);
     }
 
+    function getGame() {
+        $query = "SELECT *, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) as timer FROM game WHERE id=1";
+        return $this->queryHandler($query, [], true);
+    }
+
     public function getTime() {
         $query = "SELECT timestamp, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) as timer, timeout, banner_timeout, pBanner_timestamp, mBanner_timestamp FROM game WHERE id=1";
         return $this->queryHandler($query, [], true);
@@ -143,7 +148,7 @@ class DB {
     }
 
     function getAllBullets() {
-        $query = "SELECT type, x2 AS x, y2 AS y, angle FROM bullets";
+        $query = "SELECT type, x2 AS x, y2 AS y, dx, dy FROM bullets";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -200,10 +205,6 @@ class DB {
 
     /* Обновление хэша*/
 
-    function getHashes() {
-        $query = "SELECT * FROM game WHERE id=1";
-        return $this->queryHandler($query, [], true);
-    }
 
     function updateChatHash($hash) {
         $query = "UPDATE game SET chatHash=? WHERE id=1";
@@ -289,9 +290,9 @@ class DB {
         $this->queryHandler($query, [$x1, $y1, $x2, $y2, $bulletId]);
     }
 
-    function addBullet($user_id, $x, $y, $angle){
-        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, angle) VALUES (?, ?, ?, ?, ?, ?)";
-        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $angle]);
+    function addBullet($user_id, $x, $y,  $dx, $dy){
+        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, dx,dy) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $dx, $dy]);
     }
 
     /* Уменьшение жизней*/
