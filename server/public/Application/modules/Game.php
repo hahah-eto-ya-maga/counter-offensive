@@ -35,10 +35,14 @@ class Game extends BaseModule
     }
 
     function fire($user_id, $x, $y, $angle){
-        $dx = cos($angle);
-        $dy = sin($angle);
-        $this->db->addBullet($user_id, $x+0.25*$dx, $y+0.25*$dy, $dx, $dy);
-        $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
+        $gamer = $this->db->getGamerAndPersoByUserId($user_id);
+        if($gamer && ($gamer->timer - $gamer->reload_timestamp)>($gamer->reloadSpeed * 1000)){
+            $dx = cos($angle);
+            $dy = sin($angle);
+            $this->db->addBullet($user_id, $x+0.3*$dx, $y+0.3*$dy, $dx, $dy);
+            $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
+            $this->db->updateGamerTimestamp($user_id);
+        }
         return true;
     }
 

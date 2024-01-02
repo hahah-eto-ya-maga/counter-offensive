@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `gamers` (
   `y` FLOAT NULL DEFAULT NULL,
   `angle` FLOAT NULL DEFAULT 0,
   `status` VARCHAR(32) NOT NULL DEFAULT '',
+  `reload_timestamp` BIGINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 
@@ -117,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `tank_lobby` (
 ); 
 
 CREATE TABLE IF NOT EXISTS`bullets` (
-  `id` MEDIUMINT NOT NULL AUTO_INCREMENT, 
+  `id` BIGINT NOT NULL AUTO_INCREMENT, 
   `user_id` MEDIUMINT NOT NULL DEFAULT -1,
   `type` TINYINT NOT NULL Default 1,
   `x1` FLOAT NOT NULL DEFAULT 0,
@@ -182,16 +183,16 @@ INSERT INTO `users` (`login`, `nickname`, `password`) VALUES
 ('testgeneral1', 'testuser', 'aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547'),
 ('testgeneral2', 'testuser', 'f13da73dfccd34814fc79bdfd6d7d4d75b6369c1802ff89a3e522897c9d575c5');
 
-INSERT INTO `gamers` (`user_id`, `experience`) VALUES
-(1, 0), 
-(2, 0), 
-(3, 0), 
-(4, 720), 
-(5, 720), 
-(6, 5088), 
-(7, 5088), 
-(8, 9600), 
-(9, 17948);
+INSERT INTO `gamers` (`user_id`, `experience`, `reload_timestamp`) VALUES
+(1, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(2, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(3, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(4, 720, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(5, 720, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(6, 5088, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(7, 5088, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(8, 9600, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000)), 
+(9, 17948, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));
 
 /* Значения по умолчанию в таблице game*/
 

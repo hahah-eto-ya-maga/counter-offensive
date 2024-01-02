@@ -142,6 +142,19 @@ class DB {
         return $this->queryHandler($query, [], true);
     }
 
+    public function getGamerAndPersoByUserId($userId) {
+        $query = "SELECT g.reload_timestamp, g.person_id, p.reloadSpeed,
+        ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) AS timer
+        FROM gamers g
+        JOIN persons p ON g.person_id = p.id WHERE user_id=?";
+        return $this->queryHandler($query, array($userId), true);
+    }
+
+    public function updateGamerTimestamp($userId) {
+        $query = "UPDATE gamers SET reload_timestamp=ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) WHERE user_id=?";
+        return $this->queryHandler($query, [$userId]);
+    }
+
     public function getAllMobs() {
         $query = "SELECT person_id, x, y,angle FROM mobs;";
         return $this->queryHandlerAll($query, []);
@@ -156,7 +169,6 @@ class DB {
         $query = "SELECT type, x, y, angle, tower_angle FROM tanks";
         return $this->queryHandlerAll($query, []);
     }
-
 
     function getBullets(){
         $query = "SELECT * FROM bullets";
