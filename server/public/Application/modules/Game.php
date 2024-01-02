@@ -12,14 +12,14 @@ class Game extends BaseModule
 
 
     private $mobs;
-    private $gamers;    
+    private $gamers;  
     private $tanks;
     private $game;
     private $objects;
     private $bullets;
     private $winer;
     private $checkEnd;
-    
+
     private $map;
 
     function __construct($db) {
@@ -181,6 +181,10 @@ class Game extends BaseModule
         }
         foreach($this->bullets as $bullet){
             $this->moveBullet($bullet->id, $bullet->x2, $bullet->y2, $bullet->dx, $bullet->dy);
+            // $bullet->x1 = $bullet->x2;
+            // $bullet->y1 = $bullet->y2;
+            // $bullet->x2 = $bullet->x2+$bullet->dx;
+            // $bullet->y2 = $bullet->y2 + $bullet->dy;
         }
         $this->hashFlagBullets = true;
     }
@@ -197,65 +201,118 @@ class Game extends BaseModule
 
     private function shootRegs(){
         if (!$this->bullets){
+            // print_r("Нет пуль");
             return 0;
         }
         foreach($this->bullets as $bullet){
-            $minRange = [-1,0,150,0];
-            $range = 0;
+            $shootFlag = false;
             foreach($this->gamers as $gamer){
                 $range = $this->shootReg($gamer->x, $gamer->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
-                if($range && $range<$minRange[2]){
-                    $minRange[0] = 1;
-                    $minRange[1] = $gamer->id;
-                    $minRange[2] = $range;
-                    $minRange[3] = $gamer->hp - 20;
+                if($range){
+                    $this->db->lowerHpGamer($gamer->id, $gamer->hp-20);
+                    $this->db->deleteBullet($bullet->id);
+                    $shootFlag = true;
+                    break;
                 }
             }
-            foreach($this->tanks as $tank){
-                $range = $this->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
-                if($range && $range<$minRange[2]){
-                    $minRange[0] = 2;
-                    $minRange[1] = $tank->id;
-                    $minRange[2] = $range;
-                    $minRange[3] = $tank->hp - 20;
+            if(!$shootFlag){
+                foreach($this->tanks as $tank){
+                    $range = $this->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
+                    if($range){
+                        $this->db->lowerHpTank($tank->id, $tank->hp-20);
+                        $this->db->deleteBullet($bullet->id);
+                        $shootFlag = true;
+                        break;
+                    }
                 }
             }
-            foreach($this->mobs as $mob){
-                $range = $this->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
-                if($range && $range<$minRange[2]){
-                    $minRange[0] = 3;
-                    $minRange[1] = $mob->id;
-                    $minRange[2] = $range;
-                    $minRange[3] = $mob->hp - 20;
+            if(!$shootFlag){
+                foreach($this->mobs as $mob){
+                    $range = $this->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+                    if($range){
+                        $this->db->lowerHpMob($mob->id, $mob->hp-20);
+                        $this->db->deleteBullet($bullet->id);
+                        $shootFlag = true;
+                        break;
+                    }
                 }
             }
-            
-            foreach($this->objects as $object){
-                $range = $this->shootReg($object->x, $object->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
-                if($range && $range<$minRange[2]){
-                    $minRange[0] = 4;
-                    $minRange[1] = $object->id;
-                    $minRange[2] = $range;
-                    $minRange[3] = $object->hp - 20;
+            if(!$shootFlag){
+                foreach($this->objects as $object){
+                    $range = $this->shootReg($object->x, $object->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
+                    if($range){
+                        $this->damageObjectHp($object->id, $object->hp-20);
+                        $this->db->deleteBullet($bullet->id);
+                        $shootFlag = true;
+                        break;
+                    }
                 }
             }
 
-            switch($minRange[0]){
-                case -1: return 0;
-                case 1: 
-                    $this->db->lowerHpGamer($minRange[1], $minRange[3]);
-                    break;
-                case 2: 
-                    $this->db->lowerHpTank($minRange[1], $minRange[3]);
-                    break;
-                case 3: 
-                    $this->db->lowerHpMob($minRange[1], $minRange[3]);
-                    break;
-                case 4: 
-                    $this->damageObjectHp($minRange[1], $minRange[3]);
-                    break;
-            } 
-            $this->db->deleteBullet($bullet->id);
+            // $minRange = [-1,0,150,0];
+            // $range = 0;
+            // foreach($this->gamers as $gamer){
+            //     $range = $this->shootReg($gamer->x, $gamer->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+            //     if($range && $range<$minRange[2]){
+            //         $minRange[0] = 1;
+            //         $minRange[1] = $gamer->id;
+            //         $minRange[2] = $range;
+            //         $minRange[3] = $gamer->hp - 20;
+            //         // print_r("Игрок");
+            //     }
+            // }
+            // foreach($this->tanks as $tank){
+            //     $range = $this->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
+            //     if($range && $range<$minRange[2]){
+            //         $minRange[0] = 2;
+            //         $minRange[1] = $tank->id;
+            //         $minRange[2] = $range;
+            //         $minRange[3] = $tank->hp - 20;
+            //         // print_r("Танк");
+            //     }
+            // }
+            // foreach($this->mobs as $mob){
+            //     $range = $this->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+            //     if($range && $range<$minRange[2]){
+            //         $minRange[0] = 3;
+            //         $minRange[1] = $mob->id;
+            //         $minRange[2] = $range;
+            //         $minRange[3] = $mob->hp - 20;
+            //         // print_r("Моб");
+            //     }
+            // }
+            
+            // foreach($this->objects as $object){
+            //     $range = $this->shootReg($object->x, $object->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.3);
+            //     if($range && $range<$minRange[2]){
+            //         $minRange[0] = 4;
+            //         $minRange[1] = $object->id;
+            //         $minRange[2] = $range;
+            //         $minRange[3] = $object->hp - 20;
+            //         // print_r("Объект");
+            //     }
+            // }
+            // switch($minRange[0]){
+            //     case -1: return 0;
+            //     case 1: 
+            //         $this->db->lowerHpGamer($minRange[1], $minRange[3]);
+            //         // print_r("Попал в игрока");
+            //         break;
+            //     case 2: 
+            //         $this->db->lowerHpTank($minRange[1], $minRange[3]);
+            //         // print_r("Попал в танка");
+            //         break;
+            //     case 3: 
+            //         $this->db->lowerHpMob($minRange[1], $minRange[3]);
+            //         // print_r("Попал в моба");
+            //         break;
+            //     case 4: 
+            //         $this->damageObjectHp($minRange[1], $minRange[3]);
+            //         // print_r("Попал в объект");
+            //         break;
+            // } 
+            // print_r("Удалил пулю");
+            // $this->db->deleteBullet($bullet->id);
         }
         
         
@@ -290,7 +347,8 @@ class Game extends BaseModule
         $dy = $y - $yy;
         $sqrt = sqrt($dx * $dx + $dy * $dy);
         if ($sqrt<=$area){
-            return ($A*$A+$B*$B);
+            //return ($A*$A+$B*$B);
+            return true;
         }
         return false;
         
