@@ -1,20 +1,32 @@
 import { FC, useContext, useEffect } from "react";
-import Game, { IGameScene, ISceneObjects } from "./Game/Game";
+import { MAP_SIZE, entitiesConfig, requestDelay } from "../../../config";
 import { MediatorContext, ServerContext } from "../../../App";
-import useSprites from "./hooks/useSprites";
-import Canvas from "./Graph/Canvas/Canvas";
+import { TPoint } from "../types";
+import {
+   EGamerRole,
+   ETank,
+   IBody,
+   IBullet,
+   IGamer,
+   IMob,
+   ITank,
+} from "../../../modules/Server/interfaces";
 import useCanvas from "./hooks/useCanvas";
-import { TPoint, TUnit } from "../types";
-import Unit from "./Game/Units/Unit";
+import useSprites, { SpriteFrame } from "./hooks/useSprites";
+import Game, { IGameScene, ISceneObjects } from "./Game/Game";
 import Collision from "./Game/Collision/Collision";
-import { MAP_SIZE } from "../../../config";
+import Canvas from "./Graph/Canvas/Canvas";
+import Unit from "./Game/Units/Unit";
 import TraceMask from "./Graph/TraceMask";
+import Tower from "./Game/Units/Tower";
+import Corpus from "./Game/Units/Corpus";
 
 export interface IPressedKeys {
    Up: boolean;
    Down: boolean;
    Right: boolean;
    Left: boolean;
+   Space: boolean;
 }
 
 interface GameCanvasProps {
@@ -27,16 +39,52 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
    const canvasId = "canvas";
 
-   const unit = new Unit();
+   let unit: Unit = new Unit();
+   if (server.STORE.user) {
+      switch (server.STORE.user.unit.personid) {
+         case EGamerRole.heavyTankGunner:
+         case EGamerRole.middleTankGunner: {
+            unit = new Tower();
+            break;
+         }
+         case EGamerRole.heavyTankMeh:
+         case EGamerRole.middleTankMeh: {
+            unit = new Corpus();
+            break;
+         }
+         case EGamerRole.heavyTankCommander: {
+         }
+      }
+   }
+
+   const updateUnitInterval = setInterval(() => {
+      const { x, y, angle } = unit;
+      const user = server.STORE.user;
+      if (user) {
+         const userUnit = user.unit.personid;
+         if (
+            userUnit !== EGamerRole.middleTankGunner &&
+            userUnit !== EGamerRole.heavyTankGunner &&
+            userUnit !== EGamerRole.heavyTankCommander
+         ) {
+            server.unitMotion(x, y, angle);
+         } else {
+            server.unitMotion(null, null, angle);
+         }
+         if (keyPressed.Space) {
+            makeShot();
+         }
+      }
+   }, requestDelay.gamerUpdate);
 
    const height = window.innerHeight;
    const width = window.innerWidth;
    const prop = width / height;
    const WIN = {
-      left: -1 ,
+      left: -1,
       bottom: -1,
-      width: 20 * prop,
-      height: 20,
+      width: 15 * prop,
+      height: 15,
    };
 
    let tracer: TraceMask | null = null;
@@ -53,6 +101,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             keydown: keyDownHandler,
             keyup: keyUpHandler,
             mousemove: mouseMoveHandler,
+            mouseDown: mouseDownHandler,
+            mouseUp: mouseUpHandler,
          },
       });
       tracer = new TraceMask({
@@ -64,6 +114,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       });
       return () => {
          canvas = null;
+         clearInterval(game.interval);
+         game.server.STORE.clearHash();
+         clearInterval(updateUnitInterval);
       };
    });
 
@@ -80,7 +133,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       bush,
       home,
       wall,
-      bullet,
+      bulletSprite,
       manDead,
       manRPG,
       manAutomat,
@@ -91,78 +144,31 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       towerTank3,
    ] = useSprites(SPRITE_SIZE, SIZE);
 
-   const scene: IGameScene = {
-      tanks: [],
-      bullets: [],
-      bots: [],
-      gamers: [],
-      objects: {
-         houses: [
-            [
-               { x: 8, y: 10 },
-               { x: 8, y: 13 },
-               { x: 14, y: 13 },
-               { x: 14, y: 10 },
-            ],
-         ],
-         walls: [
-            [
-               { x: -1, y: -1 },
-               { x: -1, y: MAP_SIZE.height + 1 },
-               { x: 0, y: MAP_SIZE.height + 1 },
-               { x: 0, y: -1 },
-            ],
-            [
-               { x: -1, y: -1 },
-               { x: -1, y: 0 },
-               { x: MAP_SIZE.width, y: 0 },
-               { x: MAP_SIZE.width, y: -1 },
-            ],
-            [
-               { x: MAP_SIZE.width, y: -1 },
-               { x: MAP_SIZE.width, y: MAP_SIZE.height + 1 },
-               { x: MAP_SIZE.width + 1, y: MAP_SIZE.height + 1 },
-               { x: MAP_SIZE.width + 1, y: -1 },
-            ],
-            [
-               { x: 0, y: MAP_SIZE.height },
-               { x: 0, y: MAP_SIZE.height + 1 },
-               { x: MAP_SIZE.width, y: MAP_SIZE.height + 1 },
-               { x: MAP_SIZE.width, y: MAP_SIZE.height },
-            ],
-         ],
-         stones: [
-            { x: 16, y: 12, r: 1 },
-            { x: 18, y: 10, r: 1 },
-            { x: 6, y: 12, r: 1 },
-         ],
-         deadTanks: [{ x: 14, y: 6, r: 1 }],
-      },
-   };
-
-   let isCollition: boolean = false;
-   const collision = new Collision({ scene: scene.objects });
-
    const game = new Game({
       server,
       mediator,
-      scene,
       cbs: {
          roundEnd,
       },
    });
+
+   let isCollition: boolean = false;
+   const collision = new Collision({ scene: game.getScene().map });
 
    const keyPressed: IPressedKeys = {
       Down: false,
       Up: false,
       Right: false,
       Left: false,
+      Space: false,
    };
 
    const mousePos: TPoint = {
       x: 0,
       y: 0,
    };
+
+   // Callbacks
 
    const keyDownHandler = (e: KeyboardEvent) => {
       if (inputRef.current !== document.activeElement) {
@@ -177,6 +183,10 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          }
          if (e.code === "ArrowLeft" || e.code === "KeyA") {
             keyPressed.Left = true;
+         }
+         if (e.code === "Space") {
+            makeShot();
+            keyPressed.Space = true;
          }
       }
    };
@@ -195,6 +205,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          if (e.code === "ArrowLeft" || e.code === "KeyA") {
             keyPressed.Left = false;
          }
+         if (e.code === "Space") {
+            keyPressed.Space = false;
+         }
       }
    };
 
@@ -203,6 +216,32 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       mousePos.y = e.offsetY;
    };
 
+   const mouseUpHandler = () => {
+      keyPressed.Space = false;
+   };
+
+   const mouseDownHandler = () => {
+      makeShot();
+      keyPressed.Space = true;
+   };
+
+   const makeShot = () => {
+      const { x, y, angle } = unit;
+      const user = server.STORE.user;
+      if (user) {
+         const userUnit = user.unit.personid;
+         if (
+            userUnit !== EGamerRole.heavyTankCommander &&
+            userUnit !== EGamerRole.heavyTankMeh &&
+            userUnit !== EGamerRole.middleTankMeh &&
+            userUnit !== EGamerRole.bannerman
+         ) {
+            server.makeShot(x, y, angle);
+         }
+      }
+   };
+
+   /* БЛОК ПРО РИСОВАНИЕ */
 
    const drawWalls = (walls: TPoint[][]) => {
       walls.forEach((block) => {
@@ -219,12 +258,11 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
          canvas?.spriteMap(img, block[1].x, block[1].y, ...home);
       });
    };
-   //как то преобразить вектор
-   const drawStones = (stones: TUnit[]) => {
+
+   const drawStones = (stones: TPoint[]) => {
       stones.forEach((circle) => {
-         canvas?.spriteMap(img, circle.x - 1.1, circle.y + 1.1, ...stone);  
+         canvas?.spriteMap(img, circle.x - 1, circle.y + 1, ...stone);
       });
-     
    };
 
    const drawGrass = (walls: TPoint[][]) => {
@@ -242,6 +280,116 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       drawHouses(houses);
       drawStones(stones);
    };
+
+   const drawBullets = (bullets: IBullet[]) => {
+      // Что то не то со спрайтом пуль
+      bullets.forEach((bullet) => {
+         /* canvas?.spriteDir(
+            img,
+            bullet.x,
+            bullet.y,
+            ...bulletSprite,
+            Math.PI / 2 - bullet.angle
+         ); */
+         canvas?.circle({ ...bullet, r: 0.1 }, "#F00");
+      });
+   };
+
+   const drawMobs = (mobs: IMob[]) => {
+      // у мобов будут спрайты отличные от игроков
+      mobs.forEach((mob) => {
+         canvas?.circle({ ...mob, r: 0.5 }, "#0F0");
+         const mobSprite: SpriteFrame =
+            mob.person_id === EGamerRole.infantry ? manAutomat : manRPG;
+         canvas?.spriteDir(
+            img,
+            mob.x - 1,
+            mob.y + 1,
+            ...mobSprite,
+            Math.PI / 2 - mob.angle
+         );
+      });
+   };
+
+   const drawTanks = (tanks: ITank[]) => {
+      tanks.forEach((tank) => {
+         const corpus: SpriteFrame =
+            tank.type === ETank.middle ? corpusTank2 : corpusTank3;
+         const tower: SpriteFrame =
+            tank.type === ETank.middle ? towerTank2 : towerTank3;
+         canvas?.circle({ ...tank, r: 1.5 }, "#0FF");
+         canvas?.spriteDir(
+            img,
+            tank.x - 2,
+            tank.y + 2.1,
+            ...corpus,
+            Math.PI / 2 - tank.angle
+         );
+         canvas?.spriteDir(
+            img,
+            tank.x - 3,
+            tank.y + 3,
+            ...tower,
+            Math.PI / 2 - tank.tower_angle
+         );
+      });
+   };
+
+   const drawGamers = (gamers: IGamer[]) => {
+      gamers.forEach((gamer) => {
+         let gamerSprite: SpriteFrame | null = null;
+         switch (gamer.person_id) {
+            case EGamerRole.bannerman: {
+               gamerSprite = manFlag;
+               break;
+            }
+            case EGamerRole.infantry: {
+               gamerSprite = manAutomat;
+               break;
+            }
+            case EGamerRole.infantryRPG: {
+               gamerSprite = manRPG;
+               break;
+            }
+            default: {
+               return;
+            }
+         }
+         canvas?.circle({ ...gamer, r: 0.5 }, "#333");
+         canvas?.spriteDir(
+            img,
+            gamer.x - 1,
+            gamer.y + 1,
+            ...gamerSprite,
+            Math.PI / 2 - gamer.angle
+         );
+      });
+   };
+
+   const drawBodies = (bodies: IBody[]) => {
+      bodies.forEach((body) => {
+         canvas?.circle({ ...body, r: 0.5 }, "#F00");
+         canvas?.spriteDir(
+            img,
+            body.x - 1,
+            body.y + 1,
+            ...manDead,
+            Math.PI / 2 - body.angle
+         );
+      });
+   };
+
+   const drawScene = (scene: IGameScene) => {
+      const { bodies, bullets, gamers, mobs, map: objects, tanks } = scene;
+      drawObjects(objects);
+      drawBodies(bodies);
+      drawBullets(bullets);
+      drawMobs(mobs);
+      drawTanks(tanks);
+      drawGamers(gamers);
+   };
+
+   /*  */
 
    const updateWIN = () => {
       const halfW = WIN.width / 2;
@@ -262,51 +410,61 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       }
    };
 
-   const updateUnit = () => {
+   const updateEntity = (scene: IGameScene, time: number) => {
+        /* scene.bullets.forEach((bullet) => {
+         bullet.x += Math.cos(bullet.angle) * entitiesConfig.bulletSpeed * time;
+         bullet.y += Math.sin(bullet.angle) * entitiesConfig.bulletSpeed * time;
+      }); */
+
+      // Не работает при долгих ответах с бека + нужен флаг идёт/ не идёт
+
+      /* scene.mobs.forEach((mob) => {
+         mob.x += Math.cos(mob.angle) * entitiesConfig.mobSpeed * time;
+         mob.y += Math.sin(mob.angle) * entitiesConfig.mobSpeed * time;
+      }); */
+
+      // Решить со скоростю
+      /* scene.gamers.forEach((gamer) => {
+          gamer.x += Math.cos(gamer.angle) * entitiesConfig.gamerSpeed * time;
+         gamer.y += Math.sin(gamer.angle) * entitiesConfig.gamerSpeed * time;
+      }); */
+   };
+
+   const updateUnit = (time: number) => {
       if (canvas) {
-         updateWIN();
-         unit.move(keyPressed);
+         unit.move(keyPressed, time);
          unit.rotate(
             Math.atan2(
                canvas.sy(mousePos.y) - unit.y,
                canvas.sx(mousePos.x) - unit.x
             )
          );
-        
+         updateWIN();
       }
-   };
-
-   const trace = (objects: ISceneObjects) => {
-      tracer?.trace(unit, objects);
    };
 
    function roundEnd() {}
 
    function render(FPS: number) {
       const fpsGap = 0.5;
-      const { objects } = game.getScene();
+      const renderTime = FPS / 1000;
+      const scene = game.getScene();
       if (canvas) {
          canvas.clear();
-         trace(objects);
-         drawObjects(objects);
-         canvas.spriteDir(
-            img,
-            unit.x - 1,
-            unit.y + 1,
-            ...manFlag,
-            Math.PI / 2 - unit.angle
-         );
-         updateUnit();
-      
+         drawScene(scene);
+         updateUnit(renderTime);
+         updateEntity(scene, renderTime);
+
+         // временно 1 мёртвый танк #TODO
          isCollition = collision.checkAllBlocksUnit(
-            unit,
-            game.getScene().objects.deadTanks[0],
+            { ...unit, r: 0.5 },
+            { x: 10, y: 10, r: 0.2 },
             isCollition
          );
 
          canvas.printText(
             `FPS: ${FPS}`,
-            WIN.left + fpsGap,
+            WIN.left + 3.5 * fpsGap,
             WIN.bottom + WIN.height - fpsGap,
             "black",
             20

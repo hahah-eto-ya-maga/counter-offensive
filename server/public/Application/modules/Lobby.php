@@ -191,30 +191,17 @@ require_once('BaseModule.php');
         }
 
         function setGamerRole($role, $userId, $tankId){
-            switch($role){
-                case 'general': return $this->setRoleHandler(1, $userId);
-                case 'bannerman': return $this->setRoleHandler(2, $userId);
-                case 'heavyTankGunner': return $this->setRoleHandler(3, $userId, $tankId);                        
-                case 'heavyTankMeh': return $this->setRoleHandler(4, $userId, $tankId);                
-                case 'heavyTankCommander': return $this->setRoleHandler(5, $userId, $tankId);                        
-                case 'middleTankMeh': return $this->setRoleHandler(6, $userId, $tankId);
-                case 'middleTankGunner': return $this->setRoleHandler(7, $userId, $tankId);
-                case 'infantryRPG': 
-                {
-                    $this->db->deleteGamerInTank($userId);
-                    $this->db->setGamerRole($userId, 9);
-                    $hashLobby = hash('sha256', $this->v4_UUID());
-                    $this->db->updateLobbyHash($hashLobby);
-                    return true;
-                }
-                case 'infantry': 
-                {
-                    $this->db->deleteGamerInTank($userId);
-                    $this->db->setGamerRole($userId, 8);
-                    $hashLobby = hash('sha256', $this->v4_UUID());
-                    $this->db->updateLobbyHash($hashLobby);
-                    return true;
-                }
+            if(in_array($role, array(1, 2)))
+                return $this->setRoleHandler($role, $userId);
+            else if(in_array($role, array(3, 4, 5, 6, 7)))
+                return $this->setRoleHandler($role, $userId, $tankId);
+            else if(in_array($role, array(8, 9)))
+            {
+                $this->db->deleteGamerInTank($userId);
+                $this->db->setGamerRole($userId, $role);
+                $hashLobby = hash('sha256', $this->v4_UUID());
+                $this->db->updateLobbyHash($hashLobby);
+                return true;
             }
             return array(false, 463);
         }
@@ -238,7 +225,7 @@ require_once('BaseModule.php');
         }   
 
         function getLobby($userId, $oldHash){
-            $hash = $this->db->getHashes();       
+            $hash = $this->db->getGame();       
             if ($hash->hashLobby !== $oldHash) {
                 $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks($userId);
