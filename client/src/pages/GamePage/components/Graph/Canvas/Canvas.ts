@@ -10,6 +10,8 @@ export interface ICanvasOption {
       keydown: (e: KeyboardEvent) => void;
       keyup: (e: KeyboardEvent) => void;
       mousemove: (e: MouseEvent) => void;
+      mouseUp: () => void;
+      mouseDown: () => void;
    };
 }
 
@@ -45,13 +47,17 @@ class Canvas {
       this.WIN = WIN;
       this.areaVisible = [];
 
-      const { keydown, keyup, mousemove } = callbacks;
+      const { keydown, keyup, mousemove, mouseDown, mouseUp } = callbacks;
 
       window.addEventListener("keydown", keydown);
       window.addEventListener("keyup", keyup);
       window.addEventListener("mousemove", mousemove);
+      this.canvas.addEventListener("mousedown", mouseDown);
+      this.canvas.addEventListener("mouseup", mouseUp);
 
-      window.addEventListener("contextmenu", (event: Event) => {
+      window.addEventListener(
+         "contextmenu",
+         (event: Event) => {
             event.preventDefault();
          },
          false

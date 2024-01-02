@@ -8,6 +8,7 @@ import {
    EGamerRole,
    ILobbyState,
    EHash,
+   IScene,
 } from "./interfaces";
 
 export default class Server {
@@ -29,10 +30,9 @@ export default class Server {
             .join("&");
          const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();
-         
-         
+
          if (answer.result === "ok") {
-            return answer.data;
+            return answer.data as T;
          }
          this.mediator.call<IError>(SERVER_ERROR, answer.error);
          return null;
@@ -44,6 +44,8 @@ export default class Server {
          return null;
       }
    }
+
+   // АВТОРИЗАЦИЯ
 
    registration(
       login: string,
@@ -72,10 +74,12 @@ export default class Server {
       });
    }
 
+   // ЛОББИ
+
    getMessages(): Promise<IMessages | true | null> {
       return this.request("getMessages", {
          token: this.STORE.getToken(),
-         hash: this.STORE.getHash(EHash.chatHash),
+         hash: this.STORE.getHash(EHash.chat),
       });
    }
 
@@ -100,13 +104,48 @@ export default class Server {
    getLobby(): Promise<ILobbyState | true | null> {
       return this.request("getLobby", {
          token: this.STORE.getToken(),
-         hash: this.STORE.getHash(EHash.lobbyHash),
+         hash: this.STORE.getHash(EHash.lobby),
+      });
+   }
+
+   // ИГРА
+
+   getScene(): Promise<IScene | null> {
+      return this.request("getScene", {
+         token: this.STORE.getToken(),
+         hashMap: this.STORE.getHash(EHash.map),
+         hashGamers: this.STORE.getHash(EHash.gamers),
+         hashMobs: this.STORE.getHash(EHash.mobs),
+         hashBullets: this.STORE.getHash(EHash.bullets),
+         hashBodies: this.STORE.getHash(EHash.bodies),
       });
    }
 
    suicide(): Promise<true | null> {
       return this.request("suicide", {
          token: this.STORE.getToken(),
+      });
+   }
+
+   unitMotion(
+      x: number | null,
+      y: number | null,
+      angle: number
+   ): Promise<true | null> {
+      return this.request("motion", {
+         token: this.STORE.getToken(),
+         x,
+         y,
+         angle,
+      });
+   }
+
+   makeShot(x: number, y: number, angle: number): Promise<true | null> {
+      return this.request("fire", {
+         token: this.STORE.getToken(),
+         x,
+         y,
+         angle,
       });
    }
 }
