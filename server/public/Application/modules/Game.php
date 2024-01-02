@@ -9,6 +9,7 @@ class Game extends BaseModule
     private $hashFlagBodies; // Флаг изменения состояния тел
     private $hashFlagMobs; // Флаг изменения состояния мобов
     private $hashFlagMap; // Флаг изменения состояния карты
+    private $recreateFlagMap; // Флаг пересоздания карты
 
 
     private $mobs;
@@ -24,8 +25,7 @@ class Game extends BaseModule
 
     function __construct($db) {
         parent::__construct($db);
-        // Заполнение карты
-        $this->map = array_fill(0, 150, array_fill(0, 120, 0));
+        
     }
 
     /*Math*/
@@ -42,6 +42,13 @@ class Game extends BaseModule
         return true;
     }
 
+    private function movePoint($x, $y, $angle, $distance) {
+        $newX = $x + $distance * cos($angle);
+        $newY = $y + $distance * sin($angle);
+    
+        return array($newX, $newY);
+    }
+
     private function calculateShiftPoint($x1, $y1, $x2, $y2, $distance) {
         $dx = $x2 - $x1;
         $dy = $y2 - $y1;
@@ -56,6 +63,32 @@ class Game extends BaseModule
     private function calculateDistance($x1, $x2, $y1, $y2){
         return sqrt(pow(($x1 - $x2),2) + pow(($y1 - $y2),2));
     }
+
+    /*Map*/
+
+    function fillMap(){
+        // Заполнение карты
+        $this->map = array_fill(0, 120, array_fill(0, 150, 0));
+
+        foreach ($this->objects as $object) {
+            for ($i = $object->x - 1; $i < $object->x + $object->sizeX - 1 ; $i++) {
+                for ($j = $object->y; $j < $object->y + $object->sizeY; $j++) {
+                    $this->map[120-$j][$i] = 1;
+                }
+            }
+        }
+    }
+
+    private function createMobMap($x1, $y1, $x2, $y2) {
+        $desired_part = [];
+        for ($i = 120-$y2-1; $i < 120-$y1; $i++) {
+            $row = $this->map[$i];
+            $desired_part_row = array_slice($row, $x1, $x2 - $x1 + 1);
+            $desired_part[] = $desired_part_row;
+        }
+        return $desired_part;
+    }
+
 
     /* Mobs */
 
@@ -95,9 +128,9 @@ class Game extends BaseModule
 
     private function addMobs(){
         $mobsCount = count($this->mobs);
-        if($mobsCount<=13){
-            for($i=$mobsCount; $i<2; $i++){
-                $this->db->addMobs(rand(8, 9));
+        if($mobsCount<=10){
+            for($i=$mobsCount; $i<10; $i++){
+                $this->db->addMobs(rand(8, 9),rand(10, 30), rand(10, 30));
             }
             $this->hashFlagMobs = true;
         }
@@ -128,13 +161,15 @@ class Game extends BaseModule
                         $targetGamer = $gamer;
                         $targetDistance = $distance; 
                 }
-                if($targetDistance && $targetGamer && $targetDistance<30){
+                if($targetDistance && $targetGamer && $targetDistance<15){
                     if($targetDistance<2)
                     {
                         $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                         if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->mobFire($mobX, $mobY, $angle);
-                            $this->db->updateMobTimestamp($mob->id); 
+                            $this->db->rotateMob($angle, $mob->id);    
+                            $this->db->updateMobTimestamp($mob->id);    
+
                         } 
                         continue;
                     }
@@ -146,7 +181,15 @@ class Game extends BaseModule
                         $this->db->updateMobTimestamp($mob->id); 
                     }
                 }
-                else continue;
+                //случай когда игрок далеко и мобы просто рандомно двигаются
+                else{
+                    $distance = $mob->movementSpeed/1.5 * ($this->game->timeout / 1000);
+                    $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
+                    $newCoords = $this->movePoint($mobX, $mobY, $angle, $distance);
+                    $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
+                    $this->hashFlagMobs = true;
+                    continue;
+                }
             }
             else {
                 $path = json_decode($this->db->getMobPath($mob->id)->path);
@@ -167,7 +210,7 @@ class Game extends BaseModule
             else{
                 $newCoords = $this->calculateShiftPoint($mobX, $mobY, $path[1][0], $path[1][1], $distance);    
             }
-
+            
             $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
             $this->hashFlagMobs = true;
         }
@@ -334,27 +377,27 @@ class Game extends BaseModule
 
     /* Конец игры */
 
-    private function mobBannermanInZone(){
-        $bannerman = $this->db->getMobBannerman();
-        if (!$bannerman){
-            if ($this->game->mBanner_timestamp != 0) $this->db->updateMobBannermanTimestamp(0);
-            $this->game->mBanner_timestamp = 0;
-            return false;
-        }
-        $dist = $this->calculateDistance($bannerman->x, $bannerman->playersBaseX, $bannerman->y, $bannerman->playersBaseY);
-        if($dist <= $bannerman->baseRadius){
-            if($this->game->mBanner_timestamp == 0){
-                $this->db->updateMobBannermanTimestamp($this->game->timer); 
-                $this->game->mBanner_timestamp = $this->game->timer;
-            }
-            return true;
-        }
-        if ($this->game->mBanner_timestamp != 0){
-            $this->db->updateMobBannermanTimestamp(0);
-            $this->game->mBanner_timestamp = 0;
-        }
-        return false;
-    }
+    // private function mobBannermanInZone(){
+    //     $bannerman = $this->db->getMobBannerman();
+    //     if (!$bannerman){
+    //         if ($this->game->mBanner_timestamp != 0) $this->db->updateMobBannermanTimestamp(0);
+    //         $this->game->mBanner_timestamp = 0;
+    //         return false;
+    //     }
+    //     $dist = $this->calculateDistance($bannerman->x, $bannerman->playersBaseX, $bannerman->y, $bannerman->playersBaseY);
+    //     if($dist <= $bannerman->baseRadius){
+    //         if($this->game->mBanner_timestamp == 0){
+    //             $this->db->updateMobBannermanTimestamp($this->game->timer); 
+    //             $this->game->mBanner_timestamp = $this->game->timer;
+    //         }
+    //         return true;
+    //     }
+    //     if ($this->game->mBanner_timestamp != 0){
+    //         $this->db->updateMobBannermanTimestamp(0);
+    //         $this->game->mBanner_timestamp = 0;
+    //     }
+    //     return false;
+    // }
 
     private function playerBannermanInZone(){
         $bannerman = $this->db->getBannerman();
@@ -381,18 +424,12 @@ class Game extends BaseModule
     }
 
     private function endGame(){
-        $mob = $this->mobBannermanInZone();
         $player = $this->playerBannermanInZone();
         if($player){
             if($this->game->timer - $this->game->pBanner_timestamp >= $this->game->banner_timeout)
                 return 'g';
             else return false;
         } 
-        if($mob){
-            if($this->game->timer - $this->game->mBanner_timestamp >= $this->game->banner_timeout)
-                return 'm';
-            else return false;
-        }
     }
 
     /* Объекты */
@@ -400,6 +437,7 @@ class Game extends BaseModule
     private function damageObjectHp($objId, $currentHp) {     
         if ($currentHp <= 0) {
             $this->db->deleteObject($objId);
+            $this->fillMap();
         }
         else $this->db->updateObjectHp($objId, $currentHp);
         $this->hashFlagMap = true;
@@ -423,6 +461,10 @@ class Game extends BaseModule
         }
         if ($this->hashFlagMap){
             $this->db->updateMapHash($hash);
+        }
+        // Вызывается для пересоздания текущей карты
+        if($this->recreateFlagMap){
+            $this->fillMap();
         }
     }
 
@@ -462,6 +504,16 @@ class Game extends BaseModule
         $this->objects = $this->db->getAllObjects();
         // Мобы
         $this->addMobs();
+        $this->fillMap();
+        // print("\n");
+
+        // for($i=110; $i<120; $i++){
+        //     for($j=0; $j<10; $j++){
+        //         print($this->map[$i][$j]." ");
+        //     }
+        //     print("\n");
+        // }
+        // print_r($this->objects);
         $this->moveMobs();
         // Пули
         $this->moveBullets();

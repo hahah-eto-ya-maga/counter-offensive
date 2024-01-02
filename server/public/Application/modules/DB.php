@@ -306,15 +306,21 @@ class DB {
 
     /* Мобы */
 
-    function addMobs($role) {
-        $query = "INSERT INTO mobs (person_id, hp, x, y, angle, reload_timestamp) VALUES (?, 100, 20, 20, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
-        $this->queryHandler($query, [$role]);
+    function addMobs($role, $x, $y) {
+        $query = "INSERT INTO mobs (person_id, hp, x, y, angle, reload_timestamp) VALUES (?, 100, ?, ?, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
+        $this->queryHandler($query, [$role, $x, $y]);
     }
 
     function moveMob($mobX, $mobY, $angle, $mobId) {
         $query = "UPDATE mobs SET x=?, y=?, angle=? WHERE id=?;";
         $this->queryHandler($query, [$mobX, $mobY, $angle, $mobId]);
     }
+
+    function rotateMob($angle, $mobId) {
+        $query = "UPDATE mobs SET angle=? WHERE id=?;";
+        $this->queryHandler($query, [$angle, $mobId]);
+    }
+
 
     function getMobPath($mobId){
         $query = "SELECT path FROM mobs WHERE id=?";
