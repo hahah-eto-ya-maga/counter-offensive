@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fd81b676-fe80-491c-9492-b2e77d086717",
+		"_postman_id": "1425a4d8-e4a4-465f-8df7-bbd4c7dba824",
 		"name": "Andriianov Artemm",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30955074"
@@ -44,8 +44,7 @@
 											"pm.test('check response rank_name is correct', ()=>{ \r",
 											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
 											"}); \r",
-											" \r",
-											"pm.test('check response gamer_exp is correct', ()=>{ \r",
+											" pm.test('check response gamer_exp is correct', ()=>{ \r",
 											"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 											"}); \r",
 											" \r",
@@ -56,7 +55,19 @@
 											"pm.test('check response level is correct', ()=>{ \r",
 											"    pm.expect(response.data.level).to.eql(1); \r",
 											"});\r",
-											""
+											"\r",
+											"for(i=1;i<100;i++){\r",
+											"    pm.sendRequest({\r",
+											"        url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"    }, function(err, res){\r",
+											"        const time=res.responseTime\r",
+											"        console.log(time)\r",
+											"         pm.test(\"Response time is less than 200ms\", function () {\r",
+											"            pm.expect(time).to.be.below(50);\r",
+											"        });\r",
+											"    });\r",
+											"}"
 										],
 										"type": "text/javascript"
 									}
@@ -840,7 +851,7 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response nickname is correct', ()=>{ \r",
-													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response rank_name is correct', ()=>{ \r",
@@ -848,11 +859,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -925,7 +936,7 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response nickname is correct', ()=>{ \r",
-													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response rank_name is correct', ()=>{ \r",
@@ -933,11 +944,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1018,11 +1029,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1095,7 +1106,7 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response nickname is correct', ()=>{ \r",
-													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response rank_name is correct', ()=>{ \r",
@@ -1103,11 +1114,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1606,11 +1617,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1691,11 +1702,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1776,11 +1787,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1861,11 +1872,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response gamer_exp is correct', ()=>{ \r",
-													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response next_rang is correct', ()=>{ \r",
-													"    pm.expect(response.data.next_rang).to.eql(143); \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response level is correct', ()=>{ \r",
@@ -1980,6 +1991,80 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "russianLetters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql('testuserreg'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}/api/?hash={{hashReg}}&method=registration&login={{loginReg}}aa&nickname=ффффффффффффф",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"path": [
+												"api",
+												""
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}aa"
+												},
+												{
+													"key": "nickname",
+													"value": "ффффффффффффф"
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -2016,17 +2101,6 @@
 											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
 											"}); \r",
 											" \r",
-											"pm.test('check response gamer_exp is correct', ()=>{ \r",
-											"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response next_rang is correct', ()=>{ \r",
-											"    pm.expect(response.data.next_rang).to.eql(143); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response level is correct', ()=>{ \r",
-											"    pm.expect(response.data.level).to.eql(1); \r",
-											"});\r",
 											""
 										],
 										"type": "text/javascript"
@@ -2454,6 +2528,15 @@
 							"name": "success",
 							"event": [
 								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
 									"listen": "test",
 									"script": {
 										"exec": [
@@ -2473,24 +2556,14 @@
 											"\r",
 											"pm.test('check response data is Data', ()=>{ \r",
 											"    pm.expect(response.data).to.eql(true);\r",
-											"}); "
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
+											"}); \r",
+											"\r",
+											"\r",
+											"pm.test(\"Response time is less than ms\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(50);\r",
+											"});\r",
+											"\r",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2767,6 +2840,34 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
@@ -2779,15 +2880,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -3090,6 +3183,34 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
@@ -3102,15 +3223,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -3502,6 +3615,34 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
@@ -3514,15 +3655,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
-											"    method:`GET`,\r",
-											"}, function(err, res){\r",
-											"    const  token  = res.json().data;\r",
-											"    console.log(res.json())\r",
-											"    pm.environment.set(\"token\", token.token)\r",
-											"}\r",
-											");"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -4473,6 +4606,34 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
@@ -4909,7 +5070,97 @@
 					"name": "getLobby",
 					"item": [
 						{
-							"name": "success",
+							"name": "oldHash",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=getLobby&token=${pm.variables.get(\"token\")}&hash=${pm.variables.get(\"hash\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  hashLobby = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"hashLobby\", hashLobby.lobbyHash)\r",
+											"}\r",
+											");\r",
+											"}\r",
+											");\r",
+											"//\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hashLobby}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hashLobby}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newLobbyHash",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4925,16 +5176,838 @@
 											"}\r",
 											");\r",
 											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedGeneral",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
 											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}/api/?method=getLobby&token=${pm.variables.get(\"token\")}&hash=${pm.variables.get(\"hash\")}`,\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 											"    method:`GET`,\r",
 											"}, function(err, res){\r",
-											"    const  hashLobby = res.json().data;\r",
+											"    const  token  = res.json().data;\r",
 											"    console.log(res.json())\r",
-											"    pm.environment.set(\"hashLobby\", hashLobby)\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"general\")}&token=${pm.variables.get(\"token\")}`,\r",
+											"    method:`GET`,\r",
+											"})\r",
 											"}\r",
 											");\r",
+											"\r",
 											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(false);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.heavyTank)\r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank).to.eql([]);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedBannerman",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testpuppy1\")}&hash=${pm.variables.get(\"hashpuppy1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"bannerman\")}&token=${pm.variables.get(\"token\")}`,\r",
+											"    method:`GET`,\r",
+											"})\r",
+											"}\r",
+											");\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(false);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.heavyTank)\r",
+											"\r",
+											"pm.test('check response middleTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank).to.eql([]);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedShooterDoubleTank",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    //запрос на танк\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"middleTankGunner\")}&token=${pm.variables.get(\"token\")}&tankId=4567`,\r",
+											"    \r",
+											"    method:`GET`,\r",
+											"    \r",
+											"},function(err, res){\r",
+											"    console.log(res.json())\r",
+											"}\r",
+											")\r",
+											"    \r",
+											"}\r",
+											");\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.test('check response heavyTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response middleTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank[0].id).to.eql(4567);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response middleTank Mechanic is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank[0].Mechanic).to.eql(false);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response middleTank Gunner is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank[0].Gunner).to.eql(true);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.middleTank[0].Mechanic)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedDriverDoubleTank",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    //запрос на танк\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"middleTankMeh\")}&token=${pm.variables.get(\"token\")}&tankId=4567`,\r",
+											"    \r",
+											"    method:`GET`,\r",
+											"    \r",
+											"},function(err, res){\r",
+											"    console.log(res.json())\r",
+											"}\r",
+											")\r",
+											"    \r",
+											"}\r",
+											");\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.test('check response heavyTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response middleTank id is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank[0].id).to.eql(4567);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response middleTank Mechanic is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank[0].Mechanic).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response middleTank Gunner is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank[0].Gunner).to.eql(false);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.middleTank[0].Mechanic)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedShooterTripleTank",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    //запрос на танк\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"heavyTankGunner\")}&token=${pm.variables.get(\"token\")}&tankId=45678`,\r",
+											"    \r",
+											"    method:`GET`,\r",
+											"    \r",
+											"},function(err, res){\r",
+											"    console.log(res.json())\r",
+											"}\r",
+											")\r",
+											"    \r",
+											"}\r",
+											");\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.test('check response middleTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank id is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].id).to.eql(45678);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Mechanic is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Mechanic).to.eql(false);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Gunner is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Gunner).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Commander is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Commander).to.eql(false);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.heavyTank[0].Mechanic)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedDriverTripleTank",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    //запрос на танк\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"heavyTankMeh\")}&token=${pm.variables.get(\"token\")}&tankId=45678`,\r",
+											"    \r",
+											"    method:`GET`,\r",
+											"    \r",
+											"},function(err, res){\r",
+											"    console.log(res.json())\r",
+											"}\r",
+											")\r",
+											"    \r",
+											"}\r",
+											");\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.test('check response middleTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank id is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].id).to.eql(45678);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Mechanic is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Mechanic).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Gunner is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Gunner).to.eql(false);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Commander is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Commander).to.eql(false);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.heavyTank[0].Mechanic)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=getLobby&token={{token}}&hash={{hash}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getLobby"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hash",
+											"value": "{{hash}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "occupiedCommanderTripleTank",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    //запрос на танк\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&role=${pm.variables.get(\"heavyTankCommander\")}&token=${pm.variables.get(\"token\")}&tankId=45678`,\r",
+											"    \r",
+											"    method:`GET`,\r",
+											"    \r",
+											"},function(err, res){\r",
+											"    console.log(res.json())\r",
+											"}\r",
+											")\r",
+											"    \r",
+											"}\r",
+											");\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response general is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bannerman is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"\r",
+											"\r",
+											"pm.test('check response middleTank is empty', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank id is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].id).to.eql(45678);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Mechanic is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Mechanic).to.eql(false);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Gunner is false', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Gunner).to.eql(false);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response heavyTank Commander is true', ()=>{ \r",
+											"    pm.expect(response.data.lobby.tanks.heavyTank[0].Commander).to.eql(true);\r",
+											"}); \r",
+											"console.log(response.data.lobby.tanks.heavyTank[0].Mechanic)"
 										],
 										"type": "text/javascript"
 									}
@@ -5264,6 +6337,162 @@
 								}
 							},
 							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"//1",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"    pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//2",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//3",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//4",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"",
+									"}",
+									");",
+									"",
+									"//5",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testpuppy1\")}&hash=${pm.variables.get(\"hashpuppy1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"    pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//6",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant2\")}&hash=${pm.variables.get(\"hashsergeant2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//7",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer2\")}&hash=${pm.variables.get(\"hashofficer2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//8",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral2\")}&hash=${pm.variables.get(\"hashgeneral2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"",
+									"}",
+									");",
+									"",
+									"//9",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testpuppy2\")}&hash=${pm.variables.get(\"hashpuppy2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									" ",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					]
 				},
@@ -6692,12 +7921,12 @@
 													"    pm.expect(response.result).to.eql('error');\r",
 													"});\r",
 													"\r",
-													"pm.test('check code error is 235', ()=>{\r",
-													"    pm.expect(response.error.code).to.eql(235);\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is '+'Level less current gamer', ()=>{\r",
-													"    pm.expect(response.error.text).to.eql(pm.variables.get('Level less current gamer'));\r",
+													"pm.test('check code text is '+pm.variables.get('Insufficient level'), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -7430,12 +8659,12 @@
 													"    pm.expect(response.result).to.eql('error');\r",
 													"});\r",
 													"\r",
-													"pm.test('check code error is 235', ()=>{\r",
-													"    pm.expect(response.error.code).to.eql(235);\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is '+'Level less current gamer', ()=>{\r",
-													"    pm.expect(response.error.text).to.eql(pm.variables.get('Level less current gamer'));\r",
+													"pm.test('check code text is '+pm.variables.get('Insufficient level'), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -8162,12 +9391,12 @@
 													"    pm.expect(response.result).to.eql('error');\r",
 													"});\r",
 													"\r",
-													"pm.test('check code error is 235', ()=>{\r",
-													"    pm.expect(response.error.code).to.eql(235);\r",
+													"pm.test('check code error is 234', ()=>{\r",
+													"    pm.expect(response.error.code).to.eql(234);\r",
 													"});\r",
 													"\r",
-													"pm.test('check code text is '+'Level less current gamer', ()=>{\r",
-													"    pm.expect(response.error.text).to.eql(pm.variables.get('Level less current gamer'));\r",
+													"pm.test('check code text is '+pm.variables.get('Insufficient level'), ()=>{\r",
+													"    pm.expect(response.error.text).to.eql(pm.variables.get('Insufficient level'));\r",
 													"});\r",
 													""
 												],
@@ -10963,6 +12192,4079 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"//1",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"    pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//2",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant1\")}&hash=${pm.variables.get(\"hashsergeant1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//3",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//4",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"",
+									"}",
+									");",
+									"",
+									"//5",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testpuppy1\")}&hash=${pm.variables.get(\"hashpuppy1\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"    pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//6",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testsergeant2\")}&hash=${pm.variables.get(\"hashsergeant2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//7",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer2\")}&hash=${pm.variables.get(\"hashofficer2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"}",
+									");",
+									"",
+									"//8",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral2\")}&hash=${pm.variables.get(\"hashgeneral2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									"",
+									"}",
+									");",
+									"",
+									"//9",
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testpuppy2\")}&hash=${pm.variables.get(\"hashpuppy2\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"     pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"infantry\")}`,",
+									"    method:`GET`,",
+									"})",
+									" ",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "move",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"for(j=1;j<22;j++){\r",
+											"\r",
+											"    pm.sendRequest({\r",
+											"        url: `http://${pm.variables.get(\"url\")}/api/?method=move&token=${pm.variables.get(\"token\")}&x=1&y=2`,\r",
+											"        method:`GET`,\r",
+											"    }, function(err, res){\r",
+											"        const time=res.responseTime\r",
+											"         pm.test(\" Response time is less than 50ms\", function () {\r",
+											"            pm.expect(time).to.be.below(50);\r",
+											"        });\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=move&x=332&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolX(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=move&x=332%23$%&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": "332#$%"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolY(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=move&x=332&y=453%$%23",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453%$#"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token=&method=move&x=332&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noX(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=move&x=&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": ""
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noY(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=move&x=332&y=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongToken(Error401)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}%23$%^&method=move&x=332&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}#$%^"
+										},
+										{
+											"key": "method",
+											"value": "move"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=&x=332&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=move%&x=332&y=453",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "move%"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "suicide",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=suicide&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "suicide"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=suicide&token=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "suicide"
+										},
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongToken(Error401)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=suicide&token={{token}}123!%23%23%23$$$",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "suicide"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}123!%23%23%23$$$"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=suicide1&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "suicide1"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "rotate",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=rotate&angle=332&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "rotate"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolAngle(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=rotate&angle=332;%&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "rotate"
+										},
+										{
+											"key": "angle",
+											"value": "332;%"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=rotate&angle=332&token=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "rotate"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noAngle(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=rotate&angle=&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "rotate"
+										},
+										{
+											"key": "angle",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongToken(Error401)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=rotate&angle=332&token={{token}}$%^%23",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "rotate"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}$%^#"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=&angle=332&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?method=rotate$%23&angle=332&token={{token}}",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "rotate$#"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getScene",
+					"item": [
+						{
+							"name": "newHashMap",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"function pups(){\r",
+											" pm.sendRequest({\r",
+											"         url: `http://${pm.variables.get(\"url\")}/api/?method=getScene&token=${pm.variables.get(\"token\")}&hashMap=345&hashGamers=456&hashMobs=451&hashBullets=09798&hashBodies=457`,\r",
+											"    method:`GET`,\r",
+											"    }, function(err, res){\r",
+											"        const time=res.responseTime\r",
+											"        console.log(time)\r",
+											"         pm.test(\"Response time is less than 50ms\", function () {\r",
+											"            pm.expect(time).to.be.below(50);\r",
+											"        });\r",
+											"    });\r",
+											"}\r",
+											"for(i=1;i<200;i++){\r",
+											"    setTimeout(77)\r",
+											"    setTimeout(pups(),1500);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"\r",
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");\r",
+											"}\r",
+											");\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap=wrrtre&hashGamers=reretr&hashMobs=retret&hashBullets=retret&hashBodies=retrer&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "wrrtre"
+										},
+										{
+											"key": "hashGamers",
+											"value": "reretr"
+										},
+										{
+											"key": "hashMobs",
+											"value": "retret"
+										},
+										{
+											"key": "hashBullets",
+											"value": "retret"
+										},
+										{
+											"key": "hashBodies",
+											"value": "retrer"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newHashGamers",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers=eggfdgfgfd&hashMobs=retret&hashBullets=retret&hashBodies=retrer&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "eggfdgfgfd"
+										},
+										{
+											"key": "hashMobs",
+											"value": "retret"
+										},
+										{
+											"key": "hashBullets",
+											"value": "retret"
+										},
+										{
+											"key": "hashBodies",
+											"value": "retrer"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newHashBodies",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap=wrrtre&hashGamers=reretr&hashMobs=retret&hashBullets=retret&hashBodies=retrer&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "wrrtre"
+										},
+										{
+											"key": "hashGamers",
+											"value": "reretr"
+										},
+										{
+											"key": "hashMobs",
+											"value": "retret"
+										},
+										{
+											"key": "hashBullets",
+											"value": "retret"
+										},
+										{
+											"key": "hashBodies",
+											"value": "retrer"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "oldHashes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"    //hashes\r",
+											"    pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=getScene&token=${pm.variables.get(\"token\")}&hashMap=345&hashGamers=456&hashMobs=451&hashBullets=09798&hashBodies=457`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  hash  = res.json().data;\r",
+											"    console.log(res.json().data+'dsfsfdfds')\r",
+											"    pm.environment.set(\"hashMap\", hash.hashMap)\r",
+											"    pm.environment.set(\"hashGamers\", hash.hashGamers)\r",
+											"    pm.environment.set(\"hashBodies\", hash.hashBodies)\r",
+											"    pm.environment.set(\"hashMobs\", hash.hashMobs)\r",
+											"    pm.environment.set(\"hashBullets\", hash.hashBullets)\r",
+											"}\r",
+											");\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response gamers is false', ()=>{ \r",
+											"    pm.expect(response.data.gamers).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response tanks is false', ()=>{ \r",
+											"    pm.expect(response.data.tanks).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response map is false', ()=>{ \r",
+											"    pm.expect(response.data.map).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bodies is false', ()=>{ \r",
+											"    pm.expect(response.data.bodies).to.eql(true);\r",
+											"}); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHashMap(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap=&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": ""
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHashGamers(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers=&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": ""
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHashMobs(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs=&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": ""
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHashBullets(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets=&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": ""
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noHashBodies(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies=&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": ""
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongToken(Error401)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}^%%26%&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}^%%26%"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check tokenVerification status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene1",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"    //hashes",
+									"    pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/api/?method=getScene&token=${pm.variables.get(\"token\")}&hashMap=345&hashGamers=456&hashMobs=451&hashBullets=09798&hashBodies=457`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  hash  = res.json().data;",
+									"    console.log(res.json().data+'dsfsfdfds')",
+									"    pm.environment.set(\"hashMap\", hash.hashMap)",
+									"    pm.environment.set(\"hashGamers\", hash.hashGamers)",
+									"    pm.environment.set(\"hashBodies\", hash.hashBodies)",
+									"    pm.environment.set(\"hashMobs\", hash.hashMobs)",
+									"    pm.environment.set(\"hashBullets\", hash.hashBullets)",
+									"}",
+									");",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "fire",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); \r",
+											"\r",
+											"for(i=1;i<100;i++){\r",
+											"    pm.sendRequest({\r",
+											"        url: `http://${pm.variables.get(\"url\")}/api/?method=move&token=${pm.variables.get(\"token\")}&x=1&y=4&angle=56`,\r",
+											"        method:`GET`,\r",
+											"    }, function(err, res){\r",
+											"        const time=res.responseTime\r",
+											"        console.log(time)\r",
+											"         pm.test(\"Response time is less than 200ms\", function () {\r",
+											"            pm.expect(time).to.be.below(50);\r",
+											"        });\r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=9&y=1467&angle=15435",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "9"
+										},
+										{
+											"key": "y",
+											"value": "1467"
+										},
+										{
+											"key": "angle",
+											"value": "15435"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolAngle(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=332&y=453&angle=344$%",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344$%"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolX(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=332@%23&y=453&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332@#"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolY(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=332&y=453%^%23&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453%^#"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token=&method=fire&x=332&y=453&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noAngle(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=332&y=453&angle=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noX(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=&y=453&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": ""
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noY(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire&x=332&y=&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": ""
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongToken(Error401)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}$%^$&method=fire&x=332&y=453&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}$%^$"
+										},
+										{
+											"key": "method",
+											"value": "fire"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=&x=332&y=453&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+											"    method:`GET`,\r",
+											"}, function(err, res){\r",
+											"    const  token  = res.json().data;\r",
+											"    console.log(res.json())\r",
+											"    pm.environment.set(\"token\", token.token)\r",
+											"}\r",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}/api/?token={{token}}&method=fire%$%&x=332&y=453&angle=344",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "method",
+											"value": "fire%$%"
+										},
+										{
+											"key": "x",
+											"value": "332"
+										},
+										{
+											"key": "y",
+											"value": "453"
+										},
+										{
+											"key": "angle",
+											"value": "344"
+										}
+									]
+								}
+							},
+							"response": []
+						}
 					]
 				}
 			]
@@ -11270,7 +16572,32 @@
 			"type": "string"
 		},
 		{
-			"key": "i",
+			"key": "Invalid parameter values",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashMap",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashGamers",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashMobs",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashBullets",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "hashBodies",
 			"value": "",
 			"type": "string"
 		}
