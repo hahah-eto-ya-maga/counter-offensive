@@ -1,5 +1,5 @@
 import { FC, useContext, useEffect } from "react";
-import { MAP_SIZE, entitiesConfig, requestDelay } from "../../../config";
+import { MAP_SIZE, requestDelay } from "../../../config";
 import { MediatorContext, ServerContext } from "../../../App";
 import { TPoint } from "../types";
 import {
@@ -20,6 +20,8 @@ import Unit from "./Game/Units/Unit";
 import TraceMask from "./Graph/TraceMask";
 import Tower from "./Game/Units/Tower";
 import Corpus from "./Game/Units/Corpus";
+import TankCommander from "./Game/Units/TankCommander";
+import BaseUnit from "./Game/Units/BaseUnit";
 
 export interface IPressedKeys {
    Up: boolean;
@@ -39,9 +41,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
    const canvasId = "canvas";
 
-   let unit: Unit = new Unit();
+   let unit: Unit | Tower | Corpus | TankCommander | BaseUnit = new BaseUnit();
    if (server.STORE.user) {
-      switch (server.STORE.user.unit.personid) {
+      switch (server.STORE.user.unit.personId) {
          case EGamerRole.heavyTankGunner:
          case EGamerRole.middleTankGunner: {
             unit = new Tower();
@@ -53,6 +55,11 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             break;
          }
          case EGamerRole.heavyTankCommander: {
+            unit = new TankCommander();
+            break;
+         }
+         default: {
+            unit = new Unit();
          }
       }
    }
@@ -61,7 +68,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       const { x, y, angle } = unit;
       const user = server.STORE.user;
       if (user) {
-         const userUnit = user.unit.personid;
+         const userUnit = user.unit.personId;
          if (
             userUnit !== EGamerRole.middleTankGunner &&
             userUnit !== EGamerRole.heavyTankGunner &&
@@ -70,6 +77,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             server.unitMotion(x, y, angle);
          } else {
             server.unitMotion(null, null, angle);
+            unit.x = game.serverUnit.x;
+            unit.y = game.serverUnit.y;
          }
          if (keyPressed.Space) {
             makeShot();
@@ -229,7 +238,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
       const { x, y, angle } = unit;
       const user = server.STORE.user;
       if (user) {
-         const userUnit = user.unit.personid;
+         const userUnit = user.unit.personId;
          if (
             userUnit !== EGamerRole.heavyTankCommander &&
             userUnit !== EGamerRole.heavyTankMeh &&
@@ -323,14 +332,14 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             tank.x - 2,
             tank.y + 2.1,
             ...corpus,
-            Math.PI / 2 - tank.angle
+            tank.angle
          );
          canvas?.spriteDir(
             img,
             tank.x - 3,
             tank.y + 3,
             ...tower,
-            Math.PI / 2 - tank.tower_angle
+            tank.tower_angle
          );
       });
    };
@@ -355,7 +364,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                return;
             }
          }
-         canvas?.circle({ ...gamer, r: 0.5 }, "#333");
          canvas?.spriteDir(
             img,
             gamer.x - 1,
@@ -411,18 +419,16 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
    };
 
    const updateEntity = (scene: IGameScene, time: number) => {
-        /* scene.bullets.forEach((bullet) => {
-         bullet.x += Math.cos(bullet.angle) * entitiesConfig.bulletSpeed * time;
-         bullet.y += Math.sin(bullet.angle) * entitiesConfig.bulletSpeed * time;
+      /* const bulletSpeed = 0.001;
+      scene.bullets.forEach((bullet) => {
+         bullet.x += Math.cos(bullet.angle) * bulletSpeed * time;
+         bullet.y += Math.sin(bullet.angle) * bulletSpeed * time;
       }); */
-
       // Не работает при долгих ответах с бека + нужен флаг идёт/ не идёт
-
       /* scene.mobs.forEach((mob) => {
          mob.x += Math.cos(mob.angle) * entitiesConfig.mobSpeed * time;
          mob.y += Math.sin(mob.angle) * entitiesConfig.mobSpeed * time;
       }); */
-
       // Решить со скоростю
       /* scene.gamers.forEach((gamer) => {
           gamer.x += Math.cos(gamer.angle) * entitiesConfig.gamerSpeed * time;

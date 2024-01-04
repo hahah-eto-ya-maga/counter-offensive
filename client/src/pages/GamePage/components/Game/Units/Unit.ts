@@ -1,4 +1,3 @@
-import { IUserUnit } from "../../../../../modules/Server/interfaces";
 import { IPressedKeys } from "../../GameCanvas";
 
 export default class Unit {

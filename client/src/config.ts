@@ -36,7 +36,7 @@ export const requestDelay = {
 };
 
 export const entitiesConfig = {
-   bulletSpeed: 1,
+
    mobSpeed: 0.2,
    gamerSpeed: 0.1,
 };

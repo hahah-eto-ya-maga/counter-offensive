@@ -26,7 +26,7 @@ export default class Server {
       const { SERVER_ERROR } = this.mediator.getEventTypes();
       try {
          const str = Object.keys(params)
-            .map((key) => `${key}=${params[key]}`)
+            .map((key) => `${key}=${params[key] === 0 ? 0.00001 : params[key]}`)
             .join("&");
          const res = await fetch(`${this.HOST}/api/?method=${method}&${str}`);
          const answer = await res.json();

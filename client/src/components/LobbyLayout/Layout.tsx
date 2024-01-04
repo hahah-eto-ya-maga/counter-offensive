@@ -44,7 +44,7 @@ export const withLayout = (
             if (res && res !== true) {
                if (res.lobby.is_alive) {
                   if (server.STORE.user) {
-                     server.STORE.user.unit = res.lobby.is_alive;
+                     server.STORE.user.unit = res.lobby.is_alive;                    
                      return mediator.get(THROW_TO_GAME);
                   }
                }

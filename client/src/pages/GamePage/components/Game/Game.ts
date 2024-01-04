@@ -7,6 +7,7 @@ import {
    IGamer,
    IMob,
    ITank,
+   IUserUnit,
 } from "../../../../modules/Server/interfaces";
 import { TPoint } from "../../types";
 
@@ -34,6 +35,7 @@ interface IGame {
 }
 
 export default class Game {
+   serverUnit: IUserUnit;
    server: Server;
    mediator: Mediator;
    scene: IGameScene;
@@ -44,6 +46,7 @@ export default class Game {
       this.server = server;
       this.mediator = mediator;
       this.roundEnd = cbs.roundEnd;
+      this.serverUnit = { personId: 1, x: 0, y: 0, angle: 0 };
       this.scene = {
          bullets: [],
          mobs: [],
@@ -54,19 +57,22 @@ export default class Game {
       };
       this.interval = setInterval(async () => {
          const res = await server.getScene();
-
          if (res) {
             const {
+               gamer,
                bullets,
                gamers,
                mobs,
                bodies,
                tanks,
+               map,
                hashBullets,
                hashBodies,
                hashGamers,
                hashMobs,
+               hashMap,
             } = res;
+            this.serverUnit = gamer;
             if (gamers) {
                this.scene.gamers = gamers;
                this.server.STORE.setHash(EHash.gamers, hashGamers);
@@ -86,6 +92,9 @@ export default class Game {
             if (tanks) {
                this.scene.tanks = tanks;
                server.STORE.setHash(EHash.gamers, hashGamers);
+            }
+            if (map) {
+               server.STORE.setHash(EHash.map, hashMap);
             }
          }
       }, requestDelay.game);

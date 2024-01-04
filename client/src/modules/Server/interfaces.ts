@@ -62,7 +62,7 @@ interface IPoint {
 }
 
 export interface IUserUnit extends IPoint {
-   personid: EGamerRole;
+   personId: EGamerRole;
 }
 
 export interface IBullet extends IPoint {
@@ -70,7 +70,7 @@ export interface IBullet extends IPoint {
 }
 
 export interface IBody extends IPoint {
-   type: number;
+   type: 0 | 1;
 }
 
 export interface IMob extends IPoint {
@@ -91,15 +91,18 @@ export interface ITank extends IPoint {
 }
 
 export interface IScene {
-   tanks: ITank[] | null ;
+   tanks: ITank[] | null;
    gamers: IGamer[] | null;
    mobs: IMob[] | null;
    bullets: IBullet[] | null;
    bodies: IBody[] | null;
+   map: [] | null;
+   hashMap: string;
    hashBodies: string;
    hashGamers: string;
    hashMobs: string;
    hashBullets: string;
+   gamer: IUserUnit;
 }
 
 export enum EGamerRole {
