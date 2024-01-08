@@ -142,7 +142,7 @@ class DB {
         return $this->queryHandler($query, [], true);
     }
 
-    public function getGamerAndPersoByUserId($userId) {
+    public function getGamerAndPersonByUserId($userId) {
         $query = "SELECT g.reload_timestamp, g.person_id, p.reloadSpeed,
         ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) AS timer
         FROM gamers g
@@ -155,8 +155,13 @@ class DB {
         return $this->queryHandler($query, [$userId]);
     }
 
+    public function updateTankTimestamp($userId) {
+        $query = "UPDATE tanks SET reload_timestamp=ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) WHERE gunner_id=?";
+        return $this->queryHandler($query, [$userId]);
+    }
+
     public function getAllMobs() {
-        $query = "SELECT person_id, x, y,angle FROM mobs;";
+        $query = "SELECT person_id, x, y, angle FROM mobs;";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -176,7 +181,7 @@ class DB {
     }
 
     function getFootGamers(){
-        $query = "SELECT * FROM gamers WHERE status='alive' AND person_id IN (1, 2, 8, 9)";
+        $query = "SELECT * FROM gamers WHERE status='alive' AND person_id IN (2, 8, 9)";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -292,9 +297,9 @@ class DB {
         $this->queryHandler($query, [$x1, $y1, $x2, $y2, $bulletId]);
     }
 
-    function addBullet($user_id, $x, $y,  $dx, $dy){
-        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, dx,dy) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $dx, $dy]);
+    function addBullet($user_id, $x, $y, $dx, $dy, $type){
+        $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, dx, dy, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $dx, $dy, $type]);
     }
 
     /* Уменьшение жизней*/
@@ -379,6 +384,12 @@ class DB {
         WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
         return $this->queryHandler($query, [$userId, $userId, $userId], true);
     }
+
+    function getTankByGunnerId($userId) {
+        $query = "SELECT reload_timestamp FROM tanks WHERE gunner_id = ?";
+        return $this->queryHandler($query, [$userId], true);
+    }
+
 
     function getPerson($personId) {
         $query = "SELECT * FROM gamers WHERE person_id=? ;";
@@ -513,7 +524,7 @@ class DB {
     /* Объекты */
 
     function getObjects() {
-        $query = "SELECT x, y, sizeX, sizeY FROM objects WHERE status='a'";
+        $query = "SELECT type, x, y, sizeX, sizeY FROM objects WHERE status='a'";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -531,4 +542,36 @@ class DB {
         $query = "UPDATE objects SET hp = ? WHERE id = ?";
         $this->queryHandler($query, [$newHp, $id]);
     }
+
+    /* Очистка игры*/
+    function deleteBodies() {
+        $query = "TRUNCATE TABLE bodies";
+        $this->queryHandler($query, []);
+    }
+
+    function deleteBullets() {
+        $query = "TRUNCATE TABLE bullets;";
+        $this->queryHandler($query, []);
+    }
+    
+    function deleteTanks() {
+        $query = "TRUNCATE TABLE tanks;";
+        $this->queryHandler($query, []);
+    }
+
+    function deleteMobs() {
+        $query = "TRUNCATE TABLE mobs;";
+        $this->queryHandler($query, []);
+    }
+
+    function setWinners() {
+        $query = "UPDATE `gamers` SET status='w', person_id=-1, hp=0 WHERE status='alive'";
+        $this->queryHandler($query, []);
+    }
+
+    function updateObjectsHp() {
+        $query = "UPDATE `objects` SET status='a', hp=100";
+        $this->queryHandler($query, []);
+    }
+
 }

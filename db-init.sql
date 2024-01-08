@@ -159,8 +159,8 @@ CREATE TABLE IF NOT EXISTS `bodies` (
 
 CREATE TABLE IF NOT EXISTS `objects` (
   `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
-  `type` CHAR(1) NOT NULL DEFAULT 'b',
-  `hp` INT NOT NULL DEFAULT 100,
+  `type` MEDIUMINT NOT NULL DEFAULT -1,
+  `hp` INT NOT NULL DEFAULT 1000,
   `x` FLOAT NULL DEFAULT NULL,
   `y` FLOAT NULL DEFAULT NULL,
   `sizeX` TINYINT NOT NULL DEFAULT 0,
@@ -235,13 +235,13 @@ INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpee
 ('infantryRPG', 100, 15, 0.2, 1, 1);
 
 INSERT INTO `objects` (`type`, `hp`, `x`, `y`, `sizeX`, `sizeY`) VALUES
-('b', 100, 1, 1, 1, 1),
-('b', 100, 5, 6, 1, 1),
-('b', 100, 9, 30, 1, 1),
-('b', 100, 2, 15, 1, 1),
-('b', 100, 10, 20, 1, 1),
-('b', 100, 23, 4, 1, 1),
-('b', 100, 3, 24, 1, 1),
-('b', 100, 4, 17, 1, 1),
-('b', 100, 15, 27, 1, 1);
+(1, 100, 1, 1, 1, 1),
+(1, 100, 5, 6, 1, 1),
+(1, 100, 9, 30, 1, 1),
+(1, 100, 2, 15, 1, 1),
+(1, 100, 10, 20, 1, 1),
+(1, 100, 23, 4, 1, 1),
+(1, 100, 3, 24, 1, 1),
+(1, 100, 4, 17, 1, 1),
+(1, 100, 15, 27, 1, 1);
 

@@ -183,6 +183,7 @@ body = {
 **Карта**
 ```
 map = {
+    type: number,
     x: number,
     y: number,
     sizeX: number
@@ -250,7 +251,9 @@ maps = [
 **Сцена**
 ```
 scene = {
-    gamer: gamer || tank
+    is_dead:bool,
+    is_end:bool,
+    gamer: gamer || tank || null,
     gamers: gamers,
     tanks: panzers
     hashGamers: string,
