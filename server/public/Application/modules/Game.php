@@ -156,13 +156,14 @@ class Game extends BaseModule
                         $targetDistance = $distance; 
                 }
                 if($targetDistance && $targetGamer && $targetDistance<15){
-                    if($targetDistance<3)
+                    if($targetDistance<2)
                     {
                         $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                         if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->mobFire($mobX, $mobY, $angle, $mob->personId);
                             $this->db->rotateMob($angle, $mob->id);    
                             $this->db->updateMobTimestamp($mob->id);    
+
                         } 
                         continue;
                     }
@@ -175,20 +176,20 @@ class Game extends BaseModule
                     }
                 }
                 //случай когда игрок далеко и мобы просто двигаются к нему
-                else{
-                    $distance = $mob->movementSpeed/2 * ($this->game->timeout / 1000);
-                    if($targetGamer->x && $targetGamer->y){
-                        $targetX = $targetGamer->x;
-                        $targetY = $targetGamer->y;
-                    }
-                    $angle = $this->calculateAngle($targetX, $targetY, $mobX, $mobY);
-                    $newCoords = $this->movePoint($mobX, $mobY, $angle, $distance);
-                    $this->db->moveMob($newCoords[0], $newCoords[1], $angle, $mob->id);
-                    $this->hashFlagMobs = true;
-                    continue;
-                }
+                else continue;
             }
-            else continue;
+            else {
+                $path = $this->db->getMobPath($mob->id);
+                if($path){
+                    $path = json_decode($path->path);
+                    $targetCoord = $path[count($path)-1];
+                    $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
+                    if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
+                        $this->mobFire($mobX, $mobY, $angle, $mob->personId);     
+                        $this->db->updateMobTimestamp($mob->id); 
+                    }
+                } else continue;
+            }
             $distance = $mob->movementSpeed * ($this->game->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
             $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
