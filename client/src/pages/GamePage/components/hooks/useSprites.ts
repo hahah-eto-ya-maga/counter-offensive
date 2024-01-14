@@ -38,6 +38,7 @@ const useSprites = (
    const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
    const wall: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 10, SIZE];
    const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 2, SIZE * 2];
+   const road:  SpriteFrame = [SPRITE_SIZE * 4, SIZE * 22, SIZE * 0, SIZE * 4];
 
    const bulletAutomat: SpriteFrame = [SPRITE_SIZE, SIZE * 8, SIZE * 8, SIZE];
    const bulletRPG: SpriteFrame = [SPRITE_SIZE, SIZE * 8, SIZE * 10, SIZE];
@@ -47,10 +48,19 @@ const useSprites = (
    const manAutomat: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 4, SIZE * 2 - 1 ];
    const manFlag: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 6, SIZE * 2 - 1];
 
-   const corpusTank2: SpriteFrame = [SPRITE_SIZE * 4, SIZE * 0, SIZE * 12, SIZE * 4];
-   const corpusTank3: SpriteFrame = [SPRITE_SIZE * 4, SIZE * 0, SIZE * 22, SIZE * 4];
-   const towerTank2: SpriteFrame = [SPRITE_SIZE * 6 - 1, SIZE * 0, SIZE * 6, SIZE * 6 - 1];
-   const towerTank3: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 16, SIZE * 6];
+   const mobDead: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 14, SIZE * 11, SIZE * 2];
+   const mobRPG: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 10, SIZE * 11, SIZE * 2 - 1]; 
+   const mobAutomat: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 12, SIZE * 11, SIZE * 2 - 1];
+
+   const corpusTank2: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 6, SIZE * 6];
+   const towerTank2: SpriteFrame = [SPRITE_SIZE * 6 - 1, SIZE * 0, SIZE * 12, SIZE * 6 - 1];
+   const corpusTank3: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 10, SIZE * 18, SIZE * 6];
+   const towerTank3: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 10, SIZE * 24, SIZE * 6];
+   
+   const corpusTank2Dead: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 18, SIZE * 6];
+   const towerTank2Dead: SpriteFrame = [SPRITE_SIZE * 6 - 1, SIZE * 0, SIZE * 24, SIZE * 6 - 1];
+   const corpusTank3Dead: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 16, SIZE * 18, SIZE * 6];
+   const towerTank3Dead: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 16, SIZE * 24, SIZE * 6];
 
    const boom: SpriteFunc = getSpriteFromFrames([
       [SPRITE_SIZE, SIZE * 5, SIZE * 0, SIZE],
@@ -78,16 +88,24 @@ const useSprites = (
       bush,
       home,
       wall,
+      road,
       bulletAutomat,
       bulletRPG,
       manDead,
       manRPG,
       manAutomat,
       manFlag,
+      mobDead,
+      mobRPG,
+      mobAutomat,
       corpusTank2,
       corpusTank3,
       towerTank2,
       towerTank3,
+      corpusTank2Dead,
+      corpusTank3Dead,
+      towerTank2Dead,
+      towerTank3Dead,
    ];
 };
 
