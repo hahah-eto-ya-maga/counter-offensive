@@ -156,14 +156,13 @@ class Game extends BaseModule
                         $targetDistance = $distance; 
                 }
                 if($targetDistance && $targetGamer && $targetDistance<15){
-                    if($targetDistance<2)
+                    if($targetDistance<3)
                     {
                         $angle = $this->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                         if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
                             $this->mobFire($mobX, $mobY, $angle, $mob->personId);
                             $this->db->rotateMob($angle, $mob->id);    
                             $this->db->updateMobTimestamp($mob->id);    
-
                         } 
                         continue;
                     }
@@ -189,18 +188,7 @@ class Game extends BaseModule
                     continue;
                 }
             }
-            else {
-                $path = $this->db->getMobPath($mob->id);
-                if($path){
-                    $path = json_decode($path->path);
-                    $targetCoord = $path[count($path)-1];
-                    $angle = $this->calculateAngle($targetCoord[0], $targetCoord[1], $mobX, $mobY);
-                    if ($this->game->timer - $mob->timestamp > $mob->reloadSpeed * 1000){
-                        $this->mobFire($mobX, $mobY, $angle, $mob->personId);     
-                        $this->db->updateMobTimestamp($mob->id); 
-                    }
-                } else continue;
-            }
+            else continue;
             $distance = $mob->movementSpeed * ($this->game->timeout / 1000);
             $distance = $distance > 1 ? 1:$distance;
             $distanceToNextCell = $this->calculateDistance($mobX, $path[1][0], $mobY, $path[1][1]);            
@@ -563,6 +551,9 @@ class Game extends BaseModule
     public function motion($userId, $x, $y, $angle)
     {
         $gamer = $this->db->getGamerById($userId);
+
+        if(!$gamer->person_id) return 0;
+
         if(in_array($gamer->person_id, array(3, 7))){
             if (is_numeric($angle)) {
                 $this->db->updateTowerRotate($userId, $angle);
@@ -592,6 +583,8 @@ class Game extends BaseModule
 
     function fire($user_id, $x, $y, $angle){
         $gamer = $this->db->getGamerAndPersonByUserId($user_id);
+        if(!$gamer->person_id) return 0;
+
         switch($gamer->person_id){
             case 3:
                 $tank = $this->db->getTankByGunnerId($user_id);
