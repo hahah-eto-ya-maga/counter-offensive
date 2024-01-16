@@ -161,7 +161,7 @@ class DB {
     }
 
     public function getAllMobs() {
-        $query = "SELECT person_id, x, y, angle FROM mobs;";
+        $query = "SELECT id, person_id, x, y, angle FROM mobs;";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -255,21 +255,6 @@ class DB {
 
     /* Убийство */
 
-    function killGamer($userId){
-        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id=?";
-        $this->queryHandler($query,[$userId]);
-    }
-
-    function killTank($tankId){
-        $query = "DELETE FROM `tanks` WHERE id=?";
-        $this->queryHandler($query,[$tankId]);
-    }
-
-    function killMob($tankId){
-        $query = "DELETE FROM `mobs` WHERE id=?";
-        $this->queryHandler($query,[$tankId]);
-    }
-
     function killGamerInHeavyTank($mechId, $gunnerId, $commId) {
         $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id IN (?, ?, ?)";
         $this->queryHandler($query,[$mechId, $gunnerId, $commId]);
@@ -287,15 +272,7 @@ class DB {
 
     /* Пули */
 
-    function deleteBullet($id){
-        $query = "DELETE FROM bullets WHERE id = ?";
-        $this->queryHandler($query, [$id]);
-    }
     
-    function updateBullet($x1, $y1, $x2, $y2, $bulletId){
-        $query = "UPDATE bullets SET x1 = ?, y1 = ?, x2 = ?, y2 = ? WHERE id = ?";
-        $this->queryHandler($query, [$x1, $y1, $x2, $y2, $bulletId]);
-    }
 
     function addBullet($user_id, $x, $y, $dx, $dy, $type){
         $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, dx, dy, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -323,9 +300,9 @@ class DB {
 
     /* Мобы */
 
-    function addMobs($role, $x, $y) {
-        $query = "INSERT INTO mobs (person_id, hp, x, y, angle, reload_timestamp) VALUES (?, 100, ?, ?, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
-        $this->queryHandler($query, [$role, $x, $y]);
+    function addMobs($role, $x, $y, $hp) {
+        $query = "INSERT INTO mobs (person_id, hp, x, y, angle, reload_timestamp) VALUES (?, ?, ?, ?, 0, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
+        $this->queryHandler($query, [$role, $hp, $x, $y]);
     }
 
     function moveMob($mobX, $mobY, $angle, $mobId) {
@@ -369,9 +346,9 @@ class DB {
 
     /* Лобби */
 
-    function setGamerRole($userId, $role) {
-        $query = "UPDATE gamers SET person_id=?, hp=100, status='alive', x=5, y=5, angle=0 WHERE user_id=?;";
-        $this->queryHandler($query, [$role, $userId]); 
+    function setGamerRole($userId, $role, $hp) {
+        $query = "UPDATE gamers SET person_id=?, hp=?, status='alive', x=5, y=5, angle=0 WHERE user_id=?;";
+        $this->queryHandler($query, [$role, $hp, $userId]); 
     }
     
     function getLobby(){
@@ -380,7 +357,7 @@ class DB {
     }
 
     function getTankByUserId($userId) {
-        $query = "SELECT id, x, y, angle, tower_angle, commander_angle, commander_id, driver_id, gunner_id FROM tanks
+        $query = "SELECT id, x, y, angle, hp, tower_angle, commander_angle, commander_id, driver_id, gunner_id FROM tanks
         WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
         return $this->queryHandler($query, [$userId, $userId, $userId], true);
     }
@@ -390,10 +367,19 @@ class DB {
         return $this->queryHandler($query, [$userId], true);
     }
 
+    function setStartGameTimestamp(){
+        $query = "UPDATE game SET startGameTimestamp=ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000) WHERE id=1";
+        $this->queryHandler($query, []);
+    }
 
     function getPerson($personId) {
-        $query = "SELECT * FROM gamers WHERE person_id=? ;";
+        $query = "SELECT * FROM gamers WHERE person_id=?";
         return $this->queryHandler($query,[$personId], true);
+    }
+
+    function checkLiveGamer(){
+        $query = "SELECT CASE WHEN EXISTS (SELECT 1 FROM gamers WHERE status='a') THEN 'true' ELSE 'false' END AS status_exists;";
+        return $this->queryHandler($query,[], true);
     }
 
     function deleteRole($personId) {
@@ -401,14 +387,14 @@ class DB {
         $this->queryHandler($query, [$personId]);
     }
 
-    function addHeavyTank($driverId, $gunnerId, $commanderId){
-        $query = "INSERT INTO tanks (type, driver_id, gunner_id, commander_id, x, y, reload_timestamp) VALUES (1, ?, ?, ?, 5, 5, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
-        $this->queryHandler($query, [$driverId, $gunnerId, $commanderId]);
+    function addHeavyTank($driverId, $gunnerId, $commanderId, $hp){
+        $query = "INSERT INTO tanks (type, driver_id, gunner_id, commander_id, hp, x, y, reload_timestamp) VALUES (1, ?, ?, ?, ?, 5, 5, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
+        $this->queryHandler($query, [$driverId, $gunnerId, $commanderId, $hp]);
     }
 
-    function addMiddleTank($driverId, $gunnerId){
-        $query = "INSERT INTO tanks (type, driver_id, gunner_id, x, y, reload_timestamp) VALUES (0, ?, ?, 5, 5, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
-        $this->queryHandler($query, [$driverId, $gunnerId]);
+    function addMiddleTank($driverId, $gunnerId, $hp){
+        $query = "INSERT INTO tanks (type, driver_id, gunner_id, hp, x, y, reload_timestamp) VALUES (0, ?, ?, ?, 5, 5, ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));";
+        $this->queryHandler($query, [$driverId, $gunnerId, $hp]);
     }
 
     public function setTank($userId, $roleId, $tankId){
@@ -481,7 +467,7 @@ class DB {
     }
 
     public function getBodies(){
-        $query = "SELECT x, y, angle, type FROM bodies";
+        $query = "SELECT x, y, angle, type, isMob FROM bodies";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -489,7 +475,7 @@ class DB {
 
     function getBannerman(){
         $query = "SELECT ga.x AS x, ga.y AS y, g.mobBase_x AS mobBaseX, g.mobBase_y AS mobBaseY,
-        g.playersBase_x AS playerBaseX, g.playersBase_y AS playersBaseY, g.base_radius AS baseRadius
+        g.base_radius AS baseRadius
         FROM game g JOIN gamers ga ON ga.person_id=2 ";
         return $this->queryHandler($query, [], true);
     }
@@ -523,13 +509,15 @@ class DB {
 
     /* Объекты */
 
+    
+
     function getObjects() {
         $query = "SELECT type, x, y, sizeX, sizeY FROM objects WHERE status='a'";
         return $this->queryHandlerAll($query, []);
     }
 
     function getAllObjects() {
-        $query = "SELECT id, hp, x, y, sizeX, sizeY FROM objects WHERE status='a'";
+        $query = "SELECT id, hp, x, y, sizeX, sizeY, status FROM objects WHERE status='a'";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -574,4 +562,172 @@ class DB {
         $this->queryHandler($query, []);
     }
 
+    ///////////////////////////////////////
+    function damageObjects($objects){
+        $cases = [];
+        foreach ($objects as $object) {
+            $id = (int)$object['id'];
+            $hp = (int)$object['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE objects SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+
+    function damageGamers($gamers){
+        $cases = [];
+        foreach ($gamers as $gamer) {
+            $id = (int)$gamer['id'];
+            $hp = (int)$gamer['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+        $query = "UPDATE gamers SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+
+    function damageTanks($tanks){
+        $cases = [];
+        foreach ($tanks as $tank) {
+            $id = (int)$tank['id'];
+            $hp = (int)$tank['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE tanks SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+
+    function damageMobs($mobs){
+        $cases = [];
+        foreach ($mobs as $mob) {
+            $id = (int)$mob['id'];
+            $hp = (int)$mob['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE mobs SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+
+    function moveBullets($mobs){
+        $casesX1 = [];
+        $casesY1 = [];
+        $casesX2 = [];
+        $casesY2 = [];
+        foreach ($mobs as $mob) {
+            $id = (int)$mob['id'];
+            $x1 = (float)$mob['x1'];
+            $y1 = (float)$mob['y1'];
+            $x2 = (float)$mob['x2'];
+            $y2 = (float)$mob['y2'];
+            $casesX1[] = "WHEN $id THEN $x1";
+            $casesY1[] = "WHEN $id THEN $y1";
+            $casesX2[] = "WHEN $id THEN $x2";
+            $casesY2[] = "WHEN $id THEN $y2";
+        }
+
+        $casesStringX1 = implode(" ", $casesX1);
+        $casesStringY1 = implode(" ", $casesY1);
+        $casesStringX2 = implode(" ", $casesX2);
+        $casesStringY2 = implode(" ", $casesY2);
+
+        $query = "UPDATE bullets SET 
+        x1 = CASE id $casesStringX1
+        ELSE x1 END,
+        y1 = CASE id $casesStringY1 
+        ELSE y1 END,
+        x2 = CASE id $casesStringX2 
+        ELSE x2 END,
+        y2 = CASE id $casesStringY2 
+        ELSE y2 END";
+        // print($query);
+        $this->queryHandler($query, []);
+    }
+
+    function deleteBulletsById($bulletsId){
+        $bulletsIdString = implode(", ", $bulletsId);
+        $query = "DELETE FROM bullets WHERE id IN ($bulletsIdString)";
+        // print_r($query);
+        $this->queryHandler($query, []);
+    }
+
+    function deleteBullet($id){
+        $query = "DELETE FROM bullets WHERE id = ?";
+        $this->queryHandler($query, [$id]);
+    }
+
+    function deleteTanksById($tanksId){
+        $tanksIdString = implode(", ", $tanksId);
+        $query = "DELETE FROM tanks WHERE id = (?)";
+        $this->queryHandler($query, [$tanksIdString]);
+    }
+
+    function killObjectsById($objectsId){
+        $bulletsIdString = implode(", ", $objectsId);
+        $query = "DELETE FROM objects WHERE id in (?)";
+        $this->queryHandler($query, [$bulletsIdString]);
+    }
+
+    function deleteMobsById($mobsId){
+        $mobsIdString = implode(", ", $mobsId);
+        $query = "DELETE FROM mobs WHERE id = (?)";
+        $this->queryHandler($query, [$mobsIdString]);
+    }
+
+    function killGamersById($gamersId){
+        $gamersIdString = implode(", ", $gamersId);
+        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id IN (?)";
+        $this->queryHandler($query,[$gamersIdString]);
+    }
+
+    function killGamer($gamerId){
+        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id = ?";
+        $this->queryHandler($query,[$gamerId]);
+    }
+
+    function killObject($objectId){
+        $query = "UPDATE objects SET hp=0, status='d' WHERE id=?";
+        $this->queryHandler($query, [$objectId]);
+    }
+
+    function killTank($tankId){
+        $query = "DELETE FROM `tanks` WHERE id=?";
+        $this->queryHandler($query,[$tankId]);
+    }
+
+    function killMob($mobId){
+        $query = "DELETE FROM `mobs` WHERE id=?";
+        $this->queryHandler($query,[$mobId]);
+    }
+
+    // function setBodies($x,$y,$angle,$type, $isMob){
+    //     $query = "INSERT INTO bodies (x,y,angle,type,isMob) VALUES (?, ?, ?, ?, ?)";
+    //     $this->queryHandler($query,[$x, $y, $angle, $type, $isMob]);
+    // }
+
+    function setBodies($bodies){
+        $cases = [];
+        foreach ($bodies as $body) {
+            $x = (float)$body['x'];
+            $y = (float)$body['y'];
+            $angle = (float)$body['angle'];
+            $type = (int)$body['type'];
+            $isMob = (int)$body['isMob'];
+            $cases[] = "($x, $y, $angle, $type, $isMob)";
+        }
+
+        $casesString = implode(", ", $cases);
+
+        $query = "INSERT INTO bodies (x, y, angle, type, isMob) VALUES $casesString";
+        $this->queryHandler($query, []);
+    }
 }

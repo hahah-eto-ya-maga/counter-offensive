@@ -1,9 +1,9 @@
 <?php
 require_once("modules/DB.php");
-require_once("modules/User.php");
-require_once("modules/Chat.php");
-require_once("modules/Lobby.php");
-require_once("modules/Game.php");
+require_once("modules/User/User.php");
+require_once("modules/Chat/Chat.php");
+require_once("modules/Lobby/Lobby.php");
+require_once("modules/Game/Game.php");
 
 
 class Application

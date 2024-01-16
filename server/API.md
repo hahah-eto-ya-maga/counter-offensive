@@ -177,6 +177,7 @@ body = {
     x: number,
     y: number,
     angle: number
+    isMob: numebr
 } 
 ```
 

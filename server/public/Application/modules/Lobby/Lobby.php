@@ -1,5 +1,5 @@
 <?php
-require_once('BaseModule.php');
+require_once('./Application/modules/BaseModule.php');
 
     class Lobby extends BaseModule{
 
@@ -33,11 +33,11 @@ require_once('BaseModule.php');
                         break;
                     }
             }
-            if($is_middle) $this->db->addMiddleTank($driverId, $gunnerId);
-            else $this->db->addHeavyTank($driverId, $gunnerId, $commanderId);
+            if($is_middle) $this->db->addMiddleTank($driverId, $gunnerId, 250);
+            else $this->db->addHeavyTank($driverId, $gunnerId, $commanderId, 400);
         }
 
-        private function checkTanks($userId)
+        private function checkTanks()
         {
             $tankmans = $this->db->getTankmans();
             $usersByTank = [];
@@ -121,7 +121,6 @@ require_once('BaseModule.php');
                         break;
                 }
             }
-            
         }
 
         function setTankRole($userId, $roleId, $tankId){
@@ -130,7 +129,9 @@ require_once('BaseModule.php');
             if (!$tank){
                 $this->db->deleteGamerInTank($userId);
                 $this->db->setTank($userId, $roleId, $tankId);
-                $this->db->setGamerRole($userId, $roleId);
+                if($this->db->checkLiveGamer())
+                    $this->db->setStartGameTimestamp();
+                $this->db->setGamerRole($userId, $roleId, 8);
                 $hashLobby = hash('sha256', $this->v4_UUID());
                 $this->db->updateLobbyHash($hashLobby);
                 return true;
@@ -144,7 +145,9 @@ require_once('BaseModule.php');
             if ($is_free){
                 $this->db->deleteGamerInTank($userId);
                 $this->db->setTank($userId, $roleId, $tankId);
-                $this->db->setGamerRole($userId, $roleId);
+                if($this->db->checkLiveGamer())
+                    $this->db->setStartGameTimestamp();
+                $this->db->setGamerRole($userId, $roleId, 8);
                 $hashLobby = hash('sha256', $this->v4_UUID());
                 $this->db->updateLobbyHash($hashLobby);
                 return true;
@@ -165,7 +168,9 @@ require_once('BaseModule.php');
                         return $setRole;
                     }
                     $this->db->deleteGamerInTank($userId);
-                    $this->db->setGamerRole($userId, $roleId);
+                    if($this->db->checkLiveGamer())
+                        $this->db->setStartGameTimestamp();
+                    $this->db->setGamerRole($userId, $roleId, 8);
                     return true;
                 }
                 return array(false, 234);
@@ -177,7 +182,9 @@ require_once('BaseModule.php');
                     if ($gamerRank->gamer_exp>$nowPerson->experience){
                         $this->db->deleteRole($roleId);
                         $this->db->deleteGamerInTank($userId);
-                        $this->db->setGamerRole($userId, $roleId);
+                        if($this->db->checkLiveGamer())
+                            $this->db->setStartGameTimestamp();
+                        $this->db->setGamerRole($userId, $roleId, 8);
                         $hashLobby = hash('sha256', $this->v4_UUID());
                         $this->db->updateLobbyHash($hashLobby);
                         return true;
@@ -191,14 +198,18 @@ require_once('BaseModule.php');
         }
 
         function setGamerRole($role, $userId, $tankId){
-            if(in_array($role, array(1, 2)))
+            if(in_array($role, array(1, 2))){
                 return $this->setRoleHandler($role, $userId);
+            }
             else if(in_array($role, array(3, 4, 5, 6, 7)))
                 return $this->setRoleHandler($role, $userId, $tankId);
             else if(in_array($role, array(8, 9)))
             {
                 $this->db->deleteGamerInTank($userId);
-                $this->db->setGamerRole($userId, $role);
+                if($this->db->checkLiveGamer())
+                    $this->db->setStartGameTimestamp();
+                $this->db->setGamerRole($userId, $role, 8);
+                $this->db->setStartGameTimestamp();
                 $hashLobby = hash('sha256', $this->v4_UUID());
                 $this->db->updateLobbyHash($hashLobby);
                 return true;
@@ -228,7 +239,7 @@ require_once('BaseModule.php');
             $hash = $this->db->getGame();       
             if ($hash->hashLobby !== $oldHash) {
                 $this->checkRoleAvailability($userId);
-                $tanks = $this->checkTanks($userId);
+                $tanks = $this->checkTanks();
                 $this->lobbyState['tanks'] = $tanks;
                 $this->lobbyState['is_alive'] = $this->getGamer($userId);
                 return array("lobby" => $this->lobbyState,"lobbyHash" => $hash->hashLobby);
