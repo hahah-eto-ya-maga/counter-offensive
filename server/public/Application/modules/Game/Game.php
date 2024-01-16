@@ -136,7 +136,8 @@ class Game extends BaseModule
     private function mobFire($x, $y, $angle, $personId){
         $dx = cos($angle);
         $dy = sin($angle);
-        $this->db->addBullet(-1, $x+0.25*$dx, $y+0.25*$dy, $dx, $dy, $personId);
+        $bulletType = $personId == 9 ? 1 : 0;
+        $this->db->addBullet(-1, $x+0.25*$dx, $y+0.25*$dy, $dx, $dy, $bulletType);
         $this->hashFlagBullets = true;
     }
 

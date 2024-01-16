@@ -198,7 +198,8 @@ bullet = {
     type: number,
     x: number,
     y: number,
-    angle: number
+    dx: number,
+    dy: number
 } 
 ```
 **Мобы**
