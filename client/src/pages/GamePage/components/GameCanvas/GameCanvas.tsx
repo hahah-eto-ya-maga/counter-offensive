@@ -605,7 +605,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             "black",
             20
          );
-         canvas.circle({ ...unit, r: 0.2 }, "#123");
          canvas.render();
       }
    }
