@@ -6,7 +6,8 @@ import { withLayout } from "../../../components/LobbyLayout/Layout";
 import { EGamerRole, ILobby } from "../../../modules/Server/interfaces";
 import { Button, Chat } from "../../../components";
 import { Dossier } from "./Dossier/Dossier";
-import { automat, chatIcon, RPG, flag } from "../../../assets/png";
+import { chatIcon } from "../../../components/Chat/assets";
+import { automat, RPG, flag } from "./assets";
 
 import "./LobbyInfo.css";
 

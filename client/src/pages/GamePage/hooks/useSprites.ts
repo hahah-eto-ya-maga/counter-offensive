@@ -1,7 +1,7 @@
-import { sprites } from "../../../../assets/png";
+import { sprites } from "../../../assets/png";
 
-type SpriteFrame = [number, number, number, number];
-type SpriteFunc = (id: number) => number[];
+export type SpriteFrame = [number, number, number, number];
+export type SpriteFunc = (id: number) => number[];
 
 const getSpriteFromFrames = (frames: number[][]) => {
    let i = 0;

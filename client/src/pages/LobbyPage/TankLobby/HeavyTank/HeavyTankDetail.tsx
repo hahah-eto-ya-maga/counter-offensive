@@ -64,13 +64,15 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
          </div>
          <div className={cn("tank_svg_wrapper", "heavy_tank")}>
             <div
-               id="test_button_tankDriver3"
-               onClick={() => setRoleHandler(EGamerRole.heavyTankMeh, tank.id)}
-               className={cn("tank_driver", {
-                  tank_unavailable_role: tank.Mechanic,
+               id="test_button_tank_commander"
+               onClick={() =>
+                  setRoleHandler(EGamerRole.heavyTankCommander, tank.id)
+               }
+               className={cn("tank_commander", {
+                  tank_unavailable_role: tank.Commander,
                })}
             >
-               МехВод
+               Командир
             </div>
             <div
                id="test_button_shooter3"
@@ -84,15 +86,13 @@ const HeavyTankDetail: FC<{ lobby: ILobby | null }> = ({ lobby }) => {
                Наводчик
             </div>
             <div
-               id="test_button_tank_commander"
-               onClick={() =>
-                  setRoleHandler(EGamerRole.heavyTankCommander, tank.id)
-               }
-               className={cn("tank_commander", {
-                  tank_unavailable_role: tank.Commander,
+               id="test_button_tankDriver3"
+               onClick={() => setRoleHandler(EGamerRole.heavyTankMeh, tank.id)}
+               className={cn("tank_driver", {
+                  tank_unavailable_role: tank.Mechanic,
                })}
             >
-               Командир
+               МехВод
             </div>
             <HeavyTank />
          </div>
