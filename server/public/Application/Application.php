@@ -1,9 +1,9 @@
 <?php
 require_once("modules/DB.php");
-require_once("modules/User.php");
-require_once("modules/Chat.php");
-require_once("modules/Lobby.php");
-require_once("modules/Game.php");
+require_once("modules/User/User.php");
+require_once("modules/Chat/Chat.php");
+require_once("modules/Lobby/Lobby.php");
+require_once("modules/Game/Game.php");
 
 
 class Application
@@ -36,7 +36,7 @@ class Application
 
         if ($login && $password && $nickname) {
             $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
-            $pattern1 = strlen($nickname);
+            $pattern1 = mb_strlen($nickname, 'utf-8');
             if (preg_match($pattern, $login) && $pattern1 > 2 && $pattern1 < 17) {
                 return $this->user->registration($login, $nickname, $password);
             }
@@ -170,22 +170,6 @@ class Application
         return array(false, 400);
     }
 
-    function rotate($params){
-        $token = $params['token'] ?? false;
-        $angle = $params['angle'] ?? false;
-        if($token && $angle){
-            if (is_numeric($angle)) {
-                $user = $this->user->getUser($token);
-                if ($user != null && $user->token != 0 && $user->token != null) {
-                    return $this->game->rotate($user->id, $angle); 
-                } 
-                return array(false, 401);
-            }
-            return array(false, 422);
-        }
-    return array(false, 400);
-    }
-
     function fire($params){
         $token = $params['token'] ?? false;
         $x = $params['x'] ?? false;
@@ -204,20 +188,18 @@ class Application
         return array(false, 400);
     }
 
-    function move($params)
+    function motion($params)
     {
         $token = $params['token'] ?? false;
         $x = $params['x'] ?? false;
         $y = $params['y'] ?? false;
-        if ($x && $y && $token) {
-            if (is_numeric($x) && is_numeric($y)) {
-                $user = $this->user->getUser($token);
-                if ($user != null && $user->token != 0 && $user->token != null) {
-                    return $this->game->move($user->id, $x, $y);
-                }
-                return array(false, 401);
+        $angle = $params['angle'] ?? false;
+        if ($x && $y && $angle && $token) {
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->motion($user->id, $x, $y, $angle);
             }
-            return array(false, 422);
+            return array(false, 401);
         }
         return array(false, 400);
     }

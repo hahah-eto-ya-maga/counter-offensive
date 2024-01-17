@@ -1,5 +1,5 @@
 <?php
-require_once('BaseModule.php');
+require_once('./Application/modules/BaseModule.php');
 
     class Lobby extends BaseModule{
 
@@ -33,11 +33,11 @@ require_once('BaseModule.php');
                         break;
                     }
             }
-            if($is_middle) $this->db->addMiddleTank($driverId, $gunnerId);
-            else $this->db->addHeavyTank($driverId, $gunnerId, $commanderId);
+            if($is_middle) $this->db->addMiddleTank($driverId, $gunnerId, 250);
+            else $this->db->addHeavyTank($driverId, $gunnerId, $commanderId, 400);
         }
 
-        private function checkTanks($userId)
+        private function checkTanks()
         {
             $tankmans = $this->db->getTankmans();
             $usersByTank = [];
@@ -121,7 +121,6 @@ require_once('BaseModule.php');
                         break;
                 }
             }
-            
         }
 
         function setTankRole($userId, $roleId, $tankId){
@@ -130,7 +129,9 @@ require_once('BaseModule.php');
             if (!$tank){
                 $this->db->deleteGamerInTank($userId);
                 $this->db->setTank($userId, $roleId, $tankId);
-                $this->db->setGamerRole($userId, $roleId);
+                if($this->db->checkLiveGamer())
+                    $this->db->setStartGameTimestamp();
+                $this->db->setGamerRole($userId, $roleId, 8);
                 $hashLobby = hash('sha256', $this->v4_UUID());
                 $this->db->updateLobbyHash($hashLobby);
                 return true;
@@ -144,7 +145,9 @@ require_once('BaseModule.php');
             if ($is_free){
                 $this->db->deleteGamerInTank($userId);
                 $this->db->setTank($userId, $roleId, $tankId);
-                $this->db->setGamerRole($userId, $roleId);
+                if($this->db->checkLiveGamer())
+                    $this->db->setStartGameTimestamp();
+                $this->db->setGamerRole($userId, $roleId, 8);
                 $hashLobby = hash('sha256', $this->v4_UUID());
                 $this->db->updateLobbyHash($hashLobby);
                 return true;
@@ -165,7 +168,9 @@ require_once('BaseModule.php');
                         return $setRole;
                     }
                     $this->db->deleteGamerInTank($userId);
-                    $this->db->setGamerRole($userId, $roleId);
+                    if($this->db->checkLiveGamer())
+                        $this->db->setStartGameTimestamp();
+                    $this->db->setGamerRole($userId, $roleId, 8);
                     return true;
                 }
                 return array(false, 234);
@@ -177,7 +182,9 @@ require_once('BaseModule.php');
                     if ($gamerRank->gamer_exp>$nowPerson->experience){
                         $this->db->deleteRole($roleId);
                         $this->db->deleteGamerInTank($userId);
-                        $this->db->setGamerRole($userId, $roleId);
+                        if($this->db->checkLiveGamer())
+                            $this->db->setStartGameTimestamp();
+                        $this->db->setGamerRole($userId, $roleId, 8);
                         $hashLobby = hash('sha256', $this->v4_UUID());
                         $this->db->updateLobbyHash($hashLobby);
                         return true;
@@ -191,30 +198,21 @@ require_once('BaseModule.php');
         }
 
         function setGamerRole($role, $userId, $tankId){
-            switch($role){
-                case 'general': return $this->setRoleHandler(1, $userId);
-                case 'bannerman': return $this->setRoleHandler(2, $userId);
-                case 'heavyTankGunner': return $this->setRoleHandler(3, $userId, $tankId);                        
-                case 'heavyTankMeh': return $this->setRoleHandler(4, $userId, $tankId);                
-                case 'heavyTankCommander': return $this->setRoleHandler(5, $userId, $tankId);                        
-                case 'middleTankMeh': return $this->setRoleHandler(6, $userId, $tankId);
-                case 'middleTankGunner': return $this->setRoleHandler(7, $userId, $tankId);
-                case 'infantryRPG': 
-                {
-                    $this->db->deleteGamerInTank($userId);
-                    $this->db->setGamerRole($userId, 9);
-                    $hashLobby = hash('sha256', $this->v4_UUID());
-                    $this->db->updateLobbyHash($hashLobby);
-                    return true;
-                }
-                case 'infantry': 
-                {
-                    $this->db->deleteGamerInTank($userId);
-                    $this->db->setGamerRole($userId, 8);
-                    $hashLobby = hash('sha256', $this->v4_UUID());
-                    $this->db->updateLobbyHash($hashLobby);
-                    return true;
-                }
+            if(in_array($role, array(1, 2))){
+                return $this->setRoleHandler($role, $userId);
+            }
+            else if(in_array($role, array(3, 4, 5, 6, 7)))
+                return $this->setRoleHandler($role, $userId, $tankId);
+            else if(in_array($role, array(8, 9)))
+            {
+                $this->db->deleteGamerInTank($userId);
+                if($this->db->checkLiveGamer())
+                    $this->db->setStartGameTimestamp();
+                $this->db->setGamerRole($userId, $role, 8);
+                $this->db->setStartGameTimestamp();
+                $hashLobby = hash('sha256', $this->v4_UUID());
+                $this->db->updateLobbyHash($hashLobby);
+                return true;
             }
             return array(false, 463);
         }
@@ -238,10 +236,10 @@ require_once('BaseModule.php');
         }   
 
         function getLobby($userId, $oldHash){
-            $hash = $this->db->getHashes();       
+            $hash = $this->db->getGame();       
             if ($hash->hashLobby !== $oldHash) {
                 $this->checkRoleAvailability($userId);
-                $tanks = $this->checkTanks($userId);
+                $tanks = $this->checkTanks();
                 $this->lobbyState['tanks'] = $tanks;
                 $this->lobbyState['is_alive'] = $this->getGamer($userId);
                 return array("lobby" => $this->lobbyState,"lobbyHash" => $hash->hashLobby);
@@ -250,8 +248,41 @@ require_once('BaseModule.php');
         }
 
         function suicide($userId){
-            $this->db->suicide($userId);
-            $this->db->tankExit($userId);
+            $gamer = $this->db->getGamerById($userId);
+            $tank=$this->db->getTankByUserId($userId);
+            if($tank){
+                switch($gamer->person_id){
+                    case 3:
+                        $this->db->suicide($tank->commander_id);
+                        $this->db->suicide($userId);
+                        $this->db->suicide($tank->driver_id);
+                        $this->db->endTankGame($tank->id);
+                        break;
+                    case 4:
+                        $this->db->suicide($tank->commander_id);
+                        $this->db->suicide($tank->gunner_id);
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break;            
+                    case 5:
+                        $this->db->suicide($tank->driver_id);
+                        $this->db->suicide($tank->gunner_id);                        
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break;            
+                    case 6:
+                        $this->db->suicide($tank->gunner_id);
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break; 
+                    case 7:
+                        $this->db->suicide($tank->driver_id);
+                        $this->db->suicide($userId);
+                        $this->db->endTankGame($tank->id);
+                        break; 
+                }
+            }
+            else $this->db->suicide($userId);
             $this->db->updateLobbyHash(hash('sha256', $this->v4_UUID()));
             return true;
         }

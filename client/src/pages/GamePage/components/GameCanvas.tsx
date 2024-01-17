@@ -76,28 +76,37 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
   });
 
   const SPRITE_SIZE = width / WIN.width;
-  const SIZE = 50;
+   const SIZE = 50;
 
-  const [
-    img,
-    boom,
-    middleTank,
-    heavyTank,
-    grass,
-    stone,
-    bush,
-    home,
-    wall,
-    bullet,
-    manDead,
-    manRPG,
-    manAutomat,
-    manFlag,
-    corpusTank2,
-    corpusTank3,
-    towerTank2,
-    towerTank3,
-  ] = useSprites(SPRITE_SIZE, SIZE);
+   const [
+      img,
+      boom,
+      middleTank,
+      heavyTank,
+      grass,
+      stone,
+      bush,
+      home,
+      wall,
+      road,
+      bulletAutomat,
+      bulletRPG,
+      manDead,
+      manRPG,
+      manAutomat,
+      manFlag,
+      mobDead,
+      mobRPG,
+      mobAutomat,
+      corpusTank2,
+      corpusTank3,
+      towerTank2,
+      towerTank3,
+      corpusTank2Dead,
+      corpusTank3Dead,
+      towerTank2Dead,
+      towerTank3Dead,
+   ] = useSprites(SPRITE_SIZE, SIZE);
 
   const game = new Game({
     server,
