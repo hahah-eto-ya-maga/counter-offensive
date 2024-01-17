@@ -1,8 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ServerContext } from "../../App";
 import { Chat } from "../../components";
 import GameCanvas from "./components/GameCanvas/GameCanvas";
+import GameOverlay from './components/GameOverlay/GameOverlay';
 import "./GamePage.css";
 
 const GamePage: React.FC = () => {
@@ -18,6 +19,7 @@ const GamePage: React.FC = () => {
    };
    return (
       <div className="game_page">
+         <GameOverlay/>
          <button
             id="test_leave_game_button"
             className="game_leave_button"

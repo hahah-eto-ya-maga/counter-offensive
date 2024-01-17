@@ -39,7 +39,7 @@ export const requestDelay = {
 
 export const entitiesConfig = {
    infantry: {
-      speed: 0.05,
+      speed: 0.005,
       r: 0.35,
       weaponLength: 0.6,
    },
