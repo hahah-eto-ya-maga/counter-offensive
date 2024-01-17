@@ -38,20 +38,20 @@ export const withLayout = (
     const { THROW_TO_GAME } = mediator.getTriggerTypes();
     const path = location.pathname.split("/")[1];
 
-    useEffect(() => {
-      const interval = setInterval(async () => {
-        const res = await server.getLobby();
-        if (res && res !== true) {
-          server.STORE.setHash(EHash.lobbyHash, res.lobbyHash);
-          setLobby(res.lobby);
-          res.lobby.is_alive && mediator.get(THROW_TO_GAME);
-        }
-      }, requestDelay.lobby);
-      return () => {
-        server.STORE.setHash(EHash.lobbyHash, null);
-        clearInterval(interval);
-      };
-    }, []);
+      useEffect(() => {
+         const interval = setInterval(async () => {
+            const res = await server.getLobby();
+            if (res && res !== true) {
+               server.STORE.setHash(EHash.lobby, res.lobbyHash);
+               setLobby(res.lobby);
+               res.lobby.is_alive && mediator.get(THROW_TO_GAME);
+            }
+         }, requestDelay.lobby);
+         return () => {
+            server.STORE.setHash(EHash.lobby, null);
+            clearInterval(interval);
+         };
+      }, []);
 
     const onClickTankLobbyHandler = (switchTo: ETank): void => {
       const replace: boolean =

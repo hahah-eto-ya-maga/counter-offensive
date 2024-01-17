@@ -5,6 +5,7 @@ export interface IError {
 }
 
 export interface IMessage {
+
   nickname: string;
   text: string;
   level: number;
@@ -42,7 +43,7 @@ export interface ILobby {
     heavyTank: IHeavyTank[];
     middleTank: IMiddleTank[];
   };
-  is_alive: IUnitBase | false;
+  is_alive: boolean;
 }
 
 export interface ILobbyState {
@@ -60,6 +61,36 @@ export interface IUserInfo {
   next_rang: number;
   level: number;
   role: EGamerRole;
+}
+
+interface IPoint {
+  x: number;
+  y: number;
+}
+
+export interface IBullet extends IPoint {
+  type: number;
+}
+
+export interface IMob extends IPoint {
+  person_id: number;
+  angle: number;
+}
+
+export interface IGamer extends IMob {
+  role: EGamerRole;
+}
+
+export interface ITank extends IPoint {}
+
+export interface IScene {
+  tanks: ITank[] | true;
+  gamers: IGamer[] | true;
+  mobs: IMob[] | true;
+  bullets: IBullet[] | true;
+  hashGamers: string;
+  hashMobs: string;
+  hashBullets: string;
 }
 
 export enum EGamerRole {
@@ -82,8 +113,11 @@ export enum ERank {
 }
 
 export enum EHash {
-  lobbyHash = "lobbyHash",
-  bulletHash = "bulletHash",
-  gameHash = "gameHash",
-  chatHash = "chatHash",
+  lobby = "lobby",
+  bullets = "bullets",
+  gamers = "gamers",
+  mobs = "mobs",
+  chat = "chat",
+  map = "map",
+  bodies = "bodies",
 }

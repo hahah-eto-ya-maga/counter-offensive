@@ -1,10 +1,13 @@
 import { EHash, IUserInfo } from "../Server/interfaces";
 
 interface IHash {
-   lobbyHash: string | null;
-   bulletHash: string | null;
-   gameHash: string | null;
-   chatHash: string | null;
+   lobby: string | null;
+   chat: string | null;
+   bullets: string | null;
+   gamers: string | null;
+   mobs: string | null;
+   map: string | null;
+   bodies: string | null;
 }
 
 export default class Store {
@@ -13,10 +16,13 @@ export default class Store {
 
    constructor() {
       this.hash = {
-         bulletHash: null,
-         chatHash: null,
-         gameHash: null,
-         lobbyHash: null,
+         bullets: null,
+         chat: null,
+         gamers: null,
+         lobby: null,
+         mobs: null,
+         map: null,
+         bodies: null,
       };
       this.user = null;
    }
@@ -37,5 +43,17 @@ export default class Store {
       if (this.user) {
          this.user.token = token;
       }
+   }
+
+   clearHash() {
+      this.hash = {
+         bullets: null,
+         chat: null,
+         gamers: null,
+         lobby: null,
+         map: null,
+         mobs: null,
+         bodies: null,
+      };
    }
 }
