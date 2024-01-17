@@ -1,5 +1,4 @@
-import { TPoint, TWIN, TUnit } from "../../../types";
-import { ISceneObjects } from "../../Game/Game";
+import { TPoint, TWIN, TCircle } from "../../../types";
 
 export interface ICanvasOption {
    WIN: TWIN;
@@ -10,6 +9,8 @@ export interface ICanvasOption {
       keydown: (e: KeyboardEvent) => void;
       keyup: (e: KeyboardEvent) => void;
       mousemove: (e: MouseEvent) => void;
+      mouseUp: () => void;
+      mouseDown: () => void;
    };
 }
 
@@ -45,13 +46,17 @@ class Canvas {
       this.WIN = WIN;
       this.areaVisible = [];
 
-      const { keydown, keyup, mousemove } = callbacks;
+      const { keydown, keyup, mousemove, mouseDown, mouseUp } = callbacks;
 
       window.addEventListener("keydown", keydown);
       window.addEventListener("keyup", keyup);
       window.addEventListener("mousemove", mousemove);
+      this.canvas.addEventListener("mousedown", mouseDown);
+      this.canvas.addEventListener("mouseup", mouseUp);
 
-      window.addEventListener("contextmenu", (event: Event) => {
+      window.addEventListener(
+         "contextmenu",
+         (event: Event) => {
             event.preventDefault();
          },
          false
@@ -109,7 +114,7 @@ class Canvas {
       this.contextV.closePath();
    }
 
-   polygon(points: TPoint[], color: string): void {
+   polygon(points: TPoint[], color: string = "#ff0"): void {
       this.contextV.beginPath();
       this.contextV.moveTo(this.xs(points[0].x), this.ys(points[0].y));
       for (let i = 1; i < points.length; i++) {
@@ -120,7 +125,7 @@ class Canvas {
       this.contextV.closePath();
    }
 
-   circle(circle: TUnit, color = "#00f"): void {
+   circle(circle: TCircle, color = "#00f"): void {
       this.contextV.beginPath();
       this.contextV.arc(
          this.xs(circle.x),

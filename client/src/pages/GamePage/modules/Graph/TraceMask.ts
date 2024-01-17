@@ -1,9 +1,8 @@
-import internal from "stream";
-import { MAP_SIZE } from "../../../../config";
+import { MAP_SIZE, objectConf } from "../../../../config";
+import { EMapObject, IMapObject } from "../../../../modules/Server/interfaces";
 import { TPoint, TWIN } from "../../types";
-import { ISceneObjects } from "../Game/Game";
 import Canvas from "./Canvas/Canvas";
-import Unit from "../Game/Units/Unit";
+import Infantry from "../Game/Units/Infantry";
 
 interface ITraceMaskProps {
    canvas: Canvas;
@@ -37,7 +36,7 @@ export default class TraceMask {
       this.pixcelScene = this.getMaskImage();
    }
 
-   polygon(points: TPoint[], color: string): void {
+   polygon(points: TPoint[], color: string = "#f00"): void {
       if (points.length >= 3) {
          this.maskContext.fillStyle = color;
          this.maskContext.beginPath();
@@ -60,7 +59,7 @@ export default class TraceMask {
       }
    }
 
-   circle(circle: TPoint & { r: number }, color = "blue"): void {
+   circle(circle: TPoint & { r: number }, color = "#f00"): void {
       this.maskContext.beginPath();
       this.maskContext.arc(
          this.canvas.xs(circle.x),
@@ -74,7 +73,7 @@ export default class TraceMask {
       this.maskContext.closePath();
    }
 
-   drawScene(scene: ISceneObjects) {
+   drawScene(scene: IMapObject[]) {
       this.maskContext.beginPath();
       this.maskContext.fillStyle = "#000f";
       this.maskContext.fillRect(
@@ -83,8 +82,24 @@ export default class TraceMask {
          this.maskCanv.width,
          this.maskCanv.height
       );
-      scene.houses.forEach((block) => this.polygon(block, "#f00"));
-      scene.stones.forEach((stone) => this.circle(stone, "#f00"));
+      scene.forEach((obj) => {
+         const { x, y, sizeX: dx, sizeY: dy } = obj;
+         const { stoneR: r } = objectConf;
+         switch (obj.type) {
+            case EMapObject.house: {
+               this.polygon([
+                  { x, y },
+                  { x: x + dx, y },
+                  { x: x + dx, y: y - dy },
+                  { x, y: y - dy },
+               ]);
+               break;
+            }
+            case EMapObject.stone: {
+               this.circle({ x, y, r });
+            }
+         }
+      });
       this.maskContext.closePath();
    }
 
@@ -163,7 +178,7 @@ export default class TraceMask {
       this.maskContext.closePath();
    }
 
-   trace(unit: Unit, scene: ISceneObjects) {
+   trace(unit: Infantry, scene: IMapObject[]) {
       this.drawScene(scene);
       const areaVisible: TPoint[] = [
          {

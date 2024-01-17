@@ -10,7 +10,7 @@ export const useSetRoleHandler = () => {
       const res = await server.setGamerRole(role, tank_id);
       if (res) {
          if (server.STORE.user) {
-            server.STORE.user.role = role;
+            // server.STORE.user.role = role;
          }
          switch (role) {
             case EGamerRole.heavyTankCommander:

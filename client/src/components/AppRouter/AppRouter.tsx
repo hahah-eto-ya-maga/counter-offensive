@@ -21,6 +21,7 @@ export const AppRouter: FC = () => {
 
       const { LOGIN, LOGOUT, AUTH_ERROR, THROW_TO_GAME } =
          mediator.getTriggerTypes();
+
       mediator.set(LOGIN, (user: IUserInfo) => {
          server.STORE.user = user;
          setRoutes(server.STORE.getToken() ? privateRoutes : publicRoutes);
