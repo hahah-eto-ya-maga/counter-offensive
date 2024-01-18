@@ -520,7 +520,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                         x - 3,
                         y + 3,
                         ...corpusTank2Dead,
-                        -angle
+                        angle
                     );
                     break;
                 }
@@ -540,7 +540,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                         x - 3,
                         y + 3,
                         ...corpusTank3Dead,
-                        -angle
+                        angle
                     );
                     break;
                 }
@@ -644,7 +644,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
 
     function render(FPS: number) {
         const fpsGap = 0.5;
-        const renderTime = 1000 / FPS;
+        const renderTime = FPS ? 1000 / FPS : 0;
         const scene = game.getScene();
         if (canvas) {
             canvas.clear();
@@ -658,6 +658,14 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 "black",
                 20
             );
+            const { x, y, angle, weaponLength } = unit;
+
+
+            canvas.circle({
+                x: x + Math.cos(angle) * weaponLength,
+                y: y + Math.sin(angle) * weaponLength,
+                r: 0.2,
+            });
             canvas.render();
         }
     }

@@ -10,14 +10,14 @@ import HeavyCorpus from "./HeavyCorpus";
 import HeavyTower from "./HeavyTower";
 
 export {
-   Bannerman,
-   BaseUnit,
-   General,
-   Infantry,
-   InfantryRPG,
-   TankCommander,
-   MiddleCorpus,
-   MiddleTower,
-   HeavyCorpus,
-   HeavyTower,
+    Bannerman,
+    BaseUnit,
+    General,
+    Infantry,
+    InfantryRPG,
+    TankCommander,
+    MiddleCorpus,
+    MiddleTower,
+    HeavyCorpus,
+    HeavyTower,
 };
