@@ -166,10 +166,10 @@ export enum EMapObject {
 
 export enum EBody {
     man,
-    heavyTank,
     middleTank,
-    heavyTower,
+    heavyTank,
     middleTower,
+    heavyTower,
 }
 
 export enum EProjectile {

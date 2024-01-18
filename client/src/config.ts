@@ -31,45 +31,45 @@ export const MAP_SIZE = {
 };
 
 export const requestDelay = {
-    chat: 300,
-    lobby: 200,
+    chat: 2000,
+    lobby: 300,
     game: 150,
     gamerUpdate: 150,
 };
 
 export const entitiesConfig = {
     infantry: {
-        speed: 0.005,
+        speed: 0.004,
         r: 0.35,
         weaponLength: 0.6,
     },
 
     infantryRGP: {
-        speed: 0.05,
+        speed: 0.003,
         r: 0.35,
         weaponLength: 0.6,
     },
 
     middleTank: {
-        weaponLength: 0.6,
+        weaponLength: 1,
         speed: 0.005,
         corpusR: 1,
         towerR: 0,
-        rotateSpeed: Math.PI / 180,
-        rotateTowerSpeed: Math.PI / 180,
+        rotateSpeed: (Math.PI / 180) * 0.04,
+        rotateTowerSpeed: (Math.PI / 180) * 0.04,
     },
 
     heavyTank: {
-        weaponLength: 0.6,
-        speed: 0.005,
+        weaponLength: 1,
+        speed: 0.004,
         corpusR: 1.2,
         towerR: 0,
-        rotateSpeed: Math.PI / 180,
-        rotateTowerSpeed: Math.PI / 180,
+        rotateSpeed: (Math.PI / 180) * 0.035,
+        rotateTowerSpeed: (Math.PI / 180) * 0.04,
     },
 
     bannerman: {
-        speed: 0.05,
+        speed: 0.006,
         r: 0.35,
     },
 
@@ -77,8 +77,7 @@ export const entitiesConfig = {
         speed: 0.06,
     },
 
-    mobSpeed: 0.2,
-    bulletSpeed: 0.007,
+    bulletSpeed: 0.1,
 };
 
 export const objectConf = {

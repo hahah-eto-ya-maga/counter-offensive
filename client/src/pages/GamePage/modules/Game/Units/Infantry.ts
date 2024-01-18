@@ -2,47 +2,47 @@ import { IPressedKeys } from "../../../components/GameCanvas/GameCanvas";
 import BaseUnit from "./BaseUnit";
 
 export default class Infantry extends BaseUnit {
-   speed: number;
-   diagonalSpeed: number;
+    speed: number;
+    diagonalSpeed: number;
 
-   constructor(
-      x = 5,
-      y = 5,
-      angle = 0,
-      r = 0.35,
-      speed = 0.005,
-      weaponLength = 0.6
-   ) {
-      super(x, y, angle, r, weaponLength);
-      this.speed = speed;
-      this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
-   }
+    constructor(
+        x = 5,
+        y = 5,
+        angle = 0,
+        r = 0.35,
+        speed = 0.005,
+        weaponLength = 0.6
+    ) {
+        super(x, y, angle, r, weaponLength);
+        this.speed = speed;
+        this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
+    }
 
-   move(keyPressed: IPressedKeys, time: number) {
-      const speed =
-         time *
-         ((keyPressed.Up && keyPressed.Left) ||
-         (keyPressed.Up && keyPressed.Right) ||
-         (keyPressed.Down && keyPressed.Right) ||
-         (keyPressed.Down && keyPressed.Left)
-            ? this.diagonalSpeed
-            : this.speed);
+    move(keyPressed: IPressedKeys, time: number) {
+        const speed =
+            time *
+            ((keyPressed.Up && keyPressed.Left) ||
+            (keyPressed.Up && keyPressed.Right) ||
+            (keyPressed.Down && keyPressed.Right) ||
+            (keyPressed.Down && keyPressed.Left)
+                ? this.diagonalSpeed
+                : this.speed);
 
-      if (keyPressed.Up) {
-         this.y += speed;
-      }
-      if (keyPressed.Down) {
-         this.y -= speed;
-      }
-      if (keyPressed.Left) {
-         this.x -= speed;
-      }
-      if (keyPressed.Right) {
-         this.x += speed;
-      }
-   }
+        if (keyPressed.Up) {
+            this.y += speed;
+        }
+        if (keyPressed.Down) {
+            this.y -= speed;
+        }
+        if (keyPressed.Left) {
+            this.x -= speed;
+        }
+        if (keyPressed.Right) {
+            this.x += speed;
+        }
+    }
 
-   rotate(angle: number) {
-      this.angle = angle;
-   }
+    rotate(angle: number) {
+        this.angle = angle;
+    }
 }
