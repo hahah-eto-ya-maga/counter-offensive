@@ -1221,6 +1221,173 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "bigLetters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql('TestingUse'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=registration&login=TEstingUse&hash=${pm.variables.get(\"hash1\")}&nickname=${pm.variables.get(\"nickname\")}`,\r",
+													"    method:`GET`,\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}?hash={{hashReg}}&method=registration&login=TestingUse&nickname={{nickReg}}&=",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "TestingUse"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												},
+												{
+													"key": "",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "russianLetters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql(pm.variables.get('nickReg')); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql('ффффффффффффф'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}?hash={{hashReg}}&method=registration&login=ффффффффффффф&nickname={{nickReg}}",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "ффффффффффффф"
+												},
+												{
+													"key": "nickname",
+													"value": "{{nickReg}}"
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -1898,11 +2065,11 @@
 													"}); \r",
 													" \r",
 													"pm.test('check response login is correct', ()=>{ \r",
-													"    pm.expect(response.data.login).to.eql('testuserreg'); \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get('loginReg')+'aa'); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response nickname is correct', ()=>{ \r",
-													"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
+													"    pm.expect(response.data.nickname).to.eql('ффффффффффффф'); \r",
 													"}); \r",
 													" \r",
 													"pm.test('check response rank_name is correct', ()=>{ \r",
@@ -1940,6 +2107,103 @@
 												{
 													"key": "nickname",
 													"value": "ффффффффффффф"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "bigLetters Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('check registration status', () =>{ \r",
+													"    pm.expect(pm.response.code).to.eql(200); \r",
+													"}); \r",
+													" \r",
+													"const response = pm.response.json(); \r",
+													" \r",
+													"pm.test('check response is JSON', ()=> { \r",
+													"    pm.expect(response).to.be.a('object') \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response result is ok', ()=>{ \r",
+													"    pm.expect(response.result).to.eql('ok'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response login is correct', ()=>{ \r",
+													"    pm.expect(response.data.login).to.eql(pm.variables.get('loginReg')+'453'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response nickname is correct', ()=>{ \r",
+													"    pm.expect(response.data.nickname).to.eql('TeStNick'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response rank_name is correct', ()=>{ \r",
+													"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response gamer_exp is correct', ()=>{ \r",
+													"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response next_rang is correct', ()=>{ \r",
+													"    pm.expect(response.data.next_rang).to.eql(144); \r",
+													"}); \r",
+													" \r",
+													"pm.test('check response level is correct', ()=>{ \r",
+													"    pm.expect(response.data.level).to.eql(1); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=registration&login=5yytft4rt&hash=${pm.variables.get(\"hash1\")}&nickname=testnick}`,\r",
+													"    method:`GET`,\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{url}}?hash={{hashReg}}&method=registration&login={{loginReg}}453&nickname=TeStNick&=",
+											"protocol": "http",
+											"host": [
+												"{{url}}"
+											],
+											"query": [
+												{
+													"key": "hash",
+													"value": "{{hashReg}}"
+												},
+												{
+													"key": "method",
+													"value": "registration"
+												},
+												{
+													"key": "login",
+													"value": "{{loginReg}}453"
+												},
+												{
+													"key": "nickname",
+													"value": "TeStNick"
+												},
+												{
+													"key": "",
+													"value": ""
 												}
 											]
 										}
@@ -2012,103 +2276,6 @@
 										{
 											"key": "nickname",
 											"value": "{{nickReg}}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "bigLetters",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test('check registration status', () =>{ \r",
-											"    pm.expect(pm.response.code).to.eql(200); \r",
-											"}); \r",
-											" \r",
-											"const response = pm.response.json(); \r",
-											" \r",
-											"pm.test('check response is JSON', ()=> { \r",
-											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response result is ok', ()=>{ \r",
-											"    pm.expect(response.result).to.eql('ok'); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response login is correct', ()=>{ \r",
-											"    pm.expect(response.data.login).to.eql('TestingUse'); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response nickname is correct', ()=>{ \r",
-											"    pm.expect(response.data.nickname).to.eql('testuserreg'); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response rank_name is correct', ()=>{ \r",
-											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response gamer_exp is correct', ()=>{ \r",
-											"    pm.expect(response.data.gamer_exp).to.eql(1); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response next_rang is correct', ()=>{ \r",
-											"    pm.expect(response.data.next_rang).to.eql(144); \r",
-											"}); \r",
-											" \r",
-											"pm.test('check response level is correct', ()=>{ \r",
-											"    pm.expect(response.data.level).to.eql(1); \r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"pm.sendRequest({\r",
-											"    url: `http://${pm.variables.get(\"url\")}?method=registration&login=TEstingUse&hash=${pm.variables.get(\"hash1\")}&nickname=${pm.variables.get(\"nickname\")}`,\r",
-											"    method:`GET`,\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://{{url}}?hash={{hashReg}}&method=registration&login=TestingUse&nickname={{nickReg}}&=",
-									"protocol": "http",
-									"host": [
-										"{{url}}"
-									],
-									"query": [
-										{
-											"key": "hash",
-											"value": "{{hashReg}}"
-										},
-										{
-											"key": "method",
-											"value": "registration"
-										},
-										{
-											"key": "login",
-											"value": "TestingUse"
-										},
-										{
-											"key": "nickname",
-											"value": "{{nickReg}}"
-										},
-										{
-											"key": "",
-											"value": ""
 										}
 									]
 								}
