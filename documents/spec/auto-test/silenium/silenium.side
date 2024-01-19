@@ -4258,10 +4258,10 @@
     }, {
       "id": "dc037e6e-3084-45d7-a24f-459ad851be81",
       "comment": "",
-      "command": "verifyElementPresent",
+      "command": "waitForElementPresent",
       "target": "id=test-button-goToMenu",
       "targets": [],
-      "value": ""
+      "value": "30000"
     }, {
       "id": "70901636-699e-4371-8ce5-f709a9144ed5",
       "comment": "",
@@ -4307,10 +4307,10 @@
     }, {
       "id": "cf95d28f-e2a8-4cb0-bde0-c48ca073f9b9",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": ""
+      "value": "3000"
     }, {
       "id": "caa80c2c-c8d8-4fc5-ba4d-ad7cffcbd919",
       "comment": "",
@@ -4664,10 +4664,10 @@
     }, {
       "id": "01e34b31-53eb-4034-9d19-6e53aa854c7f",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": ""
+      "value": "3000"
     }, {
       "id": "c93cb2a7-b61c-4f0b-aa4f-2ac72456ab5b",
       "comment": "",
@@ -6246,10 +6246,10 @@
     }, {
       "id": "aa5617bf-ac64-4d95-b74f-6993349fdad9",
       "comment": "",
-      "command": "verifyElementNotPresent",
+      "command": "waitForElementNotPresent",
       "target": "id=canvas",
       "targets": [],
-      "value": ""
+      "value": "3000"
     }, {
       "id": "bb874130-1131-4f26-a252-ab731f8fd13a",
       "comment": "",
