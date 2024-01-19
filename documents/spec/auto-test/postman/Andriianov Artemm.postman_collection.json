@@ -6361,7 +6361,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=infantry",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{infantry}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -6377,7 +6377,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantry"
+													"value": "{{infantry}}"
 												},
 												{
 													"key": "tankId",
@@ -6431,7 +6431,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{infantryRPG}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -6447,7 +6447,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantryRPG"
+													"value": "{{infantryRPG}}"
 												}
 											]
 										}
@@ -6500,7 +6500,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=bannerman",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{bannerman}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -6516,7 +6516,7 @@
 												},
 												{
 													"key": "role",
-													"value": "bannerman"
+													"value": "{{bannerman}}"
 												}
 											]
 										}
@@ -7737,7 +7737,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{infantryRPG}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -7753,7 +7753,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantryRPG"
+													"value": "{{infantryRPG}}"
 												}
 											]
 										}
@@ -7807,7 +7807,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=bannerman",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{bannerman}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -7823,7 +7823,7 @@
 												},
 												{
 													"key": "role",
-													"value": "bannerman"
+													"value": "{{bannerman}}"
 												}
 											]
 										}
@@ -8325,7 +8325,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=infantry",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{infantry}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -8341,7 +8341,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantry"
+													"value": "{{infantry}}"
 												},
 												{
 													"key": "tankId",
@@ -8395,7 +8395,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=infantryRPG",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{infantryRPG}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -8411,7 +8411,7 @@
 												},
 												{
 													"key": "role",
-													"value": "infantryRPG"
+													"value": "{{infantryRPG}}"
 												}
 											]
 										}
@@ -8464,7 +8464,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role=bannerman",
+											"raw": "http://{{url}}?method=setGamerRole&token={{token}}&role={{bannerman}}",
 											"protocol": "http",
 											"host": [
 												"{{url}}"
@@ -8480,7 +8480,7 @@
 												},
 												{
 													"key": "role",
-													"value": "bannerman"
+													"value": "{{bannerman}}"
 												}
 											]
 										}
@@ -9347,14 +9347,14 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
 													"    console.log(res.json())\r",
 													"    pm.environment.set(\"token\", token.token)\r",
 													"     pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=24345`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=24345`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
@@ -9434,14 +9434,14 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
 													"    console.log(res.json())\r",
 													"    pm.environment.set(\"token\", token.token)\r",
 													"      pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=1313431`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=1313431`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
@@ -9520,14 +9520,14 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
 													"    console.log(res.json())\r",
 													"    pm.environment.set(\"token\", token.token)\r",
 													"      pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=45334354`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=45334354`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
@@ -9606,14 +9606,14 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
 													"    console.log(res.json())\r",
 													"    pm.environment.set(\"token\", token.token);\r",
 													"    pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=453343541`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=453343541`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
@@ -9692,7 +9692,7 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"testofficer1\")}&hash=${pm.variables.get(\"hashofficer1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"}, function(err, res){\r",
 													"    const  token  = res.json().data;\r",
@@ -9700,7 +9700,7 @@
 													"    pm.environment.set(\"token\", token.token)\r",
 													"\r",
 													"      pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=435413`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"middleTankGunner\")}&tankId=435413`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
@@ -9784,14 +9784,14 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"    \r",
 													"}, function(err, res){\r",
 													"    var  token  = res.json().data;\r",
 													"    pm.environment.set(\"token\", token.token)\r",
 													"    pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"bannerman\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"bannerman\")}`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
@@ -9878,14 +9878,14 @@
 											"script": {
 												"exec": [
 													"pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"testgeneral1\")}&hash=${pm.variables.get(\"hashgeneral1\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
 													"    method:`GET`,\r",
 													"    \r",
 													"}, function(err, res){\r",
 													"    var  token  = res.json().data;\r",
 													"    pm.environment.set(\"token\", token.token)\r",
 													"    pm.sendRequest({\r",
-													"    url: `http://${pm.variables.get(\"url\")}/api/?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"general\")}`,\r",
+													"    url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&token=${pm.variables.get(\"token\")}&role=${pm.variables.get(\"general\")}`,\r",
 													"    method:`GET`\r",
 													"});\r",
 													"}\r",
