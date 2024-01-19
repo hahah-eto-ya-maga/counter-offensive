@@ -1,0 +1,1036 @@
+{
+	"info": {
+		"_postman_id": "a3a2a135-e805-4096-bf00-228304613303",
+		"name": "Kalabaev Dmitriy Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31364886",
+		"_collection_link": "https://counter-offensive.postman.co/workspace/Counter-offensive(auto-tests)~dd6c1cd1-c609-49a6-83d9-0266d1c3255d/collection/31364886-a3a2a135-e805-4096-bf00-228304613303?action=share&source=collection_link&creator=31364886"
+	},
+	"item": [
+		{
+			"name": "back_messages",
+			"item": [
+				{
+					"name": "sendMessage",
+					"item": [
+						{
+							"name": "sendMessage",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{message}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageEmptyTokenError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=&message=hello",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "message",
+											"value": "hello"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageEmptyMessagesError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message=",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageMinLength",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{MessageMin}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "{{MessageMin}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageMaxLength",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{messageMax}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "{{messageMax}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessage201CharactersError432",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 432', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(432);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{message201}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "{{message201}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageUnacceptableSymbolsError432",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 432', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(432);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message=%26*(^%26*@%23$%26*(%@%23",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "%26*(^%26*@%23$%26*(%@%23"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageOnlyFromSpacesError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message=       ",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "       "
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageUserNotExistError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage&token={{token}}111&message={{message}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}111"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "sendMessageMethodNotAllowedError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=sendMessage1&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{message}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "sendMessage1"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "message",
+											"value": "{{message}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "getMessages",
+					"item": [
+						{
+							"name": "getMessages",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=getMessages&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&hash=2",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "hash",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesEmptyTokenError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=getMessages&token=&hash=2",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesEmptyHashError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=getMessages&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&hash=",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesUserNotAllowedError401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=getMessages&token={{token}}111&hash=2",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}111"
+										},
+										{
+											"key": "hash",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getMessagesMethodNotAllowedError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											" \r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=getMessages1&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&hash=2",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "getMessages1"
+										},
+										{
+											"key": "token",
+											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+										},
+										{
+											"key": "hash",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://counter-offensive",
+			"type": "string"
+		},
+		{
+			"key": "urlL",
+			"value": "http://localhost/api",
+			"type": "string"
+		},
+		{
+			"key": "200",
+			"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin, nisi a malesuada convallis, sapien sapien vulputate nunc, in dapibus sapien risus nec mauris. Vestibulum ante ipsum primis i",
+			"type": "string"
+		},
+		{
+			"key": "rnd",
+			"value": "321",
+			"type": "string"
+		},
+		{
+			"key": "hash",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "messageMax",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "MessageMin",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Message201",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

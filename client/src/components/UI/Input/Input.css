@@ -1,50 +1,105 @@
-.input_box {
+.input_wrapper {
+  display: flex;
+  align-items: center;
   position: relative;
-  display: flex;
-  flex-direction: row;
-  height: 90px;
-  margin: 10px 0;
-}
-
-.input_value {
-  width: 100%;
-  border: none;
-  padding: 0;
-  display: flex;
-  height: 100%;
-  outline: none;
-  background: var(--salad);
-  font-size: 4vw;
-  border-left: none;
-}
-
-.span_text {
-  font-size: 4vw;
-  margin-left: 5px;
-  padding-left: 10px;
-}
-
-.input_text {
-  display: flex;
-  align-items: center;
+  width: 700px;
+  height: 80px;
+  background-color: var(--green-yellow);
+  margin-bottom: 15px;
+  border-radius: 50px;
   border: 5px solid var(--black);
-  background: var(--green-yellow);
-  font-family: "Neucha", cursive;
-  width: 25vw;
 }
 
-.toggle_password {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  background: var(--salad);
-  transform: scale(1.035);
+.input_element {
+  box-sizing: content-box;
+  width: 100%;
+  height: 90%; 
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  padding: 0 40px;
+  background-color: transparent;
+  font-family: Neucha;
+  font-size: 64px;
+  font-weight: 400;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+        display: none;
+}
+
+.input_password {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-right: 0;
+}
+
+
+.eye {
+  margin-right: 10px;
+}
+
+.eye:hover {
   cursor: pointer;
 }
 
-.input_wrapper {
-  display: flex;
-  width: 40vw;
-  border: 5px solid var(--black);
-  border-left: none;
+.eye > svg {
+  height: 85px;
+  width: 85px;
+}
+
+@media (max-width:1400px) {
+  .input_wrapper {
+    width: 600px;
+     height: 70px;
+  }
+}
+
+@media (max-width:760px) {
+  .input_wrapper {
+    width: 500px;
+    height: 65px;
+  }
+
+  .input_element {
+    padding: 0 30px;
+    font-size: 52px;
+  }
+
+  .input_password {
+    padding-right: 0;
+  }
+
+  .eye {
+    margin-right: 10px;
+  }
+
+  .eye > svg {
+    height: 70px;
+    width: 70px;
+  }
+}
+
+@media (max-width:545px) {
+  .input_wrapper {
+    width: 290px;
+    height: 50px;
+    border: 3px solid var(--black);
+    border-radius: 30px;
+  }
+
+  .input_element {
+    padding: 0 20px;
+    font-size: 44px;
+  }
+
+  .eye {
+    margin-right: 8px;
+  }
+
+  .eye > svg {
+    height: 55px;
+    width: 55px;
+  }
 }

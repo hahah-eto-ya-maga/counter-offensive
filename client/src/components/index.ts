@@ -1,4 +1,5 @@
-export { Shop, Info } from "./Dossier";
 export { ProgressBar, CardAdvise } from "./Loading";
-export { Logo, Button, Input, Eye } from "./UI";
-export { Login, Registration } from "./Auth";
+export { Logo, Button, Input } from "./UI";
+export { Chat } from "./Chat/Chat";
+export { Modal } from "./Modal/Modal";
+export { AppRouter } from "./AppRouter/AppRouter";

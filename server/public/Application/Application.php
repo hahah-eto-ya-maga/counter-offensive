@@ -1,112 +1,218 @@
 <?php
 require_once("modules/DB.php");
-require_once("modules/User.php");
-date_default_timezone_set("Europe/Moscow");
+require_once("modules/User/User.php");
+require_once("modules/Chat/Chat.php");
+require_once("modules/Lobby/Lobby.php");
+require_once("modules/Game/Game.php");
 
-class Application{
 
-    protected $user;
+class Application
+{
 
-    function __construct(){
-        $DB = new DB();
-        $this->user = new User($DB->link);
+    private $user;
+    private $chat;
+    private $lobby;
+    private $game;
+
+    public $dbStatus;
+
+    function __construct()
+    {
+        $db = new DB();
+        $this->dbStatus = $db->dbStatus;
+        $this->user = new User($db);
+        $this->chat = new Chat($db);
+        $this->lobby = new Lobby($db);
+        $this->game = new Game($db);
+
+    }
+
+
+    function registration($params)
+    {
+        $login = $params['login'] ?? false;
+        $password = $params['hash'] ?? false;
+        $nickname = $params['nickname'] ?? false;
+
+        if ($login && $password && $nickname) {
+            $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,14}$/u';
+            $pattern1 = mb_strlen($nickname, 'utf-8');
+            if (preg_match($pattern, $login) && $pattern1 > 2 && $pattern1 < 17) {
+                return $this->user->registration($login, $nickname, $password);
+            }
+            return array(false, 413);
+        }
+        return array(false, 400);
+    }
+
+
+    function login($params)
+    {
+        $login = $params['login'] ?? false;
+        $password = $params['hash'] ?? false;
+        $rnd = $params['rnd'] ?? false;
+
+        if ($login && $password && $rnd) {
+            return $this->user->login($login, $password, $rnd);
+        }
+        return array(false, 400);
+    }
+
+    function logout($params)
+    {
+        $token = $params['token'] ?? false;
+
+        if ($token) {
+            return $this->user->logout($token);
+        }
+        return array(false, 400);
+    }
+
+
+    function tokenVerification($params)
+    {
+        $token = $params['token'] ?? false;
+
+        if ($token) {
+            return $this->user->tokenVerification($token);
+        }
+        return array(false, 400);
+    }
+
+
+    function updatePassword($params)
+    {
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+
+        if ($token && $hash) {
+            return $this->user->updatePassword($token, $hash);
+        }
+        return array(false, 400);
+    }
+
+    function sendMessage($params)
+    {
+        $token = $params['token'] ?? false;
+        $message = trim($params['message']) ?? false;
+        if ($token && $message) {
+            $pattern = '/^[\p{L}\p{N}0-9\s\.,!?\"\'㋛-]{1,200}$/u';
+            if (preg_match($pattern, $message)) {
+                $user = $this->user->getUser($token);
+                if ($user != null && $user->token != 0 && $user->token != null) {
+                    return $this->chat->sendMessage($user->id, $message);
+                }
+                return array(false, 401);
+            }
+            return array(false, 432);
+        }
+        return array(false, 400);
+    }
+
+    function getMessages($params)
+    {
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if ($token && $hash) {
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->chat->getMessages($hash, $user->id);
+            }
+            return array(false, 401);
+        }
+        return array(false, 400);
+    }
+
+    function setGamerRole($params)
+    {
+        $token = $params['token'] ?? false;
+        $role = $params['role'] ?? false;
+        $tankId = $params['tankId'] ?? false;
+
+        if ($role && $token) {
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->setGamerRole($role, $user->id, $tankId);
+            }
+            return array(false, 401);
+        }
+        return array(false, 400);
+    }
+
+    function getLobby($params)
+    {
+        $token = $params['token'] ?? false;
+        $hash = $params['hash'] ?? false;
+        if ($token && $hash) {
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->getLobby($user->id, $hash); 
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
     }
     
+    function getScene($params) {
+        $token = $params['token'] ?? false;
+        $hashMap = $params['hashMap'] ?? false;
+        $hashGamers = $params['hashGamers'] ?? false;
+        $hashMobs = $params['hashMobs'] ?? false;
+        $hashBullets = $params['hashBullets'] ?? false;
+        $hashBodies = $params['hashBodies'] ?? false;
+        if($token && $hashMap && $hashBodies && $hashMobs && $hashGamers && $hashBullets) {
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->game->getScene($user->id, $hashGamers, $hashMobs, $hashBullets, $hashMap, $hashBodies);
+            }
+            return array(false, 401);
+        }  
+        return array(false, 400);
+    }
 
-    function v4_UUID() {
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-          // 32 bits for the time_low
-          mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-          // 16 bits for the time_mid
-          mt_rand(0, 0xffff),
-          // 16 bits for the time_hi,
-          mt_rand(0, 0x0fff) | 0x4000,
+    function fire($params){
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if($token && $x && $y && $angle){
+            if (is_numeric($angle) && is_numeric($x) && is_numeric($y)) {
+                $user = $this->user->getUser($token);
+                if (($user != null && $user->token != 0 && $user->token != null)) {
+                    return $this->game->fire($user->id, $x, $y, $angle); 
+                }
+                return array(false, 401);
+            }
+            return array(false, 422);
+        }  
+        return array(false, 400);
+    }
+
+    function motion($params)
+    {
+        $token = $params['token'] ?? false;
+        $x = $params['x'] ?? false;
+        $y = $params['y'] ?? false;
+        $angle = $params['angle'] ?? false;
+        if ($x && $y && $angle && $token) {
+            $user = $this->user->getUser($token);
+            if ($user != null && $user->token != 0 && $user->token != null) {
+                return $this->game->motion($user->id, $x, $y, $angle);
+            }
+            return array(false, 401);
+        }
+        return array(false, 400);
+    }
     
-          // 8 bits and 16 bits for the clk_seq_hi_res,
-          // 8 bits for the clk_seq_low,
-          mt_rand(0, 0x3fff) | 0x8000,
-          // 48 bits for the node
-          mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
-        );
-      }
-
-
-
-    function registration($params){
-        $login = $params['login'];
-        $password = $params['hash'];
-        $token = hash('sha256', $this->v4_UUID());
-        $tokenLastUse = date('Y-m-d H:i:s');
-        $timeCreate = $tokenLastUse;
-        
-        if($login && $password){
-            $pattern = '/^[\p{L}\p{N}][\p{L}\p{N}_-]{5,16}$/u';
-            if(preg_match($pattern, $login)){
-                return $this -> user -> registration($login, $password, $token, $tokenLastUse, $timeCreate);
-            }   
-            else return array(false,413);    
-        }
-        else return array(false, 400);
-    }
-
-
-    function login($params){
-        $login = $params['login'];
-        $hash = $params['hash'];
-        $rnd = $params['rnd'];
-        $token = hash('sha256', $this->v4_UUID());
-        $tokenLastUse = date('Y-m-d H:i:s');
-        
-        if($login && $hash && $rnd){
-            return $this -> user -> login($login, $hash, $rnd, $token, $tokenLastUse);
-        }
-        else return array(false, 400);
-    }
-
-    function logout($params){
-        $login = $params['login'];
-        $token = $params['token'];
-        $tokenLastUse = date('Y-m-d H:i:s');
-        
-        if($login && $token){
-            return $this -> user -> logout($login, $token, $tokenLastUse);
-        }
-        return array(false, 400);
-    }
-
-
-    function tokenVerification($params){
-        $login = $params['login'];
-        $token = $params['token'];
-        $tokenLastUse = date('Y-m-d H:i:s');
-
-        if($login && $token){
-            return $this -> user -> tokenVerification($login, $token, $tokenLastUse);
-        }
-        return array(false, 400);
-    }
-
-    function getAllInfo($params){
-        $login = $params['login'];
-        $token = $params['token'];
-        $tokenLastUse = date('Y-m-d H:i:s');
-
-        if($login && $token){
-            return $this -> user -> getAllInfo($login, $token, $tokenLastUse);
-        }
-        return array(false, 400);
-    }
-
-    function updatePassword($params){
-        $login = $params['login'];
-        $token = $params['token'];
-        $hash = $params['hash'];
-        $tokenLastUse = date('Y-m-d H:i:s');
- 
-
-        if($login && $token && $hash){
-            return $this -> user -> updatePassword($login, $token, $hash, $tokenLastUse);
-        }
+    function suicide($params){
+        $token = $params['token'] ?? false;
+        if($token){
+            $user = $this->user->getUser($token);
+            if (($user != null && $user->token != 0 && $user->token != null)) {
+                return $this->lobby->suicide($user->id); 
+            }
+            return array(false, 401);
+        }  
         return array(false, 400);
     }
 }

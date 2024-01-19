@@ -1,0 +1,1652 @@
+{
+	"info": {
+		"_postman_id": "7687f958-eef6-420b-8f31-bb776f086201",
+		"name": "Kalabaev Dmitriy Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31364886",
+		"_collection_link": "https://counter-offensive.postman.co/workspace/Counter-offensive(auto-tests)~dd6c1cd1-c609-49a6-83d9-0266d1c3255d/collection/31364886-7687f958-eef6-420b-8f31-bb776f086201?action=share&source=collection_link&creator=31364886"
+	},
+	"item": [
+		{
+			"name": "back_authorization",
+			"item": [
+				{
+					"name": "registration",
+					"item": [
+						{
+							"name": "registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('vasya4'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('vasya4'); \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya4&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Успешная регистрация', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('vasya4'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('vasya4'); \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya4&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationEmptyLoginError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": ""
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationEmptyHashError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya4&nickname=vasya4&hash=",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationEmptyNicknameError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya4&nickname=&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationLoginOccupiedError460",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(460);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya4&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationInvalidLoginError413",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(413);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya%&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya%"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationInvalidNicknameError413",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(413);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=registration&login=vasya4&nickname=vasya%&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "registration"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya%"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "registrationMethodNotAllowedError405",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=&login=vasya4&nickname=vasya4&hash=c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "nickname",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "c74f891e0dde0b3346acd9f0d2f062851393f108603fb0205538e59278950464"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"item": [
+						{
+							"name": "logout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Checking the connection to the server\", () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"});\r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/?method=logout&token={{token}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutInvalidTokenError400",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=logout&token={{token}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutEmptyTokenError400 Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=logout&token=",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "logout"
+										},
+										{
+											"key": "token",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logoutMethodNotAllowedError405",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"})\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=&token={{token}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('Checking the connection to the server', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response login is correct', ()=>{ \r",
+											"    pm.expect(response.data.login).to.eql('vasya4'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response nickname is correct', ()=>{ \r",
+											"    pm.expect(response.data.nickname).to.eql('vasya4'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response rank_name is correct', ()=>{ \r",
+											"    pm.expect(response.data.rank_name).to.eql('Private'); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response gamer_exp is correct', ()=>{ \r",
+											"    pm.expect(response.data.gamer_exp).to.eql(0); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response next_rang is correct', ()=>{ \r",
+											"    pm.expect(response.data.next_rang).to.eql(144); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response level is correct', ()=>{ \r",
+											"    pm.expect(response.data.level).to.eql(1); \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=login&login=vasya4&hash=66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf&rnd={{rnd}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginEmptyLoginError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=login&login=&hash=66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf&rnd={{rnd}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "login",
+											"value": ""
+										},
+										{
+											"key": "hash",
+											"value": "66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginEmptyHashError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=login&login=vasya4&hash=&rnd={{rnd}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": ""
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginEmptyRndError400",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is Bad Request', ()=>{\r",
+											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=login&login=vasya4&hash=66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf&rnd=",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf"
+										},
+										{
+											"key": "rnd",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginInvalidLoginError403",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(403);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=login&login=1&hash=66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf&rnd={{rnd}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "login",
+											"value": "1"
+										},
+										{
+											"key": "hash",
+											"value": "66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginInvalidHashError403",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(403);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=login&login=vasya4&hash=1&rnd={{rnd}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "login"
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "1"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "loginMethodNotAllowedError501",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const myData = pm.response.json();\r",
+											"pm.environment.set('token', myData.token);\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('Checking the connection to the server', () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"}) \r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{urlL}}/?method=&login=vasya4&hash=66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf&rnd={{rnd}}",
+									"host": [
+										"{{urlL}}"
+									],
+									"path": [
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "login",
+											"value": "vasya4"
+										},
+										{
+											"key": "hash",
+											"value": "66c72c88c9216233dabfa1f2c768ce172b85be6c7d9e5b31877151adbb4e56bf"
+										},
+										{
+											"key": "rnd",
+											"value": "{{rnd}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "updatePassword",
+					"item": [
+						{
+							"name": "updatePassword",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Соединение с сервером\", () => {\r",
+											"    pm.expect(pm.response.code).to.eql(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('Успешное выполнение метода', () => {\r",
+											"    const okok = pm.response.json();\r",
+											"    pm.expect(okok.result).to.eql('ok');\r",
+											"})\r",
+											"\r",
+											"pm.test('Ошибка 400 (Указаны не все обязательные параметры)', () => {\r",
+											"    const error400 = pm.response.json();\r",
+											"    pm.expect(error400.error.code).to.eql(400);\r",
+											"})\r",
+											"\r",
+											"pm.test('Ошибка 401 (Неавторизованный запрос)', () => {\r",
+											"    const error401 = pm.response.json();\r",
+											"    pm.expect(error401.error.code).to.eql(401);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/?method=updatePassword&token=98605ccc66890097a6140c6834c8c57e5eaaba203375eebf96a9c85258fafff5&hash=2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										""
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "updatePassword"
+										},
+										{
+											"key": "token",
+											"value": "98605ccc66890097a6140c6834c8c57e5eaaba203375eebf96a9c85258fafff5"
+										},
+										{
+											"key": "hash",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://counter-offensive",
+			"type": "string"
+		},
+		{
+			"key": "urlL",
+			"value": "http://localhost/api",
+			"type": "string"
+		},
+		{
+			"key": "200",
+			"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin, nisi a malesuada convallis, sapien sapien vulputate nunc, in dapibus sapien risus nec mauris. Vestibulum ante ipsum primis i",
+			"type": "string"
+		},
+		{
+			"key": "rnd",
+			"value": "321",
+			"type": "string"
+		},
+		{
+			"key": "hash",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "messageMax",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "MessageMin",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Message201",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
