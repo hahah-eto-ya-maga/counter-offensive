@@ -14153,6 +14153,875 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "motion",
+					"item": [
+						{
+							"name": "success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is Data', ()=>{ \r",
+											"    pm.expect(response.data).to.eql(true);\r",
+											"}); "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332&token={{token}}&x=5&y=6",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "5"
+										},
+										{
+											"key": "y",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolAngle(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332;%^%26*&token={{token}}&x=5&y=8",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332;%^&*"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "5"
+										},
+										{
+											"key": "y",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolX(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332&token={{token}}&x=5$%$%23&y=8",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "5$%$#"
+										},
+										{
+											"key": "y",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "specSymbolY(Error422)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check getMessages status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332;%&token={{token}}&x=5&y=8$%%23",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332;%"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "5"
+										},
+										{
+											"key": "y",
+											"value": "8$%#"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noToken(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332&token=&x=45&y=54",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": ""
+										},
+										{
+											"key": "x",
+											"value": "45"
+										},
+										{
+											"key": "y",
+											"value": "54"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noAngle(Error400)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=&token={{token}}&x=56&y=34",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": ""
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "56"
+										},
+										{
+											"key": "y",
+											"value": "34"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongToken(Error401)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 401', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(401);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Unauthorized\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Unauthorized\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332&token={{token}}$%^%23&x=23&y=43",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}$%^%23"
+										},
+										{
+											"key": "x",
+											"value": "23"
+										},
+										{
+											"key": "y",
+											"value": "43"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "noMethod(Error405)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 405', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(405);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Method Not Allowed\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Method Not Allowed\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=&angle=332&token={{token}}&x=3&y=312",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": ""
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "3"
+										},
+										{
+											"key": "y",
+											"value": "312"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "wrongMethod(Error501)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check login status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 501', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(501);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Not Implemented\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Not Implemented\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion$%23&angle=332&token={{token}}&x=23&y=43",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion$%23"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "23"
+										},
+										{
+											"key": "y",
+											"value": "43"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "NoX(Error400)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332&token={{token}}&x=&y=6",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": ""
+										},
+										{
+											"key": "y",
+											"value": "6"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "NoY(Error400)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('check updatePassword status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"\r",
+											"pm.test('check response result is error', ()=>{\r",
+											"    pm.expect(response.result).to.eql('error');\r",
+											"});\r",
+											"\r",
+											"pm.test('check code error is 400', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?method=motion&angle=332&token={{token}}&x=5&y=",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "method",
+											"value": "motion"
+										},
+										{
+											"key": "angle",
+											"value": "332"
+										},
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "x",
+											"value": "5"
+										},
+										{
+											"key": "y",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
 				}
 			]
 		}
