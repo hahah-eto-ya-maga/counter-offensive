@@ -67,9 +67,9 @@ class Game extends BaseModule
         $this->map = array_fill(0, 120, array_fill(0, 150, 0));
 
         foreach ($this->objects as $object) {
-            for ($i = $object->x - 1; $i < $object->x + $object->sizeX - 1 ; $i++) {
+            for ($i = $object->x; $i < $object->x + $object->sizeX; $i++) {
                 for ($j = $object->y; $j < $object->y + $object->sizeY; $j++) {
-                    $this->map[120-$j][$i] = 1;
+                    $this->map[$j][$i] = 1;
                 }
             }
         }
@@ -287,9 +287,6 @@ class Game extends BaseModule
             }
         }
     }
-    
-
-   
 
     /* Удаление мертвецов */
 
@@ -635,6 +632,8 @@ class Game extends BaseModule
         } else if($gamer->person_id === 9) {
             $this->infantryFire($user_id, $gamer,$x, $y, $angle, 1);
         } else if($gamer->person_id === 8) {
+            $this->infantryFire($user_id, $gamer, $x, $y, $angle, 0);
+        } else if($gamer->person_id === 1) {
             $this->infantryFire($user_id, $gamer, $x, $y, $angle, 0);
         };
         return true;

@@ -512,12 +512,12 @@ class DB {
     
 
     function getObjects() {
-        $query = "SELECT type, x, y, sizeX, sizeY FROM objects WHERE status='a'";
+        $query = "SELECT type, x, y, sizeX, sizeY FROM objects WHERE status in ('a', 'i')";
         return $this->queryHandlerAll($query, []);
     }
 
     function getAllObjects() {
-        $query = "SELECT id, hp, x, y, sizeX, sizeY, status FROM objects WHERE status='a'";
+        $query = "SELECT id, hp, x, y, sizeX, sizeY, status FROM objects WHERE status in('a', 'i')";
         return $this->queryHandlerAll($query, []);
     }
 
