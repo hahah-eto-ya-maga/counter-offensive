@@ -123,6 +123,7 @@ export interface IScene {
     gamer: IUserUnit | null;
     is_dead: boolean;
     is_end: boolean;
+    gametime: number;
 }
 
 export enum EGamerRole {
