@@ -164,6 +164,8 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `sizeX` TINYINT NOT NULL DEFAULT 0,
   `sizeY` TINYINT NOT NULL DEFAULT 0,
   `status` CHAR(1) NOT NULL DEFAULT 'a',
+  `angle` FLOAT NULL DEFAULT NULL,
+  `type` TINYINT NOT NULL DEFAULT 2,
   PRIMARY KEY (`id`)
 );
 
@@ -224,10 +226,10 @@ INSERT INTO `ranks` (`name`, `experience`) VALUES
 INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
 ('general', 10000, 2, 1, 1, 16),
 ('bannerman', 8, 1, 1, 1, 1),
-('heavyTankGunner', 400, 1, 1, 1, 5),
+('heavyTankGunner', 400, 10, 1, 1, 5),
 ('heavyTankMeh', 400, 10, 1, 1, 5),
-('heavyTankCommander', 400, 1, 1, 1, 12),
-('middleTankMeh', 250, 1, 1, 1, 5),
+('heavyTankCommander', 400, 10, 1, 1, 12),
+('middleTankMeh', 250, 10, 1, 1, 5),
 ('middleTankGunner', 250, 10, 1, 1, 5),
 ('infantry', 8, 0.3, 0.2, 1, 1),
 ('infantryRPG', 8, 5, 0.2, 1, 1);

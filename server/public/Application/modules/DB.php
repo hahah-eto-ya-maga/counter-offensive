@@ -558,7 +558,7 @@ class DB {
     }
 
     function updateObjectsHp() {
-        $query = "UPDATE `objects` SET status='a', hp=100";
+        $query = "UPDATE `objects` SET status='a', hp=100 WHERE status='d'";
         $this->queryHandler($query, []);
     }
 
@@ -649,14 +649,12 @@ class DB {
         ELSE x2 END,
         y2 = CASE id $casesStringY2 
         ELSE y2 END";
-        // print($query);
         $this->queryHandler($query, []);
     }
 
     function deleteBulletsById($bulletsId){
         $bulletsIdString = implode(", ", $bulletsId);
         $query = "DELETE FROM bullets WHERE id IN ($bulletsIdString)";
-        // print_r($query);
         $this->queryHandler($query, []);
     }
 
