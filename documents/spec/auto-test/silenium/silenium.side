@@ -7082,7 +7082,7 @@
       "id": "5bf4ca1a-8f18-4efc-92c5-5b169b5408d3",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -7215,7 +7215,7 @@
       "id": "9b725d3c-ffe8-4ff2-aa82-72ca8155db84",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -7348,7 +7348,7 @@
       "id": "f1df7335-010b-447b-ac22-ca31d656e5c4",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -7481,7 +7481,7 @@
       "id": "360fe1a9-69b1-49fa-8d3d-a4e703cbaf83",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -13323,7 +13323,7 @@
       "id": "fa8a2781-00b7-4e49-b12d-9f5b57b6be16",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -13565,7 +13565,7 @@
       "id": "a46b25ce-70d7-4889-80f5-a622f2c3dbfc",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -13891,7 +13891,7 @@
       "id": "eddcf5ad-3353-487f-8024-7aa65b44e36f",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -14133,7 +14133,7 @@
       "id": "f9766007-d8bb-4f9a-af23-2422ad84942f",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
@@ -14459,7 +14459,7 @@
       "id": "b1794b37-e9ef-4256-a516-732a6c015e8b",
       "comment": "",
       "command": "verifyElementPresent",
-      "target": "id=game_chat",
+      "target": "id=test_game_chat",
       "targets": [],
       "value": ""
     }, {
