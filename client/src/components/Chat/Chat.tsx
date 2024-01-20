@@ -101,7 +101,7 @@ export const Chat = forwardRef<HTMLInputElement | null, IChatProps>(
             <div className="body_chat">
                {chatType === "game" && (
                   <div className="header_chat">
-                     <div onClick={handleCloseChat}>
+                     <div onClick={handleCloseChat} id = "test_game_chat">
                         <img
                            src={chatIcon}
                            alt="chat_icon"

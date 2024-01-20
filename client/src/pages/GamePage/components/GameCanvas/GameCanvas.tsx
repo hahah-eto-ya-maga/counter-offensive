@@ -8,7 +8,7 @@ import {
     walls,
 } from "../../../../config";
 import { MediatorContext, ServerContext } from "../../../../App";
-import { TPoint, TUnit } from "../../types";
+import { TCircle, TPoint, TUnit } from "../../types";
 import {
     EBody,
     EGamerRole,
@@ -239,9 +239,20 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         grass,
         stone,
         bush,
+        stump,
+        spike,
+        box,
+        sand,
         home,
+        veranda,
         wall,
         road,
+        crossyRoadEnd,
+        crossyRoad,
+        crossyRoadTurn,
+        crossyRoadTurnCont,
+        fence,
+        fenceTurn,
         bulletAutomat,
         bulletRPG,
         manDead,
@@ -381,26 +392,158 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         }
     };
 
+    const drawHouse = (house: IMapObject) => {
+        const { x, y, sizeY, sizeX, isVert } = house;
+        const angle = (3 * Math.PI) / 2;
+        canvas?.spriteDir(img, x, y, ...home, isVert ? (3 * Math.PI) / 2 : 0);
+        const dx = isVert
+            ? sizeX * (angle >= 0 && angle <= Math.PI ? 1 : 0)
+            : sizeX / 2;
+        const dy = isVert
+            ? sizeY / 2
+            : sizeY *
+              (angle >= Math.PI / 2 && angle <= (3 * Math.PI) / 2 ? 0 : 1);
+
+        const x1 = x + dx;
+        const y1 = y - dy;
+        canvas?.spriteDir(img, x1 - 1, y1 + 1, ...veranda, -angle);
+    };
+
+    const drawCircleObj = ({ x, y, r }: TCircle, sprite: SpriteFrame) => {
+        canvas?.spriteMap(img, x - r, y + r, ...sprite);
+    };
+
     const drawObjects = (objects: IMapObject[]) => {
-        const { stoneR: r } = objectConf;
         drawGrass();
         drawWalls(walls);
         objects.forEach((obj) => {
-            const { x, y } = obj;
+            const { x, y, angle, sizeX, sizeY } = obj;
             switch (obj.type) {
                 case EMapObject.house: {
-                    canvas?.spriteDir(
+                    return drawHouse(obj);
+                }
+                case EMapObject.stone: {
+                    const { r } = objectConf.stone;
+                    return drawCircleObj({ x, y, r }, stone);
+                }
+                case EMapObject.stump: {
+                    const { r } = objectConf.stump;
+                    return drawCircleObj({ x, y, r }, stump);
+                }
+                case EMapObject.bush: {
+                    const { r } = objectConf.bush;
+                    return drawCircleObj({ x, y, r }, bush);
+                }
+                case EMapObject.sand: {
+                    switch (angle) {
+                        case 0: {
+                            return canvas?.spriteDir(
+                                img,
+                                x,
+                                y + 0.5,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                        case Math.PI / 2: {
+                            return canvas?.spriteDir(
+                                img,
+                                x,
+                                y + sizeY - 0.1,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                        case Math.PI: {
+                            return canvas?.spriteDir(
+                                img,
+                                x - 0.2,
+                                y + sizeX,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                        case (3 * Math.PI) / 2: {
+                            return canvas?.spriteDir(
+                                img,
+                                x - sizeY + 0.5,
+                                y + sizeY - 0.1,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                    }
+                    return;
+                }
+                case EMapObject.base: {
+                    const { innerColor: c1, outerColor: c2 } = objectConf.base;
+                    const r = obj.r ? obj.r : objectConf.base.r;
+                    canvas?.circle({ x, y, r }, c2);
+                    canvas?.circle({ x, y, r: r * 0.9 }, c1);
+                    return;
+                }
+                case EMapObject.box: {
+                    return canvas?.sprite(img, x, y, ...box);
+                }
+                case EMapObject.spike: {
+                    return canvas?.sprite(img, x, y, ...spike);
+                }
+                case EMapObject.road: {
+                    return canvas?.sprite(img, x, y, ...road);
+                }
+                case EMapObject.crossyRoad: {
+                    return canvas?.spriteDir(img, x, y, ...crossyRoad, -angle);
+                }
+                case EMapObject.crossyRoadEnd: {
+                    return canvas?.spriteDir(
                         img,
                         x,
                         y,
-                        ...home,
-                        obj.isVert ? (3 * Math.PI) / 2 : 0
+                        ...crossyRoadEnd,
+                        -angle
                     );
-                    return;
                 }
-                case EMapObject.stone: {
-                    canvas?.spriteMap(img, x - r, y + r, ...stone);
-                    return;
+                case EMapObject.crossyRoadTurn: {
+                    return canvas?.spriteDir(
+                        img,
+                        x,
+                        y,
+                        ...crossyRoadTurn,
+                        -angle
+                    );
+                }
+                case EMapObject.crossyRoadTurnCont: {
+                    return canvas?.spriteDir(
+                        img,
+                        x,
+                        y,
+                        ...crossyRoadTurnCont,
+                        -angle
+                    );
+                }
+                case EMapObject.fence: {
+                    const dx = obj.isVert ? -0.95 : 0;
+                    const dy = obj.isVert ? obj.sizeY : 1;
+                    return canvas?.spriteDir(
+                        img,
+                        x + dx,
+                        y + dy,
+                        ...fence,
+                        -angle
+                    );
+                }
+                case EMapObject.fenceTurn: {
+                    return canvas?.spriteDir(
+                        img,
+                        x,
+                        y + 1,
+                        ...fenceTurn,
+                        -angle
+                    );
+                }
+
+                case EMapObject.trusovMoment: {
+                    //return canvas?.spriteDir(img, x, y, ...fence, -angle);
                 }
             }
         });
@@ -558,6 +701,40 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         });
     };
 
+    const showTarget = (base: IMapObject) => {
+        const { left, bottom, width, height } = WIN;
+        const vectorToBase = {
+            x: base.x - unit.x,
+            y: base.y - unit.y,
+        };
+
+        if (
+            Math.abs(vectorToBase.y) > height / 2 + base.r ||
+            Math.abs(vectorToBase.x) > width / 2 + base.r
+        ) {
+            let x = base.x,
+                y = base.y;
+            if (x > left + width) {
+                x = left + width;
+            }
+            if (y > bottom + height) {
+                y = bottom + height;
+            }
+            if (y < bottom) {
+                y = bottom;
+            }
+            if (x < left) {
+                x = left;
+            }
+
+            canvas?.circle({
+                x,
+                y,
+                r: 0.2,
+            });
+        }
+    };
+
     const drawScene = (scene: IGameScene) => {
         const { bodies, bullets, gamers, mobs, map, tanks } = scene;
         drawObjects(map);
@@ -566,6 +743,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         drawMobs(mobs);
         drawTanks(tanks);
         drawGamers(gamers);
+        const base = map.find((el) => el.type === EMapObject.base);
+        base && showTarget(base);
     };
 
     /*  */
@@ -612,8 +791,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             if (canvas) {
                 const { x, y } = unit;
                 const { down, left, right, up } = visualBorders;
-                unit.move(keyPressed, time);
                 if (unit instanceof General) {
+                    unit.move(keyPressed, time);
                     if (x < left) {
                         unit.x = left;
                     }
@@ -627,6 +806,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                         unit.y = up;
                     }
                 } else {
+                    unit.move(keyPressed, time);
                     collision.checkAllBlocksUnit(unit);
                     unit.rotate(
                         Math.atan2(
@@ -658,14 +838,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 "black",
                 20
             );
-            const { x, y, angle, weaponLength } = unit;
-
-
-            canvas.circle({
-                x: x + Math.cos(angle) * weaponLength,
-                y: y + Math.sin(angle) * weaponLength,
-                r: 0.2,
-            });
             canvas.render();
         }
     }

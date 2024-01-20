@@ -6,7 +6,7 @@ const DOMAIN = 'http://counter-offensive'; */
 //prod
 
 const PORT = null;
-const DOMAIN = "http://counter-offensive/server/public";
+const DOMAIN = "http://counter-offensive";
 
 export const HOST = PORT ? `${DOMAIN}:${PORT}` : DOMAIN;
 
@@ -45,7 +45,7 @@ export const entitiesConfig = {
     },
 
     infantryRGP: {
-        speed: 0.003,
+        speed: 0.0035,
         r: 0.35,
         weaponLength: 0.6,
     },
@@ -69,7 +69,7 @@ export const entitiesConfig = {
     },
 
     bannerman: {
-        speed: 0.006,
+        speed: 0.0055,
         r: 0.35,
     },
 
@@ -81,7 +81,24 @@ export const entitiesConfig = {
 };
 
 export const objectConf = {
-    stoneR: 1,
+    stone: {
+        r: 1,
+    },
+    house: {
+        width: 6,
+        height: 3,
+    },
+    stump: {
+        r: 1,
+    },
+    bush: {
+        r: 1,
+    },
+    base: {
+        r: 2,
+        innerColor: "#8BD033",
+        outerColor: "#FF0000",
+    },
 };
 
 export const WINConf = {

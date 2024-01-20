@@ -84,7 +84,7 @@ export default class TraceMask {
       );
       scene.forEach((obj) => {
          const { x, y, sizeX: dx, sizeY: dy } = obj;
-         const { stoneR: r } = objectConf;
+         const { r } = objectConf.stone;
          switch (obj.type) {
             case EMapObject.house: {
                this.polygon([
