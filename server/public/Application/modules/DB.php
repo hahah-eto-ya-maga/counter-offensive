@@ -728,4 +728,32 @@ class DB {
         $query = "INSERT INTO bodies (x, y, angle, type, isMob) VALUES $casesString";
         $this->queryHandler($query, []);
     }
+
+    function updateExp($updateExp){
+        $cases = [];
+        foreach ($updateExp as $oneExp) {
+            $id = (int)$oneExp['id'];
+            $exp = (int)$oneExp['exp'];
+            $cases[] = "WHEN $id THEN experience + $exp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE gamers SET experience = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+    function updateOneExp($exp, $userId){
+        $query = "UPDATE gamers SET experience = experience + ? WHERE id=?";
+        $this->queryHandler($query, [$exp, $userId]);
+    }
+
+    function addBannermanExp($exp) {
+        $query = "UPDATE gamers SET experience = experience + ? WHERE person_id=2";
+        $this->queryHandler($query, [$exp]);
+    }
+
+    function addWinnerExp($exp) {
+        $query = "UPDATE gamers SET experience = experience + ? WHERE status='a'";
+        $this->queryHandler($query, [$exp]);
+    }
 }

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `banner_timeout` INT NOT NULL DEFAULT 5000,
   `mobBase_x` FLOAT NULL DEFAULT NULL,
   `mobBase_y` FLOAT NULL DEFAULT NULL,
-  `base_radius` FLOAT NULL DEFAULT 20,
+  `base_radius` FLOAT NULL DEFAULT 2,
   PRIMARY KEY (`id`)
 );
 
@@ -342,7 +342,7 @@ INSERT INTO `objects` (`x`, `y`, `angle`, `type`, `hp`, `sizeX`, `sizeY`, `statu
 (101, 57, NULL, 5, 100, 1, 1, 'a'),
 (114, 57, NULL, 5, 100, 1, 1, 'a'),
 (115, 51, NULL, 5, 100, 1, 1, 'a'),
-(120, 56, NULL, 5, 100, 1, 1, 'a'),
+(117, 68, NULL, 5, 100, 1, 1, 'a'),
 (111, 40, NULL, 5, 100, 1, 1, 'a'),
 (128, 56, NULL, 5, 100, 1, 1, 'a'),
 (120, 75, NULL, 5, 100, 1, 1, 'a'),

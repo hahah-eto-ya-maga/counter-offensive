@@ -257,7 +257,7 @@ class Game extends BaseModule
             $damage = $bullet->type == 0 ? 2 : 50; // Определение урона в зависимости от типа пули
             $shootFlag = false;
             foreach($this->gamers as $gamer){
-                if(!$bullet->user_id!=$gamer->id || $gamer->hp>0){
+                if($bullet->user_id!=$gamer->id && $gamer->hp>0){
                     $range = $this->gameMath->shootReg($gamer->x, $gamer->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
                     if($range){
                         $currentHp = $gamer->hp-$damage;
@@ -410,6 +410,8 @@ class Game extends BaseModule
             if($this->game->timer - $this->game->pBanner_timestamp >= $this->game->banner_timeout){
                 $this->db->deleteBodies();
                 $this->db->deleteBullets();
+                $this->db->addBannermanExp(400);
+                $this->db->addWinnerExp(200);
                 $this->db->deleteTanks();
                 $this->db->deleteMobs();
                 $this->db->setWinners();
@@ -485,6 +487,10 @@ class Game extends BaseModule
             count($this->deleteBullets)==1 ? $this->db->deleteBullet($this->deleteBullets[0]):$this->db->deleteBulletsById($this->deleteBullets);
     }
 
+    private function updateExp(){
+        if($this->updateExp)
+            count($this->updateExp)==1 ? $this->db->updateOneExp($this->updateExp[0]['exp'], $this->updateExp[0]['id']):$this->db->updateExp($this->updateExp);
+    }
     /* Получение данных */
     
     private function getGamers() {
@@ -533,6 +539,7 @@ class Game extends BaseModule
         $this->lowerGamersHp();
         $this->lowerTanksHp();
         $this->lowerMobsHp();
+        $this->updateExp();
         // Проверка знаменосца
         $this->endGame();
         // Смерть сущности
@@ -604,9 +611,9 @@ class Game extends BaseModule
         }
 
         if ($this->game->hashMap !== $hashMap) {
-            $result['mobBase']['mobBase_x'] = $this->game->mobBase_x;
-            $result['mobBase']['mobBase_y'] = $this->game->mobBase_y;
-            $result['mobBase']['base_radius'] = $this->game->base_radius;
+            $result['mobBase']['x'] = $this->game->mobBase_x;
+            $result['mobBase']['y'] = $this->game->mobBase_y;
+            $result['mobBase']['radius'] = $this->game->base_radius;
             $result['map'] = $this->getObjects();
             $result['hashMap'] = $this->game->hashMap;
         }
