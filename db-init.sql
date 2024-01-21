@@ -164,6 +164,8 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `sizeX` TINYINT NOT NULL DEFAULT 0,
   `sizeY` TINYINT NOT NULL DEFAULT 0,
   `status` CHAR(1) NOT NULL DEFAULT 'a',
+  `angle` FLOAT NULL DEFAULT NULL,
+  `type` TINYINT NOT NULL DEFAULT 2,
   PRIMARY KEY (`id`)
 );
 
@@ -222,24 +224,24 @@ INSERT INTO `ranks` (`name`, `experience`) VALUES
 
 /* Добавление ролей в таблицу persons*/
 INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
-('general', 10000, 1, 1, 1, 16),
+('general', 10000, 2, 1, 1, 16),
 ('bannerman', 8, 1, 1, 1, 1),
-('heavyTankGunner', 400, 1, 1, 1, 5),
+('heavyTankGunner', 400, 10, 1, 1, 5),
 ('heavyTankMeh', 400, 10, 1, 1, 5),
-('heavyTankCommander', 400, 1, 1, 1, 12),
-('middleTankMeh', 250, 1, 1, 1, 5),
+('heavyTankCommander', 400, 10, 1, 1, 12),
+('middleTankMeh', 250, 10, 1, 1, 5),
 ('middleTankGunner', 250, 10, 1, 1, 5),
 ('infantry', 8, 0.3, 0.2, 1, 1),
 ('infantryRPG', 8, 5, 0.2, 1, 1);
 
-INSERT INTO `objects` (`type`, `hp`, `x`, `y`, `sizeX`, `sizeY`) VALUES
-(1, 100, 1, 1, 1, 1),
-(1, 100, 5, 6, 1, 1),
-(1, 100, 9, 30, 1, 1),
-(1, 100, 2, 15, 1, 1),
-(1, 100, 10, 20, 1, 1),
-(1, 100, 23, 4, 1, 1),
-(1, 100, 3, 24, 1, 1),
-(1, 100, 4, 17, 1, 1),
-(1, 100, 15, 27, 1, 1);
+INSERT INTO `objects` (`type`, `hp`, `x`, `y`, `sizeX`, `sizeY`, status) VALUES
+(1, 100, 1, 1, 6, 3, 'i'),
+(1, 100, 5, 6, 6, 3, 'i'),
+(1, 100, 9, 30, 6, 3, 'i'),
+(1, 100, 2, 15, 6, 3, 'i'),
+(1, 100, 10, 20, 6, 3, 'i'),
+(1, 100, 23, 4, 6, 3, 'i'),
+(1, 100, 3, 24, 6, 3, 'i'),
+(1, 100, 4, 17, 6, 3, 'i'),
+(1, 100, 15, 27, 6, 3, 'i');
 
