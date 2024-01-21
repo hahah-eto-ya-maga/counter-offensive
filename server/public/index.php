@@ -37,5 +37,5 @@
         return array(false, 405);
     }
 
-    echo json_encode(Answer::response(request($_GET)));
+    echo json_encode(Answer::response(request($_GET)), JSON_NUMERIC_CHECK);
 
