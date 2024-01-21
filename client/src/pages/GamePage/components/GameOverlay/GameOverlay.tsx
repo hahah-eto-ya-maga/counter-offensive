@@ -9,10 +9,10 @@ export type TGameStatus = "victory" | "defeat" | null;
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const GameOverlay: FC<Props> = ({ className, ...props }) => {
+    const [gameStatus, setGameStatus] = useState<TGameStatus>(null);
+
     const mediator = useContext(MediatorContext);
     const navigate = useNavigate();
-
-    const [gameStatus, setGameStatus] = useState<TGameStatus>(null);
 
     useEffect(() => {
         const { THROW_TO_LOBBY } = mediator.getTriggerTypes();
@@ -20,7 +20,7 @@ const GameOverlay: FC<Props> = ({ className, ...props }) => {
             setGameStatus(status);
             setTimeout(() => {
                 setGameStatus(null);
-                navigate("/");
+                navigate("/", { replace: true });
             }, 3000);
         });
     });
