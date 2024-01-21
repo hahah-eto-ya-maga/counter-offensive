@@ -41,7 +41,7 @@ class Game extends BaseModule
         if($tank && ($gamer->timer - $tank->reload_timestamp)>($gamer->reloadSpeed * 1000)){
             $dx = cos($angle);
             $dy = sin($angle);
-            $this->db->addBullet($user_id, $x+3*$dx, $y+3*$dy, $dx, $dy, 1);
+            $this->db->addBullet($user_id, $x+$dx, $y+$dy, $dx, $dy, 1);
             $this->db->updateTankTimestamp($user_id);
             $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
         }
@@ -51,7 +51,7 @@ class Game extends BaseModule
         if($gamer && ($gamer->timer - $gamer->reload_timestamp)>($gamer->reloadSpeed * 1000)){
             $dx = cos($angle);
             $dy = sin($angle);
-            $this->db->addBullet($user_id, $x+$dx, $y+$dy, $dx, $dy, $bulletType);
+            $this->db->addBullet($user_id, $x+0.3*$dx, $y+0.3*$dy, $dx, $dy, $bulletType);
             $this->db->updateGamerTimestamp($user_id);
             $this->db->updateBulletsHash(hash("sha256", $this->v4_UUID()));
         }
@@ -237,7 +237,7 @@ class Game extends BaseModule
     }
     
     private function moveBullet($id, $x, $y, $dx, $dy) {
-        if ($x>=120 || $x<=0 || $y>=150 || $y<=0){
+        if ($x>=150 || $x<=0 || $y>=120 || $y<=0){
             $this->deleteBullets[] = $id;
         } else {
             $x2 = $x + $dx;

@@ -512,7 +512,7 @@ class DB {
     
 
     function getObjects() {
-        $query = "SELECT type, x, y, sizeX, sizeY FROM objects WHERE status in ('a', 'i')";
+        $query = "SELECT type, x, y, sizeX, sizeY, angle FROM objects WHERE status in ('a', 'i')";
         return $this->queryHandlerAll($query, []);
     }
 
