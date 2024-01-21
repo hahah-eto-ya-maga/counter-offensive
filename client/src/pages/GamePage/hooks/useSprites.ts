@@ -36,18 +36,19 @@ const useSprites = (
    const grass: SpriteFrame = [SPRITE_SIZE * 10, SIZE * 10, SIZE * 0, SIZE * 10];
    const stone: SpriteFrame = [SPRITE_SIZE * 2.2 - 1, SIZE * 6, SIZE * 4, SIZE * 2 - 1];
    const wall: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 10, SIZE];
-   const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 2, SIZE * 2];
+   const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 1.99, SIZE * 2];
    const stump: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6, SIZE * 16, SIZE * 2 ];
    const spike: SpriteFrame = [SPRITE_SIZE, SIZE * 9, SIZE * 16, SIZE ];
    const box: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 6, SIZE ];
-   const sand: SpriteFrame=[SPRITE_SIZE * 3, SIZE * 6.05, SIZE * 12.2, SIZE * 3]
+   const sand: SpriteFrame= [SPRITE_SIZE * 3, SIZE * 6, SIZE * 12.2, SIZE * 3];
+   const tree: SpriteFrame = [SPRITE_SIZE * 3, SIZE * 7, SIZE * 26, SIZE * 3]
 
    const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
    const veranda: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6.01, SIZE * 0, SIZE * 2];
    
    const road:  SpriteFrame = [SPRITE_SIZE * 4, SIZE * 22, SIZE * 0, SIZE * 4];
    const crossyRoadEnd: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 17, SIZE * 13, SIZE * 2];
-   const crossyRoad: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 19, SIZE * 11, SIZE * 2];
+   const crossyRoad: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 19, SIZE * 11, SIZE * 1.9];
    const crossyRoadTurn: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 19, SIZE * 13, SIZE * 2];
    const crossyRoadTurnCont: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 17, SIZE * 11, SIZE * 2];
 
@@ -105,6 +106,7 @@ const useSprites = (
       spike,
       box,
       sand,
+      tree,
       home,
       veranda,
       wall,
