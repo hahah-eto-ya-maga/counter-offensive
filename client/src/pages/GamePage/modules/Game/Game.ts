@@ -107,33 +107,61 @@ export default class Game {
                 }
                 if (map) {
                     this.scene.map = map.map((obj) => {
-                        const { x, y, sizeX, sizeY } = obj;
+                        const { x, y, sizeX, sizeY, angle } = obj;
+                        const isVert = sizeY > sizeX;
                         switch (obj.type) {
+                            case EMapObject.fence:
                             case EMapObject.house: {
-                                const isVert = sizeY > sizeX;
-                                if (isVert) {
-                                    return {
-                                        ...obj,
-                                        y: y + sizeY,
-                                        isVert,
-                                    };
-                                }
                                 return {
                                     ...obj,
-                                    x,
                                     y: y + sizeY,
+                                    angle: (angle * Math.PI) / 180,
                                     isVert,
                                 };
                             }
-                            case EMapObject.stone: {
+                            case EMapObject.stone:
+                            case EMapObject.bush:
+                            case EMapObject.stump:
+                            case EMapObject.trusovMoment: {
                                 return {
                                     ...obj,
-                                    x: x + objectConf.stoneR,
-                                    y: y + objectConf.stoneR,
+                                    x: x + sizeX / 2,
+                                    y: y + sizeY / 2,
                                 };
+                            }
+                            case EMapObject.box:
+                            case EMapObject.spike:
+                            case EMapObject.road: {
+                                return { ...obj, y: y + sizeY };
+                            }
+                            case EMapObject.crossyRoad:
+                            case EMapObject.crossyRoadEnd:
+                            case EMapObject.crossyRoadTurn:
+                            case EMapObject.crossyRoadTurnCont:
+                            case EMapObject.fenceTurn: {
+                                return {
+                                    ...obj,
+                                    y: y + sizeY,
+                                    angle: (angle * Math.PI) / 180,
+                                };
+                            }
+                            default: {
+                                return { ...obj };
                             }
                         }
                     });
+                    this.scene.map = [
+                        {
+                            type: EMapObject.house,
+                            x: 10,
+                            y: 10,
+                            angle: 0,
+                            isVert: false,
+                            r: 1,
+                            sizeX: 6,
+                            sizeY: 3,
+                        },
+                    ];
                     server.STORE.setHash(EHash.map, hashMap);
                 }
             }

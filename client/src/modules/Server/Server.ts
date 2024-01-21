@@ -30,7 +30,9 @@ export default class Server {
                     (key) => `${key}=${params[key] === 0 ? 0.01 : params[key]}`
                 )
                 .join("&");
-            const res = await fetch(`${this.HOST}/?method=${method}&${str}`);
+            const res = await fetch(
+                `${this.HOST}/server/public/?method=${method}&${str}`
+            );
             const answer = await res.json();
 
             if (answer.result === "ok") {
