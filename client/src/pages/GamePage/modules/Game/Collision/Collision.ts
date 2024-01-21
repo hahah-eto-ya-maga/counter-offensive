@@ -112,63 +112,6 @@ class Collision {
                     this.blockUnit(unit, { x, y }, sizeX, sizeY);
                     break;
                 }
-                case EMapObject.fence: {
-                    this.blockUnit(
-                        unit,
-                        { x, y },
-                        obj.isVert ? eps : sizeX,
-                        obj.isVert ? sizeY : eps
-                    );
-                    break;
-                }
-                case EMapObject.fenceTurn: {
-                    switch (angle) {
-                        case 0: {
-                            this.blockUnit(unit, { x, y }, sizeX, eps);
-                            this.blockUnit(unit, { x, y }, eps, sizeY);
-                            break;
-                        }
-                        case Math.PI / 2: {
-                            this.blockUnit(unit, { x, y }, sizeX, eps);
-                            this.blockUnit(
-                                unit,
-                                { x: x + sizeX - eps, y },
-                                eps,
-                                sizeY
-                            );
-                            break;
-                        }
-                        case Math.PI: {
-                            this.blockUnit(
-                                unit,
-                                { x, y: y + sizeY - eps },
-                                sizeX,
-                                eps
-                            );
-                            this.blockUnit(
-                                unit,
-                                { x: x + sizeX - eps, y },
-                                eps,
-                                sizeY
-                            );
-                            break;
-                        }
-                        case (3 * Math.PI) / 2: {
-                            this.blockUnit(unit, { x, y }, eps, sizeY);
-                            this.blockUnit(
-                                unit,
-                                { x, y: y + sizeY - eps },
-                                sizeX,
-                                eps
-                            );
-                            break;
-                        }
-                        default: {
-                            break;
-                        }
-                    }
-                    break;
-                }
                 case EMapObject.sand: {
                     switch (angle) {
                         case 0: {

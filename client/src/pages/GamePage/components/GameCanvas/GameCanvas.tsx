@@ -241,6 +241,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         spike,
         box,
         sand,
+        tree,
         home,
         veranda,
         wall,
@@ -393,17 +394,44 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     const drawHouse = (house: IMapObject) => {
         const { x, y, sizeY, sizeX, isVert, angle } = house;
         canvas?.spriteDir(img, x, y, ...home, isVert ? (3 * Math.PI) / 2 : 0);
-        const dx = isVert
-            ? sizeX * (angle >= 0 && angle <= Math.PI ? 1 : 0)
-            : sizeX / 2;
-        const dy = isVert
-            ? sizeY / 2
-            : sizeY *
-              (angle >= Math.PI / 2 && angle <= (3 * Math.PI) / 2 ? 0 : 1);
-
-        const x1 = x + dx;
-        const y1 = y - dy;
-        canvas?.spriteDir(img, x1 - 1, y1 + 1, ...veranda, -angle);
+        switch (angle) {
+            case 0: {
+                return canvas?.spriteDir(
+                    img,
+                    x + sizeX / 2 - 1,
+                    y - sizeY + 0.5,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+            case Math.PI / 2: {
+                return canvas?.spriteDir(
+                    img,
+                    x + sizeX - 0.5,
+                    y - sizeY / 2 + 1,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+            case Math.PI: {
+                return canvas?.spriteDir(
+                    img,
+                    x + sizeX / 2 - 1,
+                    y + sizeY / 2,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+            case (3 * Math.PI) / 2: {
+                return canvas?.spriteDir(
+                    img,
+                    x - sizeX / 2,
+                    y - sizeY / 2 + 1,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+        }
     };
 
     const drawCircleObj = ({ x, y, r }: TCircle, sprite: SpriteFrame) => {
@@ -430,6 +458,10 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 case EMapObject.bush: {
                     const { r } = objectConf.bush;
                     return drawCircleObj({ x, y, r }, bush);
+                }
+                case EMapObject.tree: {
+                    canvas?.spriteMap(img, x, y, ...tree);
+                    break;
                 }
                 case EMapObject.sand: {
                     switch (angle) {
@@ -486,56 +518,61 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     return canvas?.sprite(img, x, y, ...spike);
                 }
                 case EMapObject.road: {
-                    return canvas?.sprite(img, x, y, ...road);
+                    for (let i = 1; i <= sizeY / 4; i++) {
+                        canvas?.sprite(img, x, y + i * 4, ...road);
+                    }
+                    return;
                 }
                 case EMapObject.crossyRoad: {
-                    return canvas?.spriteDir(img, x, y, ...crossyRoad, -angle);
+                    if (sizeX > sizeY) {
+                        for (let i = 0; i < sizeX / 2; i++) {
+                            canvas?.spriteDir(
+                                img,
+                                x + i * 2,
+                                y + sizeY,
+                                ...crossyRoad,
+                                angle
+                            );
+                        }
+                    } else {
+                        for (let i = 1; i <= sizeY / 2; i++) {
+                            canvas?.spriteDir(
+                                img,
+                                x,
+                                y + i * 2,
+                                ...crossyRoad,
+                                angle
+                            );
+                        }
+                    }
+                    return;
                 }
                 case EMapObject.crossyRoadEnd: {
                     return canvas?.spriteDir(
                         img,
                         x,
-                        y,
+                        y + sizeY,
                         ...crossyRoadEnd,
                         -angle
                     );
                 }
                 case EMapObject.crossyRoadTurn: {
-                    return canvas?.spriteDir(
+                    canvas?.spriteDir(
                         img,
                         x,
-                        y,
+                        y + sizeY,
                         ...crossyRoadTurn,
                         -angle
                     );
+                    return;
                 }
                 case EMapObject.crossyRoadTurnCont: {
                     return canvas?.spriteDir(
                         img,
                         x,
-                        y,
+                        y + sizeY,
                         ...crossyRoadTurnCont,
-                        -angle
-                    );
-                }
-                case EMapObject.fence: {
-                    const dx = obj.isVert ? -0.95 : 0;
-                    const dy = obj.isVert ? obj.sizeY : 1;
-                    return canvas?.spriteDir(
-                        img,
-                        x + dx,
-                        y + dy,
-                        ...fence,
-                        -angle
-                    );
-                }
-                case EMapObject.fenceTurn: {
-                    return canvas?.spriteDir(
-                        img,
-                        x,
-                        y + 1,
-                        ...fenceTurn,
-                        -angle
+                        angle
                     );
                 }
 
@@ -544,7 +581,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 }
             }
         });
-        canvas?.circle({ x: 10, y: 10, r: 0.2 });
     };
 
     const drawBullets = (bullets: IBullet[]) => {
@@ -725,11 +761,14 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 x = left;
             }
 
-            canvas?.circle({
-                x,
-                y,
-                r: 0.2,
-            });
+            canvas?.circle(
+                {
+                    x,
+                    y,
+                    r: 0.5,
+                },
+                "#f00"
+            );
         }
     };
 

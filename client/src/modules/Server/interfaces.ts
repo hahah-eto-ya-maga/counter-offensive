@@ -108,6 +108,7 @@ export interface IScene {
     bullets: IBullet[] | null;
     bodies: IBody[] | null;
     map: IMapObject[] | null;
+    mobBase: IPoint & { radius: number };
     hashMap: string;
     hashBodies: string;
     hashGamers: string;
@@ -116,7 +117,6 @@ export interface IScene {
     gamer: IUserUnit | null;
     is_dead: boolean;
     is_end: boolean;
-    gametime: number;
 }
 
 export enum EGamerRole {
@@ -169,6 +169,7 @@ export enum EMapObject {
     box,
     bush,
     sand,
+    tree,
     trusovMoment,
 }
 
