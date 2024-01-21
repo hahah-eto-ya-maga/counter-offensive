@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `hashBodies` VARCHAR(100) NOT NULL DEFAULT '',
   `hashTanks` VARCHAR(100) NOT NULL DEFAULT '',
   `timestamp` BIGINT NOT NULL DEFAULT 0,
-  `timeout` INT NOT NULL DEFAULT 100,
+  `timeout` INT NOT NULL DEFAULT 1000,
   `startGameTimestamp` BIGINT NOT NULL DEFAULT 0,
   `pBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
   `banner_timeout` INT NOT NULL DEFAULT 5000,
@@ -196,7 +196,7 @@ INSERT INTO `gamers` (`user_id`, `experience`, `reload_timestamp`) VALUES
 /* Значения по умолчанию в таблице game*/
 
 INSERT INTO `game` (`hashUnits`, `hashScene`, `chatHash`, `hashBullets`, `hashLobby`, `hashGamers`, `hashMobs`, `hashMap`, `hashBodies`, `timestamp`, `mobBase_x`, `mobBase_y`, `startGameTimestamp`) 
-VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000), '30', '30', ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));
+VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000), '134', '108', ROUND(UNIX_TIMESTAMP(CURTIME(4)) * 1000));
 
 /* Добавление уровней в таблицу ranks */
 INSERT INTO `ranks` (`name`, `experience`) VALUES 
