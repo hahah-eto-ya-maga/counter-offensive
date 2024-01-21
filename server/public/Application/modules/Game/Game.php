@@ -27,6 +27,7 @@ class Game extends BaseModule
     private $lowerTanksHp;
     private $lowerObjectsHp;
     private $updateBullets;
+    private $updateExp;
     private $map;
     private $gameMath;
     function __construct($db) {
@@ -252,36 +253,51 @@ class Game extends BaseModule
             return 0;
         }
         foreach($this->bullets as $bullet){
+            $currentHp = 0;
             $damage = $bullet->type == 0 ? 2 : 50; // Определение урона в зависимости от типа пули
             $shootFlag = false;
             foreach($this->gamers as $gamer){
-                $range = $this->gameMath->shootReg($gamer->x, $gamer->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
-                if($range){
-                    $this->lowerGamersHp[]= ['id'=>$gamer->id, 'hp'=>$gamer->hp-$damage];
-                    $this->deleteBullets[] = $bullet->id;
-                    $shootFlag = true;
-                    break;
+                if(!$bullet->user_id!=$gamer->id || $gamer->hp>0){
+                    $range = $this->gameMath->shootReg($gamer->x, $gamer->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+                    if($range){
+                        $currentHp = $gamer->hp-$damage;
+                        $this->lowerGamersHp[]= ['id'=>$gamer->id, 'hp'=>$currentHp];
+                        $this->deleteBullets[] = $bullet->id;
+                        $shootFlag = true;
+                        if($currentHp<=0 && $bullet->user_id != -1){
+                            $this->updateExp[] = ['id'=>$bullet->user_id, 'exp'=>-5];
+                        }
+                        break;
+                    }
                 }
             }
             if(!$shootFlag){
                 foreach($this->tanks as $tank){
                 $range = $this->gameMath->shootReg($tank->x, $tank->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.5);
-                    if($range){
-                        $this->lowerTanksHp[]= ['id'=>$tank->id, 'hp'=>$tank->hp-$damage];
-                        $this->deleteBullets[] = $bullet->id;
-                        $shootFlag = true;
-                        break;
+                if($range){
+                    $currentHp = $tank->hp-$damage;
+                    $this->lowerTanksHp[]= ['id'=>$tank->id, 'hp'=>$currentHp];
+                    $this->deleteBullets[] = $bullet->id;
+                    $shootFlag = true;
+                    if($currentHp<=0 && $bullet->user_id != -1){
+                        $this->updateExp[] = ['id'=>$bullet->user_id, 'exp'=>-5];
                     }
+                    break;
+                }
                 }
             }
             
             if(!$shootFlag){
                 foreach($this->mobs as $mob){
-                $range = $this->gameMath->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
+                    $range = $this->gameMath->shootReg($mob->x, $mob->y, $bullet->x1, $bullet->y1, $bullet->x2, $bullet->y2, 0.2);
                     if($range){
-                        $this->lowerMobsHp[]= ['id'=>$mob->id, 'hp'=>$mob->hp-$damage];
+                        $currentHp = $mob->hp-$damage;
+                        $this->lowerMobsHp[]= ['id'=>$mob->id, 'hp'=>$currentHp];
                         $this->deleteBullets[] = $bullet->id;
                         $shootFlag = true;
+                        if($currentHp<=0 && $bullet->user_id != -1){
+                            $this->updateExp[] = ['id'=>$bullet->user_id, 'exp'=>10];
+                        }
                         break;
                     }
                 }
