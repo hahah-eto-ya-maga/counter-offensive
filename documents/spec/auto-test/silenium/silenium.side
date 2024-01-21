@@ -6743,6 +6743,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "5dca5671-02a9-453a-9f56-c0fd86e6b8dd",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "f9ae7744-db16-4a92-9cce-64a43d43d4ed",
       "comment": "",
       "command": "click",
@@ -6873,6 +6880,13 @@
       "comment": "",
       "command": "verifyElementPresent",
       "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eb69a6f0-886e-45ab-b354-b9f5666468f7",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
       "targets": [],
       "value": ""
     }, {
@@ -7009,6 +7023,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "3775fdb9-7bb1-4cd7-a896-5b36b0b2cd50",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "64bf99d5-ef2e-4844-9acf-3198a8ee25f8",
       "comment": "",
       "command": "click",
@@ -7139,6 +7160,13 @@
       "comment": "",
       "command": "verifyElementPresent",
       "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5773196d-0e74-4b87-92f1-7747e2b0b2dd",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
       "targets": [],
       "value": ""
     }, {
@@ -12760,6 +12788,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "645a9a68-07a3-4c9b-a110-0da91188f653",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "c58a106f-c444-48fc-b326-602a46afb639",
       "comment": "",
       "command": "click",
@@ -13013,6 +13048,13 @@
       "comment": "",
       "command": "verifyElementPresent",
       "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b022f650-60c3-4e75-9e5a-7bc13f266c26",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
       "targets": [],
       "value": ""
     }, {
@@ -13349,6 +13391,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "671a03a8-dbbb-4719-9ffb-2785c5e01072",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "cb694f50-468d-4351-9cf9-7cbbbd12ddc2",
       "comment": "",
       "command": "click",
@@ -13602,6 +13651,13 @@
       "comment": "",
       "command": "verifyElementPresent",
       "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9564d882-0d96-4fda-8246-f5291f9702c4",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
       "targets": [],
       "value": ""
     }, {
@@ -13935,6 +13991,13 @@
       "comment": "",
       "command": "verifyElementPresent",
       "target": "id=test_leave_game_button",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "562453fc-4465-44a6-9f9f-79dcc9106b98",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "id=test_game_time",
       "targets": [],
       "value": ""
     }, {
