@@ -17,7 +17,7 @@ class Collision {
     blockUnit(unit: TUnit, block: TPoint, width: number, height: number) {
         const centerBlock: TPoint = {
             x: block.x + width / 2,
-            y: block.y + height / 2,
+            y: block.y - height / 2,
         };
 
         const distance: TPoint = {
@@ -178,25 +178,20 @@ class Collision {
                         case Math.PI / 2: {
                             this.blockUnit(
                                 unit,
-                                { x: x + 0.25, y },
+                                { x: x + 0.25, y: y + sizeY },
                                 0.3,
                                 sizeY - 0.25
                             );
                             break;
                         }
                         case Math.PI: {
-                            this.blockUnit(
-                                unit,
-                                { x, y: y + 0.25 },
-                                sizeX,
-                                0.2
-                            );
+                            this.blockUnit(unit, { x, y: y + 0.5 }, sizeX, 0.3);
                             break;
                         }
                         case (3 * Math.PI) / 2: {
                             this.blockUnit(
                                 unit,
-                                { x: x-0.1, y },
+                                { x: x - 0.1, y: y + sizeY },
                                 0.3,
                                 sizeY - 0.25
                             );

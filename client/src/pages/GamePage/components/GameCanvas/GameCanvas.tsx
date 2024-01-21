@@ -216,8 +216,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         tracer = new TraceMask({
             WIN,
             canvas,
-            width,
-            height,
             cellSize: SPRITE_SIZE,
         });
         return () => {
@@ -393,8 +391,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     };
 
     const drawHouse = (house: IMapObject) => {
-        const { x, y, sizeY, sizeX, isVert } = house;
-        const angle = (3 * Math.PI) / 2;
+        const { x, y, sizeY, sizeX, isVert, angle } = house;
         canvas?.spriteDir(img, x, y, ...home, isVert ? (3 * Math.PI) / 2 : 0);
         const dx = isVert
             ? sizeX * (angle >= 0 && angle <= Math.PI ? 1 : 0)
@@ -547,6 +544,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 }
             }
         });
+        canvas?.circle({ x: 10, y: 10, r: 0.2 });
     };
 
     const drawBullets = (bullets: IBullet[]) => {

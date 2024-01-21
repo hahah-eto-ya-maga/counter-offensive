@@ -143,6 +143,18 @@ export default class Game {
                             }
                         }
                     });
+                    this.scene.map = [
+                        {
+                            type: EMapObject.house,
+                            x: 10,
+                            y: 10,
+                            angle: 0,
+                            isVert: false,
+                            r: 1,
+                            sizeX: 6,
+                            sizeY: 3,
+                        },
+                    ];
                     server.STORE.setHash(EHash.map, hashMap);
                 }
             }
