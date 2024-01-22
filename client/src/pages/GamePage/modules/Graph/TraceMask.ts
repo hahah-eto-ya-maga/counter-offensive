@@ -212,7 +212,7 @@ export default class TraceMask {
    drawTrace(area: TPoint[], unit: TUnit) {
       let r
       this.traceContext.clearRect(0, 0, this.traceCanv.width, this.traceCanv.height)
-      this.traceContext.fillStyle = "#333333fe";
+      this.traceContext.fillStyle = "#333333fd";
       this.traceContext.fillRect(0, 0, this.traceCanv.width, this.traceCanv.height);
 
       this.traceContext.globalCompositeOperation = 'destination-out'
