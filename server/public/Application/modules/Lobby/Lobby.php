@@ -240,6 +240,12 @@ require_once('./Application/modules/BaseModule.php');
             if ($hash->hashLobby !== $oldHash) {
                 $this->checkRoleAvailability($userId);
                 $tanks = $this->checkTanks();
+                $rank = $this->db->getRankById($userId);
+                $this->lobbyState['userInfo'] = array(
+                    'rank_name'=>$rank->rank_name,
+                    'gamer_exp'=>$rank->gamer_exp,
+                    'next_rang'=>$rank->next_rang
+                );
                 $this->lobbyState['tanks'] = $tanks;
                 $this->lobbyState['is_alive'] = $this->getGamer($userId);
                 return array("lobby" => $this->lobbyState,"lobbyHash" => $hash->hashLobby);
