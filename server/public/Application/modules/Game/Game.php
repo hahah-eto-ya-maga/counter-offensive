@@ -37,6 +37,7 @@ class Game extends BaseModule
 
     /* Fire */
 
+    // Выстрел из танка
     private function tankFire($user_id, $gamer, $x, $y, $angle){
         $tank = $this->db->getTankByGunnerId($user_id);
         if($tank && ($gamer->timer - $tank->reload_timestamp)>($gamer->reloadSpeed * 1000)){
@@ -48,6 +49,7 @@ class Game extends BaseModule
         }
     }
 
+    // Выстрел 
     private function infantryFire($user_id, $gamer, $x, $y, $angle, $bulletType){
         if($gamer && ($gamer->timer - $gamer->reload_timestamp)>($gamer->reloadSpeed * 1000)){
             $dx = cos($angle);
@@ -72,17 +74,6 @@ class Game extends BaseModule
             }
         }
     }
-
-    private function createMobMap($x1, $y1, $x2, $y2) {
-        $desired_part = [];
-        for ($i = 120-$y2-1; $i < 120-$y1; $i++) {
-            $row = $this->map[$i];
-            $desired_part_row = array_slice($row, $x1, $x2 - $x1 + 1);
-            $desired_part[] = $desired_part_row;
-        }
-        return $desired_part;
-    }
-
 
     /* Mobs */
 
@@ -135,7 +126,6 @@ class Game extends BaseModule
             if($mob->x>$params[0] && $mob->x<$params[1] && $mob->y>$params[2] && $mob->y<$params[3])
                 $mobsCounter++;
         }
-        // print_r($mobsCounter);
         if($mobsCounter<$params[8]){
             for($i=$mobsCounter; $i<$params[8]; $i++){
                 $point = $this->generatePointWithoutObject($params[4], $params[5], $params[6], $params[7]);
@@ -159,19 +149,19 @@ class Game extends BaseModule
         // Добавление взвод мобов
         $coord = [90, 140, 70, 115, 110, 140, 95, 115, 5];
         $this->addSquad($coord);
-        $coord = [ 45, 90, 85, 115, 55, 85, 86, 110, 5];
+        $coord = [ 45, 90, 85, 115, 55, 85, 86, 110, 4];
         $this->addSquad($coord);
-        $coord = [ 30, 95, 55, 85, 40, 90, 60, 80, 5];
+        $coord = [ 30, 95, 55, 85, 40, 90, 60, 80, 4];
         $this->addSquad($coord);
-        $coord = [96, 124, 14, 75, 100, 117, 22, 70, 5];
+        $coord = [96, 124, 14, 75, 100, 117, 22, 70, 4];
         $this->addSquad($coord);
-        $coord = [ 125, 145, 50, 80, 130, 145, 58, 75, 5];
+        $coord = [ 125, 145, 50, 80, 130, 145, 58, 75, 4];
         $this->addSquad($coord);
-        $coord = [ 65, 95, 5, 30, 70, 90, 5, 40, 5];
+        $coord = [ 65, 95, 5, 30, 70, 90, 5, 40, 4];
         $this->addSquad($coord);
-        $coord = [ 5, 30, 55, 95, 5, 20, 60, 90, 5];
+        $coord = [ 5, 30, 55, 95, 5, 20, 60, 90, 4];
         $this->addSquad($coord);
-        $coord = [ 20, 70, 30, 55, 30, 60, 35, 50, 5];
+        $coord = [ 20, 70, 30, 55, 30, 60, 35, 50, 4];
         $this->addSquad($coord);
     }
 
@@ -442,7 +432,6 @@ class Game extends BaseModule
         $player = $this->playerBannermanInZone();
         if($player){
             if($this->game->timer - $this->game->pBanner_timestamp >= $this->game->banner_timeout){
-                // print_r($this->game->pBanner_timestamp);
                 $this->db->deleteBodies();
                 $this->db->deleteBullets();
                 $this->db->addBannermanExp(400);
@@ -450,7 +439,6 @@ class Game extends BaseModule
                 $this->db->deleteTanks();
                 $this->db->deleteMobs();
                 $this->db->setWinners();
-                // $this->db->updateGame();
                 $this->db->updateObjectsHp();
             }
         } 

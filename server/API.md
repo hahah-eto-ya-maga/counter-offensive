@@ -1,8 +1,7 @@
 # Документ с методами API
 
-## Оглавление
 ## Адрес домена
-    http://localhost/api/?(ключи и значения)
+    http://counter-offensive/server/public/?(ключи и значения)
 ---  
 
 ## Структуры данных
@@ -20,7 +19,7 @@ Error = {
     result:'error',
     error: {
         code: number, 
-        text: text
+        text: string
     }
 }
 ```
@@ -55,11 +54,6 @@ message = {
 ```
 messages = {
     messages: [
-        message,
-        message,
-        ... ,
-        ... ,
-        ... ,
         message
     ],
     chatHash: string
@@ -69,50 +63,49 @@ messages = {
 **Лобби**
 ```
 lobby = {
-    "general": bool,
-    "bannerman": bool,
-    "tanks": tanks
+    general: bool,
+    bannerman: bool,
+    tanks: tanks,
+    userInfo: userInfo
+
+}
+```
+
+**Информация о пользователе**
+```
+userInfo = {
+    rank_name: string,
+    gamer_exp: number,
+    next_rang: number
 }
 ```
 
 **Тяжелый танк**
 ```
 heavyTank = {
-    "id": number,
-    "Gunner": bool,
-    "Mechanic": bool,
-    "Commander": bool
+    id: number,
+    Gunner: bool,
+    Mechanic: bool,
+    Commander: bool
 }
 ```
 
 **Средний танк**
 ```
 middleTank = {
-    "id": number,
-    "Gunner": bool,
-    "Mechanic": bool
+    id: number,
+    Gunner: bool,
+    Mechanic: bool
 }
 ```
 
 **Танки**
 ```
 tanks = {
-    "heavyTank": [
-        heavyTank,
-        heavyTank,
-        ...,
-        ...,
-        ...,
-        heavyTank,
+    heavyTank: [
         heavyTank
     ],
-    "middleTank": [
-        middleTank,
-        middleTank,
-        .
-        .
-        .
-        middleTank,
+    middleTank: [
         middleTank
     ]
 }
@@ -132,9 +125,6 @@ lobbyState = {
 **Игроки**
 ```
 gamers = [
-    gamer,
-    ...,
-    ...,
     gamer
 ]
 ```
@@ -181,6 +171,15 @@ body = {
 } 
 ```
 
+**База**
+```
+mobBase = {
+    x: number,
+    y: number,
+    radius: number
+} 
+```
+
 **Карта**
 ```
 map = {
@@ -206,9 +205,6 @@ bullet = {
 **Мобы**
 ```
 mobs = [
-    mob,
-    ...,
-    ...,
     mob
 ]
 ```
@@ -216,9 +212,6 @@ mobs = [
 **Танки**
 ```
 panzers = [
-    panzer,
-    ...,
-    ...,
     panzer
 ]
 ```
@@ -226,30 +219,23 @@ panzers = [
 **Пули**
 ```
 bullets = [
-    bullet,
-    ...,
-    ...,
     bullet
 ]
 ```
 **Тела**
 ```
 bodies = [
-    body,
-    ...,
-    ...,
     body
 ]
 ```
 **Карта**
 ```
 maps = [
-    map,
-    ...,
-    ...,
     map
 ]
 ```
+
+
 
 **Сцена**
 ```
@@ -265,14 +251,15 @@ scene = {
     bullets: bullets,
     hashBullets: string,
     bodies: bodies,
-    hashBodies: string
+    hashBodies: string,
+    mobBase: mobBase,
     map: maps,
     hashMap: string
 }
 ```
 
 ## Значение ошибок по их коду
-400:**Bad Request** - Указаны не все параметры
+400:**Bad Request** - Указаны не все обязательные параметры
 
 *401*:**Unauthorized** - Неавторизованный запрос(неверный токен)
 
@@ -334,8 +321,8 @@ Correct=>User
 ### Значение если ошибка
 ```
 Error(400) - Указаны не все обязательные параметры
-Error(413) - Не удовлетворяет формату логина
-Error(460) - Логин уже занят
+Error(413) - Неверный формат логина
+Error(460) - Логин занят
 ```
 
 
