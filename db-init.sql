@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `timeout` INT NOT NULL DEFAULT 1000,
   `startGameTimestamp` BIGINT NOT NULL DEFAULT 0,
   `pBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
-  `banner_timeout` INT NOT NULL DEFAULT 5000,
+  `banner_timeout` INT NOT NULL DEFAULT 15000,
   `mobBase_x` FLOAT NULL DEFAULT NULL,
   `mobBase_y` FLOAT NULL DEFAULT NULL,
   `base_radius` FLOAT NULL DEFAULT 2,
@@ -225,11 +225,11 @@ INSERT INTO `ranks` (`name`, `experience`) VALUES
 INSERT INTO `persons` (`name`, `hp`, `reloadSpeed`, `movementSpeed`, `rotateSpeed`, `level`) VALUES
 ('general', 10000, 2, 1, 1, 16),
 ('bannerman', 8, 1, 1, 1, 1),
-('heavyTankGunner', 400, 10, 1, 1, 5),
-('heavyTankMeh', 400, 10, 1, 1, 5),
-('heavyTankCommander', 400, 10, 1, 1, 12),
-('middleTankMeh', 250, 10, 1, 1, 5),
-('middleTankGunner', 250, 10, 1, 1, 5),
+('heavyTankGunner', 400, 7, 1, 1, 5),
+('heavyTankMeh', 400, 7, 1, 1, 5),
+('heavyTankCommander', 400, 7, 1, 1, 12),
+('middleTankMeh', 250, 7, 1, 1, 5),
+('middleTankGunner', 250, 7, 1, 1, 5),
 ('infantry', 8, 0.3, 0.2, 1, 1),
 ('infantryRPG', 8, 5, 0.2, 1, 1);
 
@@ -402,7 +402,7 @@ INSERT INTO `objects` (`x`, `y`, `angle`, `type`, `hp`, `sizeX`, `sizeY`, `statu
 (92, 92, 270, 14, 100, 1, 3, 'a'),
 (98, 84, 270, 14, 100, 1, 3, 'a'),
 (106, 71, 0, 14, 100, 3, 1, 'a'),
-(105, 72, 0, 14, 100, 3, 1, 'a'),
+(105, 72, 270, 14, 100, 3, 1, 'a'),
 (116, 94, 270, 14, 100, 1, 3, 'a'),
 (112, 98, 0, 14, 100, 3, 1, 'a'),
 (105, 112, 0, 14, 100, 3, 1, 'a'),
@@ -411,25 +411,4 @@ INSERT INTO `objects` (`x`, `y`, `angle`, `type`, `hp`, `sizeX`, `sizeY`, `statu
 (129, 106, 270, 14, 100, 1, 3, 'a'),
 (133, 111, 180, 14, 100, 3, 1, 'a'),
 (138, 107, 90, 14, 100, 1, 3, 'a'),
-(120, 78, 270, 14, 100, 1, 3, 'a'),
-/*Заборы*/
-(115, 46, 270, 4, 100, 1, 1, 'a'),
-(115, 27, 0, 4, 100, 1, 1, 'a'),
-(146, 46, 180, 4, 100, 1, 1, 'a'),
-(146, 27, 90, 4, 100, 1, 1, 'a'),
-
-(125, 90, 270, 4, 100, 1, 1, 'a'),
-(148, 90, 180, 4, 100, 1, 1, 'a'),
-(148, 73, 90, 4, 100, 1, 1, 'a'),
-(125, 73, 0, 4, 100, 1, 1, 'a'),
-
-(126, 73, 180, 3, 100, 22, 1, 'a'),
-(126, 90, 0, 3, 100, 22, 1, 'a'),
-(125, 74, 90, 3, 100, 1, 2, 'a'),
-(125, 80, 90, 3, 100, 1, 10, 'a'),
-(148, 74, 270, 3, 100, 1, 16, 'a'),
-
-(115, 28, 90, 3, 100, 1, 16, 'a'),
-(116, 27, 180, 3, 100, 30, 1, 'a'),
-(116, 46, 0, 3, 100, 30, 1, 'a'),
-(146, 28, 270, 3, 100, 1, 18, 'a');
+(120, 78, 270, 14, 100, 1, 3, 'a');

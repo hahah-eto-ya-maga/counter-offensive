@@ -175,7 +175,7 @@ class Application
         $x = $params['x'] ?? false;
         $y = $params['y'] ?? false;
         $angle = $params['angle'] ?? false;
-        if($token && $x && $y && $angle){
+        if($token && $x!==false && $y!==false && $angle!==false){
             if (is_numeric($angle) && is_numeric($x) && is_numeric($y)) {
                 $user = $this->user->getUser($token);
                 if (($user != null && $user->token != 0 && $user->token != null)) {
@@ -194,7 +194,7 @@ class Application
         $x = $params['x'] ?? false;
         $y = $params['y'] ?? false;
         $angle = $params['angle'] ?? false;
-        if ($x && $y && $angle && $token) {
+        if ($x!==false && $y!==false && $angle!==false && $token) {
             $user = $this->user->getUser($token);
             if ($user != null && $user->token != 0 && $user->token != null) {
                 return $this->game->motion($user->id, $x, $y, $angle);
