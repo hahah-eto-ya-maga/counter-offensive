@@ -13846,7 +13846,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check updatePassword status', () =>{ \r",
+											"pm.test('check getMessages status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -13859,12 +13859,12 @@
 											"    pm.expect(response.result).to.eql('error');\r",
 											"});\r",
 											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -13924,7 +13924,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check updatePassword status', () =>{ \r",
+											"pm.test('check getMessages status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -13937,12 +13937,12 @@
 											"    pm.expect(response.result).to.eql('error');\r",
 											"});\r",
 											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -14002,7 +14002,7 @@
 										"exec": [
 											"const response = pm.response.json();\r",
 											"\r",
-											"pm.test('check updatePassword status', () =>{ \r",
+											"pm.test('check getMessages status', () =>{ \r",
 											"    pm.expect(pm.response.code).to.eql(200); \r",
 											"}); \r",
 											" \r",
@@ -14015,12 +14015,12 @@
 											"    pm.expect(response.result).to.eql('error');\r",
 											"});\r",
 											"\r",
-											"pm.test('check code error is 400', ()=>{\r",
-											"    pm.expect(response.error.code).to.eql(400);\r",
+											"pm.test('check code error is 422', ()=>{\r",
+											"    pm.expect(response.error.code).to.eql(422);\r",
 											"});\r",
 											"\r",
-											"pm.test('check code text is '+pm.variables.get(\"Bad Request\"), ()=>{\r",
-											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Bad Request\"));\r",
+											"pm.test('check code text is '+pm.variables.get(\"Invalid parameter values\"), ()=>{\r",
+											"    pm.expect(response.error.text).to.eql(pm.variables.get(\"Invalid parameter values\"));\r",
 											"});"
 										],
 										"type": "text/javascript"
