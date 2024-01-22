@@ -22,6 +22,7 @@ export const MEDIATOR = {
         ROLE_ERROR: "ROLE_ERROR",
         THROW_TO_GAME: "THROW_TO_GAME",
         THROW_TO_LOBBY: "THROW_TO_LOBBY",
+        UPDATE_SCENE: "UPDATE_SCENE",
         UPDATE_TIME: "UPDATE_TIME",
     },
 };
@@ -43,12 +44,14 @@ export const entitiesConfig = {
         speed: 0.002,
         r: 0.35,
         weaponLength: 0.6,
+        visiableAngle: 120,
     },
 
     infantryRGP: {
         speed: 0.0018,
         r: 0.35,
         weaponLength: 0.6,
+        visiableAngle: 120,
     },
 
     middleTank: {
@@ -58,6 +61,10 @@ export const entitiesConfig = {
         towerR: 0,
         rotateSpeed: (Math.PI / 180) * 0.04,
         rotateTowerSpeed: (Math.PI / 180) * 0.04,
+        visiableAngle: {
+            gunner: 45,
+            driver: 60,
+        },
     },
 
     heavyTank: {
@@ -67,11 +74,17 @@ export const entitiesConfig = {
         towerR: 0,
         rotateSpeed: (Math.PI / 180) * 0.035,
         rotateTowerSpeed: (Math.PI / 180) * 0.04,
+        visiableAngle: {
+            gunner: 45,
+            driver: 60,
+            comander: 180,
+        },
     },
 
     bannerman: {
         speed: 0.0015,
         r: 0.35,
+        visiableAngle: 120,
     },
 
     general: {
@@ -94,6 +107,9 @@ export const objectConf = {
     },
     bush: {
         r: 1,
+    },
+    tree: {
+        r: 1.5,
     },
     base: {
         r: 2,

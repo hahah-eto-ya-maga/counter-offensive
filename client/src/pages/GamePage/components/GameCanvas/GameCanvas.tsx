@@ -29,6 +29,7 @@ import {
     Canvas,
     Collision,
     Game,
+    TraceMask,
     Infantry,
     InfantryRPG,
     MiddleCorpus,
@@ -64,25 +65,39 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         const { x, y, angle } = server.STORE.user.unit;
         switch (server.STORE.user.unit.personId) {
             case EGamerRole.infantryRPG: {
-                const { r, speed, weaponLength } = entitiesConfig.infantryRGP;
-                unit = new InfantryRPG(x, y, angle, r, speed, weaponLength);
+                const { r, speed, weaponLength, visiableAngle } =
+                    entitiesConfig.infantryRGP;
+                unit = new InfantryRPG(
+                    x,
+                    y,
+                    angle,
+                    r,
+                    speed,
+                    weaponLength,
+                    visiableAngle
+                );
                 break;
             }
             case EGamerRole.middleTankGunner: {
-                const { rotateTowerSpeed, weaponLength, towerR } =
-                    entitiesConfig.middleTank;
+                const {
+                    rotateTowerSpeed,
+                    weaponLength,
+                    towerR,
+                    visiableAngle,
+                } = entitiesConfig.middleTank;
                 unit = new MiddleTower(
                     x,
                     y,
                     angle,
                     towerR,
                     rotateTowerSpeed,
-                    weaponLength
+                    weaponLength,
+                    visiableAngle.gunner
                 );
                 break;
             }
             case EGamerRole.middleTankMeh: {
-                const { corpusR, rotateSpeed, speed } =
+                const { corpusR, rotateSpeed, speed, visiableAngle } =
                     entitiesConfig.middleTank;
                 unit = new MiddleCorpus(
                     x,
@@ -90,26 +105,32 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     angle,
                     corpusR,
                     speed,
-                    rotateSpeed
+                    rotateSpeed,
+                    visiableAngle.driver
                 );
                 break;
             }
             case EGamerRole.heavyTankGunner: {
-                const { rotateTowerSpeed, weaponLength, towerR } =
-                    entitiesConfig.heavyTank;
+                const {
+                    rotateTowerSpeed,
+                    weaponLength,
+                    towerR,
+                    visiableAngle,
+                } = entitiesConfig.heavyTank;
                 unit = new HeavyTower(
                     x,
                     y,
                     angle,
                     towerR,
                     rotateTowerSpeed,
-                    weaponLength
+                    weaponLength,
+                    visiableAngle.gunner
                 );
                 break;
             }
 
             case EGamerRole.heavyTankMeh: {
-                const { corpusR, rotateSpeed, speed } =
+                const { corpusR, rotateSpeed, speed, visiableAngle } =
                     entitiesConfig.heavyTank;
                 unit = new HeavyCorpus(
                     x,
@@ -117,13 +138,15 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     angle,
                     corpusR,
                     speed,
-                    rotateSpeed
+                    rotateSpeed,
+                    visiableAngle.driver
                 );
                 break;
             }
 
             case EGamerRole.heavyTankCommander: {
-                unit = new TankCommander(x, y, angle);
+                const { visiableAngle } = entitiesConfig.heavyTank;
+                unit = new TankCommander(x, y, angle, visiableAngle.comander);
                 break;
             }
             case EGamerRole.bannerman: {
@@ -194,6 +217,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         down: halfH - 1,
     };
 
+    let tracer: TraceMask | null = null;
     let canvas: Canvas | null = null;
     const createCanvas = useCanvas(render);
 
@@ -211,8 +235,17 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 mouseUp: mouseUpHandler,
             },
         });
+        tracer = new TraceMask({
+            WIN,
+            canvas,
+            mediator,
+            width,
+            height,
+            cellSize: SPRITE_SIZE,
+        });
         return () => {
             canvas = null;
+            tracer = null;
             clearInterval(game.interval);
             game.server.STORE.clearHash();
             clearInterval(updateUnitInterval);
@@ -616,7 +649,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 tank.x - 3,
                 tank.y + 3,
                 ...corpus,
-                tank.angle
+                -tank.angle
             );
             canvas?.spriteDir(
                 img,
@@ -772,6 +805,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         drawBullets(bullets);
         drawMobs(mobs);
         drawTanks(tanks);
+
+        !(unit instanceof General)  && tracer?.trace(unit, WIN);
+
         drawGamers(gamers);
         const base = map.find((el) => el.type === EMapObject.base);
         base && showTarget(base);
@@ -844,6 +880,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     function render(FPS: number) {
         const renderTime = FPS ? 1000 / FPS : 0;
         const scene = game.getScene();
+        if (scene.map.length !== 0) {
+        }
         if (canvas) {
             canvas.clear();
             drawScene(scene);

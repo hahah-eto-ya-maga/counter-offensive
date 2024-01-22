@@ -50,7 +50,7 @@ export default class Game {
             bodies: [],
             map: [],
         };
-        const { THROW_TO_LOBBY, UPDATE_TIME } = mediator.getTriggerTypes();
+        const { THROW_TO_LOBBY, UPDATE_SCENE, UPDATE_TIME } = mediator.getTriggerTypes();
         let isDead = false,
             isEnd = false;
         this.interval = setInterval(async () => {
@@ -232,7 +232,7 @@ export default class Game {
                             }
                         })
                     );
-
+                    mediator.get(UPDATE_SCENE, this.scene.map)
                     server.STORE.setHash(EHash.map, hashMap);
                 }
             }
