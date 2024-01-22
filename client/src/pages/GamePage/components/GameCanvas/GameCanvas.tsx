@@ -29,7 +29,6 @@ import {
     Canvas,
     Collision,
     Game,
-    TraceMask,
     Infantry,
     InfantryRPG,
     MiddleCorpus,
@@ -195,7 +194,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         down: halfH - 1,
     };
 
-    let tracer: TraceMask | null = null;
     let canvas: Canvas | null = null;
     const createCanvas = useCanvas(render);
 
@@ -212,11 +210,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 mouseDown: mouseDownHandler,
                 mouseUp: mouseUpHandler,
             },
-        });
-        tracer = new TraceMask({
-            WIN,
-            canvas,
-            cellSize: SPRITE_SIZE,
         });
         return () => {
             canvas = null;
@@ -478,7 +471,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                             return canvas?.spriteDir(
                                 img,
                                 x,
-                                y + sizeY - 0.1,
+                                y - 0.1,
                                 ...sand,
                                 -angle
                             );
@@ -496,7 +489,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                             return canvas?.spriteDir(
                                 img,
                                 x - sizeY + 0.5,
-                                y + sizeY - 0.1,
+                                y - 0.1,
                                 ...sand,
                                 -angle
                             );
@@ -810,17 +803,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             bullet.x += bullet.dx * (entitiesConfig.bulletSpeed / time);
             bullet.y += bullet.dy * (entitiesConfig.bulletSpeed / time);
         });
-
-        // Не работает при долгих ответах с бека + нужен флаг идёт/ не идёт
-        /* scene.mobs.forEach((mob) => {
-         mob.x += Math.cos(mob.angle) * entitiesConfig.mobSpeed * time;
-         mob.y += Math.sin(mob.angle) * entitiesConfig.mobSpeed * time;
-      }); */
-        // Решить со скоростю
-        /* scene.gamers.forEach((gamer) => {
-          gamer.x += Math.cos(gamer.angle) * entitiesConfig.gamerSpeed * time;
-         gamer.y += Math.sin(gamer.angle) * entitiesConfig.gamerSpeed * time;
-      }); */
     };
 
     const updateUnit = (time: number) => {
@@ -860,7 +842,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     function roundEnd() {}
 
     function render(FPS: number) {
-        const fpsGap = 0.5;
         const renderTime = FPS ? 1000 / FPS : 0;
         const scene = game.getScene();
         if (canvas) {
@@ -868,13 +849,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             drawScene(scene);
             updateUnit(renderTime);
             updateEntity(scene, renderTime);
-            canvas.printText(
-                `FPS: ${FPS}`,
-                WIN.left + 3.5 * fpsGap,
-                WIN.bottom + WIN.height - fpsGap,
-                "black",
-                20
-            );
             canvas.render();
         }
     }

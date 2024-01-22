@@ -40,7 +40,7 @@ const useSprites = (
    const stump: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6, SIZE * 16, SIZE * 2 ];
    const spike: SpriteFrame = [SPRITE_SIZE, SIZE * 9, SIZE * 16, SIZE ];
    const box: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 6, SIZE ];
-   const sand: SpriteFrame= [SPRITE_SIZE * 3, SIZE * 6, SIZE * 12.2, SIZE * 3];
+   const sand: SpriteFrame= [SPRITE_SIZE * 3, SIZE * 6, SIZE * 12, SIZE * 3];
    const tree: SpriteFrame = [SPRITE_SIZE * 3, SIZE * 7, SIZE * 26, SIZE * 3]
 
    const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
