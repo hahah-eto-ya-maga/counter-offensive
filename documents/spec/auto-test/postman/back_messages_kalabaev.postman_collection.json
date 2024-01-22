@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "a3a2a135-e805-4096-bf00-228304613303",
-		"name": "Kalabaev Dmitriy Copy",
+		"_postman_id": "c6f39eef-e481-4d38-a35f-838daf532b98",
+		"name": "back_mes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31364886",
-		"_collection_link": "https://counter-offensive.postman.co/workspace/Counter-offensive(auto-tests)~dd6c1cd1-c609-49a6-83d9-0266d1c3255d/collection/31364886-a3a2a135-e805-4096-bf00-228304613303?action=share&source=collection_link&creator=31364886"
+		"_collection_link": "https://counter-offensive.postman.co/workspace/Counter-offensive(auto-tests)~dd6c1cd1-c609-49a6-83d9-0266d1c3255d/collection/31364886-c6f39eef-e481-4d38-a35f-838daf532b98?action=share&source=collection_link&creator=31364886"
 	},
 	"item": [
 		{
@@ -14,8 +14,17 @@
 					"name": "sendMessage",
 					"item": [
 						{
-							"name": "sendMessage",
+							"name": "correctSendMessage",
 							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
 								{
 									"listen": "test",
 									"script": {
@@ -31,15 +40,7 @@
 											" \r",
 											"pm.test('check response is JSON', ()=> { \r",
 											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
-											"});"
+											"}); "
 										],
 										"type": "text/javascript"
 									}
@@ -49,11 +50,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{message}}",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message={{message}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -63,7 +67,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -75,7 +79,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageEmptyTokenError400",
+							"name": "еmptyToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -114,11 +118,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=&message=hello",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token=&message={{message}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -132,7 +139,7 @@
 										},
 										{
 											"key": "message",
-											"value": "hello"
+											"value": "{{message}}"
 										}
 									]
 								}
@@ -140,7 +147,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageEmptyMessagesError400",
+							"name": "emptyMessage(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -179,11 +186,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message=",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message=",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -193,7 +203,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -205,7 +215,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageMinLength",
+							"name": "minLength",
 							"event": [
 								{
 									"listen": "test",
@@ -222,15 +232,7 @@
 											" \r",
 											"pm.test('check response is JSON', ()=> { \r",
 											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
-											"});"
+											"}); "
 										],
 										"type": "text/javascript"
 									}
@@ -240,11 +242,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{MessageMin}}",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message={{messageMin}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -254,11 +259,11 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
-											"value": "{{MessageMin}}"
+											"value": "{{messageMin}}"
 										}
 									]
 								}
@@ -266,7 +271,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageMaxLength",
+							"name": "maxLength",
 							"event": [
 								{
 									"listen": "test",
@@ -283,15 +288,7 @@
 											" \r",
 											"pm.test('check response is JSON', ()=> { \r",
 											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
-											"});"
+											"}); "
 										],
 										"type": "text/javascript"
 									}
@@ -301,11 +298,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{messageMax}}",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message={{messageMax}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -315,7 +315,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -327,7 +327,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessage201CharactersError432",
+							"name": "201Characters(Error432)",
 							"event": [
 								{
 									"listen": "test",
@@ -363,11 +363,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{message201}}",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message={{message201}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -377,7 +380,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -389,7 +392,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageUnacceptableSymbolsError432",
+							"name": "unacceptableSymbols(Error432)",
 							"event": [
 								{
 									"listen": "test",
@@ -425,11 +428,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message=%26*(^%26*@%23$%26*(%@%23",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message=%26*(^%26*@%23$%26*(%@%23",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -439,7 +445,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -451,7 +457,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageOnlyFromSpacesError400",
+							"name": "onlyFromSpaces(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -487,11 +493,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message=       ",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}&message=       ",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -501,7 +510,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -513,7 +522,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageUserNotExistError401",
+							"name": "userNotExist(Error401)",
 							"event": [
 								{
 									"listen": "test",
@@ -549,11 +558,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage&token={{token}}111&message={{message}}",
+									"raw": "http://{{url}}/server/public/?method=sendMessage&token={{token}}111&message={{message}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -575,7 +587,7 @@
 							"response": []
 						},
 						{
-							"name": "sendMessageMethodNotAllowedError501",
+							"name": "methodNotAllowed(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -611,11 +623,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=sendMessage1&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&message={{message}}",
+									"raw": "http://{{url}}/server/public/?method=sendMessage1&token={{token}}&message={{message}}",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -625,7 +640,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "message",
@@ -636,13 +651,41 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/server/public/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
 					"name": "getMessages",
 					"item": [
 						{
-							"name": "getMessages",
+							"name": "correctGetMessages",
 							"event": [
 								{
 									"listen": "test",
@@ -659,15 +702,7 @@
 											" \r",
 											"pm.test('check response is JSON', ()=> { \r",
 											"    pm.expect(response).to.be.a('object') \r",
-											"}); \r",
-											"\r",
-											"pm.test('check response result is error', ()=>{\r",
-											"    pm.expect(response.result).to.eql('error');\r",
-											"});\r",
-											"\r",
-											"pm.test('check code text is Bad Request', ()=>{\r",
-											"    pm.expect(response.error.text).to.eql('Bad Request');\r",
-											"});"
+											"}); "
 										],
 										"type": "text/javascript"
 									}
@@ -677,11 +712,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=getMessages&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&hash=2",
+									"raw": "http://{{url}}/server/public/?method=getMessages&token={{token}}&hash=2",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -691,7 +729,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "hash",
@@ -703,7 +741,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesEmptyTokenError400",
+							"name": "emptyToken(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -742,11 +780,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=getMessages&token=&hash=2",
+									"raw": "http://{{url}}/server/public/?method=getMessages&token=&hash=2",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -768,7 +809,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesEmptyHashError400",
+							"name": "emptyHash(Error400)",
 							"event": [
 								{
 									"listen": "test",
@@ -807,11 +848,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=getMessages&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&hash=",
+									"raw": "http://{{url}}/server/public/?method=getMessages&token={{token}}&hash=",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -821,7 +865,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "hash",
@@ -833,7 +877,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesUserNotAllowedError401",
+							"name": "userNotAllowed(Error401)",
 							"event": [
 								{
 									"listen": "test",
@@ -869,11 +913,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=getMessages&token={{token}}111&hash=2",
+									"raw": "http://{{url}}/server/public/?method=getMessages&token={{token}}111&hash=2",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -895,7 +942,7 @@
 							"response": []
 						},
 						{
-							"name": "getMessagesMethodNotAllowedError501",
+							"name": "methodNotAllowed(Error501)",
 							"event": [
 								{
 									"listen": "test",
@@ -931,11 +978,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{urlL}}/?method=getMessages1&token=a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418&hash=2",
+									"raw": "http://{{url}}/server/public/?method=getMessages1&token={{token}}&hash=2",
+									"protocol": "http",
 									"host": [
-										"{{urlL}}"
+										"{{url}}"
 									],
 									"path": [
+										"server",
+										"public",
 										""
 									],
 									"query": [
@@ -945,7 +995,7 @@
 										},
 										{
 											"key": "token",
-											"value": "a63527df04dcb32404da08f7688bcdcda64598a098d562bb60c0e259c23a0418"
+											"value": "{{token}}"
 										},
 										{
 											"key": "hash",
@@ -956,81 +1006,37 @@
 							},
 							"response": []
 						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: `http://${pm.variables.get(\"url\")}/server/public/?method=login&login=${pm.variables.get(\"login\")}&hash=${pm.variables.get(\"hash\")}&rnd=${pm.variables.get(\"rnd\")}`,",
+									"    method:`GET`,",
+									"}, function(err, res){",
+									"    const  token  = res.json().data;",
+									"    console.log(res.json())",
+									"    pm.environment.set(\"token\", token.token)",
+									"}",
+									");"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				}
 			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "url",
-			"value": "http://counter-offensive",
-			"type": "string"
-		},
-		{
-			"key": "urlL",
-			"value": "http://localhost/api",
-			"type": "string"
-		},
-		{
-			"key": "200",
-			"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin, nisi a malesuada convallis, sapien sapien vulputate nunc, in dapibus sapien risus nec mauris. Vestibulum ante ipsum primis i",
-			"type": "string"
-		},
-		{
-			"key": "rnd",
-			"value": "321",
-			"type": "string"
-		},
-		{
-			"key": "hash",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "token",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "message",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "messageMax",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "MessageMin",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"key": "Message201",
-			"value": "",
-			"type": "string"
 		}
 	]
 }
