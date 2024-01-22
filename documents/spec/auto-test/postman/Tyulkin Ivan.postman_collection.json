@@ -1,0 +1,2497 @@
+{
+	"info": {
+		"_postman_id": "8df6024e-0536-43e3-ae4e-074bdf76906f",
+		"name": "Tyulkin Ivan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30958841"
+	},
+	"item": [
+		{
+			"name": "Motion",
+			"item": [
+				{
+					"name": "correctAnswer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									" \r",
+									"const response = pm.response.json(); \r",
+									" \r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									" \r",
+									"pm.test('check result is ok', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('ok');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data is Data', ()=>{ \r",
+									"    pm.expect(response.data).to.eql(true);\r",
+									"}); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motion&token={{token}}&x=10&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notX",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motion&token={{token}}&x=&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": ""
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motion&token={{token}}&x=10&y=&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": ""
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notAngle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motion&token={{token}}&x=10&y=5&angle=",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motion&token=&x=10&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": ""
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(405)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Method Not Allowed')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=&token={{token}}&x=10&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": ""
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(501)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Not Implemented')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motions&token={{token}}&x=10&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motions"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Unauthorized')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=motion&token={{token}}tr568u&x=10&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}tr568u"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectX",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(422)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Invalid parameter values')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}?method=motion&token={{token}}&x=$%$&y=5&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "$%$"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(422)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Invalid parameter values')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}?method=motion&token={{token}}&x=10&y=*$%%26&angle=10",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "*$%%26"
+								},
+								{
+									"key": "angle",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectAngle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(422)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Invalid parameter values')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}?method=motion&token={{token}}&x=10&y=5&angle=*$$%*",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "motion"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "10"
+								},
+								{
+									"key": "y",
+									"value": "5"
+								},
+								{
+									"key": "angle",
+									"value": "*$$%*"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UpdatePassword",
+			"item": [
+				{
+					"name": "CorrectAnswer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is ok', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('ok');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data is Data', ()=>{ \r",
+									"    pm.expect(response.data).to.eql(true);\r",
+									"}); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=updatePassword&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "updatePassword"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=updatePassword&token=&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "updatePassword"
+								},
+								{
+									"key": "token",
+									"value": ""
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noHash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=updatePassword&token={{token}}&hash=",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "updatePassword"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Unauthorized')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=updatePassword&token={{token}}5ty&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "updatePassword"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}5ty"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(405)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Method Not Allowed')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": ""
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(501)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Not Implemented')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=updatePasswordik&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "updatePasswordik"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fire",
+			"item": [
+				{
+					"name": "CorrectAnswer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									" \r",
+									"const response = pm.response.json(); \r",
+									" \r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									" \r",
+									"pm.test('check result is ok', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('ok');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data is Data', ()=>{ \r",
+									"    pm.expect(response.data).to.eql(true);\r",
+									"}); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=5&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token=&x=5&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": ""
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noX",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": ""
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=5&y=&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": ""
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noAngle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=5&y=6&angle=",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(405)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Method Not Allowed')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=&token={{token}}&x=5&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": ""
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(501)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Not Implemented')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=firefox&token={{token}}&x=5&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "firefox"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Unauthorized')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}ddfj&x=5&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}ddfj"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectX",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(422)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Invalid parameter values')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=5$*%26&y=6&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5$*&"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(422)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Invalid parameter values')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=5&y=$6%26%26$&angle=7",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "$6&&$"
+								},
+								{
+									"key": "angle",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectAngle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(422)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Invalid parameter values')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=fire&token={{token}}&x=5&y=6&angle=$7%*$",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "fire"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "x",
+									"value": "5"
+								},
+								{
+									"key": "y",
+									"value": "6"
+								},
+								{
+									"key": "angle",
+									"value": "$7%*$"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "getLobby",
+			"item": [
+				{
+					"name": "CorrectAnswer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is ok', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('ok');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (general)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (bannerman)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (heavyTank)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.tanks.heavyTank).to.eql([]);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (middleTank)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (is_alive)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.is_alive).to.eql(false);\r",
+									"}); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=getLobby&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "getLobby"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lobbyGeneral",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is ok', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('ok');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (general)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.general).to.eql(true);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (bannerman)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.bannerman).to.eql(true);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (heavyTank)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.tanks.heavyTank).to.eql([]);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (middleTank)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.tanks.middleTank).to.eql([]);\r",
+									"}); \r",
+									"\r",
+									"pm.test('check data (is_alive)', ()=>{ \r",
+									"    pm.expect(response.data.lobby.is_alive).to.eql(false);\r",
+									"}); "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: `http://${pm.variables.get(\"url\")}?method=login&login=${pm.variables.get(\"general\")}&hash=${pm.variables.get(\"hashgeneral\")}&rnd=${pm.variables.get(\"rnd\")}`,\r",
+									"    method:`GET`,\r",
+									"},\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"url: `http://${pm.variables.get(\"url\")}?method=setGamerRole&role=${pm.variables.get(\"general\")}&token=${pm.variables.get(\"token\")}`,\r",
+									"method:`GET`,\r",
+									"})\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=getLobby&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "getLobby"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=getLobby&token=&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "getLobby"
+								},
+								{
+									"key": "token",
+									"value": ""
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noHash",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(400)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Bad Request')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=getLobby&token={{token}}&hash=",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "getLobby"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "noMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(405)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Method Not Allowed')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": ""
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectMethod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(501)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Not Implemented')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=getLobbys&token={{token}}&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "getLobbys"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "notCorrectToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('check logout status', () =>{ \r",
+									"    pm.expect(pm.response.code).to.eql(200); \r",
+									"}); \r",
+									"\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"pm.test('check response is JSON', ()=> { \r",
+									"    pm.expect(response).to.be.a('object') \r",
+									"}); \r",
+									"\r",
+									"pm.test('check result is error', ()=>{ \r",
+									"    pm.expect(response.result).to.eql('error');\r",
+									"}); \r",
+									"\r",
+									"pm.test('check code error', () => {\r",
+									"    pm.expect(response.error.code).to.eql(401)\r",
+									"})\r",
+									"\r",
+									"pm.test('check text error', () => {\r",
+									"    pm.expect(response.error.text).to.eql('Unauthorized')\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{url}}/?method=getLobby&token={{token}}rtop&hash=aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+							"protocol": "http",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "method",
+									"value": "getLobby"
+								},
+								{
+									"key": "token",
+									"value": "{{token}}rtop"
+								},
+								{
+									"key": "hash",
+									"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "counter-offensive/server/public",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "8b9c8b54e872a65da4e81dabc9180161a84dfbdece525b5ac6ef198bdbe0ba67",
+			"type": "string"
+		},
+		{
+			"key": "rnd",
+			"value": "123",
+			"type": "string"
+		},
+		{
+			"key": "general",
+			"value": "testgeneral1",
+			"type": "string"
+		},
+		{
+			"key": "hashgeneral",
+			"value": "aac5a55cac1167803fb0437337f5236cc590c08b939add1f0eb753b5ac2a4547",
+			"type": "string"
+		}
+	]
+}
