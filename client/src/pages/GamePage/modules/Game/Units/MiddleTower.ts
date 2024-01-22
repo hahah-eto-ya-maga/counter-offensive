@@ -9,9 +9,10 @@ export default class MiddleTower extends BaseUnit {
         angle = 0,
         r = 0,
         speed = Math.PI / 180,
-        weaponLength = 1
+        weaponLength = 1,
+        visiableAngle = 45
     ) {
-        super(x, y, angle, r, speed, weaponLength);
+        super(x, y, angle, r, speed, weaponLength, visiableAngle);
     }
 
     move(keyPressed: IPressedKeys, time: number) {

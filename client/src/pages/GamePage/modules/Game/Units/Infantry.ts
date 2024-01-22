@@ -2,7 +2,6 @@ import { IPressedKeys } from "../../../components/GameCanvas/GameCanvas";
 import BaseUnit from "./BaseUnit";
 
 export default class Infantry extends BaseUnit {
-    speed: number;
     diagonalSpeed: number;
 
     constructor(
@@ -11,10 +10,10 @@ export default class Infantry extends BaseUnit {
         angle = 0,
         r = 0.35,
         speed = 0.005,
-        weaponLength = 0.6
+        weaponLength = 0.6,
+        visiableAngle = 120
     ) {
-        super(x, y, angle, r, weaponLength);
-        this.speed = speed;
+        super(x, y, angle, r, speed, weaponLength, visiableAngle);
         this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
     }
 

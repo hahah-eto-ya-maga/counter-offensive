@@ -10,9 +10,10 @@ export default class MiddleCorpus extends BaseUnit {
         angle = 0,
         r: number,
         speed: number,
-        rotateSpeed: number
+        rotateSpeed: number,
+        visiableAngle = 60
     ) {
-        super(x, y, angle, r, speed);
+        super(x, y, angle, r, speed, 0, visiableAngle);
         this.tankRotateSpeed = rotateSpeed;
     }
 
@@ -20,18 +21,18 @@ export default class MiddleCorpus extends BaseUnit {
         const moveAngleDelta = Math.PI / 2;
 
         if (keyPressed.Left) {
-            this.angle -= this.tankRotateSpeed * time;
-        }
-        if (keyPressed.Right) {
             this.angle += this.tankRotateSpeed * time;
         }
+        if (keyPressed.Right) {
+            this.angle -= this.tankRotateSpeed * time;
+        }
         if (keyPressed.Up) {
-            this.x += this.speed * Math.sin(moveAngleDelta - this.angle);
-            this.y -= this.speed * Math.cos(moveAngleDelta - this.angle);
+            this.x += this.speed * Math.sin(this.angle + moveAngleDelta);
+            this.y -= this.speed * Math.cos(this.angle + moveAngleDelta);
         }
         if (keyPressed.Down) {
-            this.y += this.speed * Math.cos(moveAngleDelta - this.angle);
-            this.x -= this.speed * Math.sin(moveAngleDelta - this.angle);
+            this.y += this.speed * Math.cos(this.angle + moveAngleDelta);
+            this.x -= this.speed * Math.sin(this.angle + moveAngleDelta);
         }
         this.angle = this.angle % (Math.PI * 2);
     }

@@ -61,29 +61,43 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     const canvasId = "canvas";
 
     let unit: TUnit = new BaseUnit();
-    if (server.STORE.user) {    
+    if (server.STORE.user) {
         const { x, y, angle } = server.STORE.user.unit;
         switch (server.STORE.user.unit.personId) {
             case EGamerRole.infantryRPG: {
-                const { r, speed, weaponLength } = entitiesConfig.infantryRGP;
-                unit = new InfantryRPG(x, y, angle, r, speed, weaponLength);
+                const { r, speed, weaponLength, visiableAngle } =
+                    entitiesConfig.infantryRGP;
+                unit = new InfantryRPG(
+                    x,
+                    y,
+                    angle,
+                    r,
+                    speed,
+                    weaponLength,
+                    visiableAngle
+                );
                 break;
             }
             case EGamerRole.middleTankGunner: {
-                const { rotateTowerSpeed, weaponLength, towerR } =
-                    entitiesConfig.middleTank;
+                const {
+                    rotateTowerSpeed,
+                    weaponLength,
+                    towerR,
+                    visiableAngle,
+                } = entitiesConfig.middleTank;
                 unit = new MiddleTower(
                     x,
                     y,
                     angle,
                     towerR,
                     rotateTowerSpeed,
-                    weaponLength
+                    weaponLength,
+                    visiableAngle.gunner
                 );
                 break;
             }
             case EGamerRole.middleTankMeh: {
-                const { corpusR, rotateSpeed, speed } =
+                const { corpusR, rotateSpeed, speed, visiableAngle } =
                     entitiesConfig.middleTank;
                 unit = new MiddleCorpus(
                     x,
@@ -91,26 +105,32 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     angle,
                     corpusR,
                     speed,
-                    rotateSpeed
+                    rotateSpeed,
+                    visiableAngle.driver
                 );
                 break;
             }
             case EGamerRole.heavyTankGunner: {
-                const { rotateTowerSpeed, weaponLength, towerR } =
-                    entitiesConfig.heavyTank;
+                const {
+                    rotateTowerSpeed,
+                    weaponLength,
+                    towerR,
+                    visiableAngle,
+                } = entitiesConfig.heavyTank;
                 unit = new HeavyTower(
                     x,
                     y,
                     angle,
                     towerR,
                     rotateTowerSpeed,
-                    weaponLength
+                    weaponLength,
+                    visiableAngle.gunner
                 );
                 break;
             }
 
             case EGamerRole.heavyTankMeh: {
-                const { corpusR, rotateSpeed, speed } =
+                const { corpusR, rotateSpeed, speed, visiableAngle } =
                     entitiesConfig.heavyTank;
                 unit = new HeavyCorpus(
                     x,
@@ -118,13 +138,15 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     angle,
                     corpusR,
                     speed,
-                    rotateSpeed
+                    rotateSpeed,
+                    visiableAngle.driver
                 );
                 break;
             }
 
             case EGamerRole.heavyTankCommander: {
-                unit = new TankCommander(x, y, angle);
+                const { visiableAngle } = entitiesConfig.heavyTank;
+                unit = new TankCommander(x, y, angle, visiableAngle.comander);
                 break;
             }
             case EGamerRole.bannerman: {
@@ -229,7 +251,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             clearInterval(updateUnitInterval);
         };
     });
-    
+
     const SPRITE_SIZE = width / WIN.width;
     const SIZE = 50;
 
@@ -627,7 +649,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 tank.x - 3,
                 tank.y + 3,
                 ...corpus,
-                tank.angle
+                -tank.angle
             );
             canvas?.spriteDir(
                 img,
@@ -784,8 +806,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         drawMobs(mobs);
         drawTanks(tanks);
 
-        tracer?.trace(unit, WIN)
-        
+        !(unit instanceof General)  && tracer?.trace(unit, WIN);
+
         drawGamers(gamers);
         const base = map.find((el) => el.type === EMapObject.base);
         base && showTarget(base);
@@ -858,8 +880,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     function render(FPS: number) {
         const renderTime = FPS ? 1000 / FPS : 0;
         const scene = game.getScene();
-        if(scene.map.length !== 0) {
-            
+        if (scene.map.length !== 0) {
         }
         if (canvas) {
             canvas.clear();
