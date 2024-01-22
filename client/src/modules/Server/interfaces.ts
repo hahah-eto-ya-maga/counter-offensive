@@ -29,6 +29,7 @@ export interface IHeavyTank extends IMiddleTank {
 }
 
 export interface ILobby {
+    userInfo: IUserInfo | null;
     general: boolean;
     bannerman: boolean;
     tanks: {
@@ -93,20 +94,13 @@ export interface ITank extends IPoint {
     tower_angle: number;
 }
 
-interface IStone extends Omit<IPoint, "angle"> {
-    type: EMapObject.stone;
-    sizeX: number;
-    sizeY: number;
-}
-
-interface IHouse extends Omit<IPoint, "angle"> {
-    type: EMapObject.house;
+export interface IMapObject extends IPoint {
+    type: EMapObject;
     sizeX: number;
     sizeY: number;
     isVert: boolean;
+    r: number;
 }
-
-export type IMapObject = IStone | IHouse;
 
 export interface IScene {
     tanks: ITank[] | null;
@@ -115,6 +109,7 @@ export interface IScene {
     bullets: IBullet[] | null;
     bodies: IBody[] | null;
     map: IMapObject[] | null;
+    mobBase: IPoint & { radius: number };
     hashMap: string;
     hashBodies: string;
     hashGamers: string;
@@ -123,6 +118,7 @@ export interface IScene {
     gamer: IUserUnit | null;
     is_dead: boolean;
     is_end: boolean;
+    gametime: number;
 }
 
 export enum EGamerRole {
@@ -160,8 +156,23 @@ export enum ETank {
 }
 
 export enum EMapObject {
-    house = 1,
+    base,
+    house,
     stone,
+    fence,
+    fenceTurn,
+    spike,
+    stump,
+    road,
+    crossyRoadEnd,
+    crossyRoadTurnCont,
+    crossyRoadTurn,
+    crossyRoad,
+    box,
+    bush,
+    sand,
+    tree,
+    trusovMoment,
 }
 
 export enum EBody {

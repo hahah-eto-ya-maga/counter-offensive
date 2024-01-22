@@ -8,7 +8,7 @@ import {
     walls,
 } from "../../../../config";
 import { MediatorContext, ServerContext } from "../../../../App";
-import { TPoint, TUnit } from "../../types";
+import { TCircle, TPoint, TUnit } from "../../types";
 import {
     EBody,
     EGamerRole,
@@ -65,25 +65,39 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         const { x, y, angle } = server.STORE.user.unit;
         switch (server.STORE.user.unit.personId) {
             case EGamerRole.infantryRPG: {
-                const { r, speed, weaponLength } = entitiesConfig.infantryRGP;
-                unit = new InfantryRPG(x, y, angle, r, speed, weaponLength);
+                const { r, speed, weaponLength, visiableAngle } =
+                    entitiesConfig.infantryRGP;
+                unit = new InfantryRPG(
+                    x,
+                    y,
+                    angle,
+                    r,
+                    speed,
+                    weaponLength,
+                    visiableAngle
+                );
                 break;
             }
             case EGamerRole.middleTankGunner: {
-                const { rotateTowerSpeed, weaponLength, towerR } =
-                    entitiesConfig.middleTank;
+                const {
+                    rotateTowerSpeed,
+                    weaponLength,
+                    towerR,
+                    visiableAngle,
+                } = entitiesConfig.middleTank;
                 unit = new MiddleTower(
                     x,
                     y,
                     angle,
                     towerR,
                     rotateTowerSpeed,
-                    weaponLength
+                    weaponLength,
+                    visiableAngle.gunner
                 );
                 break;
             }
             case EGamerRole.middleTankMeh: {
-                const { corpusR, rotateSpeed, speed } =
+                const { corpusR, rotateSpeed, speed, visiableAngle } =
                     entitiesConfig.middleTank;
                 unit = new MiddleCorpus(
                     x,
@@ -91,26 +105,32 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     angle,
                     corpusR,
                     speed,
-                    rotateSpeed
+                    rotateSpeed,
+                    visiableAngle.driver
                 );
                 break;
             }
             case EGamerRole.heavyTankGunner: {
-                const { rotateTowerSpeed, weaponLength, towerR } =
-                    entitiesConfig.heavyTank;
+                const {
+                    rotateTowerSpeed,
+                    weaponLength,
+                    towerR,
+                    visiableAngle,
+                } = entitiesConfig.heavyTank;
                 unit = new HeavyTower(
                     x,
                     y,
                     angle,
                     towerR,
                     rotateTowerSpeed,
-                    weaponLength
+                    weaponLength,
+                    visiableAngle.gunner
                 );
                 break;
             }
 
             case EGamerRole.heavyTankMeh: {
-                const { corpusR, rotateSpeed, speed } =
+                const { corpusR, rotateSpeed, speed, visiableAngle } =
                     entitiesConfig.heavyTank;
                 unit = new HeavyCorpus(
                     x,
@@ -118,13 +138,15 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                     angle,
                     corpusR,
                     speed,
-                    rotateSpeed
+                    rotateSpeed,
+                    visiableAngle.driver
                 );
                 break;
             }
 
             case EGamerRole.heavyTankCommander: {
-                unit = new TankCommander(x, y, angle);
+                const { visiableAngle } = entitiesConfig.heavyTank;
+                unit = new TankCommander(x, y, angle, visiableAngle.comander);
                 break;
             }
             case EGamerRole.bannerman: {
@@ -216,12 +238,14 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         tracer = new TraceMask({
             WIN,
             canvas,
+            mediator,
             width,
             height,
             cellSize: SPRITE_SIZE,
         });
         return () => {
             canvas = null;
+            tracer = null;
             clearInterval(game.interval);
             game.server.STORE.clearHash();
             clearInterval(updateUnitInterval);
@@ -239,9 +263,21 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         grass,
         stone,
         bush,
+        stump,
+        spike,
+        box,
+        sand,
+        tree,
         home,
+        veranda,
         wall,
         road,
+        crossyRoadEnd,
+        crossyRoad,
+        crossyRoadTurn,
+        crossyRoadTurnCont,
+        fence,
+        fenceTurn,
         bulletAutomat,
         bulletRPG,
         manDead,
@@ -381,26 +417,193 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         }
     };
 
+    const drawHouse = (house: IMapObject) => {
+        const { x, y, sizeY, sizeX, isVert, angle } = house;
+        canvas?.spriteDir(img, x, y, ...home, isVert ? (3 * Math.PI) / 2 : 0);
+        switch (angle) {
+            case 0: {
+                return canvas?.spriteDir(
+                    img,
+                    x + sizeX / 2 - 1,
+                    y - sizeY + 0.5,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+            case Math.PI / 2: {
+                return canvas?.spriteDir(
+                    img,
+                    x + sizeX - 0.5,
+                    y - sizeY / 2 + 1,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+            case Math.PI: {
+                return canvas?.spriteDir(
+                    img,
+                    x + sizeX / 2 - 1,
+                    y + sizeY / 2,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+            case (3 * Math.PI) / 2: {
+                return canvas?.spriteDir(
+                    img,
+                    x - sizeX / 2,
+                    y - sizeY / 2 + 1,
+                    ...veranda,
+                    -angle + Math.PI
+                );
+            }
+        }
+    };
+
+    const drawCircleObj = ({ x, y, r }: TCircle, sprite: SpriteFrame) => {
+        canvas?.spriteMap(img, x - r, y + r, ...sprite);
+    };
+
     const drawObjects = (objects: IMapObject[]) => {
-        const { stoneR: r } = objectConf;
         drawGrass();
         drawWalls(walls);
         objects.forEach((obj) => {
-            const { x, y } = obj;
+            const { x, y, angle, sizeX, sizeY } = obj;
             switch (obj.type) {
                 case EMapObject.house: {
+                    return drawHouse(obj);
+                }
+                case EMapObject.stone: {
+                    const { r } = objectConf.stone;
+                    return drawCircleObj({ x, y, r }, stone);
+                }
+                case EMapObject.stump: {
+                    const { r } = objectConf.stump;
+                    return drawCircleObj({ x, y, r }, stump);
+                }
+                case EMapObject.bush: {
+                    const { r } = objectConf.bush;
+                    return drawCircleObj({ x, y, r }, bush);
+                }
+                case EMapObject.tree: {
+                    canvas?.spriteMap(img, x, y, ...tree);
+                    break;
+                }
+                case EMapObject.sand: {
+                    switch (angle) {
+                        case 0: {
+                            return canvas?.spriteDir(
+                                img,
+                                x,
+                                y + 0.5,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                        case Math.PI / 2: {
+                            return canvas?.spriteDir(
+                                img,
+                                x,
+                                y - 0.1,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                        case Math.PI: {
+                            return canvas?.spriteDir(
+                                img,
+                                x - 0.2,
+                                y + sizeX,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                        case (3 * Math.PI) / 2: {
+                            return canvas?.spriteDir(
+                                img,
+                                x - sizeY + 0.5,
+                                y - 0.1,
+                                ...sand,
+                                -angle
+                            );
+                        }
+                    }
+                    return;
+                }
+                case EMapObject.base: {
+                    const { innerColor: c1, outerColor: c2 } = objectConf.base;
+                    const r = obj.r ? obj.r : objectConf.base.r;
+                    canvas?.circle({ x, y, r }, c2);
+                    canvas?.circle({ x, y, r: r * 0.9 }, c1);
+                    return;
+                }
+                case EMapObject.box: {
+                    return canvas?.sprite(img, x, y, ...box);
+                }
+                case EMapObject.spike: {
+                    return canvas?.sprite(img, x, y, ...spike);
+                }
+                case EMapObject.road: {
+                    for (let i = 1; i <= sizeY / 4; i++) {
+                        canvas?.sprite(img, x, y + i * 4, ...road);
+                    }
+                    return;
+                }
+                case EMapObject.crossyRoad: {
+                    if (sizeX > sizeY) {
+                        for (let i = 0; i < sizeX / 2; i++) {
+                            canvas?.spriteDir(
+                                img,
+                                x + i * 2,
+                                y + sizeY,
+                                ...crossyRoad,
+                                angle
+                            );
+                        }
+                    } else {
+                        for (let i = 1; i <= sizeY / 2; i++) {
+                            canvas?.spriteDir(
+                                img,
+                                x,
+                                y + i * 2,
+                                ...crossyRoad,
+                                angle
+                            );
+                        }
+                    }
+                    return;
+                }
+                case EMapObject.crossyRoadEnd: {
+                    return canvas?.spriteDir(
+                        img,
+                        x,
+                        y + sizeY,
+                        ...crossyRoadEnd,
+                        -angle
+                    );
+                }
+                case EMapObject.crossyRoadTurn: {
                     canvas?.spriteDir(
                         img,
                         x,
-                        y,
-                        ...home,
-                        obj.isVert ? (3 * Math.PI) / 2 : 0
+                        y + sizeY,
+                        ...crossyRoadTurn,
+                        -angle
                     );
                     return;
                 }
-                case EMapObject.stone: {
-                    canvas?.spriteMap(img, x - r, y + r, ...stone);
-                    return;
+                case EMapObject.crossyRoadTurnCont: {
+                    return canvas?.spriteDir(
+                        img,
+                        x,
+                        y + sizeY,
+                        ...crossyRoadTurnCont,
+                        angle
+                    );
+                }
+
+                case EMapObject.trusovMoment: {
+                    //return canvas?.spriteDir(img, x, y, ...fence, -angle);
                 }
             }
         });
@@ -446,7 +649,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 tank.x - 3,
                 tank.y + 3,
                 ...corpus,
-                tank.angle
+                -tank.angle
             );
             canvas?.spriteDir(
                 img,
@@ -558,6 +761,43 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         });
     };
 
+    const showTarget = (base: IMapObject) => {
+        const { left, bottom, width, height } = WIN;
+        const vectorToBase = {
+            x: base.x - unit.x,
+            y: base.y - unit.y,
+        };
+
+        if (
+            Math.abs(vectorToBase.y) > height / 2 + base.r ||
+            Math.abs(vectorToBase.x) > width / 2 + base.r
+        ) {
+            let x = base.x,
+                y = base.y;
+            if (x > left + width) {
+                x = left + width;
+            }
+            if (y > bottom + height) {
+                y = bottom + height;
+            }
+            if (y < bottom) {
+                y = bottom;
+            }
+            if (x < left) {
+                x = left;
+            }
+
+            canvas?.circle(
+                {
+                    x,
+                    y,
+                    r: 0.5,
+                },
+                "#f00"
+            );
+        }
+    };
+
     const drawScene = (scene: IGameScene) => {
         const { bodies, bullets, gamers, mobs, map, tanks } = scene;
         drawObjects(map);
@@ -565,7 +805,12 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         drawBullets(bullets);
         drawMobs(mobs);
         drawTanks(tanks);
+
+        !(unit instanceof General)  && tracer?.trace(unit, WIN);
+
         drawGamers(gamers);
+        const base = map.find((el) => el.type === EMapObject.base);
+        base && showTarget(base);
     };
 
     /*  */
@@ -594,17 +839,6 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             bullet.x += bullet.dx * (entitiesConfig.bulletSpeed / time);
             bullet.y += bullet.dy * (entitiesConfig.bulletSpeed / time);
         });
-
-        // Не работает при долгих ответах с бека + нужен флаг идёт/ не идёт
-        /* scene.mobs.forEach((mob) => {
-         mob.x += Math.cos(mob.angle) * entitiesConfig.mobSpeed * time;
-         mob.y += Math.sin(mob.angle) * entitiesConfig.mobSpeed * time;
-      }); */
-        // Решить со скоростю
-        /* scene.gamers.forEach((gamer) => {
-          gamer.x += Math.cos(gamer.angle) * entitiesConfig.gamerSpeed * time;
-         gamer.y += Math.sin(gamer.angle) * entitiesConfig.gamerSpeed * time;
-      }); */
     };
 
     const updateUnit = (time: number) => {
@@ -612,8 +846,8 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
             if (canvas) {
                 const { x, y } = unit;
                 const { down, left, right, up } = visualBorders;
-                unit.move(keyPressed, time);
                 if (unit instanceof General) {
+                    unit.move(keyPressed, time);
                     if (x < left) {
                         unit.x = left;
                     }
@@ -627,6 +861,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                         unit.y = up;
                     }
                 } else {
+                    unit.move(keyPressed, time);
                     collision.checkAllBlocksUnit(unit);
                     unit.rotate(
                         Math.atan2(
@@ -643,29 +878,15 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     function roundEnd() {}
 
     function render(FPS: number) {
-        const fpsGap = 0.5;
         const renderTime = FPS ? 1000 / FPS : 0;
         const scene = game.getScene();
+        if (scene.map.length !== 0) {
+        }
         if (canvas) {
             canvas.clear();
             drawScene(scene);
             updateUnit(renderTime);
             updateEntity(scene, renderTime);
-            canvas.printText(
-                `FPS: ${FPS}`,
-                WIN.left + 3.5 * fpsGap,
-                WIN.bottom + WIN.height - fpsGap,
-                "black",
-                20
-            );
-            const { x, y, angle, weaponLength } = unit;
-
-
-            canvas.circle({
-                x: x + Math.cos(angle) * weaponLength,
-                y: y + Math.sin(angle) * weaponLength,
-                r: 0.2,
-            });
             canvas.render();
         }
     }
