@@ -50,11 +50,14 @@ export default class Game {
             bodies: [],
             map: [],
         };
-        const { THROW_TO_LOBBY } = mediator.getTriggerTypes();
+        const { THROW_TO_LOBBY, UPDATE_TIME } = mediator.getTriggerTypes();
+        let isDead = false,
+            isEnd = false;
         this.interval = setInterval(async () => {
             const res = await server.getScene();
             if (res) {
                 const {
+                    gametime,
                     is_dead,
                     is_end,
                     gamer,
@@ -70,12 +73,15 @@ export default class Game {
                     hashMobs,
                     hashMap,
                 } = res;
-                if (is_end) {
+                if (is_end && !isEnd) {
+                    isEnd = true;
                     this.serverUnit = null;
                     return mediator.get(THROW_TO_LOBBY, "victory");
                 }
+                mediator.get(UPDATE_TIME, gametime);
                 this.serverUnit = gamer;
-                if (is_dead) {
+                if (is_dead && !isDead) {
+                    isDead = true;
                     mediator.get(THROW_TO_LOBBY, "defeat");
                 }
                 if (gamers) {
