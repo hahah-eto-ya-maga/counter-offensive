@@ -105,6 +105,7 @@ export default class Game {
                     server.STORE.setHash(EHash.gamers, hashGamers);
                 }
                 if (map) {
+                    this.scene.map = [];
                     this.scene.map.push({
                         type: EMapObject.base,
                         ...res.mobBase,
@@ -190,7 +191,8 @@ export default class Game {
                             const isVert = sizeY > sizeX;
                             switch (obj.type) {
                                 case EMapObject.fence:
-                                case EMapObject.house: {
+                                case EMapObject.house:
+                                case EMapObject.sand: {
                                     return {
                                         ...obj,
                                         y: y + sizeY,
@@ -201,8 +203,7 @@ export default class Game {
                                 case EMapObject.stone:
                                 case EMapObject.bush:
                                 case EMapObject.stump:
-                                case EMapObject.trusovMoment:
-                                case EMapObject.sand: {
+                                case EMapObject.trusovMoment: {
                                     return {
                                         ...obj,
                                         x: x + sizeX / 2,

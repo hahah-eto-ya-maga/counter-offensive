@@ -121,20 +121,25 @@ class Collision {
                         case Math.PI / 2: {
                             this.blockUnit(
                                 unit,
-                                { x: x + 0.25, y: y + sizeY },
+                                { x: x + 0.5, y },
                                 0.3,
                                 sizeY - 0.25
                             );
                             break;
                         }
                         case Math.PI: {
-                            this.blockUnit(unit, { x, y: y + 0.5 }, sizeX, 0.3);
+                            this.blockUnit(
+                                unit,
+                                { x: x - 0.15, y: y + 0.9 },
+                                sizeX,
+                                0.3
+                            );
                             break;
                         }
                         case (3 * Math.PI) / 2: {
                             this.blockUnit(
                                 unit,
-                                { x: x - 0.1, y: y + sizeY },
+                                { x: x - 0.3, y },
                                 0.3,
                                 sizeY - 0.25
                             );
