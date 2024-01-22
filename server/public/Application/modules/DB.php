@@ -269,14 +269,129 @@ class DB {
         $query = "DELETE FROM tanks WHERE commander_id=? OR gunner_id = ? OR driver_id =?";
         $this->queryHandler($query, [$userId, $userId, $userId]);
     }
+    
+    function damageGamers($gamers){
+        $cases = [];
+        foreach ($gamers as $gamer) {
+            $id = (int)$gamer['id'];
+            $hp = (int)$gamer['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+        $query = "UPDATE gamers SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+
+    function damageMobs($mobs){
+        $cases = [];
+        foreach ($mobs as $mob) {
+            $id = (int)$mob['id'];
+            $hp = (int)$mob['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE mobs SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+
+    function deleteTanksById($tanksId){
+        $tanksIdString = implode(", ", $tanksId);
+        $query = "DELETE FROM tanks WHERE id = (?)";
+        $this->queryHandler($query, [$tanksIdString]);
+    }
+
+    function killObjectsById($objectsId){
+        $bulletsIdString = implode(", ", $objectsId);
+        $query = "DELETE FROM objects WHERE id in (?)";
+        $this->queryHandler($query, [$bulletsIdString]);
+    }
+
+    function deleteMobsById($mobsId){
+        $mobsIdString = implode(", ", $mobsId);
+        $query = "DELETE FROM mobs WHERE id in ($mobsIdString)";
+        $this->queryHandler($query, []);
+    }
+
+    function killGamersById($gamersId){
+        $gamersIdString = implode(", ", $gamersId);
+        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id IN (?)";
+        $this->queryHandler($query,[$gamersIdString]);
+    }
+
+    function killGamer($gamerId){
+        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id = ?";
+        $this->queryHandler($query,[$gamerId]);
+    }
+
+    function killObject($objectId){
+        $query = "UPDATE objects SET hp=0, status='d' WHERE id=?";
+        $this->queryHandler($query, [$objectId]);
+    }
+
+    function killTank($tankId){
+        $query = "DELETE FROM `tanks` WHERE id=?";
+        $this->queryHandler($query,[$tankId]);
+    }
+
+    function killMob($mobId){
+        $query = "DELETE FROM `mobs` WHERE id=?";
+        $this->queryHandler($query,[$mobId]);
+    }
+
 
     /* Пули */
-
-    
 
     function addBullet($user_id, $x, $y, $dx, $dy, $type){
         $query = "INSERT INTO bullets (user_id, x1, y1, x2, y2, dx, dy, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $this->queryHandler($query, [$user_id, $x, $y, $x, $y, $dx, $dy, $type]);
+    }
+
+    function moveBullets($mobs){
+        $casesX1 = [];
+        $casesY1 = [];
+        $casesX2 = [];
+        $casesY2 = [];
+        foreach ($mobs as $mob) {
+            $id = (int)$mob['id'];
+            $x1 = (float)$mob['x1'];
+            $y1 = (float)$mob['y1'];
+            $x2 = (float)$mob['x2'];
+            $y2 = (float)$mob['y2'];
+            $casesX1[] = "WHEN $id THEN $x1";
+            $casesY1[] = "WHEN $id THEN $y1";
+            $casesX2[] = "WHEN $id THEN $x2";
+            $casesY2[] = "WHEN $id THEN $y2";
+        }
+
+        $casesStringX1 = implode(" ", $casesX1);
+        $casesStringY1 = implode(" ", $casesY1);
+        $casesStringX2 = implode(" ", $casesX2);
+        $casesStringY2 = implode(" ", $casesY2);
+
+        $query = "UPDATE bullets SET 
+        x1 = CASE id $casesStringX1
+        ELSE x1 END,
+        y1 = CASE id $casesStringY1 
+        ELSE y1 END,
+        x2 = CASE id $casesStringX2 
+        ELSE x2 END,
+        y2 = CASE id $casesStringY2 
+        ELSE y2 END";
+        $this->queryHandler($query, []);
+    }
+
+    function deleteBulletsById($bulletsId){
+        $bulletsIdString = implode(", ", $bulletsId);
+        $query = "DELETE FROM bullets WHERE id IN ($bulletsIdString)";
+        $this->queryHandler($query, []);
+    }
+
+    function deleteBullet($id){
+        $query = "DELETE FROM bullets WHERE id = ?";
+        $this->queryHandler($query, [$id]);
     }
 
     /* Уменьшение жизней*/
@@ -296,6 +411,20 @@ class DB {
     function lowerHpObject($id, $newHp){
         $query = "UPDATE objects SET hp = ? WHERE id = ?";
         $this->queryHandler($query, [$newHp, $id]);
+    }
+
+    function damageTanks($tanks){
+        $cases = [];
+        foreach ($tanks as $tank) {
+            $id = (int)$tank['id'];
+            $hp = (int)$tank['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE tanks SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
     }
 
     /* Мобы */
@@ -378,7 +507,7 @@ class DB {
     }
 
     function checkLiveGamer(){
-        $query = "SELECT CASE WHEN EXISTS (SELECT 1 FROM gamers WHERE status='a') THEN 'true' ELSE 'false' END AS status_exists;";
+        $query = "SELECT CASE WHEN EXISTS (SELECT 1 FROM gamers WHERE status='alive') THEN TRUE ELSE FALSE END AS status_exists;";
         return $this->queryHandler($query,[], true);
     }
 
@@ -471,6 +600,23 @@ class DB {
         return $this->queryHandlerAll($query, []);
     }
 
+    function setBodies($bodies){
+        $cases = [];
+        foreach ($bodies as $body) {
+            $x = (float)$body['x'];
+            $y = (float)$body['y'];
+            $angle = (float)$body['angle'];
+            $type = (int)$body['type'];
+            $isMob = (int)$body['isMob'];
+            $cases[] = "($x, $y, $angle, $type, $isMob)";
+        }
+
+        $casesString = implode(", ", $cases);
+
+        $query = "INSERT INTO bodies (x, y, angle, type, isMob) VALUES $casesString";
+        $this->queryHandler($query, []);
+    }
+
     /*Знаменосец*/
 
     function getBannerman(){
@@ -507,6 +653,8 @@ class DB {
         return $this->queryHandler($query,[$personId], true);
     }
 
+    
+
     /* Объекты */
 
     
@@ -529,6 +677,20 @@ class DB {
     function updateObjectHp($id, $newHp) {
         $query = "UPDATE objects SET hp = ? WHERE id = ?";
         $this->queryHandler($query, [$newHp, $id]);
+    }
+
+    function damageObjects($objects){
+        $cases = [];
+        foreach ($objects as $object) {
+            $id = (int)$object['id'];
+            $hp = (int)$object['hp'];
+            $cases[] = "WHEN $id THEN $hp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE objects SET hp = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
     }
 
     /* Очистка игры*/
@@ -559,173 +721,6 @@ class DB {
 
     function updateObjectsHp() {
         $query = "UPDATE `objects` SET status='a', hp=100 WHERE status='d'";
-        $this->queryHandler($query, []);
-    }
-
-    ///////////////////////////////////////
-    function damageObjects($objects){
-        $cases = [];
-        foreach ($objects as $object) {
-            $id = (int)$object['id'];
-            $hp = (int)$object['hp'];
-            $cases[] = "WHEN $id THEN $hp";
-        }
-
-        $casesString = implode(" ", $cases);
-
-        $query = "UPDATE objects SET hp = CASE id $casesString ELSE hp END";
-        $this->queryHandler($query, []);
-    }
-
-    function damageGamers($gamers){
-        $cases = [];
-        foreach ($gamers as $gamer) {
-            $id = (int)$gamer['id'];
-            $hp = (int)$gamer['hp'];
-            $cases[] = "WHEN $id THEN $hp";
-        }
-
-        $casesString = implode(" ", $cases);
-        $query = "UPDATE gamers SET hp = CASE id $casesString ELSE hp END";
-        $this->queryHandler($query, []);
-    }
-
-    function damageTanks($tanks){
-        $cases = [];
-        foreach ($tanks as $tank) {
-            $id = (int)$tank['id'];
-            $hp = (int)$tank['hp'];
-            $cases[] = "WHEN $id THEN $hp";
-        }
-
-        $casesString = implode(" ", $cases);
-
-        $query = "UPDATE tanks SET hp = CASE id $casesString ELSE hp END";
-        $this->queryHandler($query, []);
-    }
-
-    function damageMobs($mobs){
-        $cases = [];
-        foreach ($mobs as $mob) {
-            $id = (int)$mob['id'];
-            $hp = (int)$mob['hp'];
-            $cases[] = "WHEN $id THEN $hp";
-        }
-
-        $casesString = implode(" ", $cases);
-
-        $query = "UPDATE mobs SET hp = CASE id $casesString ELSE hp END";
-        $this->queryHandler($query, []);
-    }
-
-    function moveBullets($mobs){
-        $casesX1 = [];
-        $casesY1 = [];
-        $casesX2 = [];
-        $casesY2 = [];
-        foreach ($mobs as $mob) {
-            $id = (int)$mob['id'];
-            $x1 = (float)$mob['x1'];
-            $y1 = (float)$mob['y1'];
-            $x2 = (float)$mob['x2'];
-            $y2 = (float)$mob['y2'];
-            $casesX1[] = "WHEN $id THEN $x1";
-            $casesY1[] = "WHEN $id THEN $y1";
-            $casesX2[] = "WHEN $id THEN $x2";
-            $casesY2[] = "WHEN $id THEN $y2";
-        }
-
-        $casesStringX1 = implode(" ", $casesX1);
-        $casesStringY1 = implode(" ", $casesY1);
-        $casesStringX2 = implode(" ", $casesX2);
-        $casesStringY2 = implode(" ", $casesY2);
-
-        $query = "UPDATE bullets SET 
-        x1 = CASE id $casesStringX1
-        ELSE x1 END,
-        y1 = CASE id $casesStringY1 
-        ELSE y1 END,
-        x2 = CASE id $casesStringX2 
-        ELSE x2 END,
-        y2 = CASE id $casesStringY2 
-        ELSE y2 END";
-        $this->queryHandler($query, []);
-    }
-
-    function deleteBulletsById($bulletsId){
-        $bulletsIdString = implode(", ", $bulletsId);
-        $query = "DELETE FROM bullets WHERE id IN ($bulletsIdString)";
-        $this->queryHandler($query, []);
-    }
-
-    function deleteBullet($id){
-        $query = "DELETE FROM bullets WHERE id = ?";
-        $this->queryHandler($query, [$id]);
-    }
-
-    function deleteTanksById($tanksId){
-        $tanksIdString = implode(", ", $tanksId);
-        $query = "DELETE FROM tanks WHERE id = (?)";
-        $this->queryHandler($query, [$tanksIdString]);
-    }
-
-    function killObjectsById($objectsId){
-        $bulletsIdString = implode(", ", $objectsId);
-        $query = "DELETE FROM objects WHERE id in (?)";
-        $this->queryHandler($query, [$bulletsIdString]);
-    }
-
-    function deleteMobsById($mobsId){
-        $mobsIdString = implode(", ", $mobsId);
-        $query = "DELETE FROM mobs WHERE id = (?)";
-        $this->queryHandler($query, [$mobsIdString]);
-    }
-
-    function killGamersById($gamersId){
-        $gamersIdString = implode(", ", $gamersId);
-        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id IN (?)";
-        $this->queryHandler($query,[$gamersIdString]);
-    }
-
-    function killGamer($gamerId){
-        $query = "UPDATE `gamers` SET status='dead', person_id=-1 WHERE id = ?";
-        $this->queryHandler($query,[$gamerId]);
-    }
-
-    function killObject($objectId){
-        $query = "UPDATE objects SET hp=0, status='d' WHERE id=?";
-        $this->queryHandler($query, [$objectId]);
-    }
-
-    function killTank($tankId){
-        $query = "DELETE FROM `tanks` WHERE id=?";
-        $this->queryHandler($query,[$tankId]);
-    }
-
-    function killMob($mobId){
-        $query = "DELETE FROM `mobs` WHERE id=?";
-        $this->queryHandler($query,[$mobId]);
-    }
-
-    // function setBodies($x,$y,$angle,$type, $isMob){
-    //     $query = "INSERT INTO bodies (x,y,angle,type,isMob) VALUES (?, ?, ?, ?, ?)";
-    //     $this->queryHandler($query,[$x, $y, $angle, $type, $isMob]);
-    // }
-
-    function setBodies($bodies){
-        $cases = [];
-        foreach ($bodies as $body) {
-            $x = (float)$body['x'];
-            $y = (float)$body['y'];
-            $angle = (float)$body['angle'];
-            $type = (int)$body['type'];
-            $isMob = (int)$body['isMob'];
-            $cases[] = "($x, $y, $angle, $type, $isMob)";
-        }
-
-        $casesString = implode(", ", $cases);
-
-        $query = "INSERT INTO bodies (x, y, angle, type, isMob) VALUES $casesString";
         $this->queryHandler($query, []);
     }
 
