@@ -20,8 +20,8 @@ const GamePage: React.FC = () => {
     };
     return (
         <div className="game_page">
-            <GameTime />
             <GameOverlay />
+            <GameTime />
             <button
                 id="test_leave_game_button"
                 className="game_leave_button"
