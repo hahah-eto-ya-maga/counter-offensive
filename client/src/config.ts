@@ -41,14 +41,14 @@ export const requestDelay = {
 
 export const entitiesConfig = {
     infantry: {
-        speed: 0.004,
+        speed: 0.002,
         r: 0.35,
         weaponLength: 0.6,
         visiableAngle: 120,
     },
 
     infantryRGP: {
-        speed: 0.0035,
+        speed: 0.0018,
         r: 0.35,
         weaponLength: 0.6,
         visiableAngle: 120,
@@ -82,7 +82,7 @@ export const entitiesConfig = {
     },
 
     bannerman: {
-        speed: 0.002,
+        speed: 0.0015,
         r: 0.35,
         visiableAngle: 120,
     },

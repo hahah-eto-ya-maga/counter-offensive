@@ -58,14 +58,11 @@ class Game extends BaseModule
         }
     }
 
-    /*Math*/
-    
-
     /*Map*/
 
     function fillMap(){
         // Заполнение карты
-        $this->map = array_fill(0, 120, array_fill(0, 150, 0));
+        $this->map = array_fill(0, 150, array_fill(0, 120, 0));
 
         foreach ($this->objects as $object) {
             for ($i = $object->x; $i < $object->x + $object->sizeX + 1; $i++) {
@@ -74,13 +71,6 @@ class Game extends BaseModule
                 }
             }
         }
-
-        // foreach ($this->map as $row) {
-        //     foreach ($row as $value) {
-        //         echo $value . " ";
-        //     }
-        //     echo "\n";
-        // }
     }
 
     private function createMobMap($x1, $y1, $x2, $y2) {
@@ -130,15 +120,59 @@ class Game extends BaseModule
         return [];
     }
 
-    private function addMobs(){
-        $mobsCount = count($this->mobs);
-        $gamerCount = count($this->gamers)+count($this->tanks);
-        if($mobsCount<=$gamerCount){
-            for($i=$mobsCount; $i<$gamerCount; $i++){
-                $this->db->addMobs(rand(8, 9),rand(10, 30), rand(10, 30), 8);
+    private function generatePointWithoutObject($x1, $x2, $y1, $y2) {
+        $xs = rand($x1, $x2);
+        $ys = rand($y1, $y2);
+        if($this->map[$xs][$ys]===0){
+            return array($xs, $ys);
+        }
+        else return $this->generatePointWithoutObject($x1, $x2, $y1, $y2);
+    }
+
+    private function addSquad($params) {
+        $mobsCounter = 0;
+        foreach($this->mobs as $mob) {
+            if($mob->x>$params[0] && $mob->x<$params[1] && $mob->y>$params[2] && $mob->y<$params[3])
+                $mobsCounter++;
+        }
+        // print_r($mobsCounter);
+        if($mobsCounter<$params[8]){
+            for($i=$mobsCounter; $i<$params[8]; $i++){
+                $point = $this->generatePointWithoutObject($params[4], $params[5], $params[6], $params[7]);
+                $this->db->addMobs(rand(8, 9), $point[0], $point[1], 8);
             }
             $this->hashFlagMobs = true;
         }
+    }
+
+    private function addMobs(){
+        $mobsCount = count($this->mobs);
+        $gamerCount = 3*count($this->gamers)+4*count($this->tanks);
+        if($mobsCount<=$gamerCount){
+            for($i=$mobsCount; $i<$gamerCount; $i++){
+                $point = $this->generatePointWithoutObject(90, 140, 70, 115);
+                $this->db->addMobs(rand(8, 9), $point[0], $point[1], 8);
+                $this->db->addMobs(rand(8, 9),rand(90, 140), rand(70, 115), 8);
+            }
+            $this->hashFlagMobs = true;
+        }
+        // Добавление взвод мобов
+        $coord = [90, 140, 70, 115, 110, 140, 95, 115, 5];
+        $this->addSquad($coord);
+        $coord = [ 45, 90, 85, 115, 55, 85, 86, 110, 5];
+        $this->addSquad($coord);
+        $coord = [ 30, 95, 55, 85, 40, 90, 60, 80, 5];
+        $this->addSquad($coord);
+        $coord = [96, 124, 14, 75, 100, 117, 22, 70, 5];
+        $this->addSquad($coord);
+        $coord = [ 125, 145, 50, 80, 130, 145, 58, 75, 5];
+        $this->addSquad($coord);
+        $coord = [ 65, 95, 5, 30, 70, 90, 5, 40, 5];
+        $this->addSquad($coord);
+        $coord = [ 5, 30, 55, 95, 5, 20, 60, 90, 5];
+        $this->addSquad($coord);
+        $coord = [ 20, 70, 30, 55, 30, 60, 35, 50, 5];
+        $this->addSquad($coord);
     }
 
     private function mobFire($x, $y, $angle, $personId){
@@ -183,8 +217,8 @@ class Game extends BaseModule
                 $target = $this->findTargetGamer($mob, $mobX, $mobY);
                 $targetGamer = $target[0];
                 $targetDistance = $target[1];
-                if($targetDistance && $targetGamer && $targetDistance<15){
-                    if($targetDistance<2)
+                if($targetDistance && $targetGamer && $targetDistance<25){
+                    if(($mob->personId == 9 && $targetDistance<4) || ($mob->personId == 8 && $targetDistance<2))
                     {
                         $angle = $this->gameMath->calculateAngle($targetGamer->x, $targetGamer->y, $mobX, $mobY);
                         $this->mobAction($mob, $mobX, $mobY, $angle);
@@ -393,7 +427,7 @@ class Game extends BaseModule
         if($dist <= $bannerman->baseRadius){
             if($this->game->pBanner_timestamp == 0){
                 $this->db->updatePlayerBannermanTimestamp($this->game->timer); 
-                $this->game->pBanner_timestamp == $this->game->timer;
+                $this->game->pBanner_timestamp = $this->game->timer;
             }
             return true;
         }
@@ -408,6 +442,7 @@ class Game extends BaseModule
         $player = $this->playerBannermanInZone();
         if($player){
             if($this->game->timer - $this->game->pBanner_timestamp >= $this->game->banner_timeout){
+                // print_r($this->game->pBanner_timestamp);
                 $this->db->deleteBodies();
                 $this->db->deleteBullets();
                 $this->db->addBannermanExp(400);
@@ -526,8 +561,8 @@ class Game extends BaseModule
         $this->tanks = $this->db->getTanks();
         $this->objects = $this->db->getAllObjects();
         // Мобы
-        $this->addMobs();
         $this->fillMap();
+        $this->addMobs();
         $this->moveMobs();
         // Пули
         $this->moveBullets();
