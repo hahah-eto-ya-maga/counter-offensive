@@ -12028,12 +12028,69 @@
 					"name": "getScene",
 					"item": [
 						{
-							"name": "newHashGamers",
+							"name": "newHashes",
 							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
 										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response gamer is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bodies is not true', ()=>{ \r",
+											"    pm.expect(response.data.bodies).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response tanks is not true', ()=>{ \r",
+											"    pm.expect(response.data.tanks).to.eql([]);\r",
+											"}); \r",
+											"pm.test('check response mobs is not true', ()=>{ \r",
+											"    pm.expect(response.data.mobs).to.not.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response gamers is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamers).to.eql([]);\r",
+											"}); \r",
+											"pm.test('check response bullets is not true', ()=>{ \r",
+											"    pm.expect(response.data.bullets).to.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response mobBase is not true', ()=>{ \r",
+											"    pm.expect(response.data.mobBase).to.not.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response map is not true', ()=>{ \r",
+											"    pm.expect(response.data.map).to.not.eql([]);\r",
+											"}); \r",
 											""
 										],
 										"type": "text/javascript"
@@ -12044,7 +12101,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{url}}?token={{token}}&hashMap={{hashMap}}&hashGamers=eggfdgfgfd&hashMobs=retret&hashBullets=retret&hashBodies=retrer&method=getScene",
+									"raw": "http://{{url}}?token={{token}}&hashMap=dwreefrr&hashGamers=eggfdgfgfd&hashMobs=retret&hashBullets=retret&hashBodies=retrer&method=getScene",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -12056,7 +12113,7 @@
 										},
 										{
 											"key": "hashMap",
-											"value": "{{hashMap}}"
+											"value": "dwreefrr"
 										},
 										{
 											"key": "hashGamers",
@@ -12094,13 +12151,48 @@
 										],
 										"type": "text/javascript"
 									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response gamer is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bodies is not true', ()=>{ \r",
+											"    pm.expect(response.data.bodies).to.eql([]);\r",
+											"}); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
 							],
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://{{url}}?token={{token}}&hashMap=wrrtre&hashGamers=reretr&hashMobs=retret&hashBullets=retret&hashBodies=retrer&method=getScene",
+									"raw": "http://{{url}}?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies=retrer&method=getScene",
 									"protocol": "http",
 									"host": [
 										"{{url}}"
@@ -12112,23 +12204,410 @@
 										},
 										{
 											"key": "hashMap",
-											"value": "wrrtre"
+											"value": "{{hashMap}}"
 										},
 										{
 											"key": "hashGamers",
-											"value": "reretr"
+											"value": "{{hashGamers}}"
 										},
 										{
 											"key": "hashMobs",
-											"value": "retret"
+											"value": "{{hashMobs}}"
 										},
 										{
 											"key": "hashBullets",
-											"value": "retret"
+											"value": "{{hashBullets}}"
 										},
 										{
 											"key": "hashBodies",
 											"value": "retrer"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newHashBullets",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response gamer is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bodies is not true', ()=>{ \r",
+											"    pm.expect(response.data.bullets).to.eql([]);\r",
+											"}); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets=ddfgffgfg&hashBodies={{hashBullets}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "ddfgffgfg"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newHashMap",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.bodies).to.not.eql([]);\r",
+											"}); \r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.bullets).to.not.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.mobBase).to.not.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.map).to.not.eql([]);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?token={{token}}&hashMap=rgfhhghg&hashGamers={{hashGamers}}&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "rgfhhghg"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newHashMobs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response gamer is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response bodies is not true', ()=>{ \r",
+											"    pm.expect(response.data.bodies).to.not.eql([]);\r",
+											"}); \r",
+											"pm.test('check response bullets is not true', ()=>{ \r",
+											"    pm.expect(response.data.bullets).to.not.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response mobBase is not true', ()=>{ \r",
+											"    pm.expect(response.data.mobBase).to.not.eql([]);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response map is not true', ()=>{ \r",
+											"    pm.expect(response.data.map).to.not.eql([]);\r",
+											"});\r",
+											"pm.test('check response mobs is not true', ()=>{ \r",
+											"    pm.expect(response.data.mobs).to.not.eql([]);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?token={{token}}&hashMap={{hashMap}}&hashGamers={{hashGamers}}&hashMobs=rergfhf&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "{{hashGamers}}"
+										},
+										{
+											"key": "hashMobs",
+											"value": "rergfhf"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
+										},
+										{
+											"key": "method",
+											"value": "getScene"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "newHashGamers",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test('check logout status', () =>{ \r",
+											"    pm.expect(pm.response.code).to.eql(200); \r",
+											"}); \r",
+											" \r",
+											"const response = pm.response.json(); \r",
+											" \r",
+											"pm.test('check response is JSON', ()=> { \r",
+											"    pm.expect(response).to.be.a('object') \r",
+											"}); \r",
+											" \r",
+											"pm.test('check response result is ok', ()=>{ \r",
+											"    pm.expect(response.result).to.eql('ok');\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data).to.not.eql(true);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
+											"}); \r",
+											"\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.tanks).to.eql([]);\r",
+											"}); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}?token={{token}}&hashMap={{hashMap}}&hashGamers=fgfgfgf&hashMobs={{hashMobs}}&hashBullets={{hashBullets}}&hashBodies={{hashBodies}}&method=getScene",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "{{token}}"
+										},
+										{
+											"key": "hashMap",
+											"value": "{{hashMap}}"
+										},
+										{
+											"key": "hashGamers",
+											"value": "fgfgfgf"
+										},
+										{
+											"key": "hashMobs",
+											"value": "{{hashMobs}}"
+										},
+										{
+											"key": "hashBullets",
+											"value": "{{hashBullets}}"
+										},
+										{
+											"key": "hashBodies",
+											"value": "{{hashBodies}}"
 										},
 										{
 											"key": "method",
@@ -12174,20 +12653,8 @@
 											"    pm.expect(response.data).to.not.eql(true);\r",
 											"}); \r",
 											"\r",
-											"pm.test('check response gamers is false', ()=>{ \r",
-											"    pm.expect(response.data.gamers).to.eql(true);\r",
-											"}); \r",
-											"\r",
-											"pm.test('check response tanks is false', ()=>{ \r",
-											"    pm.expect(response.data.tanks).to.eql(true);\r",
-											"}); \r",
-											"\r",
-											"pm.test('check response map is false', ()=>{ \r",
-											"    pm.expect(response.data.map).to.eql(true);\r",
-											"}); \r",
-											"\r",
-											"pm.test('check response bodies is false', ()=>{ \r",
-											"    pm.expect(response.data.bodies).to.eql(true);\r",
+											"pm.test('check response data is not true', ()=>{ \r",
+											"    pm.expect(response.data.gamer).to.eql(null);\r",
 											"}); \r",
 											""
 										],
