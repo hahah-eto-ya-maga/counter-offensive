@@ -29,6 +29,7 @@ export interface IHeavyTank extends IMiddleTank {
 }
 
 export interface ILobby {
+    userInfo: IUserInfo | null;
     general: boolean;
     bannerman: boolean;
     tanks: {
