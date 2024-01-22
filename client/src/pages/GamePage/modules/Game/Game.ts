@@ -1,4 +1,4 @@
-import { objectConf, requestDelay } from "../../../../config";
+import { objectConf, requestDelay, staticMap } from "../../../../config";
 import { Mediator, Server } from "../../../../modules";
 import {
     EHash,
@@ -51,8 +51,8 @@ export default class Game {
             map: [],
         };
         const { THROW_TO_LOBBY, UPDATE_TIME } = mediator.getTriggerTypes();
-        let isDead = false;
-        let isEnd = false;
+        let isDead = false,
+            isEnd = false;
         this.interval = setInterval(async () => {
             const res = await server.getScene();
             if (res) {
@@ -76,11 +76,10 @@ export default class Game {
                 if (is_end && !isEnd) {
                     isEnd = true;
                     this.serverUnit = null;
-                    clearInterval(this.interval);
                     return mediator.get(THROW_TO_LOBBY, "victory");
                 }
-                this.serverUnit = gamer;
                 mediator.get(UPDATE_TIME, gametime);
+                this.serverUnit = gamer;
                 if (is_dead && !isDead) {
                     isDead = true;
                     mediator.get(THROW_TO_LOBBY, "defeat");
@@ -106,34 +105,134 @@ export default class Game {
                     server.STORE.setHash(EHash.gamers, hashGamers);
                 }
                 if (map) {
-                    this.scene.map = map.map((obj) => {
-                        const { x, y, sizeX, sizeY } = obj;
-                        switch (obj.type) {
-                            case EMapObject.house: {
-                                const isVert = sizeY > sizeX;
-                                if (isVert) {
+                    this.scene.map = [];
+                    this.scene.map.push({
+                        type: EMapObject.base,
+                        ...res.mobBase,
+                        angle: 0,
+                        isVert: false,
+                        r: 0,
+                        sizeX: 0,
+                        sizeY: 0,
+                    });
+                    staticMap.crossyRoad.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.crossyRoad,
+                            ...el,
+                            r: 0,
+                            isVert: false,
+                        });
+                    });
+                    staticMap.crossyRoadTurnCont.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.crossyRoadTurnCont,
+                            ...el,
+                            r: 0,
+                            sizeX: 2,
+                            sizeY: 2,
+                            isVert: false,
+                        });
+                    });
+                    staticMap.crossyRoadTurn.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.crossyRoadTurn,
+                            ...el,
+                            r: 0,
+                            sizeX: 2,
+                            sizeY: 2,
+                            isVert: false,
+                        });
+                    });
+                    staticMap.crossyRoadEnd.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.crossyRoadEnd,
+                            ...el,
+                            r: 0,
+                            sizeX: 2,
+                            sizeY: 2,
+                            isVert: false,
+                        });
+                    });
+                    staticMap.bushes.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.bush,
+                            ...el,
+                            r: 0.5,
+                            angle: 0,
+                            isVert: false,
+                            sizeX: 2,
+                            sizeY: 2,
+                        });
+                    });
+                    staticMap.trees.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.tree,
+                            ...el,
+                            r: 1.5,
+                            angle: 0,
+                            isVert: false,
+                            sizeX: 3,
+                            sizeY: 3,
+                        });
+                    });
+                    staticMap.road.forEach((el) => {
+                        this.scene.map.push({
+                            type: EMapObject.road,
+                            ...el,
+                            r: 0,
+                            angle: 0,
+                            isVert: false,
+                        });
+                    });
+
+                    this.scene.map = this.scene.map.concat(
+                        map.map((obj) => {
+                            const { x, y, sizeX, sizeY, angle } = obj;
+                            const isVert = sizeY > sizeX;
+                            switch (obj.type) {
+                                case EMapObject.fence:
+                                case EMapObject.house:
+                                case EMapObject.sand: {
                                     return {
                                         ...obj,
                                         y: y + sizeY,
+                                        angle: (angle * Math.PI) / 180,
                                         isVert,
                                     };
                                 }
-                                return {
-                                    ...obj,
-                                    x,
-                                    y: y + sizeY,
-                                    isVert,
-                                };
+                                case EMapObject.stone:
+                                case EMapObject.bush:
+                                case EMapObject.stump:
+                                case EMapObject.trusovMoment: {
+                                    return {
+                                        ...obj,
+                                        x: x + sizeX / 2,
+                                        y: y + sizeY / 2,
+                                    };
+                                }
+                                case EMapObject.box:
+                                case EMapObject.spike:
+                                case EMapObject.road: {
+                                    return { ...obj, y: y + sizeY };
+                                }
+                                case EMapObject.crossyRoad:
+                                case EMapObject.crossyRoadEnd:
+                                case EMapObject.crossyRoadTurn:
+                                case EMapObject.crossyRoadTurnCont:
+                                case EMapObject.fenceTurn: {
+                                    return {
+                                        ...obj,
+                                        y: y + sizeY,
+                                        angle: (angle * Math.PI) / 180,
+                                    };
+                                }
+                                default: {
+                                    return { ...obj };
+                                }
                             }
-                            case EMapObject.stone: {
-                                return {
-                                    ...obj,
-                                    x: x + objectConf.stoneR,
-                                    y: y + objectConf.stoneR,
-                                };
-                            }
-                        }
-                    });
+                        })
+                    );
+
                     server.STORE.setHash(EHash.map, hashMap);
                 }
             }
