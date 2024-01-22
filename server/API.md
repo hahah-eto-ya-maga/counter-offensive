@@ -187,8 +187,9 @@ map = {
     type: number,
     x: number,
     y: number,
-    sizeX: number
-    sizeY: number
+    sizeX: number,
+    sizeY: number, 
+    angle: number
 } 
 ```
 

@@ -1,40 +1,40 @@
 import {
-   BaseUnit,
-   Bannerman,
-   General,
-   TankCommander,
-   MiddleCorpus,
-   MiddleTower,
-   HeavyCorpus,
-   HeavyTower,
-   Infantry,
-   InfantryRPG,
+    BaseUnit,
+    Bannerman,
+    General,
+    TankCommander,
+    MiddleCorpus,
+    MiddleTower,
+    HeavyCorpus,
+    HeavyTower,
+    Infantry,
+    InfantryRPG,
 } from "../modules";
 
 export type TWIN = {
-   left: number;
-   bottom: number;
-   width: number;
-   height: number;
+    left: number;
+    bottom: number;
+    width: number;
+    height: number;
 };
 
 export type TPoint = {
-   x: number;
-   y: number;
+    x: number;
+    y: number;
 };
 
 export type TCircle = TPoint & {
-   r: number;
+    r: number;
 };
 
 export type TUnit =
-   | Infantry
-   | InfantryRPG
-   | MiddleCorpus
-   | MiddleTower
-   | Bannerman
-   | HeavyTower
-   | HeavyCorpus
-   | TankCommander
-   | BaseUnit
-   | General;
+    | Infantry
+    | InfantryRPG
+    | MiddleCorpus
+    | MiddleTower
+    | Bannerman
+    | HeavyTower
+    | HeavyCorpus
+    | TankCommander
+    | BaseUnit
+    | General;

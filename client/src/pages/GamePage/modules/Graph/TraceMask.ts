@@ -1,6 +1,6 @@
 import { MAP_SIZE, WINConf, objectConf, walls } from "../../../../config";
 import { EMapObject, IMapObject } from "../../../../modules/Server/interfaces";
-import { TPoint, TWIN } from "../../types";
+import { TPoint, TUnit, TWIN } from "../../types";
 import Canvas from "./Canvas/Canvas";
 import Infantry from "../Game/Units/Infantry";
 import { IGameScene } from "../Game/Game";
@@ -30,10 +30,10 @@ export default class TraceMask {
       this.canvas = canvas;
       this.cellSize = cellSize;
 
-      this.maskCanv = document.createElement("canvas");
-      this.maskContext = this.maskCanv.getContext(
-         "2d"
-      ) as CanvasRenderingContext2D;
+        this.maskCanv = document.createElement("canvas");
+        this.maskContext = this.maskCanv.getContext(
+            "2d"
+        ) as CanvasRenderingContext2D;
 
       this.traceCanv = document.createElement("canvas");
       this.traceContext = this.traceCanv.getContext(
@@ -91,7 +91,7 @@ export default class TraceMask {
       this.maskContext.arc(
          this.xs(circle.x),
          this.ys(circle.y),
-         (circle.r * this.maskCanv.width) / this.WIN.width,
+         (circle.r * this.cellSize),
          0,
          2 * Math.PI
       );
@@ -116,7 +116,8 @@ export default class TraceMask {
     
       scene.forEach((obj) => {
          const { x, y, sizeX: dx, sizeY: dy } = obj;
-         const { stoneR: r } = objectConf;
+         const { stone, bush, tree} = objectConf;
+         console.log(stone)
          switch (obj.type) {
             case EMapObject.house: {
                this.polygon([
@@ -128,7 +129,17 @@ export default class TraceMask {
                break;
             }
             case EMapObject.stone: {
-               this.circle({ x, y, r });
+               this.circle({ x: x, y: y, r: stone.r });
+               break;
+            }
+
+            case EMapObject.bush: {
+               this.circle({ x: x, y: y, r: bush.r });
+               break;
+            }
+
+            case EMapObject.tree: {
+               this.circle({ x: x + tree.r, y: y - tree.r, r: tree.r });
             }
          }
       });
@@ -148,8 +159,8 @@ export default class TraceMask {
       const coef = 1;
       const w = pixelscene.width;
 
-      let isObject = false;
-      let isVisiable = true;
+        let isObject = false;
+        let isVisiable = true;
 
       let x1 = Math.floor(this.canvas.xs(start.x));
       let y1 =  Math.floor(this.canvas.ys(start.y));
@@ -192,15 +203,15 @@ export default class TraceMask {
          }
       }
 
-      if (isVisiable) {
-         return { x: x1 + sx, y: y1 + sy };
-      }
-      return { x: this.canvas.xs(start.x), y: this.canvas.ys(start.y) };
-   }
+        if (isVisiable) {
+            return { x: x1 + sx, y: y1 + sy };
+        }
+        return { x: this.canvas.xs(start.x), y: this.canvas.ys(start.y) };
+    }
 
    drawTrace(area: TPoint[]) {
       this.traceContext.clearRect(0, 0, this.traceCanv.width, this.traceCanv.height)
-      this.traceContext.fillStyle = "#333f";
+      this.traceContext.fillStyle = "#333333fe";
       this.traceContext.fillRect(0, 0, this.traceCanv.width, this.traceCanv.height);
 
       this.traceContext.globalCompositeOperation = 'destination-out'
@@ -219,8 +230,9 @@ export default class TraceMask {
       this.traceContext.closePath();
    }
 
-   trace(unit: Infantry, WIN: TWIN) {
+   trace(unit: TUnit, WIN: TWIN) {
       if (this.pixelScene) {
+
          const offsetMask: TPoint = {
             x: Math.floor(this.xs(WIN.left)), 
             y: Math.floor(this.ys(WIN.bottom + WINConf.height))

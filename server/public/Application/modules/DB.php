@@ -512,12 +512,12 @@ class DB {
     
 
     function getObjects() {
-        $query = "SELECT type, x, y, sizeX, sizeY FROM objects WHERE status='a'";
+        $query = "SELECT type, x, y, sizeX, sizeY, angle FROM objects WHERE status in ('a', 'i')";
         return $this->queryHandlerAll($query, []);
     }
 
     function getAllObjects() {
-        $query = "SELECT id, hp, x, y, sizeX, sizeY, status FROM objects WHERE status='a'";
+        $query = "SELECT id, hp, x, y, sizeX, sizeY, status FROM objects WHERE status in('a', 'i')";
         return $this->queryHandlerAll($query, []);
     }
 
@@ -558,7 +558,7 @@ class DB {
     }
 
     function updateObjectsHp() {
-        $query = "UPDATE `objects` SET status='a', hp=100";
+        $query = "UPDATE `objects` SET status='a', hp=100 WHERE status='d'";
         $this->queryHandler($query, []);
     }
 
@@ -649,14 +649,12 @@ class DB {
         ELSE x2 END,
         y2 = CASE id $casesStringY2 
         ELSE y2 END";
-        // print($query);
         $this->queryHandler($query, []);
     }
 
     function deleteBulletsById($bulletsId){
         $bulletsIdString = implode(", ", $bulletsId);
         $query = "DELETE FROM bullets WHERE id IN ($bulletsIdString)";
-        // print_r($query);
         $this->queryHandler($query, []);
     }
 
@@ -729,5 +727,33 @@ class DB {
 
         $query = "INSERT INTO bodies (x, y, angle, type, isMob) VALUES $casesString";
         $this->queryHandler($query, []);
+    }
+
+    function updateExp($updateExp){
+        $cases = [];
+        foreach ($updateExp as $oneExp) {
+            $id = (int)$oneExp['id'];
+            $exp = (int)$oneExp['exp'];
+            $cases[] = "WHEN $id THEN experience + $exp";
+        }
+
+        $casesString = implode(" ", $cases);
+
+        $query = "UPDATE gamers SET experience = CASE id $casesString ELSE hp END";
+        $this->queryHandler($query, []);
+    }
+    function updateOneExp($exp, $userId){
+        $query = "UPDATE gamers SET experience = experience + ? WHERE id=?";
+        $this->queryHandler($query, [$exp, $userId]);
+    }
+
+    function addBannermanExp($exp) {
+        $query = "UPDATE gamers SET experience = experience + ? WHERE person_id=2";
+        $this->queryHandler($query, [$exp]);
+    }
+
+    function addWinnerExp($exp) {
+        $query = "UPDATE gamers SET experience = experience + ? WHERE status='a'";
+        $this->queryHandler($query, [$exp]);
     }
 }
