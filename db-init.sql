@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `game` (
   `timeout` INT NOT NULL DEFAULT 1000,
   `startGameTimestamp` BIGINT NOT NULL DEFAULT 0,
   `pBanner_timestamp` BIGINT NOT NULL DEFAULT 0,
-  `banner_timeout` INT NOT NULL DEFAULT 5000,
+  `banner_timeout` INT NOT NULL DEFAULT 15000,
   `mobBase_x` FLOAT NULL DEFAULT NULL,
   `mobBase_y` FLOAT NULL DEFAULT NULL,
   `base_radius` FLOAT NULL DEFAULT 2,
