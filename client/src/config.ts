@@ -22,6 +22,7 @@ export const MEDIATOR = {
         ROLE_ERROR: "ROLE_ERROR",
         THROW_TO_GAME: "THROW_TO_GAME",
         THROW_TO_LOBBY: "THROW_TO_LOBBY",
+        UPDATE_SCENE: "UPDATE_SCENE"
     },
 };
 

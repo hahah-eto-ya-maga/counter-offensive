@@ -61,7 +61,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
     const canvasId = "canvas";
 
     let unit: TUnit = new BaseUnit();
-    if (server.STORE.user) {
+    if (server.STORE.user) {    
         const { x, y, angle } = server.STORE.user.unit;
         switch (server.STORE.user.unit.personId) {
             case EGamerRole.infantryRPG: {
@@ -216,18 +216,20 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         tracer = new TraceMask({
             WIN,
             canvas,
+            mediator,
             width,
             height,
             cellSize: SPRITE_SIZE,
         });
         return () => {
             canvas = null;
+            tracer = null;
             clearInterval(game.interval);
             game.server.STORE.clearHash();
             clearInterval(updateUnitInterval);
         };
     });
-
+    
     const SPRITE_SIZE = width / WIN.width;
     const SIZE = 50;
 
@@ -565,6 +567,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         drawBullets(bullets);
         drawMobs(mobs);
         drawTanks(tanks);
+
+        tracer?.trace(unit, WIN)
+        
         drawGamers(gamers);
     };
 
@@ -646,6 +651,9 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
         const fpsGap = 0.5;
         const renderTime = FPS ? 1000 / FPS : 0;
         const scene = game.getScene();
+        if(scene.map.length !== 0) {
+            
+        }
         if (canvas) {
             canvas.clear();
             drawScene(scene);
@@ -655,7 +663,7 @@ const GameCanvas: FC<GameCanvasProps> = ({ inputRef }) => {
                 `FPS: ${FPS}`,
                 WIN.left + 3.5 * fpsGap,
                 WIN.bottom + WIN.height - fpsGap,
-                "black",
+                "red",
                 20
             );
             const { x, y, angle, weaponLength } = unit;
