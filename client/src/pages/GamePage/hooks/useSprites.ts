@@ -79,9 +79,11 @@ const useSprites = (
    const towerTank3Dead: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 16, SIZE * 24, SIZE * 6];
 
    const boom: SpriteFunc = getSpriteFromFrames([
-      [SPRITE_SIZE, SIZE * 5, SIZE * 0, SIZE],
-      [SPRITE_SIZE, SIZE * 6, SIZE * 0, SIZE],
-      [SPRITE_SIZE, SIZE * 7, SIZE * 0, SIZE],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 5, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 8, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 11, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 14, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 17, SIZE * 3],
    ]);
 
    const middleTank: SpriteFunc = getSpriteFromFrames([

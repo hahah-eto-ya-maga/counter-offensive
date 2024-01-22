@@ -209,13 +209,14 @@ export default class TraceMask {
         return { x: this.canvas.xs(start.x), y: this.canvas.ys(start.y) };
     }
 
-   drawTrace(area: TPoint[]) {
+   drawTrace(area: TPoint[], unit: TUnit) {
+      let r
       this.traceContext.clearRect(0, 0, this.traceCanv.width, this.traceCanv.height)
       this.traceContext.fillStyle = "#333333fe";
       this.traceContext.fillRect(0, 0, this.traceCanv.width, this.traceCanv.height);
 
       this.traceContext.globalCompositeOperation = 'destination-out'
-
+      
       this.traceContext.fillStyle = "#fff";
       this.traceContext.beginPath();
       this.traceContext.moveTo(area[0].x, area[0].y);
@@ -223,6 +224,19 @@ export default class TraceMask {
          this.traceContext.lineTo(area[i].x, area[i].y);
       }
       this.traceContext.lineTo(area[0].x, area[0].y);
+      this.traceContext.fill();
+
+      this.traceContext.globalCompositeOperation = 'source-over'
+      this.traceContext.fillStyle = "#fff";
+      this.traceContext.globalCompositeOperation = 'destination-out';
+      (unit.r) ? r = unit.r : r = 1
+      this.traceContext.arc(
+         this.canvas.xs(unit.x),
+         this.canvas.ys(unit.y),
+         (r * this.cellSize * 1.5),
+         0,
+         2 * Math.PI
+      );
       this.traceContext.fill();
 
       this.traceContext.globalCompositeOperation = 'source-over'
@@ -268,7 +282,7 @@ export default class TraceMask {
             },
          );
 
-         this.drawTrace(areaVisible);
+         this.drawTrace(areaVisible, unit);
          
          this.canvas.drawImage(this.traceCanv, 0, 0);
       }
