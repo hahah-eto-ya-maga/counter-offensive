@@ -17,15 +17,17 @@ export default class BaseUnit {
         angle = 0,
         r = 0.35,
         speed = 0.1,
-        weaponLength = 0
+        weaponLength = 0,
+        visiableAngle = 120,
+        visionDistance = 10
     ) {
         this.x = x;
         this.y = y;
         this.angle = angle;
         this.r = r;
         this.weaponLength = weaponLength;
-        this.visiableAngle = 120;
-        this.visionDistance = 10;
+        this.visiableAngle = visiableAngle;
+        this.visionDistance = visionDistance;
         this.speed = speed;
         this.diagonalSpeed = (this.speed * Math.sqrt(2)) / 2;
     }

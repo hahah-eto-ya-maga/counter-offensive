@@ -35,24 +35,40 @@ const useSprites = (
 
    const grass: SpriteFrame = [SPRITE_SIZE * 10, SIZE * 10, SIZE * 0, SIZE * 10];
    const stone: SpriteFrame = [SPRITE_SIZE * 2.2 - 1, SIZE * 6, SIZE * 4, SIZE * 2 - 1];
-   const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
    const wall: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 10, SIZE];
-   const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 2, SIZE * 2];
+   const bush:  SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6 + 1, SIZE * 1.99, SIZE * 2];
+   const stump: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6, SIZE * 16, SIZE * 2 ];
+   const spike: SpriteFrame = [SPRITE_SIZE, SIZE * 9, SIZE * 16, SIZE ];
+   const box: SpriteFrame = [SPRITE_SIZE, SIZE * 6, SIZE * 6, SIZE ];
+   const sand: SpriteFrame= [SPRITE_SIZE * 3, SIZE * 6, SIZE * 12, SIZE * 3];
+   const tree: SpriteFrame = [SPRITE_SIZE * 3, SIZE * 7, SIZE * 26, SIZE * 3]
+
+   const home: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 0, SIZE * 6];
+   const veranda: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 6.01, SIZE * 0, SIZE * 2];
+   
    const road:  SpriteFrame = [SPRITE_SIZE * 4, SIZE * 22, SIZE * 0, SIZE * 4];
+   const crossyRoadEnd: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 17, SIZE * 13, SIZE * 2];
+   const crossyRoad: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 19, SIZE * 11, SIZE * 1.9];
+   const crossyRoadTurn: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 19, SIZE * 13, SIZE * 2];
+   const crossyRoadTurnCont: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 17, SIZE * 11, SIZE * 2];
+
+   const fence: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 10, SIZE * 13, SIZE * 2]
+   const fenceTurn: SpriteFrame = [SPRITE_SIZE, SIZE * 13, SIZE * 13, SIZE]
+   
 
    const bulletAutomat: SpriteFrame = [SPRITE_SIZE, SIZE * 8, SIZE * 8, SIZE];
    const bulletRPG: SpriteFrame = [SPRITE_SIZE, SIZE * 8, SIZE * 10, SIZE];
 
-   const manDead: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 8, SIZE * 0, SIZE * 2];
+   const manDead: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 8, SIZE * 0, SIZE * 1.99];
    const manRPG: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 2, SIZE * 2 - 1]; 
-   const manAutomat: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 4, SIZE * 2 - 1 ];
+   const manAutomat: SpriteFrame = [SPRITE_SIZE * 2 , SIZE * 8.01, SIZE * 4, SIZE * 2 - 1  ];
    const manFlag: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 8, SIZE * 6, SIZE * 2 - 1];
 
    const mobDead: SpriteFrame = [SPRITE_SIZE * 2, SIZE * 14, SIZE * 11, SIZE * 2];
    const mobRPG: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 10, SIZE * 11, SIZE * 2 - 1]; 
    const mobAutomat: SpriteFrame = [SPRITE_SIZE * 2 - 1, SIZE * 12, SIZE * 11, SIZE * 2 - 1];
 
-   const corpusTank2: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 6, SIZE * 6];
+   const corpusTank2: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 0, SIZE * 6, SIZE * 5.9];
    const towerTank2: SpriteFrame = [SPRITE_SIZE * 6 - 1, SIZE * 0, SIZE * 12, SIZE * 6 - 1];
    const corpusTank3: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 10, SIZE * 18, SIZE * 6];
    const towerTank3: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 10, SIZE * 24, SIZE * 6];
@@ -63,9 +79,11 @@ const useSprites = (
    const towerTank3Dead: SpriteFrame = [SPRITE_SIZE * 6, SIZE * 16, SIZE * 24, SIZE * 6];
 
    const boom: SpriteFunc = getSpriteFromFrames([
-      [SPRITE_SIZE, SIZE * 5, SIZE * 0, SIZE],
-      [SPRITE_SIZE, SIZE * 6, SIZE * 0, SIZE],
-      [SPRITE_SIZE, SIZE * 7, SIZE * 0, SIZE],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 5, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 8, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 11, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 14, SIZE * 3],
+      [SPRITE_SIZE * 3, SIZE * 22, SIZE * 17, SIZE * 3],
    ]);
 
    const middleTank: SpriteFunc = getSpriteFromFrames([
@@ -86,9 +104,21 @@ const useSprites = (
       grass,
       stone,
       bush,
+      stump,
+      spike,
+      box,
+      sand,
+      tree,
       home,
+      veranda,
       wall,
       road,
+      crossyRoadEnd,
+      crossyRoad,
+      crossyRoadTurn,
+      crossyRoadTurnCont,
+      fence,
+      fenceTurn,
       bulletAutomat,
       bulletRPG,
       manDead,
